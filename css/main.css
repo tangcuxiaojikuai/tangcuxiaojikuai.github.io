@@ -1175,7 +1175,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #d9ffd6;
+  background: #2813ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2558,7 +2558,7 @@ mjx-container + br {
   padding: 0;
 }
 body {
-  background: url("/images/xingkong.jpg");
+  background: #555;
   background-attachment: fixed;
 }
 .page-archive .archive-page-counter {
