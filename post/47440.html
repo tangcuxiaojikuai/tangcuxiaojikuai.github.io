@@ -17,6 +17,8 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
@@ -31,7 +33,7 @@
 <meta property="og:description" content="随手记录一下~">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-03T07:03:18.000Z">
-<meta property="article:modified_time" content="2023-09-04T07:50:34.174Z">
+<meta property="article:modified_time" content="2023-09-04T08:01:19.157Z">
 <meta property="article:author" content="Tiffany">
 <meta name="twitter:card" content="summary">
 
@@ -221,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-04 15:50:34" itemprop="dateModified" datetime="2023-09-04T15:50:34+08:00">2023-09-04</time>
+                <time title="修改时间：2023-09-04 16:01:19" itemprop="dateModified" datetime="2023-09-04T16:01:19+08:00">2023-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,7 +274,7 @@ e = 3*7*7*19*691*5741</script><p>因此我们完全可以用下面这个方式�
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">1024</span>):</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">pow</span>(<span class="number">2</span>, a ** <span class="number">2</span> - a + <span class="number">4</span>)*<span class="built_in">pow</span>(<span class="number">2</span>, a ** <span class="number">2</span> - a + <span class="number">4</span>) &lt;= e <span class="keyword">and</span> <span class="built_in">pow</span>(<span class="number">2</span>, a ** <span class="number">2</span> - a + <span class="number">5</span>)*<span class="built_in">pow</span>(<span class="number">2</span>, a ** <span class="number">2</span> - a + <span class="number">5</span>) &gt;= e):</span><br><span class="line">        <span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure>
 <p>可以发现，a其实仅能取4；与此同时可以明白，对于刚才的e的因子分解，仅有两种可能的组合让两次生成的s均落在a规定的范围里：</p>
 <script type="math/tex; mode=display">
-s=5741*19\;,\;t=691*3*7*7\\
+s=5741*19\;,\;t=691*3*7*7</script><script type="math/tex; mode=display">
 s=5741*3*7\;,\;t=691*7*19</script><p>此时再看n的生成过程：</p>
 <script type="math/tex; mode=display">
 n = (X1^4 + s)*(X2^4 + t)</script><p>s和t相较于X1、X2来说非常小，因此对n开4次方根就可以得到X1*X2，此时，就可以以以下方式分解n：</p>
@@ -289,13 +291,13 @@ t*x^2 + ((X1*X2)^4  + s*t - n)* x + s*(X2*X1)^4= 0</script><p>将可能的两组
 m^{e} = (m^3)^{7*7*19*691*5741} \equiv c\quad(mod\;p)</script><p>而</p>
 <script type="math/tex; mode=display">
 \quad gcd(7*7*19*691*5741,(p-1)) = 1</script><p>所以可以将$m^3$当作一个整体，进行RSA解密后在模p下开三次方根即可。</p>
+<p><br/></p>
 <p>exp.ipynb:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> iroot</span><br><span class="line"></span><br><span class="line">N = <span class="number">20289788565671012003324307131062103060859990244423187333725116068731043744218295859587498278382150779775620675092152011336913225797849717782573829179765649320271927359983554162082141908877255319715400550981462988869084618816967398571437725114356308935833701495015311197958172878812521403732038749414005661189594761246154666465178024563227666440066723650451362032162000998737626370987794816660694178305939474922064726534186386488052827919792122844587807300048430756990391177266977583227470089929347969731703368720788359127837289988944365786283419724178187242169399457608505627145016468888402441344333481249304670223</span></span><br><span class="line">e = <span class="number">11079917583</span></span><br><span class="line">c = <span class="number">13354219204055754230025847310134936965811370208880054443449019813095522768684299807719787421318648141224402269593016895821181312342830493800652737679627324687428327297369122017160142465940412477792023917546122283870042482432790385644640286392037986185997262289003477817675380787176650410819568815448960281666117602590863047680652856789877783422272330706693947399620261349458556870056095723068536573904350085124198592111773470010262148170379730937529246069218004969402885134027857991552224816835834207152308645148250837667184968030600819179396545349582556181916861808402629154688779221034610013350165801919342549766</span></span><br><span class="line">elist = [<span class="number">3</span>,<span class="number">7</span>,<span class="number">7</span>,<span class="number">19</span>,<span class="number">691</span>,<span class="number">5741</span>]</span><br><span class="line"></span><br><span class="line">a = <span class="number">2</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">pow</span>(<span class="number">2</span>, i ** <span class="number">2</span> - i + <span class="number">4</span>)*<span class="built_in">pow</span>(<span class="number">2</span>, i ** <span class="number">2</span> - i + <span class="number">4</span>) &lt;= e <span class="keyword">and</span> <span class="built_in">pow</span>(<span class="number">2</span>, i ** <span class="number">2</span> - i + <span class="number">5</span>)*<span class="built_in">pow</span>(<span class="number">2</span>, i ** <span class="number">2</span> - i + <span class="number">5</span>) &gt;= e):</span><br><span class="line">        a = i</span><br><span class="line"></span><br><span class="line">s1 = <span class="number">120561</span> </span><br><span class="line">s2 = <span class="number">91903</span></span><br><span class="line"></span><br><span class="line">ab = iroot(N,<span class="number">4</span>)[<span class="number">0</span>] ** <span class="number">4</span></span><br><span class="line">b = -(N-ab-s1*s2)</span><br><span class="line">a = s2</span><br><span class="line">c1 = s1*ab</span><br><span class="line">x = <span class="built_in">int</span>((-b + iroot(b**<span class="number">2</span>-<span class="number">4</span>*a*c1,<span class="number">2</span>)[<span class="number">0</span>]) // (<span class="number">2</span>*a))</span><br><span class="line">p = x + s1</span><br><span class="line">q = N//p</span><br><span class="line"></span><br><span class="line">d = inverse(e//<span class="number">3</span>,p-<span class="number">1</span>)</span><br><span class="line">m3 = <span class="built_in">int</span>(<span class="built_in">pow</span>(c,d,p))</span><br><span class="line"></span><br><span class="line">PR.&lt;x&gt; = Zmod(p)[]</span><br><span class="line">f = x^<span class="number">3</span> - m3</span><br><span class="line">res = f.roots()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> res:</span><br><span class="line">    temp = long_to_bytes(<span class="built_in">int</span>(i[<span class="number">0</span>]))</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">b&quot;DASCTF&quot;</span> <span class="keyword">in</span> temp):</span><br><span class="line">        <span class="built_in">print</span>(temp)</span><br></pre></td></tr></table></figure>
 <p>得到flag：</p>
 <font color=red>DASCTF{C0nsTruct!n9_Techn1qUe2_f0r_RSA_Pr1me_EnC2ypt10N}</font>
 
-
-
+<p><br/></p>
 <p>当然，这题还有一些值得思考的地方，如若明文的比特位超过了p，又该怎么办？</p>
 <p>首先可以先将与p-1、q-1均不互素的素因子用普通RSA解密剔去，得到</p>
 <script type="math/tex; mode=display">
@@ -306,6 +308,9 @@ m^{e} = (m^3)^{7*7*19*691*5741} \equiv c\quad(mod\;p)</script><p>而</p>
 <p>exp.ipynb:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> bytes_to_long,long_to_bytes,inverse</span><br><span class="line"><span class="keyword">from</span> sympy.ntheory.modular <span class="keyword">import</span> crt</span><br><span class="line"><span class="comment">#使用如：M = crt(n,c)[0]</span></span><br><span class="line"></span><br><span class="line">c = <span class="number">3232774922192317186963877855543094060264001327534643963164572334193887491269409927593188017108306298404437170754762182875998691872041391981365074638343520234882604136837212457817534624895485767634112947143897465253262932526424371614372553023510973107043735041993637367122527503031768408492566328264574062328255875477737300307769891808134846813311720049466136337129654155946431766445576339564816809841942907193731423184669912783673012406488607834333191988772032942474663985054409518153017182678863504596312351140412943307416458908324209967299195302214349899874812717459558411734343869783905720910923365168671056618</span></span><br><span class="line">p = <span class="number">5213351003420231819415242686664610206224730148063270274863722096379841592931572096469136339538500817713355302889731144789372844731378975059329731297860686270736540109105854515590165681366189003405833252270606896051264517339339578167231093908235856718285980689179840159807651185918046198419707669304960745217</span></span><br><span class="line">q = <span class="number">3891889986375336330559716098591764128742918441309724777337583126578227827768865619689858547513951476952436981068109005313431255086775128227872912287517417948310766208005723508039484956447166240210962374423348694952997002274647622939970550008327647559433222317977926773242269276334110863262269534189811138319</span></span><br><span class="line">n = p*q</span><br><span class="line">e = <span class="number">3</span>*<span class="number">7</span>*<span class="number">7</span></span><br><span class="line"></span><br><span class="line">dp = inverse(<span class="number">49</span>,p-<span class="number">1</span>)</span><br><span class="line">cp = <span class="built_in">pow</span>(c,dp,p)</span><br><span class="line">PR.&lt;x&gt; = Zmod(p)[]</span><br><span class="line">f = x^<span class="number">3</span> - cp</span><br><span class="line">resp = f.roots()</span><br><span class="line"></span><br><span class="line">dq = inverse(<span class="number">3</span>,q-<span class="number">1</span>)</span><br><span class="line">cq = <span class="built_in">pow</span>(c,dq,q)</span><br><span class="line">PR.&lt;x&gt; = Zmod(q)[]</span><br><span class="line">f = x^<span class="number">49</span> - cq</span><br><span class="line">resq = f.roots()</span><br><span class="line"></span><br><span class="line">modlist = [p,q]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> resp:</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> resq:</span><br><span class="line">        c = [<span class="built_in">int</span>(i[<span class="number">0</span>]),<span class="built_in">int</span>(j[<span class="number">0</span>])]</span><br><span class="line">        m = crt(modlist,c)[<span class="number">0</span>]</span><br><span class="line">        temp = long_to_bytes(m)</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">b&quot;DASCTF&quot;</span> <span class="keyword">in</span> temp):</span><br><span class="line">            <span class="built_in">print</span>(temp)</span><br></pre></td></tr></table></figure>
 <p>多种方法求解，也是为了能更灵活的思考问题，掌握更多求解方式，让自己一种方法卡住时，可以有路可走。</p>
+<p><br/></p>
+<p><br/></p>
+<p><br/></p>
 <h2 id="Easy-3L"><a href="#Easy-3L" class="headerlink" title="Easy_3L"></a>Easy_3L</h2><p>题目描述：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">无</span><br></pre></td></tr></table></figure>
 <p>题目：</p>
@@ -323,12 +328,9 @@ m^{e} = (m^3)^{7*7*19*691*5741} \equiv c\quad(mod\;p)</script><p>而</p>
 <p>得到flag：</p>
 <font color=red>DASCTF{NTRU_L0G_a6e_S1mpLe}</font>
 
-
-
-
-
-
-
+<p><br/></p>
+<p><br/></p>
+<p><br/></p>
 <h2 id="SigninCrypto"><a href="#SigninCrypto" class="headerlink" title="SigninCrypto"></a>SigninCrypto</h2><p>题目描述：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">随机数真随机吗？如随！</span><br></pre></td></tr></table></figure>
 <p>题目：</p>
@@ -361,12 +363,9 @@ m^{e} = (m^3)^{7*7*19*691*5741} \equiv c\quad(mod\;p)</script><p>而</p>
 <p>得到flag：</p>
 <font color=red>DASCTF{8e5ee461-f4e1-4af2-8632-c9d62f4dc073}</font>
 
-
-
-
-
-
-
+<p><br/></p>
+<p><br/></p>
+<p><br/></p>
 <h2 id="esyRSA"><a href="#esyRSA" class="headerlink" title="esyRSA"></a>esyRSA</h2><p>题目描述：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">好像这个RSA有点怪啊！私钥给你了！我的e呢？</span><br></pre></td></tr></table></figure>
 <p>题目：</p>
@@ -378,6 +377,9 @@ m^{e} = (m^3)^{7*7*19*691*5741} \equiv c\quad(mod\;p)</script><p>而</p>
 <font color=red>DASCTF{4ae33bea90f030bfddb7ac4d9222ef8f}</font>
 
 <p>(<del>为什么主办方没有发现附件需要更新</del>？/(ㄒoㄒ)/~~)</p>
+<p><br/></p>
+<p><br/></p>
+<p><br/></p>
 <h2 id="MCeorpkpleer"><a href="#MCeorpkpleer" class="headerlink" title="MCeorpkpleer"></a>MCeorpkpleer</h2><p>题目描述：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这数据都不全要怎么计算呢</span><br></pre></td></tr></table></figure>
 <p>题目：</p>
@@ -388,12 +390,9 @@ m^{e} = (m^3)^{7*7*19*691*5741} \equiv c\quad(mod\;p)</script><p>而</p>
 <p>得到flag：</p>
 <font color=red>DASCTF{T81I_tPPS_6r7g_xlPi_OO3M_6vyV_Rkba}</font>
 
-
-
-
-
-
-
+<p><br/></p>
+<p><br/></p>
+<p><br/></p>
 <h2 id="XOR贯穿始终"><a href="#XOR贯穿始终" class="headerlink" title="XOR贯穿始终"></a>XOR贯穿始终</h2><p>题目描述：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一切都是有意义的，拿下它吧。</span><br></pre></td></tr></table></figure>
 <p>题目：</p>
@@ -415,12 +414,9 @@ m^{e} = (m^3)^{7*7*19*691*5741} \equiv c\quad(mod\;p)</script><p>而</p>
 <p>得到flag：</p>
 <font color=red>DASCTF{0e2874af5e422482378640e61d919e9a}</font>
 
-
-
-
-
-
-
+<p><br/></p>
+<p><br/></p>
+<p><br/></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总体难度确实不大，但是怎么说呢，题目有点坑，自己能力也还存在不足，下次加油吧。</p>
 
     </div>
