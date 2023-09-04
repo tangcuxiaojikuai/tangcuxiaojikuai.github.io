@@ -16,11 +16,9 @@
 e = 3*7*7*19*691*5741</script><p>因此我们完全可以用下面这个方式来进一步确定a的取值范围:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">1024</span>):</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">pow</span>(<span class="number">2</span>, a ** <span class="number">2</span> - a + <span class="number">4</span>)*<span class="built_in">pow</span>(<span class="number">2</span>, a ** <span class="number">2</span> - a + <span class="number">4</span>) &lt;= e <span class="keyword">and</span> <span class="built_in">pow</span>(<span class="number">2</span>, a ** <span class="number">2</span> - a + <span class="number">5</span>)*<span class="built_in">pow</span>(<span class="number">2</span>, a ** <span class="number">2</span> - a + <span class="number">5</span>) &gt;= e):</span><br><span class="line">        <span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure>
 <p>可以发现，a其实仅能取4；与此同时可以明白，对于刚才的e的因子分解，仅有两种可能的组合让两次生成的s均落在a规定的范围里：</p>
-<ul>
-<li>$s = 5741 <em> 19$ ,$ t = 691 </em> 3 <em> 7 </em> 7$</li>
-<li>s = $5741 <em> 3 </em> 7$ , $t = 691 <em> 7 </em> 19$</li>
-</ul>
-<p>此时再看n的生成过程：</p>
+<script type="math/tex; mode=display">
+s=5741*19\;,\;t=691*3*7*7\\
+s=5741*3*7\;,\;t=691*7*19</script><p>此时再看n的生成过程：</p>
 <script type="math/tex; mode=display">
 n = (X1^4 + s)*(X2^4 + t)</script><p>s和t相较于X1、X2来说非常小，因此对n开4次方根就可以得到X1*X2，此时，就可以以以下方式分解n：</p>
 <script type="math/tex; mode=display">
