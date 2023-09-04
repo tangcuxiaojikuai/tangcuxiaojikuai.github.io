@@ -170,6 +170,9 @@ m^{e} = (m^3)^{7*7*19*691*5741} \equiv c\quad(mod\;p)</script><p>而</p>
 
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总体难度确实不大，但是怎么说呢，题目有点坑，自己能力也还存在不足，下次加油吧。</p>
 ]]></content>
+      <categories>
+        <category>wp-crypto</category>
+      </categories>
   </entry>
   <entry>
     <title>NSSCTF-2nd-wp-crypto</title>
@@ -325,5 +328,8 @@ K*e20 & 0 & 0 & 0 ... & 1\\
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总的说来，对格的应用还不够灵活，还需要加深学习。</p>
 <p>如果各位有不懂的地方或者发现了文中的问题，欢迎联系我，一起学习进步。</p>
 ]]></content>
+      <categories>
+        <category>wp-crypto</category>
+      </categories>
   </entry>
 </search>
