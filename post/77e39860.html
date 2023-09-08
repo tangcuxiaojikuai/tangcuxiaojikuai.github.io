@@ -319,7 +319,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">table = string.digits + string.ascii_letters + <span class="string">&quot;&#123;&#125;_&quot;</span></span><br><span class="line"></span><br><span class="line">init = <span class="string">b&#x27;cnss&#123;&#x27;</span></span><br><span class="line">has_find = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span>(has_find == <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(table)):</span><br><span class="line">        r=remote(<span class="string">&quot;47.108.140.140&quot;</span>,<span class="number">11037</span>)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            r.sendline(init + long_to_bytes(<span class="built_in">ord</span>(table[i])) + <span class="string">b&#x27;\x00&#x27;</span>*<span class="number">100</span> + <span class="string">b&quot;a&quot;</span>)</span><br><span class="line">            temp = r.recvline()</span><br><span class="line">            <span class="keyword">if</span>(<span class="string">b&quot;Correct&quot;</span> <span class="keyword">in</span> temp):</span><br><span class="line">                exit(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">len</span>(init) == <span class="number">23</span>):</span><br><span class="line">                has_find = <span class="number">1</span></span><br><span class="line">                r.close()</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            init += long_to_bytes(<span class="built_in">ord</span>(table[i]))</span><br><span class="line">            <span class="built_in">print</span>(init)</span><br><span class="line">            r.close()</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        r.close()</span><br><span class="line"><span class="built_in">print</span>(init + <span class="string">b&quot;&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p>得到flag：</p>
 <p><strong>cnss{1nd3X_0Ut_oF_r4nge}</strong></p>
-<p><br/></p>
+<p><br></p>
 <p>确实很有意思！</p>
 
     </div>
@@ -356,7 +356,10 @@
     <a href="/post/795314c1.html" rel="prev" title="2023-CNSS-Summer-wp-crypto">
       <i class="fa fa-chevron-left"></i> 2023-CNSS-Summer-wp-crypto
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/post/ccf22797.html" rel="next" title="SICTF-2023-#Round2-wp-misc">
+      SICTF-2023-#Round2-wp-misc <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -432,7 +435,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
