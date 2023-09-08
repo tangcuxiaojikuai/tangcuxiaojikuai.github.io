@@ -598,22 +598,6 @@ K*e20 & 0 & 0 & 0 ... & 1\\
       </categories>
   </entry>
   <entry>
-    <title>SICTF-2023-#Round2-wp-misc</title>
-    <url>/post/ccf22797.html</url>
-    <content><![CDATA[<p>浅做点misc娱乐娱乐</p>
-<span id="more"></span>
-<h3 id="签到-Welcome"><a href="#签到-Welcome" class="headerlink" title="[签到]Welcome"></a>[签到]Welcome</h3><p>题目描述：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">关注微信公众号并发送&quot;SICTF2023&quot;就可以获得flag辣！</span><br></pre></td></tr></table></figure>
-<p>签到题，照着做即可。</p>
-<p><img src="/post/ccf22797.htm/image-20230908162325089.png" alt="image-20230908162325089"></p>
-<p>flag：</p>
-<p><strong>SICTF{Welcome_to_SICTF2023_#Round2}</strong></p>
-]]></content>
-      <categories>
-        <category>wp-crypto</category>
-      </categories>
-  </entry>
-  <entry>
     <title>misc趣题(一)</title>
     <url>/post/77e39860.html</url>
     <content><![CDATA[<p>在CNSS 2023的夏令营线上题中找到的一道misc题，看到标题有Crypto，感兴趣就去试了一试，发现确实是道比较有意思的题目，就在此记录一下，同时也开启 <strong>misc趣题</strong> 这一分类。</p>
@@ -679,6 +663,22 @@ K*e20 & 0 & 0 & 0 ... & 1\\
 ]]></content>
       <categories>
         <category>misc趣题</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>SICTF-2023-#Round2-wp-misc</title>
+    <url>/post/ccf22797.html</url>
+    <content><![CDATA[<p>浅做点misc娱乐娱乐</p>
+<span id="more"></span>
+<h3 id="签到-Welcome"><a href="#签到-Welcome" class="headerlink" title="[签到]Welcome"></a>[签到]Welcome</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">关注微信公众号并发送&quot;SICTF2023&quot;就可以获得flag辣！</span><br></pre></td></tr></table></figure>
+<p>签到题，照着做即可。</p>
+<p><img src="/post/ccf22797.htm/hexo\myblog\source\_posts\SICTF-2023-Round2-wp-misc\image-20230908162949748.png" alt="image-20230908162949748"></p>
+<p>flag：</p>
+<p><strong>SICTF{Welcome_to_SICTF2023_#Round2}</strong></p>
+]]></content>
+      <categories>
+        <category>wp-misc</category>
       </categories>
   </entry>
 </search>
