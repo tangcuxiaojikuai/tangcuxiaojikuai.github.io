@@ -43,8 +43,13 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/22e56931/image-20230911104618404.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/22e56931/image-20230911111836344.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/22e56931/image-20230911112020297.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/22e56931/image-20230911144054892.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/22e56931/image-20230911144414307.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/22e56931/image-20230911144603284.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/22e56931/image-20230911144716398.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/22e56931/image-20230911144745871.png">
 <meta property="article:published_time" content="2023-09-11T02:04:29.000Z">
-<meta property="article:modified_time" content="2023-09-11T03:22:42.687Z">
+<meta property="article:modified_time" content="2023-09-11T06:53:21.572Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.github.io/post/22e56931/image-20230911100902419.png">
@@ -229,7 +234,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-09-11 10:04:29 / 修改时间：11:22:42" itemprop="dateCreated datePublished" datetime="2023-09-11T10:04:29+08:00">2023-09-11</time>
+              <time title="创建时间：2023-09-11 10:04:29 / 修改时间：14:53:21" itemprop="dateCreated datePublished" datetime="2023-09-11T10:04:29+08:00">2023-09-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -352,7 +357,22 @@
 <p><strong>cnss{103.239.247.22}</strong></p>
 <p><br></p>
 <p><br></p>
-<h3 id="💻-cn55Terminal"><a href="#💻-cn55Terminal" class="headerlink" title="💻 cn55Terminal"></a>💻 cn55Terminal</h3><p>还没做出来，待补充。初步感觉可能是将需要执行的语句生成为字符画形式交给Terminal，但是不确定。</p>
+<h3 id="💻-cn55Terminal"><a href="#💻-cn55Terminal" class="headerlink" title="💻 cn55Terminal"></a>💻 cn55Terminal</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc 124.221.34.13 50024</span><br></pre></td></tr></table></figure>
+<p>xshell打开，缩小界面看到的命令如下：</p>
+<p><img src="/post/22e56931/image-20230911144054892.png" alt="image-20230911144054892"></p>
+<p>可以看到，命令行前的内容以字符画的形式展示出来了，合理猜测，这道题的意思是识别字符画形式的指令并执行。这样的话，我们就需要输入字符画形式的linux指令。先试一试将题目给出的id上传，看看返回内容：</p>
+<p><img src="/post/22e56931/image-20230911144414307.png" alt="image-20230911144414307"></p>
+<p>可以看出确实和想象的一模一样，终端执行了id指令。那么接下来就是找脚本，将”cat flag”生成为字符画。最后找到了一个脚本，但是他只能将图片转化为字符画，没事，先生成一张图片：</p>
+<p><img src="/post/22e56931/image-20230911144603284.png" alt="image-20230911144603284"></p>
+<p>然后用如下脚本转化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">img = Image.<span class="built_in">open</span>(<span class="string">&#x27;1.png&#x27;</span>)</span><br><span class="line">out_img = img.convert(<span class="string">&#x27;L&#x27;</span>)  <span class="comment"># 图片转换为灰度模式</span></span><br><span class="line">w, h = out_img.size  <span class="comment"># 返回图片大小</span></span><br><span class="line">n=<span class="number">600</span>/<span class="built_in">max</span>(w,h) <span class="comment">#图像缩小倍数，不然图片转换后会很大</span></span><br><span class="line"><span class="keyword">if</span> n&lt;<span class="number">1</span>:</span><br><span class="line">   out_img = out_img.resize((<span class="built_in">int</span>(w * n), <span class="built_in">int</span>(h * n*<span class="number">0.5</span>)))  <span class="comment"># 因字符的宽度一般大于2倍的高度</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   out_img = out_img.resize((<span class="built_in">int</span>(w), <span class="built_in">int</span>(h )))</span><br><span class="line">w, h = out_img.size</span><br><span class="line"><span class="comment">#asciis=&#x27;$@B%8&amp;WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1&#123;&#125;[]?-_+~&lt;&gt;i!lI;:,&quot;^\ &#x27;</span></span><br><span class="line">asciis = <span class="string">&quot;@.&quot;</span>  <span class="comment"># 灰度表</span></span><br><span class="line">texts = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line"> <span class="keyword">for</span> col <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">       gray = out_img.getpixel((col, row))</span><br><span class="line">       texts += asciis[<span class="built_in">int</span>(gray / <span class="number">255</span> * (<span class="built_in">len</span>(asciis) - <span class="number">1</span>))]  <span class="comment"># 根据灰度值选择不同复杂度的 ASCII 字符</span></span><br><span class="line"> texts += <span class="string">&#x27;\n&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;1.txt&quot;</span>, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    file.write(texts)</span><br><span class="line">    file.close()</span><br></pre></td></tr></table></figure>
+<p>得到1.txt文件，打开即是字符画：</p>
+<p><img src="/post/22e56931/image-20230911144716398.png" alt="image-20230911144716398"></p>
+<p>上传给Terminal，即得到flag：</p>
+<p><img src="/post/22e56931/image-20230911144745871.png" alt="image-20230911144745871"></p>
+<p>flag：</p>
+<p><strong>cnss{funny_ascii_ocr_duibudui}</strong></p>
 <p><br></p>
 <p><br></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>misc的知识面涉及很广，很多知识都是边做题边学，很多工具也是边做题边下的，一点一点积累吧。</p>
