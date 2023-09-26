@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="NpkS3-mYBXgvBvpBrJfSXgHDiRxjGTAfNej436pZGp4" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-5mKArlIN1y" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="最近做到的散题有点多，感觉记录一下很有必要，于是开启Crypto趣题这一分类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Crypto趣题">
+<meta property="og:url" content="https://tangcuxiaojikuai.github.io/post/cbe57a3e.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="最近做到的散题有点多，感觉记录一下很有必要，于是开启Crypto趣题这一分类。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/cbe57a3e/image-20230926104953693.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/cbe57a3e/image-20230926105347447.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/cbe57a3e/image-20230926105546460.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/cbe57a3e/image-20230926105945860.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/cbe57a3e/image-20230926110200084.png">
+<meta property="article:published_time" content="2023-09-25T01:57:07.000Z">
+<meta property="article:modified_time" content="2023-09-26T03:15:39.377Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.github.io/post/cbe57a3e/image-20230926104953693.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.github.io/post/cbe57a3e.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Crypto趣题 | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.github.io/post/cbe57a3e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Crypto趣题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-25 09:57:07" itemprop="dateCreated datePublished" datetime="2023-09-25T09:57:07+08:00">2023-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-26 11:15:39" itemprop="dateModified" datetime="2023-09-26T11:15:39+08:00">2023-09-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/cbe57a3e.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/cbe57a3e.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近做到的散题有点多，感觉记录一下很有必要，于是开启<strong>Crypto趣题</strong>这一分类。</p>
+<span id="more"></span>
+<h3 id="RSA3"><a href="#RSA3" class="headerlink" title="RSA3"></a>RSA3</h3><p>题目来源：2023江苏省领航杯</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line">p1, q1 = getPrime(<span class="number">512</span>), getPrime(<span class="number">512</span>)</span><br><span class="line">n1 = p1*q1</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line">p2, q2 = getPrime(<span class="number">512</span>), getPrime(<span class="number">512</span>)</span><br><span class="line">n2 = p2*q2</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;n1 = <span class="subst">&#123;n1&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;n2 = <span class="subst">&#123;n2&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;c1 = <span class="subst">&#123;<span class="built_in">pow</span>(m,e,n2)&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;c2 = <span class="subst">&#123;<span class="built_in">pow</span>(n1-m,e,n2)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># n1 = 52579135273678950581073020233998071974221658902576724000130040488018033110534210901239397446395736563148970863970460542205225993317478251099451639165369081820130823165642873594136020122857712288395352930384057524510346112486008850200845915783772351449146183974239444691330777565342525218070680067550270554767</span></span><br><span class="line"><span class="comment"># n2 = 68210568831848267339414957973218186686176324296418282565773310695862151827108036984694027795077376921170907068110296451176263520249799154781062517066423984526868547296781709439425857993705489037768605485740968600877866332458671029054092942851472208033494968784822459369206497698469167909174346042658361616469</span></span><br><span class="line"><span class="comment"># c1 = 42941712708129054668823891960764339394032538100909746015733801598044118605733969558717842106784388091495719003761324737091667431446354282990525549196642753967283958283202592037329821712755519455155110675327321252333824912095517427885925854391047828862338332559137577789387455868761466777370476884779752953853</span></span><br><span class="line"><span class="comment"># c2 = 62704043252861638895370674827559804184650708692227789532879941590038911799857232898692335429773480889624046167792573885125945511356456073688435911975161053231589019934427151230924004944847291434167067905803180207183209888082275583120633408232749119300200555327883719466349164062163459300518993952046873724005</span></span><br></pre></td></tr></table></figure>
+<p>题目意图很明确：明文线性相关，所以直接求解多项式gcd是可以做出来的。</p>
+<p>不过问题在于，本题e很大，所以如果直接求解gcd，时间会花的较长(约30-40分钟)。因此学习了一波Half-gcd，这是一种能有效减少求解多项式的公因式所需时间的方法。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/whx1003/p/16217087.html">多项式 gcd 的正确姿势：Half-GCD 算法 - whx1003 - 博客园 (cnblogs.com)</a></p>
+<p>exp.ipynb:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">HGCD</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="number">2</span> * b.degree() &lt;= a.degree() <span class="keyword">or</span> a.degree() == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    m = a.degree() // <span class="number">2</span></span><br><span class="line">    a_top, a_bot = a.quo_rem(x^m)</span><br><span class="line">    b_top, b_bot = b.quo_rem(x^m)</span><br><span class="line">    R00, R01, R10, R11 = HGCD(a_top, b_top)</span><br><span class="line">    c = R00 * a + R01 * b</span><br><span class="line">    d = R10 * a + R11 * b</span><br><span class="line">    q, e = c.quo_rem(d)</span><br><span class="line">    d_top, d_bot = d.quo_rem(x^(m // <span class="number">2</span>))</span><br><span class="line">    e_top, e_bot = e.quo_rem(x^(m // <span class="number">2</span>))</span><br><span class="line">    S00, S01, S10, S11 = HGCD(d_top, e_top)</span><br><span class="line">    RET00 = S01 * R00 + (S00 - q * S01) * R10</span><br><span class="line">    RET01 = S01 * R01 + (S00 - q * S01) * R11</span><br><span class="line">    RET10 = S11 * R00 + (S10 - q * S11) * R10</span><br><span class="line">    RET11 = S11 * R01 + (S10 - q * S11) * R11</span><br><span class="line">    <span class="keyword">return</span> RET00, RET01, RET10, RET11</span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GCD</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="built_in">print</span>(a.degree(), b.degree())</span><br><span class="line">    q, r = a.quo_rem(b)</span><br><span class="line">    <span class="keyword">if</span> r == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> b</span><br><span class="line">    R00, R01, R10, R11 = HGCD(a, b)</span><br><span class="line">    c = R00 * a + R01 * b</span><br><span class="line">    d = R10 * a + R11 * b</span><br><span class="line">    <span class="keyword">if</span> d == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> c.monic()</span><br><span class="line">    q, r = c.quo_rem(d)</span><br><span class="line">    <span class="keyword">if</span> r == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> d</span><br><span class="line">    <span class="keyword">return</span> GCD(d, r)</span><br><span class="line"></span><br><span class="line">sys.setrecursionlimit(<span class="number">500000</span>)</span><br><span class="line"></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">n1 = <span class="number">52579135273678950581073020233998071974221658902576724000130040488018033110534210901239397446395736563148970863970460542205225993317478251099451639165369081820130823165642873594136020122857712288395352930384057524510346112486008850200845915783772351449146183974239444691330777565342525218070680067550270554767</span></span><br><span class="line">n2 = <span class="number">68210568831848267339414957973218186686176324296418282565773310695862151827108036984694027795077376921170907068110296451176263520249799154781062517066423984526868547296781709439425857993705489037768605485740968600877866332458671029054092942851472208033494968784822459369206497698469167909174346042658361616469</span></span><br><span class="line">c1 = <span class="number">42941712708129054668823891960764339394032538100909746015733801598044118605733969558717842106784388091495719003761324737091667431446354282990525549196642753967283958283202592037329821712755519455155110675327321252333824912095517427885925854391047828862338332559137577789387455868761466777370476884779752953853</span></span><br><span class="line">c2 = <span class="number">62704043252861638895370674827559804184650708692227789532879941590038911799857232898692335429773480889624046167792573885125945511356456073688435911975161053231589019934427151230924004944847291434167067905803180207183209888082275583120633408232749119300200555327883719466349164062163459300518993952046873724005</span></span><br><span class="line">R.&lt;x&gt; = PolynomialRing(Zmod(n2))</span><br><span class="line">f = x^e - c1</span><br><span class="line">g = (n1 - x)^e - c2</span><br><span class="line"></span><br><span class="line">res = GCD(f,g)</span><br><span class="line"></span><br><span class="line">m = -res.monic().coefficients()[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(m)</span><br><span class="line">flag = long_to_bytes(<span class="built_in">int</span>(m))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p>flag:</p>
+<p><strong>CnHongKe{Fr4nkl1n_R31ter_4nd_gcD}</strong></p>
+<p><br></p>
+<p><br></p>
+<h3 id="Shamir门限"><a href="#Shamir门限" class="headerlink" title="Shamir门限"></a>Shamir门限</h3><p>题目来源：暂不明确</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">公司使用Shamir门限密钥设计了一个秘密保存方案，将fag保存了起来，最终的设计效果如下密钥总共有<span class="number">9</span>份，拿到任意<span class="number">5</span>个密钥即可解出保存的flag.现在我们知道公共的密钥:</span><br><span class="line">p=<span class="number">0x3b9f64aeadae9545d899102c8c1874e3d4f12caf6ded3eb8454c27fd7058ff31a5742aee60b2b7</span></span><br><span class="line">以及如下<span class="number">5</span>个密钥:</span><br><span class="line"><span class="number">0x13570e530aaa3639e622d02ca8a0f89089ad0ee3ba51edd95490653b684aaeedd3a762938d08b3</span></span><br><span class="line"><span class="number">0xb583b75e84190f9d081234088b23e6b634110bda167a21bdfb4b5608a65e7283e8531547623d8</span></span><br><span class="line"><span class="number">0x8d3bbbb28592b1a00885c11633369568fcb8bbfdec3cbf4d8cd5546728ca99f24cbe0ac214a39</span></span><br><span class="line"><span class="number">0x13816f03e972210516c17b13a008ee8fd9b888839d6e1ce203fd7723f5e8e0443c2c6279c8dab9</span></span><br><span class="line"><span class="number">0x1553e323763e4c3ba53f6f93e0feb01d6b168fdda30fd87e949664eb4c8f2fd8414e2c14df8f5e</span></span><br><span class="line">请恢复flag</span><br></pre></td></tr></table></figure>
+<p>题目明确说了这是一个Shamir门限方案，先来简单梳理一下Shamir门限方案的基本实施方式，大概分为以下几步:</p>
+<ol>
+<li><strong>根据恢复秘密最小人数及秘密消息，生成秘密多项式</strong></li>
+</ol>
+<ul>
+<li>将秘密消息转化为整数，记为 secret</li>
+<li>首先，设置一个需恢复秘密的最小人数 t ，而题目中说”拿到任意5个密钥即可解出保存的flag”，因此t=5</li>
+<li>设置一个公钥 p ，作为之后生成的多项式所处的有限域</li>
+<li>生成一个 t-1 次的多项式，满足：</li>
+</ul>
+<script type="math/tex; mode=display">
+f(x) = a_{t-1}*x^{t-1}+a_{t-2}*x^{t-2}+...+a_{2}*x^{2}+a_{1}*x^{1}+a_0 \quad(mod\;p)</script><script type="math/tex; mode=display">
+其中，a_1、a_2、...、a_{t-2}、a_{t-1}为随机数，a0=secret</script><ul>
+<li>因此可以看出，当多项式取 x=0 时，对应的 f(x)=f(0)=a0=secret，即秘密消息</li>
+</ul>
+<p><br></p>
+<ol>
+<li><strong>根据秘密多项式，进行密钥分发</strong></li>
+</ol>
+<ul>
+<li>设实际参与密钥分发的人数为 n ，则将 1~n(有时也可能是n个不同的随机数)依次代入秘密多项式 f(x)，便得到n组密钥：</li>
+</ul>
+<script type="math/tex; mode=display">
+(1，f(1))、(2,f(2))、...(n-1,f(n-1))、(n,f(n))</script><ul>
+<li>将生成的 n 个密钥分发给 n 个人</li>
+</ul>
+<p><br></p>
+<ol>
+<li><strong>销毁秘密多项式</strong></li>
+</ol>
+<p><br></p>
+<p>至此，Shamir门限方案便实施完成了，这种分法方案涉及到两个数字，一个是需恢复秘密的最小人数 t ，一个是实际参与密钥分发的人数 n ，因此可以称为 (t,n) - 门限方案。</p>
+<p>需要注意到的是，在完成密钥分发之后，秘密多项式便随之被销毁了。那么在拥有足够数量的密钥(&gt;=t)的情况下，怎么恢复秘密信息 secret呢？这就需要用到拉格朗日插值公式，我们不妨先把密钥记为:</p>
+<script type="math/tex; mode=display">
+(x_1，f(x_1))、(x_2,f(x_2))、...(x_{n-1},f(x_{n-1}))、(x_n,f(x_n))</script><p>则插值多项式如下：</p>
+<script type="math/tex; mode=display">
+f(x) = \sum_{i=1}^{t}[{f(x_i)}*\prod_{j=1,j\neq i}^{t}{\frac{x-x_j}{x_i-x_j}}]\quad(mod\;p)</script><p>直观一点可以展开写成下式：</p>
+<script type="math/tex; mode=display">
+f(x) = f(x_1)\frac{(x-x_2)(x-x_3)...(x-x_t)}{(x1-x_2)(x1-x_3)...(x1-x_t)} + f(x_2)\frac{(x-x_1)(x-x_3)...(x-x_t)}{(x2-x_1)(x2-x_3)...(x2-x_t)} + ... +
+f(x_t)\frac{(x-x_1)(x-x_2)...(x-x_{t-1})}{(x_t-x_1)(x_t-x_2)...(x_t-x_{t-1})}
+\quad(mod\;p)</script><p>观察一下这个多项式的性质：</p>
+<ul>
+<li>是一个 t-1 次多项式</li>
+<li>分发的密钥均是多项式上的点：</li>
+</ul>
+<script type="math/tex; mode=display">
+(x_1，f(x_1))、(x_2,f(x_2))、...(x_{n-1},f(x_{n-1}))、(x_n,f(x_n))</script><ul>
+<li>这是因为，代入其中任意一个密钥的横坐标，则只有代入的那一项不为0，而其他全为0，拿 x1 举例：</li>
+</ul>
+<script type="math/tex; mode=display">
+f(x_1) = f(x_1)\frac{(x_1-x_2)(x_1-x_3)...(x_1-x_t)}{(x1-x_2)(x1-x_3)...(x1-x_t)} + f(x_2)\frac{(x_1-x_1)(x_1-x_3)...(x_1-x_t)}{(x2-x_1)(x2-x_3)...(x2-x_t)} + ... +
+f(x_t)\frac{(x_1-x_1)(x_1-x_2)...(x_1-x_{t-1})}{(x_t-x_1)(x_t-x_2)...(x_t-x_{t-1})}
+\quad(mod\;p)</script><ul>
+<li>即：</li>
+</ul>
+<script type="math/tex; mode=display">
+f(x_1) = f(x_1)*1 + f(x_2)*0 + ... +
+f(x_t)*0
+\quad(mod\;p)\\
+f(x_1) = f(x_1)
+\quad(mod\;p)</script><p>所以当有足够多的点( t-1 次多项式需要 t 个点)进行插值时，就可以代入 0 进入插值多项式，解出的常数项即为秘密消息 secret</p>
+<p><br></p>
+<p>完全了解了Shamir门限方案后再来看这个题，就可以发现密钥数量是完全足够的，但是不清楚5个人具体分到的是9个密钥中的哪一个密钥，因此还需要全排列爆破处理。</p>
+<p>exp.py：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> permutations</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = <span class="number">0x3b9f64aeadae9545d899102c8c1874e3d4f12caf6ded3eb8454c27fd7058ff31a5742aee60b2b7</span></span><br><span class="line">c = [<span class="number">0x13570e530aaa3639e622d02ca8a0f89089ad0ee3ba51edd95490653b684aaeedd3a762938d08b3</span>,<span class="number">0xb583b75e84190f9d081234088b23e6b634110bda167a21bdfb4b5608a65e7283e8531547623d8</span>,<span class="number">0x8d3bbbb28592b1a00885c11633369568fcb8bbfdec3cbf4d8cd5546728ca99f24cbe0ac214a39</span>,<span class="number">0x13816f03e972210516c17b13a008ee8fd9b888839d6e1ce203fd7723f5e8e0443c2c6279c8dab9</span>,<span class="number">0x1553e323763e4c3ba53f6f93e0feb01d6b168fdda30fd87e949664eb4c8f2fd8414e2c14df8f5e</span>]</span><br><span class="line"></span><br><span class="line">m = ([<span class="number">0</span>, c[<span class="number">0</span>]],[<span class="number">0</span>, c[<span class="number">1</span>]],[<span class="number">0</span>, c[<span class="number">2</span>]],[<span class="number">0</span>, c[<span class="number">3</span>]],[<span class="number">0</span>, c[<span class="number">4</span>]])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> permutations(<span class="built_in">range</span>(<span class="number">9</span>),<span class="number">5</span>):</span><br><span class="line">        m[<span class="number">0</span>][<span class="number">0</span>] = i[<span class="number">0</span>]</span><br><span class="line">        m[<span class="number">1</span>][<span class="number">0</span>] = i[<span class="number">1</span>]</span><br><span class="line">        m[<span class="number">2</span>][<span class="number">0</span>] = i[<span class="number">2</span>]</span><br><span class="line">        m[<span class="number">3</span>][<span class="number">0</span>] = i[<span class="number">3</span>]</span><br><span class="line">        m[<span class="number">4</span>][<span class="number">0</span>] = i[<span class="number">4</span>]</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            r = (</span><br><span class="line">                m[<span class="number">0</span>][<span class="number">1</span>] * (<span class="number">0</span> - m[<span class="number">1</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">2</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">3</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">4</span>][<span class="number">0</span>]) * inverse((m[<span class="number">0</span>][<span class="number">0</span>] - m[<span class="number">1</span>][<span class="number">0</span>]) * (m[<span class="number">0</span>][<span class="number">0</span>] - m[<span class="number">2</span>][<span class="number">0</span>]) * (m[<span class="number">0</span>][<span class="number">0</span>] - m[<span class="number">3</span>][<span class="number">0</span>]) * (m[<span class="number">0</span>][<span class="number">0</span>] - m[<span class="number">4</span>][<span class="number">0</span>]), p) +</span><br><span class="line">                m[<span class="number">1</span>][<span class="number">1</span>] * (<span class="number">0</span> - m[<span class="number">0</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">2</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">3</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">4</span>][<span class="number">0</span>]) * inverse((m[<span class="number">1</span>][<span class="number">0</span>] - m[<span class="number">0</span>][<span class="number">0</span>]) * (m[<span class="number">1</span>][<span class="number">0</span>] - m[<span class="number">2</span>][<span class="number">0</span>]) * (m[<span class="number">1</span>][<span class="number">0</span>] - m[<span class="number">3</span>][<span class="number">0</span>]) * (m[<span class="number">1</span>][<span class="number">0</span>] - m[<span class="number">4</span>][<span class="number">0</span>]), p) +</span><br><span class="line">                m[<span class="number">2</span>][<span class="number">1</span>] * (<span class="number">0</span> - m[<span class="number">1</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">0</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">3</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">4</span>][<span class="number">0</span>]) * inverse((m[<span class="number">2</span>][<span class="number">0</span>] - m[<span class="number">1</span>][<span class="number">0</span>]) * (m[<span class="number">2</span>][<span class="number">0</span>] - m[<span class="number">0</span>][<span class="number">0</span>]) * (m[<span class="number">2</span>][<span class="number">0</span>] - m[<span class="number">3</span>][<span class="number">0</span>]) * (m[<span class="number">2</span>][<span class="number">0</span>] - m[<span class="number">4</span>][<span class="number">0</span>]), p) +</span><br><span class="line">                m[<span class="number">3</span>][<span class="number">1</span>] * (<span class="number">0</span> - m[<span class="number">1</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">2</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">0</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">4</span>][<span class="number">0</span>]) * inverse((m[<span class="number">3</span>][<span class="number">0</span>] - m[<span class="number">1</span>][<span class="number">0</span>]) * (m[<span class="number">3</span>][<span class="number">0</span>] - m[<span class="number">2</span>][<span class="number">0</span>]) * (m[<span class="number">3</span>][<span class="number">0</span>] - m[<span class="number">0</span>][<span class="number">0</span>]) * (m[<span class="number">3</span>][<span class="number">0</span>] - m[<span class="number">4</span>][<span class="number">0</span>]), p) +</span><br><span class="line">                m[<span class="number">4</span>][<span class="number">1</span>] * (<span class="number">0</span> - m[<span class="number">1</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">2</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">3</span>][<span class="number">0</span>]) * (<span class="number">0</span> - m[<span class="number">0</span>][<span class="number">0</span>]) * inverse((m[<span class="number">4</span>][<span class="number">0</span>] - m[<span class="number">1</span>][<span class="number">0</span>]) * (m[<span class="number">4</span>][<span class="number">0</span>] - m[<span class="number">2</span>][<span class="number">0</span>]) * (m[<span class="number">4</span>][<span class="number">0</span>] - m[<span class="number">3</span>][<span class="number">0</span>]) * (m[<span class="number">4</span>][<span class="number">0</span>] - m[<span class="number">0</span>][<span class="number">0</span>]), p)</span><br><span class="line">                ) % p</span><br><span class="line">            temp = <span class="built_in">str</span>(long_to_bytes(r))</span><br><span class="line">            <span class="keyword">if</span>(<span class="string">&quot;flag&quot;</span> <span class="keyword">in</span> temp):</span><br><span class="line">                <span class="built_in">print</span>(temp)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>flag:</p>
+<p><strong>flag{b14f4963671a457cf22ec271356e0f78}</strong></p>
+<p><br></p>
+<p><br></p>
+<h3 id="转化AGCD"><a href="#转化AGCD" class="headerlink" title="转化AGCD"></a>转化AGCD</h3><p>题目来源：暂不明确</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">nbits = <span class="number">512</span></span><br><span class="line">delta = <span class="number">.93</span></span><br><span class="line">kbits = <span class="built_in">int</span>(nbits*delta) &gt;&gt; <span class="number">1</span></span><br><span class="line">bound = <span class="number">2</span>**kbits</span><br><span class="line"></span><br><span class="line">m = <span class="number">53</span></span><br><span class="line">p = getPrime(nbits)</span><br><span class="line">x = randint(<span class="number">2</span>, p - <span class="number">1</span>)</span><br><span class="line">a = [randint(<span class="number">2</span>, bound) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m)]</span><br><span class="line">b = [inverse(a[i] * x + randint(<span class="number">2</span>, bound), p) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m)]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;a = &#125;</span>\n<span class="subst">&#123;b = &#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line">n = p * getPrime(nbits)</span><br><span class="line">c = <span class="built_in">pow</span>(bytes_to_long(flag), e, n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;e = &#125;</span>\n<span class="subst">&#123;n = &#125;</span>\n<span class="subst">&#123;c = &#125;</span>&quot;</span>)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">a = [226623173423524660762660587272926713775967113908071780918074044654746571, 99264763681859867816401881797921542580399607408617989905539839585323915, 177386736426181055874933306917112626356703658087900095566603898769091471, 5081587307910189127020749833744000992860852972311811125838243285877024, 411574110749659943703486080205654180795533263258790540505729307655142415, 1932137082695732276757073197845160804183868657578020568122170798605640, 103124563846054461729937757543103647655652920105466714505493351091607258, 65504504807895104765113845019342631211794998326986693051403166347389343, 151981136459515488882551190881724794060443302721456924436833810784219984, 3718222682937746804225225548712093487815785751144078132168082568580360, 113510621144631490440930342566441462111997352193075435129065142534001691, 120974784665251812036673794948678799274628176126865320042025545119228958, 193781634902416477262894357163294897773986019836290716577623654684669134, 24723078645443091017196603549741156206848230267873373213787667300835247, 113165730428784680251415263617027036564335843097634063978942541861726366, 407969345567975756778713582637075079783087682011802438819519567067241979, 151997755976755754648644424339697978791639952976423703068460739754839735, 253811682402531882908516509348937060650658679039884817907013090700281326, 404019046883201096048575369492824679211148242588135515488831100750933, 216725815105749574244056185735609680710954976727370948136589694286539150, 131605791470353972911656132280131756304373156215254629027113994962767833, 180190835657942894146705472335255090682179032409197893415067330574923084, 280086867488286721744184104208965143004904898002959657537412170401510680, 141039650035922882497777354937772530276454847300329950111476878397654053, 319858542602843767926919031049756704694256249776295683733693049522108872, 135633729043152514436339515687850041275739968837263316059461122379487161, 5038078437655552457504448170918674775639811066221990939957937239270167, 31918623105281221407484700216805581554894830335850729735403857505547002, 424092292941284354705774693468403308534554297314522980647422106907791591, 300635399575681097924575337707842439619576566621368558814406755486658723, 323686536134235835297820679361020300261642147835330856978902402517820801, 392620731408972775834827063986182511057173023783228673505487358356342114, 108681888409433100038410892044516773350200560613740266422720530715166828, 182338238967593331173372924666322484559869636981878410128856193538847678, 242630103099393630296862580986126439159331512930513337684897019399319621, 439737851682655515589311041364295341910822514202794661846391952824593066, 84115222835816390632388766236883091861894245716624041418721833768917547, 83926810016448863267608537461154878096011055852547156452557576634691363, 354588657997053098464002945990025178880458974438409486331146607111950617, 170413334241108032297843362994773587930354677207616527135896108692092457, 283185550452196010949673962093382632839937948488235076418296451706429923, 390000015988537819093964185756696910433784324036454283227484980367608884, 121370082693927496814267201484843687844578996855559797026014779421645731, 357164702199289826402900456464935203585119719343409406742172822868770420, 124276883926433089715798954125363260298740714164810098876501303684201565, 122912426324401068572433533096099229494021528981601203447594706478943744, 287527827124819650763642012585104162743364640051014410357971387706781531, 135819408760576908301747047938951002691288880199213610653148681326046091, 239644892459756283997004399339163555215985564639569406081575642996080481, 241513055132921096791997556818670497379598444881679976542299970876463098, 144152466563589166040797814966860917437020789050031353309848917297959088, 120162009732086541189519736083838746833770360960800721525565383293404918, 121547756201941339094205049920057111793191461762212554355070565584802804]</span></span><br><span class="line"><span class="string">b = [6914108949558554967947157128371931777410399406424987472871265954007536210016000226325059466226417032321637768264366355381358552354005990800271210820573485, 4243350947524503250221141283676871054961767761533372535893799777316644277502608136805589201625364130457811586620275507258712882614289496389903620348266876, 7207723049065039433195103268720351560639394404931218738588797743896531445162073256971205066381805731964498662913612257697112297701515506572915529630749649, 9478867353430476119494189313998177997736272254097122188128236485373498544996365281925749885278741955783336542038044934310609039388320259421902808190444639, 10092751897940937230080778690510245631681516769761757712615337492357689455504789850857408988921202275660819814611602363226676960504340172006698418415173603, 5925826079655586275072881965974452367893696237983922405515651101142466142890347074549417916208251973477786424292583294611467079137685936757690986611634840, 2705681917429356111941316419951220642197423059675588735077708172236184161647753066851383893342803615318493417826483637576437939588768131347824859258545037, 5793481213766970753853702438948943122939283534830229656699291673833482520096412620329053619097899786691202045974184168665694248732396928571682405270896258, 3212965229314647637209688663583343281038324880827825190075824389072703574155472958687615046177029380089781167897141334668918512246004114927754397070032450, 507858897452123392345795058512546587866098555419275815786154069852495346820264502978622507708545904809967228104858456493411165322256241259977367791849042, 1910673108437857460691507244808588742883010826641687685721219894695257479961884688001651060796296482279750896861871054549713247272267814842634417960819168, 2886899741243848325873884252302617091514751717162909139186588257257958079130295099942906361136727891394692438504521454612873780003451672796809495226053047, 9475112027697464127079619380873273645977046666164164866182205134451664768516062572467782141714310693479352016031210905832129007401065693258638549100340615, 6500556077535313473248384729914564751019267303740919343852356539545383313100771434642240039386190890442297569489225045989569513367190888305128046797790102, 4352575880916080525863863641402979108455803235156616467981920947190189719209876636528864672410548581564537392488508689158499605332674737341258230577454475, 8855806560115120193748486720541724804359134126331550182497194629659837334220708039976726151383523965042432921330088347099157101222325916589506823343303429, 2774687136241363374520941544838376461935832170671324174983217598018541119488143069001573950404074015672792681188308412236177101695870429933915439814455887, 3592625154014227818614640279472091377202566130067513443394635609406915223429475106920133466069573358784994632708606215548054720669924050172507230811524716, 6955167231829680836198358545532458408492109230130585460528670650387346748536700767474985024643177587060440925065292948599577822789464670224006606550191671, 9194240450171813716718107852597217121362901491312541712415368806074976814988492806542250961496723482200369134039024809109124268301878344007510329535899615, 5950577443108124534632225089717156798651285826327691188035165834526053749015025923590404663092184546183617748745220821771671541995250149683517797527521402, 8147536282406177354958293970877926560729452459282692121940762677425779306283487924160782780299072205173184092679363257393333408904258459452274140791704067, 2559838851622656651952688025212080768394118716136473174419624432065878751831257138924556995347285973152404103332115858073203707432778426111325160735797721, 4949359541993387232537947394033362386729434824378846379892748514319807403496542405321037377319385099259508143211518009425440208974571177165892037150309091, 1811673815510905036234500180939767229691774807773077679609856974935852997557959138952513786288094951891092390620085630282790435640054840555430191851155313, 4777885082419038381870076531532991228660498200204585112220314790970263737966241042846160101892845251352987027168075888559622541458466624868511496707956221, 10238413710887745087366241938666680877364662925315040665408262063559110391570620624035047723405526398382375337996702653261521046541231508963525281969167278, 3473340971529025694371400010471019993671985537666177271712164477185774211271764180735799413043127038518985595844132844447764288680922052782557764949946998, 867350328105510555601266520733196439839458877892746826352327206388533426010006967907349245075237097927904721917883721235095421696529792601733014134854086, 2222551217354471458254572360148123193413834831993026644829243162796014361851880328878269533732240093458365703558737637137958860294765246560791514120259973, 11135205396103944017696365595462393888434601100415179875833418713405171505514194213145570969708606144837327906949671055964664374675657263466390592843391795, 8522093767526974938129274822063573020978729589640216089964237075835492415426711219243729120235033613444547687888110911207624759350428715822663409802746531, 618066223420558653541360712487038985426207412776033652080372792996567809564864490136174039188920973110051946250308952735815050129654446357610891600358247, 9409683398358516350960966400164689353665188916574105692687503875332913200043983566205433723664581043184720605266180639045542588369320481456882129188045630, 10444912184036485133367095187175276878779180732948191228469107836744786278456394810069942330852023901190983084405589604802372025661121698806608507168815980, 5576808818750933483753823503921696491223987341840901931564632327098735945058071342467846031030536056935288275893098409520502499556978787294107531192342888, 11386170831130547392066338523237385342399839863674855226178213470159061980868639851406716227763244070078162813390834461297132500087558187715637626334931068, 9266567474732845229716988973436914937598698459994255583719094874193822181675544832905800318876640152861212158602258489908050910803591150200525814954449464, 783592057196685768383414375510915255040313296240508052297125547577301394194342174502254618660494179262947294784116190346971775913769035176336764690986707, 9105502180406569116340185218615179260760299848734930041602247299415927012355894700609320722623370139135122342263713846033304524885782445949914570572453737, 2297513067567074587355421795953863750627166311403426281361312466297059134183355298180726594771668216966732975569375780641995446201527865824229865021970151, 11188600115372846854366137972585164923834717935898376598627276542371780275188751807941476083838808640337088079259756154889298297211898790479562768420072518, 9656534484640562909118084019762167873291009773232637365213178341424207965285682074941363264934464618450896824843786922345950140473512635227211478685645772, 9343461413426168572561103655466265435717795505657355206522619014228487030194629865342342831380623629471381377128476731390629039248389925891691539701146309, 8681682631345831952913045584970984843073645909076987924890403622460027832467542651987623584349089629585531159664847835287269602153108548311564650707486153, 2656022193773767486949157049738671449721427276944394094199310567891807831351152318018854466905531462256724938253289337125816757790150607033652302227218868, 8508384570273623974802293014504152838556567399448174508834295467479347400327605230626491770497722014885725768213847610504091563629074470937893415637338996, 9716708016762837073052660164394053927821481998442639097920157163041635386583167412600530638659299593644342722890385260143682043966383262553995449944733956, 10231440381205182517403356785692369093270060843919065205063057623835967990844569366866607452179015606536153761832574542432676397053147658371344410148994418, 5146017765041682548648007957706007143803297597587388958721578537741505373387718545092695689770641249769257901519197825087801304735466239843061128683798476, 5222787643951107881679620487297380490422971146509273142662864657570322385794688143091615970726544447887548792995773377472568754141261595697499826832283200, 10464709627510729920064247596403868144579001206027850090117534773353171042729174225448975480540265139445689560336303762183734720331072177316589830221880977, 8615548684371129329547908465444932886632829509038689025840147771114904826804441395348568994340729561487767929565347408386252378372026787346043297419998538]</span></span><br><span class="line"><span class="string">e = 65537</span></span><br><span class="line"><span class="string">n = 97853623351997296064353255135588846396569970130207954701198599507389250544514082114957455795330569730103385876268186267851194017938003005329258612122178955978821786063623918361705120943030241043571056282806763102278839262572943852578441568495106906583558313075633340995336324665255745279078992160547871869557</span></span><br><span class="line"><span class="string">c = 44431449479567561261917922338101462065458737366369232901780150553091038211618354850829522817943842817713545313017593484450672219262670055539455602698182643653128488160901383204333856589371756831501857423631322915113418699087489759910739942878900174507138454184974875778861767989603951090385047953725189919178</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>观察题目，题目给了如下形式的53组等式：</p>
+<script type="math/tex; mode=display">
+b_i = (a_i*x + r_i)^{-1} \quad(mod\;p)</script><p>其中，各个值的已知信息如下：</p>
+<ul>
+<li>x 为 (2，p - 1) 之间的随机数，并且在53组等式中保持不变</li>
+<li>a、r 为 (2，2**238) 之间的随机数</li>
+<li>给出 a 、b</li>
+</ul>
+<p>首先，有两点信息暗示要用格：</p>
+<ol>
+<li>a、r 限制了数据范围，可以看作是小量，暗示用LLL</li>
+<li>多组线性等式，暗示用矩阵</li>
+</ol>
+<p><br></p>
+<p>所以关键就是转化到一个可以运用格的问题形式，推导如下：</p>
+<p>首先要想明白下面的式子：(推导比较容易，就不讲了)</p>
+<script type="math/tex; mode=display">
+inverse(b,n) = inverse(b,p)\quad(mod\;p)</script><p>然后就可以将问题按下面的方式逐步转化：</p>
+<ol>
+<li><strong>将b逆元转化到模n</strong></li>
+</ol>
+<script type="math/tex; mode=display">
+(a_0*x + r_0) = inverse(b_0,p) \quad(mod\;p)</script><p>​        代入上面的式子，变成：</p>
+<script type="math/tex; mode=display">
+(a_0*x + r_0) = inverse(b_0,n) \quad(mod\;p)</script><p>​        同理：</p>
+<script type="math/tex; mode=display">
+(a_1*x + r_1) = inverse(b_1,n) \quad(mod\;p)</script><ol>
+<li><strong>联立消元</strong></li>
+</ol>
+<script type="math/tex; mode=display">
+a1*(a_0*x + r_0) = a1*inverse(b_0,n) \quad(mod\;p)\\
+a0*(a_1*x + r_1) = a0*inverse(b_1,n) \quad(mod\;p)</script><p>​        相减得到：</p>
+<script type="math/tex; mode=display">
+a_1*r_0 + a_0*r_1 = a1*inverse(b_0,n) - a0*inverse(b_1,n)\quad(mod\;p)</script><p>​        有没有发现，小量已经全部移到了等式同一边</p>
+<ol>
+<li><p><strong>转化为AGCD问题</strong></p>
+<p>将模等式利用同余定理展开：</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+a1*inverse(b_0,n) - a0*inverse(b_1,n) = k*p + a_1*r_0 + a_0*r_1</script><p>​        此时，问题已经变成了AGCD问题，这是因为：</p>
+<p>​        AGCD问题通常形式：</p>
+<script type="math/tex; mode=display">
+X = q*p + r</script><p>​        在本题中，各个量如下：</p>
+<script type="math/tex; mode=display">
+X = a1*inverse(b_0,n) - a0*inverse(b_1,n)\\
+q = k\\
+p = p\\
+r = a_1*r_0 + a_0*r_1</script><p>至此问题推导就结束了。</p>
+<p>exp.py：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">P_bits = <span class="number">512</span></span><br><span class="line">Q_bits = <span class="number">238</span>+<span class="number">1024</span>-<span class="number">512</span></span><br><span class="line">R_bits = <span class="number">238</span>+<span class="number">238</span></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line"></span><br><span class="line">a = [<span class="number">226623173423524660762660587272926713775967113908071780918074044654746571</span>, <span class="number">99264763681859867816401881797921542580399607408617989905539839585323915</span>, <span class="number">177386736426181055874933306917112626356703658087900095566603898769091471</span>, <span class="number">5081587307910189127020749833744000992860852972311811125838243285877024</span>, <span class="number">411574110749659943703486080205654180795533263258790540505729307655142415</span>, <span class="number">1932137082695732276757073197845160804183868657578020568122170798605640</span>, <span class="number">103124563846054461729937757543103647655652920105466714505493351091607258</span>, <span class="number">65504504807895104765113845019342631211794998326986693051403166347389343</span>, <span class="number">151981136459515488882551190881724794060443302721456924436833810784219984</span>, <span class="number">3718222682937746804225225548712093487815785751144078132168082568580360</span>, <span class="number">113510621144631490440930342566441462111997352193075435129065142534001691</span>, <span class="number">120974784665251812036673794948678799274628176126865320042025545119228958</span>, <span class="number">193781634902416477262894357163294897773986019836290716577623654684669134</span>, <span class="number">24723078645443091017196603549741156206848230267873373213787667300835247</span>, <span class="number">113165730428784680251415263617027036564335843097634063978942541861726366</span>, <span class="number">407969345567975756778713582637075079783087682011802438819519567067241979</span>, <span class="number">151997755976755754648644424339697978791639952976423703068460739754839735</span>, <span class="number">253811682402531882908516509348937060650658679039884817907013090700281326</span>, <span class="number">404019046883201096048575369492824679211148242588135515488831100750933</span>, <span class="number">216725815105749574244056185735609680710954976727370948136589694286539150</span>, <span class="number">131605791470353972911656132280131756304373156215254629027113994962767833</span>, <span class="number">180190835657942894146705472335255090682179032409197893415067330574923084</span>, <span class="number">280086867488286721744184104208965143004904898002959657537412170401510680</span>, <span class="number">141039650035922882497777354937772530276454847300329950111476878397654053</span>, <span class="number">319858542602843767926919031049756704694256249776295683733693049522108872</span>, <span class="number">135633729043152514436339515687850041275739968837263316059461122379487161</span>, <span class="number">5038078437655552457504448170918674775639811066221990939957937239270167</span>, <span class="number">31918623105281221407484700216805581554894830335850729735403857505547002</span>, <span class="number">424092292941284354705774693468403308534554297314522980647422106907791591</span>, <span class="number">300635399575681097924575337707842439619576566621368558814406755486658723</span>, <span class="number">323686536134235835297820679361020300261642147835330856978902402517820801</span>, <span class="number">392620731408972775834827063986182511057173023783228673505487358356342114</span>, <span class="number">108681888409433100038410892044516773350200560613740266422720530715166828</span>, <span class="number">182338238967593331173372924666322484559869636981878410128856193538847678</span>, <span class="number">242630103099393630296862580986126439159331512930513337684897019399319621</span>, <span class="number">439737851682655515589311041364295341910822514202794661846391952824593066</span>, <span class="number">84115222835816390632388766236883091861894245716624041418721833768917547</span>, <span class="number">83926810016448863267608537461154878096011055852547156452557576634691363</span>, <span class="number">354588657997053098464002945990025178880458974438409486331146607111950617</span>, <span class="number">170413334241108032297843362994773587930354677207616527135896108692092457</span>, <span class="number">283185550452196010949673962093382632839937948488235076418296451706429923</span>, <span class="number">390000015988537819093964185756696910433784324036454283227484980367608884</span>, <span class="number">121370082693927496814267201484843687844578996855559797026014779421645731</span>, <span class="number">357164702199289826402900456464935203585119719343409406742172822868770420</span>, <span class="number">124276883926433089715798954125363260298740714164810098876501303684201565</span>, <span class="number">122912426324401068572433533096099229494021528981601203447594706478943744</span>, <span class="number">287527827124819650763642012585104162743364640051014410357971387706781531</span>, <span class="number">135819408760576908301747047938951002691288880199213610653148681326046091</span>, <span class="number">239644892459756283997004399339163555215985564639569406081575642996080481</span>, <span class="number">241513055132921096791997556818670497379598444881679976542299970876463098</span>, <span class="number">144152466563589166040797814966860917437020789050031353309848917297959088</span>, <span class="number">120162009732086541189519736083838746833770360960800721525565383293404918</span>, <span class="number">121547756201941339094205049920057111793191461762212554355070565584802804</span>]</span><br><span class="line">b = [<span class="number">6914108949558554967947157128371931777410399406424987472871265954007536210016000226325059466226417032321637768264366355381358552354005990800271210820573485</span>, <span class="number">4243350947524503250221141283676871054961767761533372535893799777316644277502608136805589201625364130457811586620275507258712882614289496389903620348266876</span>, <span class="number">7207723049065039433195103268720351560639394404931218738588797743896531445162073256971205066381805731964498662913612257697112297701515506572915529630749649</span>, <span class="number">9478867353430476119494189313998177997736272254097122188128236485373498544996365281925749885278741955783336542038044934310609039388320259421902808190444639</span>, <span class="number">10092751897940937230080778690510245631681516769761757712615337492357689455504789850857408988921202275660819814611602363226676960504340172006698418415173603</span>, <span class="number">5925826079655586275072881965974452367893696237983922405515651101142466142890347074549417916208251973477786424292583294611467079137685936757690986611634840</span>, <span class="number">2705681917429356111941316419951220642197423059675588735077708172236184161647753066851383893342803615318493417826483637576437939588768131347824859258545037</span>, <span class="number">5793481213766970753853702438948943122939283534830229656699291673833482520096412620329053619097899786691202045974184168665694248732396928571682405270896258</span>, <span class="number">3212965229314647637209688663583343281038324880827825190075824389072703574155472958687615046177029380089781167897141334668918512246004114927754397070032450</span>, <span class="number">507858897452123392345795058512546587866098555419275815786154069852495346820264502978622507708545904809967228104858456493411165322256241259977367791849042</span>, <span class="number">1910673108437857460691507244808588742883010826641687685721219894695257479961884688001651060796296482279750896861871054549713247272267814842634417960819168</span>, <span class="number">2886899741243848325873884252302617091514751717162909139186588257257958079130295099942906361136727891394692438504521454612873780003451672796809495226053047</span>, <span class="number">9475112027697464127079619380873273645977046666164164866182205134451664768516062572467782141714310693479352016031210905832129007401065693258638549100340615</span>, <span class="number">6500556077535313473248384729914564751019267303740919343852356539545383313100771434642240039386190890442297569489225045989569513367190888305128046797790102</span>, <span class="number">4352575880916080525863863641402979108455803235156616467981920947190189719209876636528864672410548581564537392488508689158499605332674737341258230577454475</span>, <span class="number">8855806560115120193748486720541724804359134126331550182497194629659837334220708039976726151383523965042432921330088347099157101222325916589506823343303429</span>, <span class="number">2774687136241363374520941544838376461935832170671324174983217598018541119488143069001573950404074015672792681188308412236177101695870429933915439814455887</span>, <span class="number">3592625154014227818614640279472091377202566130067513443394635609406915223429475106920133466069573358784994632708606215548054720669924050172507230811524716</span>, <span class="number">6955167231829680836198358545532458408492109230130585460528670650387346748536700767474985024643177587060440925065292948599577822789464670224006606550191671</span>, <span class="number">9194240450171813716718107852597217121362901491312541712415368806074976814988492806542250961496723482200369134039024809109124268301878344007510329535899615</span>, <span class="number">5950577443108124534632225089717156798651285826327691188035165834526053749015025923590404663092184546183617748745220821771671541995250149683517797527521402</span>, <span class="number">8147536282406177354958293970877926560729452459282692121940762677425779306283487924160782780299072205173184092679363257393333408904258459452274140791704067</span>, <span class="number">2559838851622656651952688025212080768394118716136473174419624432065878751831257138924556995347285973152404103332115858073203707432778426111325160735797721</span>, <span class="number">4949359541993387232537947394033362386729434824378846379892748514319807403496542405321037377319385099259508143211518009425440208974571177165892037150309091</span>, <span class="number">1811673815510905036234500180939767229691774807773077679609856974935852997557959138952513786288094951891092390620085630282790435640054840555430191851155313</span>, <span class="number">4777885082419038381870076531532991228660498200204585112220314790970263737966241042846160101892845251352987027168075888559622541458466624868511496707956221</span>, <span class="number">10238413710887745087366241938666680877364662925315040665408262063559110391570620624035047723405526398382375337996702653261521046541231508963525281969167278</span>, <span class="number">3473340971529025694371400010471019993671985537666177271712164477185774211271764180735799413043127038518985595844132844447764288680922052782557764949946998</span>, <span class="number">867350328105510555601266520733196439839458877892746826352327206388533426010006967907349245075237097927904721917883721235095421696529792601733014134854086</span>, <span class="number">2222551217354471458254572360148123193413834831993026644829243162796014361851880328878269533732240093458365703558737637137958860294765246560791514120259973</span>, <span class="number">11135205396103944017696365595462393888434601100415179875833418713405171505514194213145570969708606144837327906949671055964664374675657263466390592843391795</span>, <span class="number">8522093767526974938129274822063573020978729589640216089964237075835492415426711219243729120235033613444547687888110911207624759350428715822663409802746531</span>, <span class="number">618066223420558653541360712487038985426207412776033652080372792996567809564864490136174039188920973110051946250308952735815050129654446357610891600358247</span>, <span class="number">9409683398358516350960966400164689353665188916574105692687503875332913200043983566205433723664581043184720605266180639045542588369320481456882129188045630</span>, <span class="number">10444912184036485133367095187175276878779180732948191228469107836744786278456394810069942330852023901190983084405589604802372025661121698806608507168815980</span>, <span class="number">5576808818750933483753823503921696491223987341840901931564632327098735945058071342467846031030536056935288275893098409520502499556978787294107531192342888</span>, <span class="number">11386170831130547392066338523237385342399839863674855226178213470159061980868639851406716227763244070078162813390834461297132500087558187715637626334931068</span>, <span class="number">9266567474732845229716988973436914937598698459994255583719094874193822181675544832905800318876640152861212158602258489908050910803591150200525814954449464</span>, <span class="number">783592057196685768383414375510915255040313296240508052297125547577301394194342174502254618660494179262947294784116190346971775913769035176336764690986707</span>, <span class="number">9105502180406569116340185218615179260760299848734930041602247299415927012355894700609320722623370139135122342263713846033304524885782445949914570572453737</span>, <span class="number">2297513067567074587355421795953863750627166311403426281361312466297059134183355298180726594771668216966732975569375780641995446201527865824229865021970151</span>, <span class="number">11188600115372846854366137972585164923834717935898376598627276542371780275188751807941476083838808640337088079259756154889298297211898790479562768420072518</span>, <span class="number">9656534484640562909118084019762167873291009773232637365213178341424207965285682074941363264934464618450896824843786922345950140473512635227211478685645772</span>, <span class="number">9343461413426168572561103655466265435717795505657355206522619014228487030194629865342342831380623629471381377128476731390629039248389925891691539701146309</span>, <span class="number">8681682631345831952913045584970984843073645909076987924890403622460027832467542651987623584349089629585531159664847835287269602153108548311564650707486153</span>, <span class="number">2656022193773767486949157049738671449721427276944394094199310567891807831351152318018854466905531462256724938253289337125816757790150607033652302227218868</span>, <span class="number">8508384570273623974802293014504152838556567399448174508834295467479347400327605230626491770497722014885725768213847610504091563629074470937893415637338996</span>, <span class="number">9716708016762837073052660164394053927821481998442639097920157163041635386583167412600530638659299593644342722890385260143682043966383262553995449944733956</span>, <span class="number">10231440381205182517403356785692369093270060843919065205063057623835967990844569366866607452179015606536153761832574542432676397053147658371344410148994418</span>, <span class="number">5146017765041682548648007957706007143803297597587388958721578537741505373387718545092695689770641249769257901519197825087801304735466239843061128683798476</span>, <span class="number">5222787643951107881679620487297380490422971146509273142662864657570322385794688143091615970726544447887548792995773377472568754141261595697499826832283200</span>, <span class="number">10464709627510729920064247596403868144579001206027850090117534773353171042729174225448975480540265139445689560336303762183734720331072177316589830221880977</span>, <span class="number">8615548684371129329547908465444932886632829509038689025840147771114904826804441395348568994340729561487767929565347408386252378372026787346043297419998538</span>]</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">n = <span class="number">97853623351997296064353255135588846396569970130207954701198599507389250544514082114957455795330569730103385876268186267851194017938003005329258612122178955978821786063623918361705120943030241043571056282806763102278839262572943852578441568495106906583558313075633340995336324665255745279078992160547871869557</span></span><br><span class="line">c = <span class="number">44431449479567561261917922338101462065458737366369232901780150553091038211618354850829522817943842817713545313017593484450672219262670055539455602698182643653128488160901383204333856589371756831501857423631322915113418699087489759910739942878900174507138454184974875778861767989603951090385047953725189919178</span></span><br><span class="line"></span><br><span class="line">N = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">51</span>):</span><br><span class="line">    N.append(a[i+<span class="number">1</span>]*inverse(b[i],n) - a[i]*inverse(b[i+<span class="number">1</span>],n))</span><br><span class="line">X = <span class="number">2</span>**R_bits</span><br><span class="line">m = <span class="built_in">len</span>(N)</span><br><span class="line"></span><br><span class="line">PR = PolynomialRing(ZZ, names=[<span class="built_in">str</span>(<span class="string">&#x27;x%d&#x27;</span> % i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">1</span> + m)])</span><br><span class="line"></span><br><span class="line">h = <span class="number">3</span></span><br><span class="line">u = <span class="number">1</span></span><br><span class="line">variables = PR.gens()</span><br><span class="line"></span><br><span class="line">gg = []</span><br><span class="line">monomials = [variables[<span class="number">0</span>]**<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">    gg.append(N[i] - variables[i])</span><br><span class="line">    monomials.append(variables[i])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(monomials), <span class="built_in">len</span>(gg))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;monomials:&#x27;</span>, monomials)</span><br><span class="line"></span><br><span class="line">B = Matrix(ZZ, <span class="built_in">len</span>(gg), <span class="built_in">len</span>(monomials))</span><br><span class="line"><span class="keyword">for</span> ii <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(gg)):</span><br><span class="line">    <span class="keyword">for</span> jj <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(monomials)):</span><br><span class="line">        <span class="keyword">if</span> monomials[jj] <span class="keyword">in</span> gg[ii].monomials():</span><br><span class="line">            B[ii, jj] = gg[ii].monomial_coefficient(monomials[jj]) * monomials[jj]([X] * m)</span><br><span class="line"></span><br><span class="line">B = B.LLL()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span> * <span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">new_pol = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(gg)):</span><br><span class="line">    tmp_pol = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(monomials)):</span><br><span class="line">        tmp_pol += monomials[j](variables) * B[i, j] / monomials[j]([X] * m)</span><br><span class="line">    new_pol.append(tmp_pol)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(new_pol) &gt; <span class="number">0</span>:</span><br><span class="line">    Ideal = ideal(new_pol[:m-<span class="number">1</span>])</span><br><span class="line">    GB = Ideal.groebner_basis()</span><br><span class="line">    function_variables = var([<span class="built_in">str</span>(<span class="string">&#x27;y%d&#x27;</span> % i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">1</span> + m)])</span><br><span class="line">    res = solve([pol(function_variables) <span class="keyword">for</span> pol <span class="keyword">in</span> GB], function_variables)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;got %d basis&#x27;</span> % <span class="built_in">len</span>(GB))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;solved result:&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(res)</span><br><span class="line">    PRRR.&lt; x, y&gt; = PolynomialRing(QQ)</span><br><span class="line">    q = <span class="built_in">abs</span>(PRRR(res[<span class="number">0</span>][<span class="number">0</span>](x, y)).coefficients()[<span class="number">0</span>].denominator())</span><br><span class="line">    p = N[-<span class="number">1</span>] // q</span><br><span class="line"></span><br><span class="line">p = <span class="built_in">abs</span>(<span class="built_in">int</span>(p))</span><br><span class="line">q = n//p</span><br><span class="line">d = inverse(e,(p-<span class="number">1</span>)*(q-<span class="number">1</span>))</span><br><span class="line">m = <span class="built_in">int</span>(<span class="built_in">pow</span>(c,d,n))</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
+<p>flag:</p>
+<p><strong>flag{755f85c2723bb39381c7379a604160d8}</strong></p>
+<p><br></p>
+<p><br></p>
+<h3 id="平方根排列"><a href="#平方根排列" class="headerlink" title="平方根排列"></a>平方根排列</h3><p>题目来源：暂不明确</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sage.<span class="built_in">all</span> <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line">P = Permutations(<span class="number">256</span>).random_element()</span><br><span class="line"><span class="built_in">print</span>(P**<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>([x^y <span class="keyword">for</span> x,y <span class="keyword">in</span> <span class="built_in">zip</span>(hashlib.sha512(<span class="built_in">str</span>(P).encode()).digest(), <span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>).read())])</span><br></pre></td></tr></table></figure>
+<p>密文txt：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[41, 124, 256, 27, 201, 93, 40, 133, 47, 10, 69, 253, 13, 245, 165, 166, 118, 230, 197, 249, 115, 18, 71, 24, 100, 14, 160, 28, 251, 96, 106, 5, 244, 58, 67, 44, 150, 42, 255, 74, 168, 182, 153, 209, 227, 232, 159, 128, 125, 11, 135, 90, 76, 30, 84, 31, 1, 149, 48, 95, 216, 94, 157, 131, 196, 172, 105, 169, 202, 203, 121, 210, 53, 9, 147, 89, 39, 68, 59, 141, 87, 207, 51, 180, 19, 81, 57, 103, 228, 77, 12, 129, 185, 85, 45, 123, 50, 116, 65, 213, 104, 64, 54, 155, 222, 112, 3, 252, 21, 33, 138, 151, 211, 233, 204, 97, 239, 113, 82, 200, 23, 231, 177, 26, 72, 4, 78, 183, 199, 6, 49, 29, 250, 119, 32, 56, 110, 187, 35, 143, 83, 25, 70, 2, 66, 101, 217, 120, 224, 142, 191, 136, 189, 127, 132, 36, 174, 146, 152, 140, 193, 62, 178, 17, 148, 248, 167, 88, 73, 229, 134, 156, 158, 60, 63, 242, 221, 34, 214, 20, 171, 139, 226, 186, 164, 181, 236, 107, 111, 61, 99, 108, 179, 223, 137, 212, 237, 102, 161, 145, 184, 173, 247, 162, 205, 154, 55, 117, 254, 38, 75, 234, 7, 46, 109, 22, 175, 144, 219, 220, 195, 190, 98, 79, 15, 170, 80, 235, 52, 8, 37, 243, 198, 86, 43, 192, 241, 240, 208, 130, 188, 114, 218, 215, 206, 176, 238, 16, 246, 126, 122, 163, 225, 92, 91, 194]</span><br><span class="line">[18, 188, 48, 47, 100, 234, 225, 8, 187, 34, 124, 113, 118, 252, 137, 196, 125, 20, 251, 168, 167, 5, 225, 134, 66, 203, 26, 148, 63, 181, 213, 124, 170, 234, 35, 120, 47, 69, 157, 69, 194]</span><br></pre></td></tr></table></figure>
+<p>题目非常简短，流程如下：</p>
+<ul>
+<li>将256个元素进行全排列，并随机抽取其中一个排列，记为 P</li>
+<li>打印出该排列的平方</li>
+<li>将该排列 P 的 sha512 值与flag明文相异或，打印出密文</li>
+</ul>
+<p>因此，任务就只有一个：根据排列的平方，还原出该排列，并与密文异或就能还原flag</p>
+<p>有一个概念一定要先理解清楚，排列的平方是什么意思？用代码可以如下表示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C[i] = P[P[i]]</span><br></pre></td></tr></table></figure>
+<p>也就是说，一组排列可以看作是一个置换，那么排列的平方就是进行二重置换。</p>
+<p>那么怎么还原呢，我们用图的方式来理解，图上一个节点指向另一个节点，代表的就是经过一次置换后，该节点置换到指向节点的位置，比如下面这张图就可以表示一个置换：</p>
+<p><strong>(偶数个点的情况)</strong></p>
+<p><img src="/post/cbe57a3e/image-20230926104953693.png" alt="image-20230926104953693"></p>
+<p>这张图代表：0置换到1、1置换到2、…5置换到0，这很好理解</p>
+<p>那么这个置换平方后会是什么样子？很简单，只需要把一个节点指向节点所指向的节点作为新的置换即可，说起来有点绕，还是举个例子：0指向1，1指向2，所以平方后，0指向2，这就很容易明白了。</p>
+<p>所以上面的置换平方后会变成如下形式：</p>
+<p><img src="/post/cbe57a3e/image-20230926105347447.png" alt="image-20230926105347447"></p>
+<p>那么还原的方式就是将两个环并排，然后挨个插入，如下：</p>
+<p><img src="/post/cbe57a3e/image-20230926105546460.png" alt="image-20230926105546460"></p>
+<p>但是显然，由于插入的相对位置不同，这样还原就可能会得到多个不同的初始置换，而他们平方后都是满足要求的。</p>
+<p>上面的例子是偶数个点的情况，想一想奇数个点平方后会如何：</p>
+<p><strong>(奇数个点的情况)</strong></p>
+<p><img src="/post/cbe57a3e/image-20230926105945860.png" alt="image-20230926105945860"></p>
+<p>继续利用<strong>把一个节点指向节点所指向的节点作为新的置换</strong>这一点，可以看出平方后，环并没有裂开，只是交换了位置：</p>
+<p><img src="/post/cbe57a3e/image-20230926110200084.png" alt="image-20230926110200084"></p>
+<p>仔细想想就能明白，这种形式的还原是唯一的，不会有多种情况。</p>
+<p>想清楚置换与图的关系后，回到题目本身来，按如下步骤分析：</p>
+<ol>
+<li><strong>首先就要把平方后的排列先转化为若干个环：</strong></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打印环</span></span><br><span class="line">n = [<span class="number">18</span>, <span class="number">188</span>, <span class="number">48</span>, <span class="number">47</span>, <span class="number">100</span>, <span class="number">234</span>, <span class="number">225</span>, <span class="number">8</span>, <span class="number">187</span>, <span class="number">34</span>, <span class="number">124</span>, <span class="number">113</span>, <span class="number">118</span>, <span class="number">252</span>, <span class="number">137</span>, <span class="number">196</span>, <span class="number">125</span>, <span class="number">20</span>, <span class="number">251</span>, <span class="number">168</span>, <span class="number">167</span>, <span class="number">5</span>, <span class="number">225</span>, <span class="number">134</span>, <span class="number">66</span>, <span class="number">203</span>, <span class="number">26</span>, <span class="number">148</span>, <span class="number">63</span>, <span class="number">181</span>, <span class="number">213</span>, <span class="number">124</span>, <span class="number">170</span>, <span class="number">234</span>, <span class="number">35</span>, <span class="number">120</span>, <span class="number">47</span>, <span class="number">69</span>, <span class="number">157</span>, <span class="number">69</span>, <span class="number">194</span>]</span><br><span class="line"></span><br><span class="line">P2 = [<span class="number">41</span>, <span class="number">124</span>, <span class="number">256</span>, <span class="number">27</span>, <span class="number">201</span>, <span class="number">93</span>, <span class="number">40</span>, <span class="number">133</span>, <span class="number">47</span>, <span class="number">10</span>, <span class="number">69</span>, <span class="number">253</span>, <span class="number">13</span>, <span class="number">245</span>, <span class="number">165</span>, <span class="number">166</span>, <span class="number">118</span>, <span class="number">230</span>, <span class="number">197</span>, <span class="number">249</span>, <span class="number">115</span>, <span class="number">18</span>, <span class="number">71</span>, <span class="number">24</span>, <span class="number">100</span>, <span class="number">14</span>, <span class="number">160</span>, <span class="number">28</span>, <span class="number">251</span>, <span class="number">96</span>, <span class="number">106</span>, <span class="number">5</span>, <span class="number">244</span>, <span class="number">58</span>, <span class="number">67</span>, <span class="number">44</span>, <span class="number">150</span>, <span class="number">42</span>, <span class="number">255</span>, <span class="number">74</span>, <span class="number">168</span>, <span class="number">182</span>, <span class="number">153</span>, <span class="number">209</span>, <span class="number">227</span>, <span class="number">232</span>, <span class="number">159</span>, <span class="number">128</span>, <span class="number">125</span>, <span class="number">11</span>, <span class="number">135</span>, <span class="number">90</span>, <span class="number">76</span>, <span class="number">30</span>, <span class="number">84</span>, <span class="number">31</span>, <span class="number">1</span>, <span class="number">149</span>, <span class="number">48</span>, <span class="number">95</span>, <span class="number">216</span>, <span class="number">94</span>, <span class="number">157</span>, <span class="number">131</span>, <span class="number">196</span>, <span class="number">172</span>, <span class="number">105</span>, <span class="number">169</span>, <span class="number">202</span>, <span class="number">203</span>, <span class="number">121</span>, <span class="number">210</span>, <span class="number">53</span>, <span class="number">9</span>, <span class="number">147</span>, <span class="number">89</span>, <span class="number">39</span>, <span class="number">68</span>, <span class="number">59</span>, <span class="number">141</span>, <span class="number">87</span>, <span class="number">207</span>, <span class="number">51</span>, <span class="number">180</span>, <span class="number">19</span>, <span class="number">81</span>, <span class="number">57</span>, <span class="number">103</span>, <span class="number">228</span>, <span class="number">77</span>, <span class="number">12</span>, <span class="number">129</span>, <span class="number">185</span>, <span class="number">85</span>, <span class="number">45</span>, <span class="number">123</span>, <span class="number">50</span>, <span class="number">116</span>, <span class="number">65</span>, <span class="number">213</span>, <span class="number">104</span>, <span class="number">64</span>, <span class="number">54</span>, <span class="number">155</span>, <span class="number">222</span>, <span class="number">112</span>, <span class="number">3</span>, <span class="number">252</span>, <span class="number">21</span>, <span class="number">33</span>, <span class="number">138</span>, <span class="number">151</span>, <span class="number">211</span>, <span class="number">233</span>, <span class="number">204</span>, <span class="number">97</span>, <span class="number">239</span>, <span class="number">113</span>, <span class="number">82</span>, <span class="number">200</span>, <span class="number">23</span>, <span class="number">231</span>, <span class="number">177</span>, <span class="number">26</span>, <span class="number">72</span>, <span class="number">4</span>, <span class="number">78</span>, <span class="number">183</span>, <span class="number">199</span>, <span class="number">6</span>, <span class="number">49</span>, <span class="number">29</span>, <span class="number">250</span>, <span class="number">119</span>, <span class="number">32</span>, <span class="number">56</span>, <span class="number">110</span>, <span class="number">187</span>, <span class="number">35</span>, <span class="number">143</span>, <span class="number">83</span>, <span class="number">25</span>, <span class="number">70</span>, <span class="number">2</span>, <span class="number">66</span>, <span class="number">101</span>, <span class="number">217</span>, <span class="number">120</span>, <span class="number">224</span>, <span class="number">142</span>, <span class="number">191</span>, <span class="number">136</span>, <span class="number">189</span>, <span class="number">127</span>, <span class="number">132</span>, <span class="number">36</span>, <span class="number">174</span>, <span class="number">146</span>, <span class="number">152</span>, <span class="number">140</span>, <span class="number">193</span>, <span class="number">62</span>, <span class="number">178</span>, <span class="number">17</span>, <span class="number">148</span>, <span class="number">248</span>, <span class="number">167</span>, <span class="number">88</span>, <span class="number">73</span>, <span class="number">229</span>, <span class="number">134</span>, <span class="number">156</span>, <span class="number">158</span>, <span class="number">60</span>, <span class="number">63</span>, <span class="number">242</span>, <span class="number">221</span>, <span class="number">34</span>, <span class="number">214</span>, <span class="number">20</span>, <span class="number">171</span>, <span class="number">139</span>, <span class="number">226</span>, <span class="number">186</span>, <span class="number">164</span>, <span class="number">181</span>, <span class="number">236</span>, <span class="number">107</span>, <span class="number">111</span>, <span class="number">61</span>, <span class="number">99</span>, <span class="number">108</span>, <span class="number">179</span>, <span class="number">223</span>, <span class="number">137</span>, <span class="number">212</span>, <span class="number">237</span>, <span class="number">102</span>, <span class="number">161</span>, <span class="number">145</span>, <span class="number">184</span>, <span class="number">173</span>, <span class="number">247</span>, <span class="number">162</span>, <span class="number">205</span>, <span class="number">154</span>, <span class="number">55</span>, <span class="number">117</span>, <span class="number">254</span>, <span class="number">38</span>, <span class="number">75</span>, <span class="number">234</span>, <span class="number">7</span>, <span class="number">46</span>, <span class="number">109</span>, <span class="number">22</span>, <span class="number">175</span>, <span class="number">144</span>, <span class="number">219</span>, <span class="number">220</span>, <span class="number">195</span>, <span class="number">190</span>, <span class="number">98</span>, <span class="number">79</span>, <span class="number">15</span>, <span class="number">170</span>, <span class="number">80</span>, <span class="number">235</span>, <span class="number">52</span>, <span class="number">8</span>, <span class="number">37</span>, <span class="number">243</span>, <span class="number">198</span>, <span class="number">86</span>, <span class="number">43</span>, <span class="number">192</span>, <span class="number">241</span>, <span class="number">240</span>, <span class="number">208</span>, <span class="number">130</span>, <span class="number">188</span>, <span class="number">114</span>, <span class="number">218</span>, <span class="number">215</span>, <span class="number">206</span>, <span class="number">176</span>, <span class="number">238</span>, <span class="number">16</span>, <span class="number">246</span>, <span class="number">126</span>, <span class="number">122</span>, <span class="number">163</span>, <span class="number">225</span>, <span class="number">92</span>, <span class="number">91</span>, <span class="number">194</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(P2)):</span><br><span class="line">    P2[i] -= <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(P2[<span class="number">204</span>])</span><br><span class="line">lenlist = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(P2)):</span><br><span class="line">    <span class="built_in">len</span> = <span class="number">1</span></span><br><span class="line">    t = <span class="number">0</span></span><br><span class="line">    loc = P2[i]</span><br><span class="line">    chain = [loc]</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">        t = P2[loc]</span><br><span class="line">        loc = t</span><br><span class="line">        chain.append(loc)</span><br><span class="line">        <span class="built_in">len</span> += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(t == i):</span><br><span class="line">            <span class="comment">#print(i,&quot;,&quot;,len)</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">len</span> == <span class="number">2</span>):</span><br><span class="line">                <span class="built_in">print</span>(chain)</span><br><span class="line">                <span class="built_in">print</span>(i+<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"><span class="comment">#print(lenlist.count(2))</span></span><br><span class="line"><span class="comment">#2*82 + 75 + 3*3 + 1*8</span></span><br></pre></td></tr></table></figure>
+<p>可以发现，平方后的置换可以拆分为 ：</p>
+<ul>
+<li>2个长为 82 的环</li>
+<li>1个长为75的环</li>
+<li>3个长为3的环</li>
+<li>8个单元环</li>
+</ul>
+<p><br></p>
+<ol>
+<li><strong>接下来就是分析如何还原：</strong></li>
+</ol>
+<ul>
+<li>对于长为 82 的环，他一定是长为 164 的环拆分而成</li>
+<li>长为 75 的环一定是本身长就为 75 的环</li>
+<li>3个长为3的环，可能本身就是 3 个长为 3 的环；也可能本身是一个长为 3 的环加上一个长为 6 的环拆分而成</li>
+<li>8个单元环，可能本身就是 8 个单元环，也可能是 1-4 个 2 元环加上剩下的单元环</li>
+</ul>
+<p>因此，要考虑上述的所有可能情况，求出所有符合要求的排列，并与密文异或做爆破。按理来说，一般爆破需要的是flag头，但是由于我并不知道flag头是什么(别的师傅问的)，所以采用全为可见字符来爆破。</p>
+<p>复杂度经计算应该是 ：(对哪一部分复杂度不清楚可以问我) </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">82*1*4*C(8,2)*C(6,2)*C(4,2)*16</span><br></pre></td></tr></table></figure>
+<p>约为一千多万，大概跑五分钟左右可以全部完成。</p>
+<p>exp.py：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> combinations</span><br><span class="line"></span><br><span class="line"><span class="comment">#打印环</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">n = [18, 188, 48, 47, 100, 234, 225, 8, 187, 34, 124, 113, 118, 252, 137, 196, 125, 20, 251, 168, 167, 5, 225, 134, 66, 203, 26, 148, 63, 181, 213, 124, 170, 234, 35, 120, 47, 69, 157, 69, 194]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">P2 = [41, 124, 256, 27, 201, 93, 40, 133, 47, 10, 69, 253, 13, 245, 165, 166, 118, 230, 197, 249, 115, 18, 71, 24, 100, 14, 160, 28, 251, 96, 106, 5, 244, 58, 67, 44, 150, 42, 255, 74, 168, 182, 153, 209, 227, 232, 159, 128, 125, 11, 135, 90, 76, 30, 84, 31, 1, 149, 48, 95, 216, 94, 157, 131, 196, 172, 105, 169, 202, 203, 121, 210, 53, 9, 147, 89, 39, 68, 59, 141, 87, 207, 51, 180, 19, 81, 57, 103, 228, 77, 12, 129, 185, 85, 45, 123, 50, 116, 65, 213, 104, 64, 54, 155, 222, 112, 3, 252, 21, 33, 138, 151, 211, 233, 204, 97, 239, 113, 82, 200, 23, 231, 177, 26, 72, 4, 78, 183, 199, 6, 49, 29, 250, 119, 32, 56, 110, 187, 35, 143, 83, 25, 70, 2, 66, 101, 217, 120, 224, 142, 191, 136, 189, 127, 132, 36, 174, 146, 152, 140, 193, 62, 178, 17, 148, 248, 167, 88, 73, 229, 134, 156, 158, 60, 63, 242, 221, 34, 214, 20, 171, 139, 226, 186, 164, 181, 236, 107, 111, 61, 99, 108, 179, 223, 137, 212, 237, 102, 161, 145, 184, 173, 247, 162, 205, 154, 55, 117, 254, 38, 75, 234, 7, 46, 109, 22, 175, 144, 219, 220, 195, 190, 98, 79, 15, 170, 80, 235, 52, 8, 37, 243, 198, 86, 43, 192, 241, 240, 208, 130, 188, 114, 218, 215, 206, 176, 238, 16, 246, 126, 122, 163, 225, 92, 91, 194]</span></span><br><span class="line"><span class="string">for i in range(len(P2)):</span></span><br><span class="line"><span class="string">    P2[i] -= 1</span></span><br><span class="line"><span class="string">print(P2[204])</span></span><br><span class="line"><span class="string">lenlist = []</span></span><br><span class="line"><span class="string">for i in range(len(P2)):</span></span><br><span class="line"><span class="string">    len = 1</span></span><br><span class="line"><span class="string">    t = 0</span></span><br><span class="line"><span class="string">    loc = P2[i]</span></span><br><span class="line"><span class="string">    chain = [loc]</span></span><br><span class="line"><span class="string">    while(1):</span></span><br><span class="line"><span class="string">        t = P2[loc]</span></span><br><span class="line"><span class="string">        loc = t</span></span><br><span class="line"><span class="string">        chain.append(loc)</span></span><br><span class="line"><span class="string">        len += 1</span></span><br><span class="line"><span class="string">        if(t == i):</span></span><br><span class="line"><span class="string">            #print(i,&quot;,&quot;,len)</span></span><br><span class="line"><span class="string">            if(len == 2):</span></span><br><span class="line"><span class="string">                print(chain)</span></span><br><span class="line"><span class="string">                print(i+1)</span></span><br><span class="line"><span class="string">            break</span></span><br><span class="line"><span class="string">#print(lenlist.count(2))</span></span><br><span class="line"><span class="string">#2*82 + 75 + 3*3 + 1*8</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#验证函数</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        tt = [0 for k in range(256)]</span></span><br><span class="line"><span class="string">        for k in range(256):</span></span><br><span class="line"><span class="string">            tt[k] = P[P[k]] + 1</span></span><br><span class="line"><span class="string">        for k in range(256):</span></span><br><span class="line"><span class="string">            if(tt[k]!= c[k]):</span></span><br><span class="line"><span class="string">                print(k)</span></span><br><span class="line"><span class="string">        exit()</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">chain1 = [<span class="number">9</span>,<span class="number">12</span>,<span class="number">23</span>,<span class="number">27</span>,<span class="number">166</span>,<span class="number">204</span>,<span class="number">218</span>,<span class="number">219</span>]</span><br><span class="line">group_size = <span class="number">2</span></span><br><span class="line">num_groups = <span class="number">4</span></span><br><span class="line">all_groupings = <span class="built_in">list</span>(combinations(chain1, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_groupings</span>(<span class="params">chain1, group_size, num_groups</span>):</span><br><span class="line">    <span class="keyword">if</span> num_groups == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">yield</span> [chain1]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">for</span> combo <span class="keyword">in</span> combinations(chain1, group_size):</span><br><span class="line">            remaining_chain1 = [e <span class="keyword">for</span> e <span class="keyword">in</span> chain1 <span class="keyword">if</span> e <span class="keyword">not</span> <span class="keyword">in</span> combo]</span><br><span class="line">            <span class="keyword">for</span> rest_grouping <span class="keyword">in</span> generate_groupings(remaining_chain1, group_size, num_groups - <span class="number">1</span>):</span><br><span class="line">                <span class="keyword">yield</span> [<span class="built_in">list</span>(combo)] + rest_grouping</span><br><span class="line"></span><br><span class="line">chain1r = <span class="built_in">list</span>(generate_groupings(chain1, group_size, num_groups))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">n = [<span class="number">18</span>, <span class="number">188</span>, <span class="number">48</span>, <span class="number">47</span>, <span class="number">100</span>, <span class="number">234</span>, <span class="number">225</span>, <span class="number">8</span>, <span class="number">187</span>, <span class="number">34</span>, <span class="number">124</span>, <span class="number">113</span>, <span class="number">118</span>, <span class="number">252</span>, <span class="number">137</span>, <span class="number">196</span>, <span class="number">125</span>, <span class="number">20</span>, <span class="number">251</span>, <span class="number">168</span>, <span class="number">167</span>, <span class="number">5</span>, <span class="number">225</span>, <span class="number">134</span>, <span class="number">66</span>, <span class="number">203</span>, <span class="number">26</span>, <span class="number">148</span>, <span class="number">63</span>, <span class="number">181</span>, <span class="number">213</span>, <span class="number">124</span>, <span class="number">170</span>, <span class="number">234</span>, <span class="number">35</span>, <span class="number">120</span>, <span class="number">47</span>, <span class="number">69</span>, <span class="number">157</span>, <span class="number">69</span>, <span class="number">194</span>]</span><br><span class="line">c = [<span class="number">41</span>, <span class="number">124</span>, <span class="number">256</span>, <span class="number">27</span>, <span class="number">201</span>, <span class="number">93</span>, <span class="number">40</span>, <span class="number">133</span>, <span class="number">47</span>, <span class="number">10</span>, <span class="number">69</span>, <span class="number">253</span>, <span class="number">13</span>, <span class="number">245</span>, <span class="number">165</span>, <span class="number">166</span>, <span class="number">118</span>, <span class="number">230</span>, <span class="number">197</span>, <span class="number">249</span>, <span class="number">115</span>, <span class="number">18</span>, <span class="number">71</span>, <span class="number">24</span>, <span class="number">100</span>, <span class="number">14</span>, <span class="number">160</span>, <span class="number">28</span>, <span class="number">251</span>, <span class="number">96</span>, <span class="number">106</span>, <span class="number">5</span>, <span class="number">244</span>, <span class="number">58</span>, <span class="number">67</span>, <span class="number">44</span>, <span class="number">150</span>, <span class="number">42</span>, <span class="number">255</span>, <span class="number">74</span>, <span class="number">168</span>, <span class="number">182</span>, <span class="number">153</span>, <span class="number">209</span>, <span class="number">227</span>, <span class="number">232</span>, <span class="number">159</span>, <span class="number">128</span>, <span class="number">125</span>, <span class="number">11</span>, <span class="number">135</span>, <span class="number">90</span>, <span class="number">76</span>, <span class="number">30</span>, <span class="number">84</span>, <span class="number">31</span>, <span class="number">1</span>, <span class="number">149</span>, <span class="number">48</span>, <span class="number">95</span>, <span class="number">216</span>, <span class="number">94</span>, <span class="number">157</span>, <span class="number">131</span>, <span class="number">196</span>, <span class="number">172</span>, <span class="number">105</span>, <span class="number">169</span>, <span class="number">202</span>, <span class="number">203</span>, <span class="number">121</span>, <span class="number">210</span>, <span class="number">53</span>, <span class="number">9</span>, <span class="number">147</span>, <span class="number">89</span>, <span class="number">39</span>, <span class="number">68</span>, <span class="number">59</span>, <span class="number">141</span>, <span class="number">87</span>, <span class="number">207</span>, <span class="number">51</span>, <span class="number">180</span>, <span class="number">19</span>, <span class="number">81</span>, <span class="number">57</span>, <span class="number">103</span>, <span class="number">228</span>, <span class="number">77</span>, <span class="number">12</span>, <span class="number">129</span>, <span class="number">185</span>, <span class="number">85</span>, <span class="number">45</span>, <span class="number">123</span>, <span class="number">50</span>, <span class="number">116</span>, <span class="number">65</span>, <span class="number">213</span>, <span class="number">104</span>, <span class="number">64</span>, <span class="number">54</span>, <span class="number">155</span>, <span class="number">222</span>, <span class="number">112</span>, <span class="number">3</span>, <span class="number">252</span>, <span class="number">21</span>, <span class="number">33</span>, <span class="number">138</span>, <span class="number">151</span>, <span class="number">211</span>, <span class="number">233</span>, <span class="number">204</span>, <span class="number">97</span>, <span class="number">239</span>, <span class="number">113</span>, <span class="number">82</span>, <span class="number">200</span>, <span class="number">23</span>, <span class="number">231</span>, <span class="number">177</span>, <span class="number">26</span>, <span class="number">72</span>, <span class="number">4</span>, <span class="number">78</span>, <span class="number">183</span>, <span class="number">199</span>, <span class="number">6</span>, <span class="number">49</span>, <span class="number">29</span>, <span class="number">250</span>, <span class="number">119</span>, <span class="number">32</span>, <span class="number">56</span>, <span class="number">110</span>, <span class="number">187</span>, <span class="number">35</span>, <span class="number">143</span>, <span class="number">83</span>, <span class="number">25</span>, <span class="number">70</span>, <span class="number">2</span>, <span class="number">66</span>, <span class="number">101</span>, <span class="number">217</span>, <span class="number">120</span>, <span class="number">224</span>, <span class="number">142</span>, <span class="number">191</span>, <span class="number">136</span>, <span class="number">189</span>, <span class="number">127</span>, <span class="number">132</span>, <span class="number">36</span>, <span class="number">174</span>, <span class="number">146</span>, <span class="number">152</span>, <span class="number">140</span>, <span class="number">193</span>, <span class="number">62</span>, <span class="number">178</span>, <span class="number">17</span>, <span class="number">148</span>, <span class="number">248</span>, <span class="number">167</span>, <span class="number">88</span>, <span class="number">73</span>, <span class="number">229</span>, <span class="number">134</span>, <span class="number">156</span>, <span class="number">158</span>, <span class="number">60</span>, <span class="number">63</span>, <span class="number">242</span>, <span class="number">221</span>, <span class="number">34</span>, <span class="number">214</span>, <span class="number">20</span>, <span class="number">171</span>, <span class="number">139</span>, <span class="number">226</span>, <span class="number">186</span>, <span class="number">164</span>, <span class="number">181</span>, <span class="number">236</span>, <span class="number">107</span>, <span class="number">111</span>, <span class="number">61</span>, <span class="number">99</span>, <span class="number">108</span>, <span class="number">179</span>, <span class="number">223</span>, <span class="number">137</span>, <span class="number">212</span>, <span class="number">237</span>, <span class="number">102</span>, <span class="number">161</span>, <span class="number">145</span>, <span class="number">184</span>, <span class="number">173</span>, <span class="number">247</span>, <span class="number">162</span>, <span class="number">205</span>, <span class="number">154</span>, <span class="number">55</span>, <span class="number">117</span>, <span class="number">254</span>, <span class="number">38</span>, <span class="number">75</span>, <span class="number">234</span>, <span class="number">7</span>, <span class="number">46</span>, <span class="number">109</span>, <span class="number">22</span>, <span class="number">175</span>, <span class="number">144</span>, <span class="number">219</span>, <span class="number">220</span>, <span class="number">195</span>, <span class="number">190</span>, <span class="number">98</span>, <span class="number">79</span>, <span class="number">15</span>, <span class="number">170</span>, <span class="number">80</span>, <span class="number">235</span>, <span class="number">52</span>, <span class="number">8</span>, <span class="number">37</span>, <span class="number">243</span>, <span class="number">198</span>, <span class="number">86</span>, <span class="number">43</span>, <span class="number">192</span>, <span class="number">241</span>, <span class="number">240</span>, <span class="number">208</span>, <span class="number">130</span>, <span class="number">188</span>, <span class="number">114</span>, <span class="number">218</span>, <span class="number">215</span>, <span class="number">206</span>, <span class="number">176</span>, <span class="number">238</span>, <span class="number">16</span>, <span class="number">246</span>, <span class="number">126</span>, <span class="number">122</span>, <span class="number">163</span>, <span class="number">225</span>, <span class="number">92</span>, <span class="number">91</span>, <span class="number">194</span>]</span><br><span class="line"></span><br><span class="line">chain821 = [<span class="number">193</span>, <span class="number">222</span>, <span class="number">97</span>, <span class="number">115</span>, <span class="number">96</span>, <span class="number">49</span>, <span class="number">10</span>, <span class="number">68</span>, <span class="number">201</span>, <span class="number">172</span>, <span class="number">157</span>, <span class="number">145</span>, <span class="number">100</span>, <span class="number">103</span>, <span class="number">154</span>, <span class="number">131</span>, <span class="number">28</span>, <span class="number">250</span>, <span class="number">121</span>, <span class="number">230</span>, <span class="number">36</span>, <span class="number">149</span>, <span class="number">141</span>, <span class="number">24</span>, <span class="number">99</span>, <span class="number">212</span>, <span class="number">6</span>, <span class="number">39</span>, <span class="number">73</span>, <span class="number">8</span>, <span class="number">46</span>, <span class="number">158</span>, <span class="number">151</span>, <span class="number">135</span>, <span class="number">55</span>, <span class="number">30</span>, <span class="number">105</span>, <span class="number">111</span>, <span class="number">150</span>, <span class="number">190</span>, <span class="number">98</span>, <span class="number">64</span>, <span class="number">195</span>, <span class="number">211</span>, <span class="number">233</span>, <span class="number">85</span>, <span class="number">80</span>, <span class="number">86</span>, <span class="number">56</span>, <span class="number">0</span>, <span class="number">40</span>, <span class="number">167</span>, <span class="number">87</span>, <span class="number">102</span>, <span class="number">53</span>, <span class="number">29</span>, <span class="number">95</span>, <span class="number">122</span>, <span class="number">176</span>, <span class="number">220</span>, <span class="number">194</span>, <span class="number">136</span>, <span class="number">109</span>, <span class="number">32</span>, <span class="number">243</span>, <span class="number">214</span>, <span class="number">108</span>, <span class="number">20</span>, <span class="number">114</span>, <span class="number">203</span>, <span class="number">161</span>, <span class="number">61</span>, <span class="number">93</span>, <span class="number">84</span>, <span class="number">18</span>, <span class="number">196</span>, <span class="number">236</span>, <span class="number">240</span>, <span class="number">187</span>, <span class="number">106</span>, <span class="number">2</span>, <span class="number">255</span>]</span><br><span class="line">chain822 = [<span class="number">125</span>, <span class="number">3</span>, <span class="number">26</span>, <span class="number">159</span>, <span class="number">139</span>, <span class="number">142</span>, <span class="number">69</span>, <span class="number">202</span>, <span class="number">246</span>, <span class="number">237</span>, <span class="number">239</span>, <span class="number">129</span>, <span class="number">5</span>, <span class="number">92</span>, <span class="number">184</span>, <span class="number">163</span>, <span class="number">16</span>, <span class="number">117</span>, <span class="number">112</span>, <span class="number">210</span>, <span class="number">74</span>, <span class="number">146</span>, <span class="number">216</span>, <span class="number">174</span>, <span class="number">62</span>, <span class="number">156</span>, <span class="number">173</span>, <span class="number">59</span>, <span class="number">94</span>, <span class="number">44</span>, <span class="number">226</span>, <span class="number">79</span>, <span class="number">140</span>, <span class="number">82</span>, <span class="number">50</span>, <span class="number">134</span>, <span class="number">31</span>, <span class="number">4</span>, <span class="number">200</span>, <span class="number">183</span>, <span class="number">185</span>, <span class="number">180</span>, <span class="number">170</span>, <span class="number">133</span>, <span class="number">118</span>, <span class="number">81</span>, <span class="number">206</span>, <span class="number">54</span>, <span class="number">83</span>, <span class="number">179</span>, <span class="number">19</span>, <span class="number">248</span>, <span class="number">245</span>, <span class="number">175</span>, <span class="number">241</span>, <span class="number">113</span>, <span class="number">232</span>, <span class="number">197</span>, <span class="number">101</span>, <span class="number">63</span>, <span class="number">130</span>, <span class="number">48</span>, <span class="number">124</span>, <span class="number">71</span>, <span class="number">209</span>, <span class="number">37</span>, <span class="number">41</span>, <span class="number">181</span>, <span class="number">138</span>, <span class="number">34</span>, <span class="number">66</span>, <span class="number">104</span>, <span class="number">221</span>, <span class="number">189</span>, <span class="number">60</span>, <span class="number">215</span>, <span class="number">21</span>, <span class="number">17</span>, <span class="number">229</span>, <span class="number">7</span>, <span class="number">132</span>, <span class="number">249</span>]</span><br><span class="line">chain75 = [<span class="number">90</span>, <span class="number">11</span>, <span class="number">252</span>, <span class="number">224</span>, <span class="number">14</span>, <span class="number">164</span>, <span class="number">147</span>, <span class="number">119</span>, <span class="number">199</span>, <span class="number">144</span>, <span class="number">65</span>, <span class="number">171</span>, <span class="number">155</span>, <span class="number">35</span>, <span class="number">43</span>, <span class="number">208</span>, <span class="number">253</span>, <span class="number">91</span>, <span class="number">128</span>, <span class="number">198</span>, <span class="number">160</span>, <span class="number">192</span>, <span class="number">178</span>, <span class="number">213</span>, <span class="number">45</span>, <span class="number">231</span>, <span class="number">242</span>, <span class="number">217</span>, <span class="number">143</span>, <span class="number">1</span>, <span class="number">123</span>, <span class="number">25</span>, <span class="number">13</span>, <span class="number">244</span>, <span class="number">205</span>, <span class="number">153</span>, <span class="number">126</span>, <span class="number">77</span>, <span class="number">67</span>, <span class="number">168</span>, <span class="number">72</span>, <span class="number">52</span>, <span class="number">75</span>, <span class="number">88</span>, <span class="number">227</span>, <span class="number">234</span>, <span class="number">42</span>, <span class="number">152</span>, <span class="number">188</span>, <span class="number">110</span>, <span class="number">137</span>, <span class="number">186</span>, <span class="number">235</span>, <span class="number">191</span>, <span class="number">107</span>, <span class="number">251</span>, <span class="number">162</span>, <span class="number">177</span>, <span class="number">33</span>, <span class="number">57</span>, <span class="number">148</span>, <span class="number">223</span>, <span class="number">78</span>, <span class="number">58</span>, <span class="number">47</span>, <span class="number">127</span>, <span class="number">182</span>, <span class="number">225</span>, <span class="number">169</span>, <span class="number">228</span>, <span class="number">51</span>, <span class="number">89</span>, <span class="number">76</span>, <span class="number">38</span>, <span class="number">254</span>]</span><br><span class="line">chain31 = [<span class="number">15</span>, <span class="number">165</span>, <span class="number">247</span>]</span><br><span class="line">chain32 = [<span class="number">207</span>, <span class="number">116</span>, <span class="number">238</span>]</span><br><span class="line">chain33 = [<span class="number">120</span>, <span class="number">22</span>, <span class="number">70</span>]</span><br><span class="line">chain1 = [<span class="number">9</span>,<span class="number">12</span>,<span class="number">23</span>,<span class="number">27</span>,<span class="number">166</span>,<span class="number">204</span>,<span class="number">218</span>,<span class="number">219</span>]</span><br><span class="line"></span><br><span class="line">locdic = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#处理chain3(四种情况)</span></span><br><span class="line"><span class="comment">#情况1：3个三环</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    chain31r = [<span class="number">15</span>, <span class="number">247</span>, <span class="number">165</span>]</span><br><span class="line">    chain32r = [<span class="number">207</span>, <span class="number">238</span>, <span class="number">116</span>]</span><br><span class="line">    chain33r = [<span class="number">120</span>, <span class="number">70</span>, <span class="number">22</span>]</span><br><span class="line">    <span class="comment">#添加入位置字典</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        locdic[chain31r[i]] = chain31r[(i+<span class="number">1</span>)%<span class="number">3</span>]</span><br><span class="line">        locdic[chain32r[i]] = chain32r[(i+<span class="number">1</span>)%<span class="number">3</span>]</span><br><span class="line">        locdic[chain33r[i]] = chain33r[(i+<span class="number">1</span>)%<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#情况2:1个三环,1个六环</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">1</span>):</span><br><span class="line">    chain31r = [<span class="number">15</span>, <span class="number">247</span>, <span class="number">165</span>]</span><br><span class="line">    chain6r = [<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>)]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">        <span class="keyword">if</span>(j % <span class="number">2</span> == <span class="number">0</span>):</span><br><span class="line">            chain6r[j] = chain32[j//<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            chain6r[j] = chain33[(j//<span class="number">2</span> + <span class="number">0</span>) % <span class="number">6</span>] </span><br><span class="line">    <span class="comment">#添加入位置字典</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        locdic[chain31r[i]] = chain31r[(i+<span class="number">1</span>)%<span class="number">3</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">        locdic[chain6r[i]] = chain6r[(i+<span class="number">1</span>)%<span class="number">6</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    chain32r = [<span class="number">120</span>, <span class="number">70</span>, <span class="number">22</span>]</span><br><span class="line">    chain6r = [<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>)]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">        <span class="keyword">if</span>(j % <span class="number">2</span> == <span class="number">0</span>):</span><br><span class="line">            chain6r[j] = chain31[j//<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            chain6r[j] = chain33[(j//<span class="number">2</span> + <span class="number">0</span>) % <span class="number">6</span>] </span><br><span class="line">    <span class="comment">#添加入位置字典</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        locdic[chain32r[i]] = chain32r[(i+<span class="number">1</span>)%<span class="number">3</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">        locdic[chain6r[i]] = chain6r[(i+<span class="number">1</span>)%<span class="number">6</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    chain33r = [<span class="number">120</span>, <span class="number">70</span>, <span class="number">22</span>]</span><br><span class="line">    chain6r = [<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>)]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">        <span class="keyword">if</span>(j % <span class="number">2</span> == <span class="number">0</span>):</span><br><span class="line">            chain6r[j] = chain31[j//<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            chain6r[j] = chain32[(j//<span class="number">2</span> + <span class="number">0</span>) % <span class="number">6</span>] </span><br><span class="line">    <span class="comment">#添加入位置字典</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        locdic[chain33r[i]] = chain33r[(i+<span class="number">1</span>)%<span class="number">3</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">        locdic[chain6r[i]] = chain6r[(i+<span class="number">1</span>)%<span class="number">6</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#处理chain75(确定)</span></span><br><span class="line">chain75r = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">75</span>)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">75</span>):</span><br><span class="line">    chain75r[<span class="number">2</span>*i%<span class="number">75</span>] = chain75[i]</span><br><span class="line"><span class="comment">#添加入位置字典</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">75</span>):</span><br><span class="line">    locdic[chain75r[i]] = chain75r[(i+<span class="number">1</span>)%<span class="number">75</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#嗯造剩下两种环的组合</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">82</span>):</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="comment">#造一个副本</span></span><br><span class="line">    locdic1 = locdic</span><br><span class="line">    chain164r = [<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">164</span>)]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">164</span>):</span><br><span class="line">        <span class="keyword">if</span>(j % <span class="number">2</span> == <span class="number">0</span>):</span><br><span class="line">            chain164r[j] = chain821[j//<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            chain164r[j] = chain822[(j//<span class="number">2</span> + i) % <span class="number">82</span>] </span><br><span class="line">    <span class="comment">#添加入位置字典</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">164</span>):</span><br><span class="line">        locdic1[chain164r[i]] = chain164r[(i+<span class="number">1</span>)%<span class="number">164</span>]</span><br><span class="line">      </span><br><span class="line">    <span class="comment">#4个二元环（包含单环情况）</span></span><br><span class="line">    <span class="keyword">for</span> mm <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>):</span><br><span class="line">        ttt = <span class="built_in">bin</span>(mm)[<span class="number">2</span>:].zfill(<span class="number">4</span>)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(chain1r)):</span><br><span class="line">            locdic2 = locdic1</span><br><span class="line">            <span class="keyword">if</span>(ttt[<span class="number">0</span>] == <span class="string">&quot;1&quot;</span>):</span><br><span class="line">                locdic2[chain1r[j][<span class="number">0</span>][<span class="number">0</span>]] = chain1r[j][<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">                locdic2[chain1r[j][<span class="number">0</span>][<span class="number">1</span>]] = chain1r[j][<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                locdic2[chain1r[j][<span class="number">0</span>][<span class="number">0</span>]] = chain1r[j][<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">                locdic2[chain1r[j][<span class="number">0</span>][<span class="number">1</span>]] = chain1r[j][<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span>(ttt[<span class="number">1</span>] == <span class="string">&quot;1&quot;</span>):</span><br><span class="line">                locdic2[chain1r[j][<span class="number">1</span>][<span class="number">0</span>]] = chain1r[j][<span class="number">1</span>][<span class="number">1</span>]</span><br><span class="line">                locdic2[chain1r[j][<span class="number">1</span>][<span class="number">1</span>]] = chain1r[j][<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                locdic2[chain1r[j][<span class="number">1</span>][<span class="number">0</span>]] = chain1r[j][<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">                locdic2[chain1r[j][<span class="number">1</span>][<span class="number">1</span>]] = chain1r[j][<span class="number">1</span>][<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span>(ttt[<span class="number">2</span>] == <span class="string">&quot;1&quot;</span>):</span><br><span class="line">                locdic2[chain1r[j][<span class="number">2</span>][<span class="number">0</span>]] = chain1r[j][<span class="number">2</span>][<span class="number">1</span>]</span><br><span class="line">                locdic2[chain1r[j][<span class="number">2</span>][<span class="number">1</span>]] = chain1r[j][<span class="number">2</span>][<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                locdic2[chain1r[j][<span class="number">2</span>][<span class="number">0</span>]] = chain1r[j][<span class="number">2</span>][<span class="number">0</span>]</span><br><span class="line">                locdic2[chain1r[j][<span class="number">2</span>][<span class="number">1</span>]] = chain1r[j][<span class="number">2</span>][<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span>(ttt[<span class="number">3</span>] == <span class="string">&quot;1&quot;</span>):</span><br><span class="line">                locdic2[chain1r[j][<span class="number">3</span>][<span class="number">0</span>]] = chain1r[j][<span class="number">3</span>][<span class="number">1</span>]</span><br><span class="line">                locdic2[chain1r[j][<span class="number">3</span>][<span class="number">1</span>]] = chain1r[j][<span class="number">3</span>][<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                locdic2[chain1r[j][<span class="number">3</span>][<span class="number">0</span>]] = chain1r[j][<span class="number">3</span>][<span class="number">0</span>]</span><br><span class="line">                locdic2[chain1r[j][<span class="number">3</span>][<span class="number">1</span>]] = chain1r[j][<span class="number">3</span>][<span class="number">1</span>]</span><br><span class="line">            P = [locdic2[j]+<span class="number">1</span> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>)]</span><br><span class="line">            </span><br><span class="line">            t = <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="keyword">for</span> x,y <span class="keyword">in</span> <span class="built_in">zip</span>(hashlib.sha512(<span class="built_in">str</span>(P).encode()).digest(), n):</span><br><span class="line">                <span class="keyword">if</span>((x^y)&gt;=<span class="number">32</span> <span class="keyword">and</span> (x^y)&lt;=<span class="number">127</span>):</span><br><span class="line">                    t+=<span class="built_in">chr</span>(x^y)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">len</span>(t) &gt; <span class="number">10</span>):</span><br><span class="line">                <span class="built_in">print</span>(t)</span><br><span class="line">                exit()</span><br></pre></td></tr></table></figure>
+<p>脚本比较丑，只能就题论题，不能作为该类求平方根置换的通解。</p>
+<p>flag：</p>
+<p><strong>brics+{ab99943f6dae4f20595c8645fcf8289e}</strong></p>
+<p><br></p>
+<p><br></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>学习到了很多新知识，继续努力！</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.github.io/post/cbe57a3e.html" title="Crypto趣题">https://tangcuxiaojikuai.github.io/post/cbe57a3e.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/22e56931.html" rel="prev" title="2023-CNSS-Summer-wp-misc">
+      <i class="fa fa-chevron-left"></i> 2023-CNSS-Summer-wp-misc
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA3"><span class="nav-number">1.</span> <span class="nav-text">RSA3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shamir%E9%97%A8%E9%99%90"><span class="nav-number">2.</span> <span class="nav-text">Shamir门限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E5%8C%96AGCD"><span class="nav-number">3.</span> <span class="nav-text">转化AGCD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E6%96%B9%E6%A0%B9%E6%8E%92%E5%88%97"><span class="nav-number">4.</span> <span class="nav-text">平方根排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
