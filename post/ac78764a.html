@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="NpkS3-mYBXgvBvpBrJfSXgHDiRxjGTAfNej436pZGp4" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-5mKArlIN1y" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本篇文章包含一道扭曲爱德华曲线题目。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Crypto趣题3">
+<meta property="og:url" content="https://tangcuxiaojikuai.github.io/post/ac78764a.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="本篇文章包含一道扭曲爱德华曲线题目。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-28T07:31:03.000Z">
+<meta property="article:modified_time" content="2023-09-28T08:39:08.910Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.github.io/post/ac78764a.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Crypto趣题3 | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.github.io/post/ac78764a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Crypto趣题3
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-28 15:31:03 / 修改时间：16:39:08" itemprop="dateCreated datePublished" datetime="2023-09-28T15:31:03+08:00">2023-09-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/crypto%E8%B6%A3%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">crypto趣题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/ac78764a.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/ac78764a.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇文章包含一道扭曲爱德华曲线题目。</p>
+<span id="more"></span>
+<h3 id="EdRSA"><a href="#EdRSA" class="headerlink" title="EdRSA"></a>EdRSA</h3><p>题目来源：暂不明确</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sagemath</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secrets <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">P, Q</span>):</span><br><span class="line">    (x1, y1) = P</span><br><span class="line">    (x2, y2) = Q</span><br><span class="line"></span><br><span class="line">    x3 = (x1*y2 + y1*x2) * inverse(<span class="number">1</span> + d*x1*x2*y1*y2, p) % p</span><br><span class="line">    y3 = (y1*y2 - a*x1*x2) * inverse(<span class="number">1</span> - d*x1*x2*y1*y2, p) % p</span><br><span class="line">    <span class="keyword">return</span> (x3, y3)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mul</span>(<span class="params">x, P</span>):</span><br><span class="line">    Q = (<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> x &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">            Q = add(Q, P)</span><br><span class="line">        P = add(P, P)</span><br><span class="line">        x = x &gt;&gt; <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> Q</span><br><span class="line"></span><br><span class="line">p = <span class="number">64141017538026690847507665744072764126523219720088055136531450296140542176327</span></span><br><span class="line">a = <span class="number">362</span></span><br><span class="line">d = <span class="number">7</span></span><br><span class="line">gx=bytes_to_long(flag)</span><br><span class="line">PR.&lt;y&gt;=PolynomialRing(Zmod(p))</span><br><span class="line">f=(d*gx^<span class="number">2</span>-<span class="number">1</span>)*y^<span class="number">2</span>+(<span class="number">1</span>-a*gx^<span class="number">2</span>)</span><br><span class="line">gy=<span class="built_in">int</span>(f.roots()[<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> (a*gx^<span class="number">2</span>+gy^<span class="number">2</span>)%p==(<span class="number">1</span>+d*gx^<span class="number">2</span>*gy^<span class="number">2</span>)%p</span><br><span class="line"></span><br><span class="line">G=(gx,gy)</span><br><span class="line">e=<span class="number">0x10001</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;eG = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(mul(e, G)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#eG = (602246821311345089174443402780402388933602410138142480089649941718527311147, 17625197557740535449294773567986004828160284887369041337984750097736030549853)</span></span><br></pre></td></tr></table></figure>
+<p>简单看一下题目流程，题目定义了一个有限域上一条曲线的点加和点乘操作，其中曲线形式为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> (a*gx^<span class="number">2</span>+gy^<span class="number">2</span>)%p==(<span class="number">1</span>+d*gx^<span class="number">2</span>*gy^<span class="number">2</span>)%p</span><br></pre></td></tr></table></figure>
+<p>写出表达式如下：</p>
+<script type="math/tex; mode=display">
+ax^2+y^2 = 1+dx^2y^2\quad(mod\;p)</script><p>搜索一下，发现这是标准型的扭曲爱德华曲线：(Twisted Edwards Curves)</p>
+<p><a target="_blank" rel="noopener" href="https://lazzzaro.github.io/2021/01/20/crypto-曲线/">曲线 | Lazzaro (lazzzaro.github.io)</a></p>
+<p>而仔细核对一下点加与点乘，发现都是完全对的上的。因此问题就转化为，已知Edcurve上的一个e倍点，求解该e倍点对应的原点G的横坐标，即为flag。</p>
+<p>想一想，如果这是一条常见形式的椭圆曲线，求解方式是什么？步骤如下：</p>
+<ul>
+<li>用sage中的order()函数求解出该椭圆曲线的阶n</li>
+<li>求出e关于阶n的逆元，记为t</li>
+<li>求倍点G=t*(eG)，横坐标即为所求</li>
+</ul>
+<p>那么再回头，这个求解过程对于Edcurve肯定也是类似的，不过问题就在于，sage中没有办法直接求出Edcurve这种形式的曲线的阶，因此确定思路：</p>
+<ul>
+<li>将Edcurve通过换元映射，变换为常见的椭圆曲线的形式</li>
+<li>求解出对应椭圆曲线的阶，记为s</li>
+<li>求倍点G’ = s*(eG’)</li>
+<li>将求解出的G’再变换回Edcurve上得到G，其横坐标即为所求</li>
+</ul>
+<p>因此难点就在于如何通过换元进行曲线映射，这里陈述一下换元过程：<strong>(以下除法均为有限域上除法，即乘逆元)</strong></p>
+<p><strong>第一步：</strong>转化为蒙哥马利曲线方程(Montgomery)：</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://christianepeters.files.wordpress.com/2012/10/20080620-rennes.pdf">Edwards Curves (wordpress.com)</a></p>
+<script type="math/tex; mode=display">
+x' = \frac{1+y}{1-y}</script><script type="math/tex; mode=display">
+y'=\frac{1+y}{x(1-y)}</script><script type="math/tex; mode=display">
+B=\frac{4}{a-d}</script><script type="math/tex; mode=display">
+A=\frac{2(a+d)}{a-d}</script><p>代入到Edcurve的曲线方程之后，曲线会转化为蒙哥马利曲线，其方程形式如下：</p>
+<script type="math/tex; mode=display">
+B(y')^2 = (x')^3+A(x')^2+(x')\quad(mod\;p)</script><p><strong>第二步：</strong>转化为椭圆曲线方程(Weierstrass)：</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Montgomery_curve">Montgomery curve - Wikipedia</a></p>
+<script type="math/tex; mode=display">
+x'' = \frac{3x'+A}{3B}</script><script type="math/tex; mode=display">
+y''=\frac{y'}{B}</script><script type="math/tex; mode=display">
+a=\frac{3-A^2}{3B^2}</script><script type="math/tex; mode=display">
+b=\frac{2A^3-9A}{27B^3}</script><p>此时蒙哥马利曲线就变成了椭圆曲线方程形式：</p>
+<script type="math/tex; mode=display">
+(y'')^2 = (x'')^3+a(x'')+b\quad(mod\;p)</script><p>然后求该曲线的阶，从而求解出远原点G，并且重新逆变换回Edcurve，得到的横坐标即为flag。</p>
+<p>exp.ipynb：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">p = <span class="number">64141017538026690847507665744072764126523219720088055136531450296140542176327</span></span><br><span class="line">a = <span class="number">362</span></span><br><span class="line">d = <span class="number">7</span></span><br><span class="line">c = <span class="number">1</span></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">P, Q</span>):</span><br><span class="line">    (x1, y1) = P</span><br><span class="line">    (x2, y2) = Q</span><br><span class="line"></span><br><span class="line">    x3 = (x1*y2 + y1*x2) * inverse(<span class="number">1</span> + d*x1*x2*y1*y2, p) % p</span><br><span class="line">    y3 = (y1*y2 - a*x1*x2) * inverse(<span class="number">1</span> - d*x1*x2*y1*y2, p) % p</span><br><span class="line">    <span class="keyword">return</span> (x3, y3)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mul</span>(<span class="params">x, P</span>):</span><br><span class="line">    Q = (<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> x &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">            Q = add(Q, P)</span><br><span class="line">        P = add(P, P)</span><br><span class="line">        x = x &gt;&gt; <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> Q</span><br><span class="line"></span><br><span class="line">P.&lt;z&gt; = PolynomialRing(Zmod(p))</span><br><span class="line">aa = a</span><br><span class="line">dd = (d*c^<span class="number">4</span>)%p</span><br><span class="line">J = (<span class="number">2</span>*(aa+dd)*inverse(aa-dd,p))%p</span><br><span class="line">K = (<span class="number">4</span>*inverse(aa-dd,p))%p</span><br><span class="line">A = ((<span class="number">3</span>-J^<span class="number">2</span>)*inverse(<span class="number">3</span>*K^<span class="number">2</span>,p))%p</span><br><span class="line">B = ((<span class="number">2</span>*J^<span class="number">3</span>-<span class="number">9</span>*J)*inverse(<span class="number">27</span>*K^<span class="number">3</span>,p))%p</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span>  P(z^<span class="number">3</span>+A*z+B).roots():</span><br><span class="line">    alpha = <span class="built_in">int</span>(i[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> P(z^<span class="number">2</span>-(<span class="number">3</span>*alpha^<span class="number">2</span>+A)).roots():</span><br><span class="line">        s = <span class="built_in">int</span>(j[<span class="number">0</span>])</span><br><span class="line">        s = inverse(s, p)</span><br><span class="line">        <span class="keyword">if</span> J==alpha*<span class="number">3</span>*s%p:</span><br><span class="line">            Alpha = alpha</span><br><span class="line">            S = s</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">twist_to_weier</span>(<span class="params">x,y</span>):</span><br><span class="line">    v = x*inverse(c,p)%p</span><br><span class="line">    w = y*inverse(c,p)%p</span><br><span class="line">    <span class="keyword">assert</span> (aa*v^<span class="number">2</span>+w^<span class="number">2</span>)%p==(<span class="number">1</span>+dd*v^<span class="number">2</span>*w^<span class="number">2</span>)%p</span><br><span class="line">    s = (<span class="number">1</span>+w)*inverse(<span class="number">1</span>-w,p)%p</span><br><span class="line">    t = s*inverse(v,p)%p</span><br><span class="line">    <span class="keyword">assert</span> (K*t^<span class="number">2</span>)%p==(s^<span class="number">3</span>+J*s^<span class="number">2</span>+s)%p</span><br><span class="line">    xW = (<span class="number">3</span>*s+J) * inverse(<span class="number">3</span>*K, p) % p</span><br><span class="line">    yW = t * inverse(K, p) % p</span><br><span class="line">    <span class="keyword">assert</span> yW^<span class="number">2</span> % p == (xW^<span class="number">3</span>+A*xW+B) % p</span><br><span class="line">    <span class="keyword">return</span> (xW,yW)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">weier_to_twist</span>(<span class="params">x,y</span>):</span><br><span class="line">    xM=S*(x-Alpha)%p</span><br><span class="line">    yM=S*y%p</span><br><span class="line">    <span class="keyword">assert</span> (K*yM^<span class="number">2</span>)%p==(xM^<span class="number">3</span>+J*xM^<span class="number">2</span>+xM)%p</span><br><span class="line">    xe = xM*inverse(yM,p)%p</span><br><span class="line">    ye = (xM-<span class="number">1</span>)*inverse(xM+<span class="number">1</span>,p)%p</span><br><span class="line">    <span class="keyword">assert</span> (aa*xe^<span class="number">2</span>+ye^<span class="number">2</span>)%p==(<span class="number">1</span>+dd*xe^<span class="number">2</span>*ye^<span class="number">2</span>)%p</span><br><span class="line">    xq = xe*c%p</span><br><span class="line">    yq = ye*c%p</span><br><span class="line">    <span class="keyword">assert</span> (a*xq^<span class="number">2</span>+yq^<span class="number">2</span>)%p==c^<span class="number">2</span>*(<span class="number">1</span>+d*xq^<span class="number">2</span>*yq^<span class="number">2</span>)%p</span><br><span class="line">    <span class="keyword">return</span> (xq,yq)</span><br><span class="line"> </span><br><span class="line">E = EllipticCurve(GF(p), [A, B])</span><br><span class="line">order = E.order()</span><br><span class="line">eG = (<span class="number">602246821311345089174443402780402388933602410138142480089649941718527311147</span>, <span class="number">17625197557740535449294773567986004828160284887369041337984750097736030549853</span>)</span><br><span class="line">eG = twist_to_weier(<span class="number">602246821311345089174443402780402388933602410138142480089649941718527311147</span>, <span class="number">17625197557740535449294773567986004828160284887369041337984750097736030549853</span>)</span><br><span class="line"><span class="comment">#print(eG)</span></span><br><span class="line">eG = E(eG)</span><br><span class="line">t = inverse(e,order)</span><br><span class="line">G = t*eG</span><br><span class="line"><span class="comment">#print(G)</span></span><br><span class="line"><span class="comment">#(36261107889873779109466209751550197981810668464592052789439409682189116521876 , 28177359502202272008748289223947413248814289299639597442379536527477393059697)</span></span><br><span class="line">G = weier_to_twist(<span class="number">36261107889873779109466209751550197981810668464592052789439409682189116521876</span> , <span class="number">28177359502202272008748289223947413248814289299639597442379536527477393059697</span>)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(G[<span class="number">0</span>])))</span><br></pre></td></tr></table></figure>
+<p>flag：</p>
+<p><strong>DASCTF{y0u_kn0w_edcurv3_w3LL!!}</strong></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.github.io/post/ac78764a.html" title="Crypto趣题3">https://tangcuxiaojikuai.github.io/post/ac78764a.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/db7f46dc.html" rel="prev" title="Crypto趣题2">
+      <i class="fa fa-chevron-left"></i> Crypto趣题2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#EdRSA"><span class="nav-number">1.</span> <span class="nav-text">EdRSA</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>

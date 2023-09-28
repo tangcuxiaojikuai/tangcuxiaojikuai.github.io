@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/cbe57a3e/image-20230926105945860.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/cbe57a3e/image-20230926110200084.png">
 <meta property="article:published_time" content="2023-09-25T01:57:07.000Z">
-<meta property="article:modified_time" content="2023-09-26T07:49:01.529Z">
+<meta property="article:modified_time" content="2023-09-28T08:15:02.349Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.github.io/post/cbe57a3e/image-20230926104953693.png">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-26 15:49:01" itemprop="dateModified" datetime="2023-09-26T15:49:01+08:00">2023-09-26</time>
+                <time title="修改时间：2023-09-28 16:15:02" itemprop="dateModified" datetime="2023-09-28T16:15:02+08:00">2023-09-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -291,9 +291,7 @@
 <p>题目：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">公司使用Shamir门限密钥设计了一个秘密保存方案，将fag保存了起来，最终的设计效果如下密钥总共有<span class="number">9</span>份，拿到任意<span class="number">5</span>个密钥即可解出保存的flag.现在我们知道公共的密钥:</span><br><span class="line">p=<span class="number">0x3b9f64aeadae9545d899102c8c1874e3d4f12caf6ded3eb8454c27fd7058ff31a5742aee60b2b7</span></span><br><span class="line">以及如下<span class="number">5</span>个密钥:</span><br><span class="line"><span class="number">0x13570e530aaa3639e622d02ca8a0f89089ad0ee3ba51edd95490653b684aaeedd3a762938d08b3</span></span><br><span class="line"><span class="number">0xb583b75e84190f9d081234088b23e6b634110bda167a21bdfb4b5608a65e7283e8531547623d8</span></span><br><span class="line"><span class="number">0x8d3bbbb28592b1a00885c11633369568fcb8bbfdec3cbf4d8cd5546728ca99f24cbe0ac214a39</span></span><br><span class="line"><span class="number">0x13816f03e972210516c17b13a008ee8fd9b888839d6e1ce203fd7723f5e8e0443c2c6279c8dab9</span></span><br><span class="line"><span class="number">0x1553e323763e4c3ba53f6f93e0feb01d6b168fdda30fd87e949664eb4c8f2fd8414e2c14df8f5e</span></span><br><span class="line">请恢复flag</span><br></pre></td></tr></table></figure>
 <p>题目明确说了这是一个Shamir门限方案，先来简单梳理一下Shamir门限方案的基本实施方式，大概分为以下几步:</p>
-<ol>
-<li><strong>根据恢复秘密最小人数及秘密消息，生成秘密多项式</strong></li>
-</ol>
+<p>1、<strong>根据恢复秘密最小人数及秘密消息，生成秘密多项式</strong></p>
 <ul>
 <li>将秘密消息转化为整数，记为 secret</li>
 <li>首先，设置一个需恢复秘密的最小人数 t ，而题目中说”拿到任意5个密钥即可解出保存的flag”，因此t=5</li>
@@ -306,9 +304,7 @@ f(x) = a_{t-1}*x^{t-1}+a_{t-2}*x^{t-2}+...+a_{2}*x^{2}+a_{1}*x^{1}+a_0 \quad(mod
 <li>因此可以看出，当多项式取 x=0 时，对应的 f(x)=f(0)=a0=secret，即秘密消息</li>
 </ul>
 <p><br></p>
-<ol>
-<li><strong>根据秘密多项式，进行密钥分发</strong></li>
-</ol>
+<p>2、<strong>根据秘密多项式，进行密钥分发</strong></p>
 <ul>
 <li>设实际参与密钥分发的人数为 n ，则将 1~n(有时也可能是n个不同的随机数)依次代入秘密多项式 f(x)，便得到n组密钥：</li>
 </ul>
@@ -317,9 +313,7 @@ f(x) = a_{t-1}*x^{t-1}+a_{t-2}*x^{t-2}+...+a_{2}*x^{2}+a_{1}*x^{1}+a_0 \quad(mod
 <li>将生成的 n 个密钥分发给 n 个人</li>
 </ul>
 <p><br></p>
-<ol>
-<li><strong>销毁秘密多项式</strong></li>
-</ol>
+<p>3、<strong>销毁秘密多项式</strong></p>
 <p><br></p>
 <p>至此，Shamir门限方案便实施完成了，这种分法方案涉及到两个数字，一个是需恢复秘密的最小人数 t ，一个是实际参与密钥分发的人数 n ，因此可以称为 (t,n) - 门限方案。</p>
 <p>需要注意到的是，在完成密钥分发之后，秘密多项式便随之被销毁了。那么在拥有足够数量的密钥(&gt;=t)的情况下，怎么恢复秘密信息 secret呢？这就需要用到拉格朗日插值公式，我们不妨先把密钥记为:</p>
@@ -371,43 +365,34 @@ b_i = (a_i*x + r_i)^{-1} \quad(mod\;p)</script><p>其中，各个值的已知信
 <li>给出 a 、b</li>
 </ul>
 <p>首先，有两点信息暗示要用格：</p>
-<ol>
-<li>a、r 限制了数据范围，可以看作是小量，暗示用LLL</li>
-<li>多组线性等式，暗示用矩阵</li>
-</ol>
+<p>1、a、r 限制了数据范围，可以看作是小量，暗示用LLL</p>
+<p>2、多组线性等式，暗示用矩阵</p>
 <p><br></p>
 <p>所以关键就是转化到一个可以运用格的问题形式，推导如下：</p>
 <p>首先要想明白下面的式子：(推导比较容易，就不讲了)</p>
 <script type="math/tex; mode=display">
 inverse(b,n) = inverse(b,p)\quad(mod\;p)</script><p>然后就可以将问题按下面的方式逐步转化：</p>
-<ol>
-<li><strong>将b逆元转化到模n</strong></li>
-</ol>
+<p>1、<strong>将b逆元转化到模n</strong></p>
 <script type="math/tex; mode=display">
 (a_0*x + r_0) = inverse(b_0,p) \quad(mod\;p)</script><p>​        代入上面的式子，变成：</p>
 <script type="math/tex; mode=display">
 (a_0*x + r_0) = inverse(b_0,n) \quad(mod\;p)</script><p>​        同理：</p>
 <script type="math/tex; mode=display">
-(a_1*x + r_1) = inverse(b_1,n) \quad(mod\;p)</script><ol>
-<li><strong>联立消元</strong></li>
-</ol>
+(a_1*x + r_1) = inverse(b_1,n) \quad(mod\;p)</script><p>2、<strong>联立消元</strong></p>
 <script type="math/tex; mode=display">
-a1*(a_0*x + r_0) = a1*inverse(b_0,n) \quad(mod\;p)</script><script type="math/tex; mode=display">
-a0*(a_1*x + r_1) = a0*inverse(b_1,n) \quad(mod\;p)</script><p>​        相减得到：</p>
+a_1*(a_0*x + r_0) = a_1*inverse(b_0,n) \quad(mod\;p)</script><script type="math/tex; mode=display">
+a_0*(a_1*x + r_1) = a_0*inverse(b_1,n) \quad(mod\;p)</script><p>​        相减得到：</p>
 <script type="math/tex; mode=display">
-a_1*r_0 + a_0*r_1 = a1*inverse(b_0,n) - a0*inverse(b_1,n)\quad(mod\;p)</script><p>​        有没有发现，小量已经全部移到了等式同一边</p>
-<ol>
-<li><p><strong>转化为AGCD问题</strong></p>
+a_1*r_0 + a_0*r_1 = a_1*inverse(b_0,n) - a_0*inverse(b_1,n)\quad(mod\;p)</script><p>​        有没有发现，小量已经全部移到了等式同一边</p>
+<p>3、<strong>转化为AGCD问题</strong></p>
 <p>将模等式利用同余定理展开：</p>
-</li>
-</ol>
 <script type="math/tex; mode=display">
-a1*inverse(b_0,n) - a0*inverse(b_1,n) = k*p + a_1*r_0 + a_0*r_1</script><p>​        此时，问题已经变成了AGCD问题，这是因为：</p>
+a_1*inverse(b_0,n) - a_0*inverse(b_1,n) = k*p + a_1*r_0 + a_0*r_1</script><p>​        此时，问题已经变成了AGCD问题，这是因为：</p>
 <p>​        AGCD问题通常形式：</p>
 <script type="math/tex; mode=display">
 X = q*p + r</script><p>​        在本题中，各个量如下：</p>
 <script type="math/tex; mode=display">
-X = a1*inverse(b_0,n) - a0*inverse(b_1,n)</script><script type="math/tex; mode=display">
+X = a_1*inverse(b_0,n) - a_0*inverse(b_1,n)</script><script type="math/tex; mode=display">
 q = k,\quad
 p = p,\quad
 r = a_1*r_0 + a_0*r_1</script><p>至此问题推导就结束了。</p>
@@ -449,9 +434,7 @@ r = a_1*r_0 + a_0*r_1</script><p>至此问题推导就结束了。</p>
 <p><img src="/post/cbe57a3e/image-20230926110200084.png" alt="image-20230926110200084"></p>
 <p>仔细想想就能明白，这种形式的还原是唯一的，不会有多种情况。</p>
 <p>想清楚置换与图的关系后，回到题目本身来，按如下步骤分析：</p>
-<ol>
-<li><strong>首先就要把平方后的排列先转化为若干个环：</strong></li>
-</ol>
+<p>1、<strong>首先就要把平方后的排列先转化为若干个环：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打印环</span></span><br><span class="line">n = [<span class="number">18</span>, <span class="number">188</span>, <span class="number">48</span>, <span class="number">47</span>, <span class="number">100</span>, <span class="number">234</span>, <span class="number">225</span>, <span class="number">8</span>, <span class="number">187</span>, <span class="number">34</span>, <span class="number">124</span>, <span class="number">113</span>, <span class="number">118</span>, <span class="number">252</span>, <span class="number">137</span>, <span class="number">196</span>, <span class="number">125</span>, <span class="number">20</span>, <span class="number">251</span>, <span class="number">168</span>, <span class="number">167</span>, <span class="number">5</span>, <span class="number">225</span>, <span class="number">134</span>, <span class="number">66</span>, <span class="number">203</span>, <span class="number">26</span>, <span class="number">148</span>, <span class="number">63</span>, <span class="number">181</span>, <span class="number">213</span>, <span class="number">124</span>, <span class="number">170</span>, <span class="number">234</span>, <span class="number">35</span>, <span class="number">120</span>, <span class="number">47</span>, <span class="number">69</span>, <span class="number">157</span>, <span class="number">69</span>, <span class="number">194</span>]</span><br><span class="line"></span><br><span class="line">P2 = [<span class="number">41</span>, <span class="number">124</span>, <span class="number">256</span>, <span class="number">27</span>, <span class="number">201</span>, <span class="number">93</span>, <span class="number">40</span>, <span class="number">133</span>, <span class="number">47</span>, <span class="number">10</span>, <span class="number">69</span>, <span class="number">253</span>, <span class="number">13</span>, <span class="number">245</span>, <span class="number">165</span>, <span class="number">166</span>, <span class="number">118</span>, <span class="number">230</span>, <span class="number">197</span>, <span class="number">249</span>, <span class="number">115</span>, <span class="number">18</span>, <span class="number">71</span>, <span class="number">24</span>, <span class="number">100</span>, <span class="number">14</span>, <span class="number">160</span>, <span class="number">28</span>, <span class="number">251</span>, <span class="number">96</span>, <span class="number">106</span>, <span class="number">5</span>, <span class="number">244</span>, <span class="number">58</span>, <span class="number">67</span>, <span class="number">44</span>, <span class="number">150</span>, <span class="number">42</span>, <span class="number">255</span>, <span class="number">74</span>, <span class="number">168</span>, <span class="number">182</span>, <span class="number">153</span>, <span class="number">209</span>, <span class="number">227</span>, <span class="number">232</span>, <span class="number">159</span>, <span class="number">128</span>, <span class="number">125</span>, <span class="number">11</span>, <span class="number">135</span>, <span class="number">90</span>, <span class="number">76</span>, <span class="number">30</span>, <span class="number">84</span>, <span class="number">31</span>, <span class="number">1</span>, <span class="number">149</span>, <span class="number">48</span>, <span class="number">95</span>, <span class="number">216</span>, <span class="number">94</span>, <span class="number">157</span>, <span class="number">131</span>, <span class="number">196</span>, <span class="number">172</span>, <span class="number">105</span>, <span class="number">169</span>, <span class="number">202</span>, <span class="number">203</span>, <span class="number">121</span>, <span class="number">210</span>, <span class="number">53</span>, <span class="number">9</span>, <span class="number">147</span>, <span class="number">89</span>, <span class="number">39</span>, <span class="number">68</span>, <span class="number">59</span>, <span class="number">141</span>, <span class="number">87</span>, <span class="number">207</span>, <span class="number">51</span>, <span class="number">180</span>, <span class="number">19</span>, <span class="number">81</span>, <span class="number">57</span>, <span class="number">103</span>, <span class="number">228</span>, <span class="number">77</span>, <span class="number">12</span>, <span class="number">129</span>, <span class="number">185</span>, <span class="number">85</span>, <span class="number">45</span>, <span class="number">123</span>, <span class="number">50</span>, <span class="number">116</span>, <span class="number">65</span>, <span class="number">213</span>, <span class="number">104</span>, <span class="number">64</span>, <span class="number">54</span>, <span class="number">155</span>, <span class="number">222</span>, <span class="number">112</span>, <span class="number">3</span>, <span class="number">252</span>, <span class="number">21</span>, <span class="number">33</span>, <span class="number">138</span>, <span class="number">151</span>, <span class="number">211</span>, <span class="number">233</span>, <span class="number">204</span>, <span class="number">97</span>, <span class="number">239</span>, <span class="number">113</span>, <span class="number">82</span>, <span class="number">200</span>, <span class="number">23</span>, <span class="number">231</span>, <span class="number">177</span>, <span class="number">26</span>, <span class="number">72</span>, <span class="number">4</span>, <span class="number">78</span>, <span class="number">183</span>, <span class="number">199</span>, <span class="number">6</span>, <span class="number">49</span>, <span class="number">29</span>, <span class="number">250</span>, <span class="number">119</span>, <span class="number">32</span>, <span class="number">56</span>, <span class="number">110</span>, <span class="number">187</span>, <span class="number">35</span>, <span class="number">143</span>, <span class="number">83</span>, <span class="number">25</span>, <span class="number">70</span>, <span class="number">2</span>, <span class="number">66</span>, <span class="number">101</span>, <span class="number">217</span>, <span class="number">120</span>, <span class="number">224</span>, <span class="number">142</span>, <span class="number">191</span>, <span class="number">136</span>, <span class="number">189</span>, <span class="number">127</span>, <span class="number">132</span>, <span class="number">36</span>, <span class="number">174</span>, <span class="number">146</span>, <span class="number">152</span>, <span class="number">140</span>, <span class="number">193</span>, <span class="number">62</span>, <span class="number">178</span>, <span class="number">17</span>, <span class="number">148</span>, <span class="number">248</span>, <span class="number">167</span>, <span class="number">88</span>, <span class="number">73</span>, <span class="number">229</span>, <span class="number">134</span>, <span class="number">156</span>, <span class="number">158</span>, <span class="number">60</span>, <span class="number">63</span>, <span class="number">242</span>, <span class="number">221</span>, <span class="number">34</span>, <span class="number">214</span>, <span class="number">20</span>, <span class="number">171</span>, <span class="number">139</span>, <span class="number">226</span>, <span class="number">186</span>, <span class="number">164</span>, <span class="number">181</span>, <span class="number">236</span>, <span class="number">107</span>, <span class="number">111</span>, <span class="number">61</span>, <span class="number">99</span>, <span class="number">108</span>, <span class="number">179</span>, <span class="number">223</span>, <span class="number">137</span>, <span class="number">212</span>, <span class="number">237</span>, <span class="number">102</span>, <span class="number">161</span>, <span class="number">145</span>, <span class="number">184</span>, <span class="number">173</span>, <span class="number">247</span>, <span class="number">162</span>, <span class="number">205</span>, <span class="number">154</span>, <span class="number">55</span>, <span class="number">117</span>, <span class="number">254</span>, <span class="number">38</span>, <span class="number">75</span>, <span class="number">234</span>, <span class="number">7</span>, <span class="number">46</span>, <span class="number">109</span>, <span class="number">22</span>, <span class="number">175</span>, <span class="number">144</span>, <span class="number">219</span>, <span class="number">220</span>, <span class="number">195</span>, <span class="number">190</span>, <span class="number">98</span>, <span class="number">79</span>, <span class="number">15</span>, <span class="number">170</span>, <span class="number">80</span>, <span class="number">235</span>, <span class="number">52</span>, <span class="number">8</span>, <span class="number">37</span>, <span class="number">243</span>, <span class="number">198</span>, <span class="number">86</span>, <span class="number">43</span>, <span class="number">192</span>, <span class="number">241</span>, <span class="number">240</span>, <span class="number">208</span>, <span class="number">130</span>, <span class="number">188</span>, <span class="number">114</span>, <span class="number">218</span>, <span class="number">215</span>, <span class="number">206</span>, <span class="number">176</span>, <span class="number">238</span>, <span class="number">16</span>, <span class="number">246</span>, <span class="number">126</span>, <span class="number">122</span>, <span class="number">163</span>, <span class="number">225</span>, <span class="number">92</span>, <span class="number">91</span>, <span class="number">194</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(P2)):</span><br><span class="line">    P2[i] -= <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(P2[<span class="number">204</span>])</span><br><span class="line">lenlist = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(P2)):</span><br><span class="line">    <span class="built_in">len</span> = <span class="number">1</span></span><br><span class="line">    t = <span class="number">0</span></span><br><span class="line">    loc = P2[i]</span><br><span class="line">    chain = [loc]</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">        t = P2[loc]</span><br><span class="line">        loc = t</span><br><span class="line">        chain.append(loc)</span><br><span class="line">        <span class="built_in">len</span> += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(t == i):</span><br><span class="line">            <span class="comment">#print(i,&quot;,&quot;,len)</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">len</span> == <span class="number">2</span>):</span><br><span class="line">                <span class="built_in">print</span>(chain)</span><br><span class="line">                <span class="built_in">print</span>(i+<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"><span class="comment">#print(lenlist.count(2))</span></span><br><span class="line"><span class="comment">#2*82 + 75 + 3*3 + 1*8</span></span><br></pre></td></tr></table></figure>
 <p>可以发现，平方后的置换可以拆分为 ：</p>
 <ul>
@@ -461,9 +444,7 @@ r = a_1*r_0 + a_0*r_1</script><p>至此问题推导就结束了。</p>
 <li>8个单元环</li>
 </ul>
 <p><br></p>
-<ol>
-<li><strong>接下来就是分析如何还原：</strong></li>
-</ol>
+<p>2、<strong>接下来就是分析如何还原：</strong></p>
 <ul>
 <li>对于长为 82 的环，他一定是长为 164 的环拆分而成</li>
 <li>长为 75 的环一定是本身长就为 75 的环</li>
@@ -596,7 +577,7 @@ r = a_1*r_0 + a_0*r_1</script><p>至此问题推导就结束了。</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
