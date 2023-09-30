@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/97bbcbc9/image-20230926105945860.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/97bbcbc9/image-20230926110200084.png">
 <meta property="article:published_time" content="2023-09-29T01:55:19.000Z">
-<meta property="article:modified_time" content="2023-09-29T02:04:35.049Z">
+<meta property="article:modified_time" content="2023-09-30T11:48:15.714Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.github.io/post/97bbcbc9/image-20230926104953693.png">
@@ -221,10 +221,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-09-29 09:55:19 / 修改时间：10:04:35" itemprop="dateCreated datePublished" datetime="2023-09-29T09:55:19+08:00">2023-09-29</time>
+              <time title="创建时间：2023-09-29 09:55:19" itemprop="dateCreated datePublished" datetime="2023-09-29T09:55:19+08:00">2023-09-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-30 19:48:15" itemprop="dateModified" datetime="2023-09-30T19:48:15+08:00">2023-09-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -395,6 +401,138 @@ f(x_t)*0
 <p><strong>brics+{ab99943f6dae4f20595c8645fcf8289e}</strong></p>
 <p><br></p>
 <p><br></p>
+<h3 id="prng-加强版"><a href="#prng-加强版" class="headerlink" title="prng(加强版)"></a>prng(加强版)</h3><p>(题目具体名称并不是这个，只是我还没有找到对应题目名，就先用着)</p>
+<p>题目来源：江苏省领航杯</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">base</span>(<span class="params">n, l</span>):</span><br><span class="line">    bb = []</span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">        n, r = <span class="built_in">divmod</span>(n, l)</span><br><span class="line">        bb.append(r)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">str</span>(d) <span class="keyword">for</span> d <span class="keyword">in</span> bb[::-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">prng</span>(<span class="params">secret</span>):</span><br><span class="line">	seed = base(secret, <span class="number">5</span>)</span><br><span class="line">	seed = [<span class="built_in">int</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">list</span>(seed)]</span><br><span class="line">	length = <span class="built_in">len</span>(seed)</span><br><span class="line">	R = [[ random.randint(<span class="number">0</span>,<span class="number">4</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(length)] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(length**<span class="number">2</span>)]</span><br><span class="line">	S = []</span><br><span class="line">	<span class="keyword">for</span> r <span class="keyword">in</span> R:</span><br><span class="line">		s = <span class="number">0</span></span><br><span class="line">		<span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">			s += (r[index] + seed[index]) % <span class="number">5</span></span><br><span class="line">		s %= <span class="number">2</span></span><br><span class="line">		S.append(s)</span><br><span class="line">	<span class="keyword">return</span> R, S</span><br><span class="line"></span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line">R, S = prng(m)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;output.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">	f.write(<span class="string">f&#x27;R = <span class="subst">&#123;R&#125;</span>\nS = <span class="subst">&#123;S&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>梳理加密流程：</p>
+<ul>
+<li>将flag转为大整数后，将该整数转为五进制数，并转为列表，作为seed</li>
+<li>记列表seed长度为n</li>
+<li>生成一个 $ n^2*n$ 的矩阵R，其中每个元素为0-4的随机数</li>
+<li>利用R矩阵，对seed矩阵做如下加密：(其中，$ i=1,2…n^2$)</li>
+</ul>
+<script type="math/tex; mode=display">
+s_i=\sum_{j=1}^{n}{(({r_{ij}+seed_i})(mod\;5))} \quad(mod\;2)</script><ul>
+<li>将 $ s_i$ 拼接为S向量后，提供R与S，求解明文</li>
+</ul>
+<p>自己做是一点思路都没有，最终找到了 ZM.J 师傅的一篇wp，发现题目是类似的：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/643573246">[CryptoCTF] CryptoCTF 2023 tough分类 团队解题writeup - 知乎 (zhihu.com)</a></p>
+<p>于是就可以迁移到这道题目中来：</p>
+<p>首先，由于seed中每个数字都是0-4之中的某个数m，我们可以先对其进行编码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0 : (1,0,0,0,0)</span><br><span class="line">1 : (0,1,0,0,0)</span><br><span class="line">2 : (0,0,1,0,0)</span><br><span class="line">3 : (0,0,0,1,0)</span><br><span class="line">4 : (0,0,0,0,1)</span><br></pre></td></tr></table></figure>
+<p>此时，我们相当于把一个0-4的数转化为了五个变量组成的一个统一的等式：</p>
+<script type="math/tex; mode=display">
+m = x_0 + x_1 + x_2 + x_3 + x_4</script><p>其中，每个变量 $ x_i$ 只有0或1两种取值，并且对于任意一个0-4的数m， $ x_i$ 有且仅有一个变量为1，其他均为0</p>
+<p>这么做的意义是什么？是让我们能够将这个先模5再模2的没有办法解的线性方程组变化到一个可以解的形式。</p>
+<p>为什么这样变换后就可以解？由加密流程知道，$ r_{ij},seed_i$ 均为0-4之间的数，因此相加后模5模2的结果完全可以用一张表加以表示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>表的含义是，当 r 取 i ，seed 取 j 时，表中第 i 行第 j 列即为$ (r+seed)\;(mod\;5)\;(mod\;2)$ 的值</p>
+<p>然后在这里举个简单的例子来看一下如何变换原题目的线性方程到可解的形式：</p>
+<p>假设$ s = 2m_0+3m_1+4m_2 \;(mod\;5)\;(mod\;2)$，</p>
+<p>第一步，把每个 $ m_i$ 表示为五个变量的形式：</p>
+<script type="math/tex; mode=display">
+m_0 = x_{00} + x_{01} + x_{02} + x_{03} + x_{04}</script><script type="math/tex; mode=display">
+m_1 = x_{10} + x_{11} + x_{12} + x_{13} + x_{14}</script><script type="math/tex; mode=display">
+m_2 = x_{20} + x_{21} + x_{22} + x_{23} + x_{24}</script><p>第二步，把每一个r转化成对应系数矩阵：</p>
+<p>比如，r=2时，看上表的取2的行，需要变量1或4取1就能得到1，否则为0；r=3时，看上表的取3的行，需要变量0或3取1就能得到1，否则为0；r=4时，看上表的取4的行，需要变量2或4取1就能得到1，否则为0</p>
+<p>此时，刚才的等式$ s = 2m_0+3m_1+4m_2 \;(mod\;5)\;(mod\;2)$ 就彻底去除了与模5的关系，而只剩下模2下的线性关系与变量，变成了下面这种形式：</p>
+<script type="math/tex; mode=display">
+s = (0,1,0,0,1)*\left(
+ \begin{matrix}
+   x_{00} \\
+   x_{01} \\
+   x_{02} \\
+   x_{03}  \\
+   x_{04}  \\
+  \end{matrix}
+  \right)
+  + (1,0,0,1,0)*\left(
+ \begin{matrix}
+   x_{10} \\
+   x_{11} \\
+   x_{12} \\
+   x_{13}  \\
+   x_{14}  \\
+  \end{matrix}
+  \right)
+  + (0,0,1,0,1) * \left(
+ \begin{matrix}
+   x_{20} \\
+   x_{21} \\
+   x_{22} \\
+   x_{23}  \\
+   x_{24}  \\
+  \end{matrix}
+  \right)
+  \quad(mod\;2)</script><p>而用这种形式，我们就可以把seed中原本的n个变量转化成5n个变量，因此只需要拿出5n个线性关系即可解得所有的变量取值，再用刚才对m的编码还原即可。</p>
+<p>你可能会发现求解后的向量并不全是刚才的编码形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0 : (1,0,0,0,0)</span><br><span class="line">1 : (0,1,0,0,0)</span><br><span class="line">2 : (0,0,1,0,0)</span><br><span class="line">3 : (0,0,0,1,0)</span><br><span class="line">4 : (0,0,0,0,1)</span><br></pre></td></tr></table></figure>
+<p>而出现了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(1,1,1,1,0)</span><br></pre></td></tr></table></figure>
+<p>事实上是因为当m为4时，两种编码形式最终都能得到完全一样的解，因此将(1,1,1,1,0)也当作4还原即可。</p>
+<p>exp.ipynb:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&#x27;E:\vscode\output4.txt&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="built_in">exec</span>(f.read())</span><br><span class="line"></span><br><span class="line">n = <span class="built_in">len</span>(R[<span class="number">0</span>])</span><br><span class="line">A = []</span><br><span class="line">B = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span> * n):</span><br><span class="line">    a = []</span><br><span class="line">    B.append(S[i])</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        <span class="keyword">if</span> (R[i][j] == <span class="number">0</span>):</span><br><span class="line">            a.extend([<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> ,<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">elif</span> (R[i][j] == <span class="number">1</span>):</span><br><span class="line">            a.extend([<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">        <span class="keyword">elif</span> (R[i][j] == <span class="number">2</span>):</span><br><span class="line">            a.extend([<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">        <span class="keyword">elif</span> (R[i][j] == <span class="number">3</span>):</span><br><span class="line">            a.extend([<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>])</span><br><span class="line">        <span class="keyword">elif</span> (R[i][j] == <span class="number">4</span>):</span><br><span class="line">            a.extend([<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    A.append(a)</span><br><span class="line"></span><br><span class="line">A = matrix(GF(<span class="number">2</span>), A)</span><br><span class="line">B = vector(GF(<span class="number">2</span>), B)</span><br><span class="line">x = A.solve_right(B)</span><br><span class="line"><span class="comment">#print(x)</span></span><br><span class="line"></span><br><span class="line">flag = []</span><br><span class="line">temp = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    <span class="keyword">if</span> (x[<span class="number">5</span>*i] == <span class="number">1</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">1</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">2</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">3</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">4</span>] == <span class="number">0</span>):</span><br><span class="line">        flag.append(<span class="string">&quot;0&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> (x[<span class="number">5</span>*i] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">1</span>] == <span class="number">1</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">2</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">3</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">4</span>] == <span class="number">0</span>):</span><br><span class="line">        flag.append(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> (x[<span class="number">5</span>*i] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">1</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">2</span>] == <span class="number">1</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">3</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">4</span>] == <span class="number">0</span>):</span><br><span class="line">        flag.append(<span class="string">&quot;2&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> (x[<span class="number">5</span>*i] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">1</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">2</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">3</span>] == <span class="number">1</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">4</span>] == <span class="number">0</span>):</span><br><span class="line">        flag.append(<span class="string">&quot;3&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> (x[<span class="number">5</span>*i] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">1</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">2</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">3</span>] == <span class="number">0</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">4</span>] == <span class="number">1</span>):</span><br><span class="line">        flag.append(<span class="string">&quot;4&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> (x[<span class="number">5</span>*i] == <span class="number">1</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">1</span>] == <span class="number">1</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">2</span>] == <span class="number">1</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">3</span>] == <span class="number">1</span>) <span class="keyword">and</span> (x[<span class="number">5</span>*i+<span class="number">4</span>] == <span class="number">0</span>):</span><br><span class="line">        flag.append(<span class="string">&quot;4&quot;</span>)</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&quot;&quot;</span>.join(flag)</span><br><span class="line">flag = long_to_bytes(<span class="built_in">int</span>(flag, <span class="number">5</span>))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p>flag:</p>
+<p><strong>CnHongKe{179bdc38ea135c35f1f973c039a422a7}</strong></p>
+<p>(有不懂的地方欢迎与我交流！)</p>
+<p><br></p>
+<p><br></p>
 
     </div>
 
@@ -490,7 +628,7 @@ f(x_t)*0
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shamir%E9%97%A8%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">Shamir门限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E6%96%B9%E6%A0%B9%E6%8E%92%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">平方根排列</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shamir%E9%97%A8%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">Shamir门限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E6%96%B9%E6%A0%B9%E6%8E%92%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">平方根排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prng-%E5%8A%A0%E5%BC%BA%E7%89%88"><span class="nav-number">3.</span> <span class="nav-text">prng(加强版)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
