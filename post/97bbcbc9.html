@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/97bbcbc9/image-20230926105945860.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/97bbcbc9/image-20230926110200084.png">
 <meta property="article:published_time" content="2023-09-29T01:55:19.000Z">
-<meta property="article:modified_time" content="2023-09-30T11:48:15.714Z">
+<meta property="article:modified_time" content="2023-10-04T10:32:31.873Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.github.io/post/97bbcbc9/image-20230926104953693.png">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-30 19:48:15" itemprop="dateModified" datetime="2023-09-30T19:48:15+08:00">2023-09-30</time>
+                <time title="修改时间：2023-10-04 18:32:31" itemprop="dateModified" datetime="2023-10-04T18:32:31+08:00">2023-10-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -341,7 +341,7 @@ f(x_t)*0
 <p><strong>flag{b14f4963671a457cf22ec271356e0f78}</strong></p>
 <p><br></p>
 <p><br></p>
-<h3 id="平方根排列"><a href="#平方根排列" class="headerlink" title="平方根排列"></a>平方根排列</h3><p>题目来源：暂不明确</p>
+<h3 id="sqrt"><a href="#sqrt" class="headerlink" title="sqrt"></a>sqrt</h3><p>题目来源：bricsctf-2023-Quals</p>
 <p>题目：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sage.<span class="built_in">all</span> <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line">P = Permutations(<span class="number">256</span>).random_element()</span><br><span class="line"><span class="built_in">print</span>(P**<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>([x^y <span class="keyword">for</span> x,y <span class="keyword">in</span> <span class="built_in">zip</span>(hashlib.sha512(<span class="built_in">str</span>(P).encode()).digest(), <span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>).read())])</span><br></pre></td></tr></table></figure>
 <p>密文txt：</p>
@@ -533,6 +533,132 @@ s = (0,1,0,0,1)*\left(
 <p>(有不懂的地方欢迎与我交流！)</p>
 <p><br></p>
 <p><br></p>
+<h3 id="Matrix"><a href="#Matrix" class="headerlink" title="Matrix"></a>Matrix</h3><p>题目来源：暂不明确</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env sage</span></span><br><span class="line"><span class="comment"># Problem by rec, with nothing.</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> secret</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.Padding <span class="keyword">import</span> pad</span><br><span class="line"></span><br><span class="line">LEN = <span class="number">32</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">xor</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">bytes</span>([a[i%<span class="built_in">len</span>(a)] ^^ b[i%<span class="built_in">len</span>(b)] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">max</span>(<span class="built_in">len</span>(a), <span class="built_in">len</span>(b)))])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">challenge</span>(<span class="params">m: <span class="built_in">bytes</span>, pbits: <span class="built_in">int</span>, level: <span class="built_in">int</span>=<span class="number">0</span></span>):</span><br><span class="line">    p = getPrime(pbits)</span><br><span class="line">    M = random_matrix(GF(p), LEN).matrix_from_rows_and_columns(<span class="built_in">range</span>(LEN), <span class="built_in">range</span>(LEN-level))</span><br><span class="line">    c = vector(GF(p), m) * M</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;p&quot;</span>: p, <span class="string">&quot;M&quot;</span>: M.<span class="built_in">list</span>(), <span class="string">&quot;c&quot;</span>: c.<span class="built_in">list</span>()&#125;</span><br><span class="line"></span><br><span class="line">args = &#123;</span><br><span class="line">    <span class="string">&quot;chall1&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;m&quot;</span>: os.urandom(LEN),</span><br><span class="line">        <span class="string">&quot;pbits&quot;</span>: <span class="number">512</span>,</span><br><span class="line">        <span class="string">&quot;level&quot;</span>: <span class="number">0x00</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;chall2&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;m&quot;</span>: os.urandom(LEN),</span><br><span class="line">        <span class="string">&quot;pbits&quot;</span>: <span class="number">10</span>,</span><br><span class="line">        <span class="string">&quot;level&quot;</span>: <span class="number">0x01</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;chall3&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;m&quot;</span>: os.urandom(LEN),</span><br><span class="line">        <span class="string">&quot;pbits&quot;</span>: <span class="number">256</span>,</span><br><span class="line">        <span class="string">&quot;level&quot;</span>: <span class="number">0x10</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">out = <span class="built_in">dict</span>()</span><br><span class="line">enc = pad(secret.flag, LEN)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    out[<span class="string">f&quot;chall<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>&quot;</span>] = challenge(**args[<span class="string">f&quot;chall<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>&quot;</span>])</span><br><span class="line">    enc = xor(enc, hashlib.sha512(args[<span class="string">f&quot;chall<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>&quot;</span>][<span class="string">&quot;m&quot;</span>]).digest())</span><br><span class="line">out[<span class="string">&quot;enc&quot;</span>] = enc.<span class="built_in">hex</span>()</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;output.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(<span class="string">f&quot;<span class="subst">&#123;out = &#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>梳理一下解密流程：</p>
+<ul>
+<li>先将flag串填充至32的整数倍</li>
+<li>生成三组challenge需要的参数：m，pbits，level</li>
+<li>将每一组的m用sha512加密后，依次与flag异或</li>
+<li>给出每组challenge的对应输出与最终密文值</li>
+</ul>
+<p>其中，challenge的各个参数值在加密过程中的作用依次是：</p>
+<ul>
+<li>生成一个pbits的素数p，并以该p生成一个有限域Gf(p)</li>
+<li>将m的32个随机字节转换成Gf(p)下的长度为32的向量</li>
+<li>生成一个大小为32*(32-level)的矩阵M，M中元素均为Gf(p)中的随机数</li>
+<li>计算c=m*M，并给出p、M和c</li>
+</ul>
+<p>因此，我们要做的就是由c、M反解出m，并计算其sha512值后与密文依次异或，就能得到明文，但是三次求解的方法由M的大小而产生不同。</p>
+<h4 id="challenge1"><a href="#challenge1" class="headerlink" title="challenge1"></a>challenge1</h4><p>第一轮，M的大小为32*32，因此有：</p>
+<script type="math/tex; mode=display">
+m_{1\times 32}*M_{32\times 32} = c_{1\times 32}\quad(mod\;p)</script><p>可以看作是m的32个变量对应了32组方程，因此满秩，可以直接求解线性方程组(数据有点大，想要复现的师傅可以联系我)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p = </span><br><span class="line">M = []</span><br><span class="line">c = []</span><br><span class="line"></span><br><span class="line">c = vector(GF(p),c)</span><br><span class="line">m = matrix(GF(p),<span class="number">32</span>,<span class="number">32</span>,M)</span><br><span class="line">flag1 = m.solve_left(c)</span><br><span class="line">flag1 = <span class="built_in">bytes</span>(flag1)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="challenge2"><a href="#challenge2" class="headerlink" title="challenge2"></a>challenge2</h4><p>第二轮，M的大小为32*31，因此有：</p>
+<script type="math/tex; mode=display">
+m_{1\times 32}*M_{32\times 31} = c_{1\times 31}\quad(mod\;p)</script><p>也就是说，m的32个变量只有31组方程了，因此可以求出无穷多组解。不过由于只差一组方程，因此也只需要选取一个自由变量，并从c中对应减去其值后，解一个31变量的满秩方程。而判断解正确的依据就是解出来的m向量中所有值均在0-256之间。</p>
+<p>说起来可能不那么明白，还是上个例子，这里以下面这个线性方程组简单说明一下：</p>
+<script type="math/tex; mode=display">
+m_{1\times 4}*M_{4\times 3} = c_{1\times 3}</script><p>写出来：</p>
+<script type="math/tex; mode=display">
+s = (x_1,x_2,x_3,x_4)*\left(
+ \begin{matrix}
+   m_{11} & m_{12} & m_{13}\\
+   m_{21} & m_{22} & m_{23} \\
+   m_{31} & m_{32} & m_{33} \\
+   m_{41} & m_{42} & m_{43}  \\
+  \end{matrix}
+  \right)
+  =(c_1,c_2,c_3)</script><p>变成方程组形式就是：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+        m_{11}x_{1} + m_{21}x_{2} + m_{31}x_{3} + m_{41}x_{4} = c_1 \\
+        m_{12}x_{1} + m_{22}x_{2} + m_{32}x_{3} + m_{42}x_{4} = c_2 \\ 
+        m_{13}x_{1} + m_{23}x_{2} + m_{33}x_{3} + m_{43}x_{4} = c_3 
+    \end{cases}</script><p>现在我们假设已经知道了x4的值(对应于题目中，就是在0-256中爆破)，那么把方程组中含x4的项都移到右边，就变成：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+        m_{11}x_{1} + m_{21}x_{2} + m_{31}x_{3}  = c_1 - m_{41}x_{4}\\
+        m_{12}x_{1} + m_{22}x_{2} + m_{32}x_{3}  = c_2 - m_{42}x_{4}\\ 
+        m_{13}x_{1} + m_{23}x_{2} + m_{33}x_{3}  = c_3 - m_{43}x_{4}
+    \end{cases}</script><p>接下来解的就是这个满秩方程：</p>
+<script type="math/tex; mode=display">
+s = (x_1,x_2,x_3)*\left(
+ \begin{matrix}
+   m_{11} & m_{12} & m_{13}\\
+   m_{21} & m_{22} & m_{23} \\
+   m_{31} & m_{32} & m_{33} 
+  \end{matrix}
+  \right)
+  =(c_1 - m_{41}x_{4},c_2 - m_{42}x_{4},c_3 - m_{43}x_{4})</script><p>很容易想到，当解出的向量 $ (x_1,x_2,x_3)$ 均在0-256之间时，就正确求解了。放在本题中也不过是对这个例子的扩大而已，取x32进行爆破，方法是完全一样的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">p = </span><br><span class="line">M = []</span><br><span class="line">c = []</span><br><span class="line"></span><br><span class="line">c = vector(GF(p),c)</span><br><span class="line">m = matrix(GF(p),<span class="number">32</span>,<span class="number">31</span>,M)</span><br><span class="line">MM = m.delete_rows([<span class="number">31</span>])</span><br><span class="line">M_ = m[-<span class="number">1</span>]</span><br><span class="line">k = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">	cc = c - i * M_</span><br><span class="line">	ans = MM.solve_left(cc)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">all</span>(ans[i] &lt;= <span class="number">256</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">31</span>)):</span><br><span class="line">		k = i</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">flag2 = <span class="built_in">bytes</span>(<span class="built_in">list</span>(ans)+[k])</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="challenge3"><a href="#challenge3" class="headerlink" title="challenge3"></a>challenge3</h4><p>第三轮，M的大小为32*16，因此有：</p>
+<script type="math/tex; mode=display">
+m_{1\times 32}*M_{32\times 16} = c_{1\times 16}\quad(mod\;p)</script><p>可以想到，如果继续用第二轮中的方法，那么需要爆破256的16次方种可能，数量级达到了2^128，是显然不可能的，所以需要另谋他法。而其实你应该早就想到了，m在每个challenge中，都是一个由32个0-256的值组成的向量。0-256意味着，<strong>在模p下这些值都很小</strong>，因此很自然地就会联想到格。</p>
+<p>所以challenge3其实是一个格基规约问题，但是想构造出这样的格还是有点难度的。首先还是列出构造格需要的多个等式：</p>
+<script type="math/tex; mode=display">
+s = (x_1,x_2,...,x_{31},x_{32})*\left(
+ \begin{matrix}
+   m_{1,1} & m_{1,2} &... &m_{1,16}\\
+   m_{2,1} & m_{2,2} &... &m_{2,16} \\
+   & &...\\
+   m_{31,1} & m_{31,2} &... &m_{31,16} \\
+   m_{32,1} & m_{32,2} &... &m_{32,16}  \\
+  \end{matrix}
+  \right)
+  =(c_1,c_2,...,c_{15},x_{16})\quad(mod\;p)</script><p>从这个矩阵乘法中，可以提取出其中的十六个等式：(i = 1,2,…,16)</p>
+<script type="math/tex; mode=display">
+m_{1,i}*x_1+m_{2,i}*x_2...+m_{31,i}*x_{31}+m_{32,i}*x_{32}+ k_i*p=c_i</script><p>以这些等式为基础，我们构造出下面的格：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MM = matrix(ZZ,<span class="number">32</span>,<span class="number">16</span>,M)</span><br><span class="line">E = diagonal_matrix([<span class="number">1</span>]*<span class="number">32</span>)</span><br><span class="line">P = diagonal_matrix([p]*<span class="number">16</span>)</span><br><span class="line">C = matrix(ZZ,c)</span><br><span class="line">L = block_matrix(ZZ,[[MM,E],[P,<span class="number">0</span>],[C,<span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+<p>写清楚点就是：</p>
+<script type="math/tex; mode=display">
+\left(
+ \begin{matrix}
+   m_{1,1} & m_{1,2} &... &m_{1,16}   &1&0&...&0&0\\
+   m_{2,1} & m_{2,2} &... &m_{2,16}   &0&1&...&0&0 \\
+   & &...\\
+   m_{31,1} & m_{31,2} &... &m_{31,16}&0&0&...&1&0\\
+   m_{32,1} & m_{32,2} &... &m_{32,16}&0&0&...&0&1  \\
+   p&0&...&0&0&0&...&0&0\\
+   0&p&...&0&0&0&...&0&0\\
+   &&...\\
+   0&0&...&p&0&0&...&0&0\\
+   c_1&0&...&0&0&0&...&0&0\\
+   0&c_2&...&0&0&0&...&0&0\\
+   &&...\\
+   0&0&...&c_{16}&0&0&...&0&0\\
+  \end{matrix}
+  \right)</script><p>这是一个64*48的矩阵，而我们用这个矩阵规约的依据等式是：</p>
+<script type="math/tex; mode=display">
+(x_1,x_2,...,x_{32},k_1,k_2,...,k_{16},-1,-1,...,-1)*\left(
+ \begin{matrix}
+   m_{1,1} & m_{1,2} &... &m_{1,16}   &1&0&...&0&0\\
+   m_{2,1} & m_{2,2} &... &m_{2,16}   &0&1&...&0&0 \\
+   & &...\\
+   m_{31,1} & m_{31,2} &... &m_{31,16}&0&0&...&1&0\\
+   m_{32,1} & m_{32,2} &... &m_{32,16}&0&0&...&0&1  \\
+   p&0&...&0&0&0&...&0&0\\
+   0&p&...&0&0&0&...&0&0\\
+   &&...\\
+   0&0&...&p&0&0&...&0&0\\
+   c_1&0&...&0&0&0&...&0&0\\
+   0&c_2&...&0&0&0&...&0&0\\
+   &&...\\
+   0&0&...&c_{16}&0&0&...&0&0\\
+  \end{matrix}
+  \right)
+  =
+  (0,0,...,0,x_1,x_2,...,x_{32})</script><p>可以看出，规约出的向量 $(0,0,…,0,x_1,x_2,…,x_{32})$ 是非常短的，因此LLL就能得到这个解(不过实际操作会发现满足要求的向量在第二列)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">p = </span><br><span class="line">M = []</span><br><span class="line">c = []</span><br><span class="line"></span><br><span class="line">MM = matrix(ZZ,<span class="number">32</span>,<span class="number">16</span>,M)</span><br><span class="line">E = diagonal_matrix([<span class="number">1</span>]*<span class="number">32</span>)</span><br><span class="line">P = diagonal_matrix([p]*<span class="number">16</span>)</span><br><span class="line">C = matrix(ZZ,c)</span><br><span class="line">L = block_matrix(ZZ,[[MM,E],[P,<span class="number">0</span>],[C,<span class="number">0</span>]])</span><br><span class="line">ML = L.LLL()</span><br><span class="line">ans = <span class="built_in">list</span>(ML[<span class="number">1</span>][<span class="number">16</span>:])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ans)):</span><br><span class="line">      ans[i] = -ans[i]</span><br><span class="line">flag3 = <span class="built_in">bytes</span>(ans)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="final"><a href="#final" class="headerlink" title="final"></a>final</h4><p>得到三个flag之后，进行sha512后依次与密文异或就好。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">xor</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">bytes</span>([a[i%<span class="built_in">len</span>(a)] ^^ b[i%<span class="built_in">len</span>(b)] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">max</span>(<span class="built_in">len</span>(a), <span class="built_in">len</span>(b)))])</span><br><span class="line"></span><br><span class="line"><span class="comment">#part1</span></span><br><span class="line">p = </span><br><span class="line">c = vector(GF(p),c)</span><br><span class="line">m = matrix(GF(p),<span class="number">32</span>,<span class="number">32</span>,M)</span><br><span class="line">flag1 = m.solve_left(c)</span><br><span class="line">flag1 = <span class="built_in">bytes</span>(flag1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part2</span></span><br><span class="line">p = <span class="number">661</span></span><br><span class="line">M = []</span><br><span class="line">c = []</span><br><span class="line"></span><br><span class="line">c = vector(GF(p),c)</span><br><span class="line">m = matrix(GF(p),<span class="number">32</span>,<span class="number">31</span>,M)</span><br><span class="line">MM = m.delete_rows([<span class="number">31</span>])</span><br><span class="line">M_ = m[-<span class="number">1</span>]</span><br><span class="line">k = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">	cc = c - i * M_</span><br><span class="line">	ans = MM.solve_left(cc)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">all</span>(ans[i] &lt;= <span class="number">256</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">31</span>)):</span><br><span class="line">		k = i</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">flag2 = <span class="built_in">bytes</span>(<span class="built_in">list</span>(ans)+[k])</span><br><span class="line"></span><br><span class="line"><span class="comment">#part3</span></span><br><span class="line">p = </span><br><span class="line">M = []</span><br><span class="line">c = []</span><br><span class="line"></span><br><span class="line">MM = matrix(ZZ,<span class="number">32</span>,<span class="number">16</span>,M)</span><br><span class="line">E = diagonal_matrix([<span class="number">1</span>]*<span class="number">32</span>)</span><br><span class="line">P = diagonal_matrix([p]*<span class="number">16</span>)</span><br><span class="line">C = matrix(ZZ,c)</span><br><span class="line">L = block_matrix(ZZ,[[MM,E],[P,<span class="number">0</span>],[C,<span class="number">0</span>]])</span><br><span class="line">ML = L.LLL()</span><br><span class="line">ans = <span class="built_in">list</span>(ML[<span class="number">1</span>][<span class="number">16</span>:])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ans)):</span><br><span class="line">      ans[i] = -ans[i]</span><br><span class="line">flag3 = <span class="built_in">bytes</span>(ans)</span><br><span class="line"></span><br><span class="line"><span class="comment">#final</span></span><br><span class="line">c = <span class="number">0x72c0e8ef53c726969a91368ca600a081f38f5cfaa1d0669d9049f278fb2f0fb4f36dced86bf9b7e9ef59af082cc5a5b2458cae490ab23c0c8c5b9361499ae2e2</span></span><br><span class="line">enc = long_to_bytes(c)</span><br><span class="line">flag = [flag1,flag2,flag3]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    enc = xor(enc, hashlib.sha512(flag[i]).digest())</span><br><span class="line"><span class="built_in">print</span>(enc)</span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;db1ebd0c-1cac-55d5-763e-b05f3d9af423&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
 
     </div>
 
@@ -631,7 +757,7 @@ s = (0,1,0,0,1)*\left(
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shamir%E9%97%A8%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">Shamir门限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E6%96%B9%E6%A0%B9%E6%8E%92%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">平方根排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prng-%E5%8A%A0%E5%BC%BA%E7%89%88"><span class="nav-number">3.</span> <span class="nav-text">prng(加强版)</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shamir%E9%97%A8%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">Shamir门限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sqrt"><span class="nav-number">2.</span> <span class="nav-text">sqrt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prng-%E5%8A%A0%E5%BC%BA%E7%89%88"><span class="nav-number">3.</span> <span class="nav-text">prng(加强版)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Matrix"><span class="nav-number">4.</span> <span class="nav-text">Matrix</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#challenge1"><span class="nav-number">4.1.</span> <span class="nav-text">challenge1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#challenge2"><span class="nav-number">4.2.</span> <span class="nav-text">challenge2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#challenge3"><span class="nav-number">4.3.</span> <span class="nav-text">challenge3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#final"><span class="nav-number">4.4.</span> <span class="nav-text">final</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
