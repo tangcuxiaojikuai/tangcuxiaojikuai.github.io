@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="NpkS3-mYBXgvBvpBrJfSXgHDiRxjGTAfNej436pZGp4" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-5mKArlIN1y" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这篇文章主要记录一下有趣的交互题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Crypto趣题-Oracle">
+<meta property="og:url" content="https://tangcuxiaojikuai.github.io/post/601c0957.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="这篇文章主要记录一下有趣的交互题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-06T11:11:20.000Z">
+<meta property="article:modified_time" content="2023-10-06T11:48:26.521Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.github.io/post/601c0957.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Crypto趣题-Oracle | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.github.io/post/601c0957.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Crypto趣题-Oracle
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-10-06 19:11:20 / 修改时间：19:48:26" itemprop="dateCreated datePublished" datetime="2023-10-06T19:11:20+08:00">2023-10-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/crypto%E8%B6%A3%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">crypto趣题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/601c0957.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/601c0957.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇文章主要记录一下有趣的交互题</p>
+<span id="more"></span>
+<h3 id="rsa"><a href="#rsa" class="headerlink" title="rsa"></a>rsa</h3><p>题目来源：NCTF 2021</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socketserver</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> signal</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Task</span>(socketserver.BaseRequestHandler):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_recvall</span>(<span class="params">self</span>):</span><br><span class="line">        BUFF_SIZE = <span class="number">2048</span></span><br><span class="line">        data = <span class="string">b&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            part = self.request.recv(BUFF_SIZE)</span><br><span class="line">            data += part</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(part) &lt; BUFF_SIZE:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> data.strip()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">send</span>(<span class="params">self, msg, newline=<span class="literal">True</span></span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> newline:</span><br><span class="line">                msg += <span class="string">b&#x27;\n&#x27;</span></span><br><span class="line">            self.request.sendall(msg)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">recv</span>(<span class="params">self, prompt=<span class="string">b&#x27;&gt; &#x27;</span></span>):</span><br><span class="line">        self.send(prompt, newline=<span class="literal">False</span>)</span><br><span class="line">        <span class="keyword">return</span> self._recvall()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">proof_of_work</span>(<span class="params">self</span>):</span><br><span class="line">        random.seed(os.urandom(<span class="number">8</span>))</span><br><span class="line">        proof = <span class="string">&#x27;&#x27;</span>.join([random.choice(string.ascii_letters+string.digits) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>)])</span><br><span class="line">        _hexdigest = sha256(proof.encode()).hexdigest()</span><br><span class="line">        self.send(<span class="string">f&quot;sha256(XXXX+<span class="subst">&#123;proof[<span class="number">4</span>:]&#125;</span>) == <span class="subst">&#123;_hexdigest&#125;</span>&quot;</span>.encode())</span><br><span class="line">        x = self.recv(prompt=<span class="string">b&#x27;Give me XXXX: &#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(x) != <span class="number">4</span> <span class="keyword">or</span> sha256(x+proof[<span class="number">4</span>:].encode()).hexdigest() != _hexdigest:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">handle</span>(<span class="params">self</span>):</span><br><span class="line">        p = getPrime(<span class="number">512</span>)</span><br><span class="line">        q = getPrime(<span class="number">512</span>)</span><br><span class="line">        n = p*q</span><br><span class="line">        e = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line">        signal.alarm(<span class="number">120</span>)</span><br><span class="line">        self.send(<span class="string">b&#x27;Try to factor n within 120 seconds&#x27;</span>)</span><br><span class="line">        self.send(<span class="string">&quot;n = &#123;&#125;\ne = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(n, e).encode())</span><br><span class="line">        self.send(<span class="string">b&#x27;And solve the proof-of-work below to begin the challenge.&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.proof_of_work():</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        signal.alarm(<span class="number">12</span>)</span><br><span class="line">        secret = os.urandom(<span class="number">16</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">            self.send(<span class="string">&quot;c&#123;&#125; = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(i, <span class="built_in">pow</span>(bytes_to_long(secret[<span class="number">4</span>*i:<span class="number">4</span>*i+<span class="number">4</span>]), e, n)).encode())</span><br><span class="line"></span><br><span class="line">        self.send(<span class="string">b&quot;Give me the secret:&quot;</span>)</span><br><span class="line">        s = self.recv()</span><br><span class="line">        <span class="keyword">if</span> secret.<span class="built_in">hex</span>().encode() == s:</span><br><span class="line">            self.send(<span class="string">b&quot;Congratulations! Your flag is: &quot;</span>+flag.encode())</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.send(<span class="string">b&quot;Wrong secret&quot;</span>)</span><br><span class="line">        self.request.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ThreadedServer</span>(socketserver.ThreadingMixIn, socketserver.TCPServer):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ForkedServer</span>(socketserver.ForkingMixIn, socketserver.TCPServer):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    HOST, PORT = <span class="string">&#x27;0.0.0.0&#x27;</span>, <span class="number">10002</span></span><br><span class="line">    server = ForkedServer((HOST, PORT), Task)</span><br><span class="line">    server.allow_reuse_address = <span class="literal">True</span></span><br><span class="line">    server.serve_forever()</span><br></pre></td></tr></table></figure>
+<p>代码比较长，但是大多数是交互相关的代码，所以不用管，先把交互剥离掉来分析这个题。</p>
+<h4 id="脱离交互，单独分析"><a href="#脱离交互，单独分析" class="headerlink" title="脱离交互，单独分析"></a>脱离交互，单独分析</h4><p>那么就不管靶机的其他交互流程，我们只看要解决的核心任务代码，在这里我把与靶机交互的部分简化成普通input、print等形式，然后展示出来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line">q = getPrime(<span class="number">512</span>)</span><br><span class="line">n = p*q</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(n)</span><br><span class="line"><span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line">secret = os.urandom(<span class="number">16</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;c&#123;&#125; = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(i, <span class="built_in">pow</span>(bytes_to_long(secret[<span class="number">4</span>*i:<span class="number">4</span>*i+<span class="number">4</span>]), e, n)).encode())</span><br><span class="line"></span><br><span class="line">s = <span class="built_in">input</span>(<span class="string">&quot;Give me the secret:&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> secret.<span class="built_in">hex</span>().encode() == s:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">b&quot;Congratulations! Your flag is: &quot;</span>+flag.encode())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">b&quot;Wrong secret&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>代码的意思就是：</p>
+<ul>
+<li>生成一组RSA的密钥p，q，n，e，并给出公钥(n，e)</li>
+<li>随机生成 16 个字节，并切为4块，每组4个字节，作为待加密的明文</li>
+<li>对每一组明文分别进行RSA加密，并给出密文</li>
+<li>要求从4组密文还原出完整明文</li>
+</ul>
+<p>首先很快就能明白，这里的n是没有办法分解的，因为没有任何关于p、q、d的泄漏信息。那么怎么还原出明文呢，就要注意到以下两点：</p>
+<ul>
+<li>明文分成了4组，每组4个字节，也就是32bit，是个很小的明文</li>
+<li>这题是个交互题</li>
+</ul>
+<p>这两点分别有什么作用就是接下来要详细说明的地方。</p>
+<p>首先要明白，这里的明文如果不分组，直接进行加密，那么其本质上就是一个纯粹的RSA加密，就当前的密码技术来说，我们如果没有私钥的话，自然没有任何机会还原出明文。</p>
+<p>而分组最直观的效果，就是每一组被加密的明文变小了，那么也就说明<strong>可能有机会爆破！</strong>打个比方，如果你已知明文就是一个字节，那么他可能的范围也就在(0,256)之间，要还原明文，你只需要将(0,256)之间的所有数逐个进行加密。如果加密后的密文与给定的密文相等，那么对应的明文即为所求。</p>
+<p>但是这个题目中明文即使分了组，每一组的明文仍然是个32bit的随机数，直接爆破还是不太现实的，因此需要采取一定方法。</p>
+<p>那么我们需要注意到，这个32bit的随机数有很大概率是个合数，这是因为，在n个正整数中，质数出现的概率大约为：</p>
+<script type="math/tex; mode=display">
+\frac{1}{\ln n}</script><p>因此，对于n取2^32，其概率经计算大约是 0.045084220027780106，概率相当小。所以明文m大概率能写成两个整数的乘积形式：</p>
+<script type="math/tex; mode=display">
+m = i*j</script><p>而由于m是(0,2^32)之间的数，所以我们可以概率性的界定 i、j 两数的范围。</p>
+<p>什么叫概率性的界定范围呢？比如说，i、j 都在(0,2^18)这个范围里，概率有多大？可以用如下的程序简单验证：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"></span><br><span class="line">count = <span class="number">0</span>    </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">1000</span>)):        </span><br><span class="line">    m = bytes_to_long(os.urandom(<span class="number">4</span>))</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">2</span>**<span class="number">18</span>):</span><br><span class="line">        <span class="keyword">if</span>(m % j == <span class="number">0</span>):</span><br><span class="line">            m //= j</span><br><span class="line">    <span class="keyword">if</span>(m &lt; <span class="number">2</span>**<span class="number">18</span>):</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(count/<span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<p>经计算概率大概在0.44左右，这说明什么，这说明m有0.44的概率写为两个(0,2^18)之间的数的乘积，这对我们的爆破有什么帮助呢？首先，加密过程就可以改写成：</p>
+<script type="math/tex; mode=display">
+m^e\equiv (i*j)^e \equiv i^e*j^e \equiv c\quad(mod\;n)</script><p>那么就有：</p>
+<script type="math/tex; mode=display">
+c^{-1}*j^e\equiv i^{-e}\quad (mod\;n)</script><p>此时你会发现，如果m能够写为(0,2^18)内的 i，j 两数的乘积的形式，那么类似于中间相遇攻击，我们就可以用如下方式爆破：</p>
+<ul>
+<li>把所有(0,2^18)中的 $ i^{-e}\quad (mod\;n)$ 提前存储在一个字典内</li>
+<li>接下来，只需要爆破(0,2^18)中的 j，验证 $ c^{-1}<em>j^e\quad (mod\;n)$ 在刚才的字典中，则对应的 i</em>j 即为需求的明文</li>
+</ul>
+<p>容易明白，这种攻击方式成功的概率，就等同于m能写为这样的 i，j 乘积的概率，也就是0.44左右。那么连续4次均成功，概率大约为:</p>
+<script type="math/tex; mode=display">
+(0.44)^4 = 0.03748096</script><p>因此，不考虑题目其他限制的话，每一次攻击大约有4%的概率成功，而可以用以下程序计算出，交互19次，就有大于50%的概率至少成功一次：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fre = <span class="number">0.03748096</span></span><br><span class="line">success = <span class="number">1</span></span><br><span class="line">count = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    success *= (<span class="number">1</span>-fre)</span><br><span class="line">    <span class="keyword">if</span>(success &lt; <span class="number">0.5</span>):</span><br><span class="line">        <span class="built_in">print</span>(count)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="回到交互"><a href="#回到交互" class="headerlink" title="回到交互"></a>回到交互</h4><p>但是实际上，这题对交互时间是有一定限制的：</p>
+<ul>
+<li>从连接上靶机开始，计时120s，超时会退出</li>
+<li>从完成proof_of_work开始，计时12s，超时会退出</li>
+</ul>
+<p>而注意到我们连接上靶机后，靶机端就会发送给我们公钥(n，e)，而获得了(n，e)之后，我们就可以开始建立字典。一直到proof_of_work完成后，我们才需要进行字典的查询来搜索出4组明文。</p>
+<p>也就是说，我们有更充足的时间建立字典，而查询字典的时间更有限。因此，我们要适当增大 i 的范围，减小 j 的范围。所以我们测试以下几种新的乘积划分：</p>
+<script type="math/tex; mode=display">
+i \in (0,2^{19}),j \in (0,2^{17})</script><script type="math/tex; mode=display">
+i \in (0,2^{20}),j \in (0,2^{16})</script><script type="math/tex; mode=display">
+i \in (0,2^{21}),j \in (0,2^{15})</script><script type="math/tex; mode=display">
+i \in (0,2^{22}),j \in (0,2^{14})</script><p>经计算，几种划分对应的攻击成功概率依次是：0.47、0.51、0.56、0.59，理论上来说当然是越后面的划分越好，但是同时，建立字典的耗时也需要考虑进去。你可以用以下程序简单测试出，字典大小最大也就只能取到2^20，否则就会直接超出120s的限制：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"></span><br><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line">q = getPrime(<span class="number">512</span>)</span><br><span class="line">n = p*q</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">S = &#123;<span class="built_in">pow</span>(i,-e,n):i <span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">1</span>,<span class="number">2</span>**<span class="number">20</span>))&#125;</span><br></pre></td></tr></table></figure>
+<p>因此，思路就是：接收到公钥(n，e)后，建立一个大小为2^20的字典，然后再进行proof_of_work，进行完毕后开始查表。如此与靶机交互多次后，就有大概率得到flag。理论上来说二十次就有大于50%的概率得到flag了，不过运气不好确实可能需要很久很久。</p>
+<p>但同时你也可以注意到，m并不一定就是32bit的数，他的前几个bit完全可能是0，因此相信自己运气的话，可以适当缩小划分范围来节省耗时，比如划分为：</p>
+<script type="math/tex; mode=display">
+i \in (0,2^{19}),j \in (0,2^{16})</script><script type="math/tex; mode=display">
+i \in (0,2^{18}),j \in (0,2^{16})</script><p>等等缩小后的范围，都是有可能成功的。</p>
+<p>exp.py：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"></span><br><span class="line"><span class="comment">#context.log_level = &#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">proof_of_work</span>():</span><br><span class="line">	table = string.digits + string.ascii_letters</span><br><span class="line">	r.recvuntil(<span class="string">b&quot;sha256(XXXX+&quot;</span>)</span><br><span class="line">	temp = r.recvline()</span><br><span class="line">	suffix = temp[:<span class="number">16</span>].decode()</span><br><span class="line">	hex1 = temp[<span class="number">20</span>:].strip().decode()</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> tqdm(table):</span><br><span class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> table:</span><br><span class="line">			<span class="keyword">for</span> k <span class="keyword">in</span> table:</span><br><span class="line">				<span class="keyword">for</span> m <span class="keyword">in</span> table:</span><br><span class="line">					temp1 = i+j+k+m</span><br><span class="line">					<span class="keyword">if</span>(sha256((temp1+suffix).encode()).hexdigest() == hex1):</span><br><span class="line">						r.sendline(temp1.encode())</span><br><span class="line">						<span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">	r = remote(<span class="string">&quot;node5.anna.nssctf.cn&quot;</span>,<span class="number">28803</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">#part1</span></span><br><span class="line">	r.recvline()</span><br><span class="line">	n = <span class="built_in">int</span>(r.recvline().strip()[<span class="number">3</span>:])</span><br><span class="line">	e = <span class="number">65537</span></span><br><span class="line">	S = &#123;<span class="built_in">pow</span>(i,-e,n):i <span class="keyword">for</span> i <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">1</span>,<span class="number">2</span>**<span class="number">19</span>))&#125;</span><br><span class="line">	proof_of_work()</span><br><span class="line"></span><br><span class="line">	<span class="comment">#part2</span></span><br><span class="line">	secret = <span class="string">&quot;&quot;</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">		c = <span class="built_in">int</span>(r.recvline().split(<span class="string">b&#x27;=&#x27;</span>)[<span class="number">1</span>].strip())</span><br><span class="line">		inv_c = inverse(c,n)</span><br><span class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">2</span>**<span class="number">16</span>):</span><br><span class="line">			s = inv_c*(<span class="built_in">pow</span>(j,e,n))%n</span><br><span class="line">			<span class="keyword">if</span>(s <span class="keyword">in</span> S):</span><br><span class="line">				<span class="built_in">print</span>(i)</span><br><span class="line">				secret += <span class="built_in">hex</span>(S[s]*j)[<span class="number">2</span>:].zfill(<span class="number">8</span>)</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">	temp = r.recvline()</span><br><span class="line">	r.sendline(secret.encode())</span><br><span class="line">	temp = r.recvline()</span><br><span class="line">	<span class="built_in">print</span>(temp)</span><br><span class="line">	r.close()</span><br><span class="line">    </span><br><span class="line"><span class="comment">#flag暂时还没有，靶机有一点小问题</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="Lost-Modulus"><a href="#Lost-Modulus" class="headerlink" title="Lost Modulus"></a>Lost Modulus</h3><p>题目来源：SEETF 2022</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, long_to_bytes, bytes_to_long</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    FLAG = f.read()</span><br><span class="line"></span><br><span class="line">n = bytes_to_long(FLAG)</span><br><span class="line"></span><br><span class="line"><span class="comment">#make sure i have a big modulus</span></span><br><span class="line"><span class="keyword">while</span> n.bit_length() &lt; <span class="number">2048</span>:</span><br><span class="line">    n *= n</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt</span>(<span class="params">m1, m2</span>):</span><br><span class="line">    e = getPrime(<span class="number">256</span>)</span><br><span class="line">    <span class="keyword">assert</span> m1.bit_length() &gt;= <span class="number">1600</span> <span class="keyword">and</span> long_to_bytes(m1).startswith(<span class="string">b&quot;SEE&#123;&quot;</span>), <span class="string">&#x27;first message must be at least 1600 bits and begin with &quot;SEE&#123;&quot;&#x27;</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="number">500</span> &lt;= m2.bit_length() &lt;= <span class="number">600</span>, <span class="string">&#x27;second message must be within 500 to 600 bits&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">pow</span>(m1, e, n), <span class="built_in">pow</span>(m2, e, n)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        m1 = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;Message 1 (as integer) : &quot;</span>).strip())</span><br><span class="line">        m2 = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;Message 2 (as integer) : &quot;</span>).strip())</span><br><span class="line">        c1, c2 = encrypt(m1, m2)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;\nCiphers: \n<span class="subst">&#123;[c1,c2]&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>梳理一下加密流程：</p>
+<ul>
+<li>将flag转为大整数n，反复乘方直至n大于2048bit</li>
+<li>允许我们输入两个整数m1、m2，要求满足：</li>
+<li><ul>
+<li>m1转为字节串后要求以”SEE{“开头，并且大于1600bit</li>
+<li>m2大小要在500-600bit之间</li>
+</ul>
+</li>
+<li>随机生成一个256bit的素数e，并使用公钥(n,e)对m1、m2分别进行RSA加密，并给出密文</li>
+</ul>
+<p>题目要求我们恢复模数n，而有关模数的恢复一般都会用到gcd。因此本题的关键就在于如何利用被限制了的明文m1、m2，构造出模数n的倍数。</p>
+<p>首先观察到，m1的二进制长度可以为m2的三倍以上，也就是说，我们可以利用立方关系进行构造。而如何构造出m1恰为一个数的3次方，并且开头还是”SEE{“呢？很容易，只需要先构造出一个符合条件的m1，然后开立方根，取整作为m2，再取m2的立方作为新的m1即可。这是因为，开立方根、取整后再立方回来，对m1的影响均在低位，不会影响到其高位的”SEE{“</p>
+<p>所以此时我们就有明文关系如下：</p>
+<script type="math/tex; mode=display">
+m_1^e \equiv (m_2^3)^e \equiv c_1\quad (mod\;n)</script><script type="math/tex; mode=display">
+m_2^e \equiv  c_2\quad (mod\;n)</script><p>所以有：</p>
+<script type="math/tex; mode=display">
+c_2^3-c_1 = kn</script><p>因此多连接几次靶机，取多组kn后求解gcd，就能去除小因子得到n，再爆破具体是m的几次方即可。</p>
+<p>exp.py：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> iroot</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gen</span>():</span><br><span class="line">    m1 = bytes_to_long(<span class="string">b&quot;SEE&#123;&quot;</span> + os.urandom(<span class="number">200</span>))</span><br><span class="line">    m2 = iroot(m1,<span class="number">3</span>)[<span class="number">0</span>]</span><br><span class="line">    m1 = m2**<span class="number">3</span></span><br><span class="line">    <span class="keyword">return</span> (m1,m2)</span><br><span class="line"></span><br><span class="line">kn = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">    r = remote(<span class="string">&quot;node4.anna.nssctf.cn&quot;</span>,<span class="number">28625</span>)</span><br><span class="line">    m1,m2 = gen()</span><br><span class="line">    temp = r.recvuntil(<span class="string">b&quot;Message 1 (as integer) : &quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(m1).encode())</span><br><span class="line">    temp = r.recvuntil(<span class="string">b&quot;Message 2 (as integer) : &quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(m2).encode())</span><br><span class="line">    temp = r.recvuntil(<span class="string">b&quot;Ciphers:&quot;</span>)</span><br><span class="line">    c = <span class="built_in">eval</span>(r.recvuntil(<span class="string">&quot;]&quot;</span>).decode())</span><br><span class="line">    c1 = c[<span class="number">0</span>]</span><br><span class="line">    c2 = c[<span class="number">1</span>]</span><br><span class="line">    kn.append(c2**<span class="number">3</span>-c1)</span><br><span class="line">    r.close()</span><br><span class="line">n = kn[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> kn[<span class="number">1</span>:]:</span><br><span class="line">    n = GCD(n,i)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">if</span>(iroot(n,i)[<span class="number">1</span>] == <span class="literal">True</span>):</span><br><span class="line">        <span class="built_in">print</span>(long_to_bytes(iroot(n,i)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment">#NSSCTF&#123;1affebef-9c23-45f1-b88e-406f9611c614&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.github.io/post/601c0957.html" title="Crypto趣题-Oracle">https://tangcuxiaojikuai.github.io/post/601c0957.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/97bbcbc9.html" rel="prev" title="Crypto趣题-其他">
+      <i class="fa fa-chevron-left"></i> Crypto趣题-其他
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#rsa"><span class="nav-number">1.</span> <span class="nav-text">rsa</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%84%B1%E7%A6%BB%E4%BA%A4%E4%BA%92%EF%BC%8C%E5%8D%95%E7%8B%AC%E5%88%86%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">脱离交互，单独分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%88%B0%E4%BA%A4%E4%BA%92"><span class="nav-number">1.2.</span> <span class="nav-text">回到交互</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lost-Modulus"><span class="nav-number">2.</span> <span class="nav-text">Lost Modulus</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
