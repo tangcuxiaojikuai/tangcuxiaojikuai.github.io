@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://tangcuxiaojikuai.github.io/post/601c0957.html</loc>
+    
+    <lastmod>2023-10-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://tangcuxiaojikuai.github.io/post/aa501114.html</loc>
     
     <lastmod>2023-10-14</lastmod>
@@ -41,15 +50,6 @@
     <loc>https://tangcuxiaojikuai.github.io/post/6a80d23a.html</loc>
     
     <lastmod>2023-10-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://tangcuxiaojikuai.github.io/post/601c0957.html</loc>
-    
-    <lastmod>2023-10-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -193,7 +193,7 @@
 
   <url>
     <loc>https://tangcuxiaojikuai.github.io/</loc>
-    <lastmod>2023-10-14</lastmod>
+    <lastmod>2023-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -203,28 +203,28 @@
   
   <url>
     <loc>https://tangcuxiaojikuai.github.io/categories/wp-crypto/</loc>
-    <lastmod>2023-10-14</lastmod>
+    <lastmod>2023-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tangcuxiaojikuai.github.io/categories/wp-misc/</loc>
-    <lastmod>2023-10-14</lastmod>
+    <lastmod>2023-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tangcuxiaojikuai.github.io/categories/crypto%E8%B6%A3%E9%A2%98/</loc>
-    <lastmod>2023-10-14</lastmod>
+    <lastmod>2023-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://tangcuxiaojikuai.github.io/categories/misc%E8%B6%A3%E9%A2%98/</loc>
-    <lastmod>2023-10-14</lastmod>
+    <lastmod>2023-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
