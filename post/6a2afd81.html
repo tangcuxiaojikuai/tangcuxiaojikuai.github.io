@@ -33,7 +33,7 @@
 <meta property="og:description" content="比赛记录">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-22T00:26:04.000Z">
-<meta property="article:modified_time" content="2023-10-22T04:17:11.296Z">
+<meta property="article:modified_time" content="2023-10-23T01:15:15.657Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 
@@ -215,10 +215,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-10-22 08:26:04 / 修改时间：12:17:11" itemprop="dateCreated datePublished" datetime="2023-10-22T08:26:04+08:00">2023-10-22</time>
+              <time title="创建时间：2023-10-22 08:26:04" itemprop="dateCreated datePublished" datetime="2023-10-22T08:26:04+08:00">2023-10-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-23 09:15:15" itemprop="dateModified" datetime="2023-10-23T09:15:15+08:00">2023-10-23</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -310,7 +316,8 @@ C2 = rG</script><p>而注意到，r是一个16比特的数字，数量级很小�
 c_i = a_ix + b_i \quad (mod\;q)</script><p>其中，ai、ci均为已知，而bi是未知的量且较小，要求我们通过这些等式还原x。</p>
 <p>这个问题一般写成矩阵形式：</p>
 <script type="math/tex; mode=display">
-C_{m*1} = A_{m*n}x_{n*1} + e_{m*1} \quad (mod\;q)</script><p>那么如何用格进行求解呢？需要把问题转化成一个CVP问题：</p>
+C_{m*1} = A_{m*n}x_{n*1} + e_{m*1} \quad (mod\;q)</script><p>那么如何用格进行求解呢？这里介绍两种方法：</p>
+<h4 id="方法一：CVP"><a href="#方法一：CVP" class="headerlink" title="方法一：CVP"></a>方法一：CVP</h4><p>把问题转化成一个CVP问题：</p>
 <p>首先由模等式：</p>
 <script type="math/tex; mode=display">
 c_i = a_ix + b_i \quad (mod\;q)</script><p>转化为等式如下：</p>
@@ -361,6 +368,37 @@ c_i-b_i = a_ix  + k_iq</script><p>所以可以构造如下格：</p>
   \right)</script><p>因此可以求解CVP问题可以得到c_i-b_i组成的向量，进而还原flag。</p>
 <p>exp：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">q = <span class="number">9342426601783650861020119568565656404715236059903009041977149778244153930435908024696666887269890479558473622355346816236972767736577737332173213722012253</span></span><br><span class="line">mask_ = [<span class="number">6237128445236992920577225644858662677575951126467888858782461334057970069468925833844231116647406833999142659751374620280213290736114576089069396331226747</span>, <span class="number">6368031389213953889417545256750169233725975229197446803885029159767701479445576860704561593200907482372690851152126782391126462547524526631934408981070841</span>, <span class="number">5106473460982791188578285397420642137630347289252852045044021197988607082777231839839730169682158507822078412449827976663385282021916120837408192506341443</span>, <span class="number">6318090842950331228033349517542810123596316850353637421587264886413877142612686177796023049304908696413386218992511112752788640732410845589679820003047667</span>]</span><br><span class="line">c_ = [<span class="number">3823539664720029027586933152478492780438595004453489251844133830947165342839393878831914879334660250621422877333022321117120398528430519794109624186204492</span>, <span class="number">1721659645750224819953244995460589691120672649732560768435214608167861246790136217219349234604724148039910656573436663379375048145045443527267790379816425</span>, <span class="number">668633520079344839648950502380059311916108468801009386138810324259146523323704014491547148973835774917331333581475920804677395949854411894556705238578896</span>, <span class="number">497860586379981076499130281851986010889356253371192266267220334713415782402939318483926418213877341511996918189750595755372560345085899109305344338944066</span>]</span><br><span class="line">p = q</span><br><span class="line">rs = mask_</span><br><span class="line">cs = c_</span><br><span class="line"></span><br><span class="line">G=GF(p)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Babai_closest_vector</span>(<span class="params">M, G, target</span>):</span><br><span class="line">  small = target</span><br><span class="line">  <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">reversed</span>(<span class="built_in">range</span>(M.nrows())):</span><br><span class="line">      c = ((small * G[i]) / (G[i] * G[i])).<span class="built_in">round</span>()</span><br><span class="line">      small -= M[i] * c</span><br><span class="line">  <span class="keyword">return</span> target - small</span><br><span class="line"></span><br><span class="line">m = <span class="number">4</span></span><br><span class="line">n = <span class="number">1</span></span><br><span class="line">A = matrix(ZZ, m+n, m)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">    A[i, i] = p</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">    A[m , x] = rs[x]</span><br><span class="line">lattice = IntegerLattice(A, lll_reduce=<span class="literal">True</span>)</span><br><span class="line"> </span><br><span class="line">gram = lattice.reduced_basis.gram_schmidt()[<span class="number">0</span>]</span><br><span class="line">target = vector(ZZ, cs)</span><br><span class="line">res = Babai_closest_vector(lattice.reduced_basis, gram, target)</span><br><span class="line"><span class="comment">#print(&quot;Closest Vector: &#123;&#125;&quot;.format(res))</span></span><br><span class="line"> </span><br><span class="line">R = IntegerModRing(p)</span><br><span class="line">M = Matrix(R, rs)</span><br><span class="line">res=vector(R, res)</span><br><span class="line"><span class="keyword">for</span> i,j <span class="keyword">in</span> <span class="built_in">zip</span>(cs,res):</span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">len</span>(<span class="built_in">bin</span>(i-j))-<span class="number">2</span>==<span class="number">50</span></span><br><span class="line">x=((res[<span class="number">0</span>])*inverse(rs[<span class="number">0</span>],p)) %p</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(x)))</span><br><span class="line"><span class="comment">#0xGame&#123;19255b5c7b19c790e28d87c8a8bb1d33&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="方法二：SVP"><a href="#方法二：SVP" class="headerlink" title="方法二：SVP"></a>方法二：SVP</h4><p>我们构造如下格：</p>
+<script type="math/tex; mode=display">
+\left(
+ \begin{matrix}
+   q      &      &      &      &  &  \\
+          &q     &      &      &  &  \\
+          &      &q     &      &  &  \\
+          &      &      &q     &  &  \\
+  mask1   &mask2 &mask3 &mask4 &1 &  \\
+  c1      &c2    &c3    &c4    &  &1  \\
+  \end{matrix}
+  \right)</script><p>那么由等式：</p>
+<script type="math/tex; mode=display">
+c_i = mask_ix  + k_iq +noise_i</script><script type="math/tex; mode=display">
+noise_i = c_i-mask_ix  - k_iq</script><p>所以有如下线性关系：</p>
+<script type="math/tex; mode=display">
+(k1,k2,k3,k4,m,-1)*
+\left(
+ \begin{matrix}
+   q      &      &      &      &  &  \\
+          &q     &      &      &  &  \\
+          &      &q     &      &  &  \\
+          &      &      &q     &  &  \\
+  mask1   &mask2 &mask3 &mask4 &1 &  \\
+  c1      &c2    &c3    &c4    &  &1  \\
+  \end{matrix}
+  \right)
+  =
+  (-noise1,-noise2,-noise3,-noise4,x,-1)</script><p>然后配一下系数使得格最后规约出的数量级相当，即可还原m</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">q = <span class="number">9342426601783650861020119568565656404715236059903009041977149778244153930435908024696666887269890479558473622355346816236972767736577737332173213722012253</span></span><br><span class="line">mask_ = [<span class="number">6237128445236992920577225644858662677575951126467888858782461334057970069468925833844231116647406833999142659751374620280213290736114576089069396331226747</span>, <span class="number">6368031389213953889417545256750169233725975229197446803885029159767701479445576860704561593200907482372690851152126782391126462547524526631934408981070841</span>, <span class="number">5106473460982791188578285397420642137630347289252852045044021197988607082777231839839730169682158507822078412449827976663385282021916120837408192506341443</span>, <span class="number">6318090842950331228033349517542810123596316850353637421587264886413877142612686177796023049304908696413386218992511112752788640732410845589679820003047667</span>]</span><br><span class="line">c_ = [<span class="number">3823539664720029027586933152478492780438595004453489251844133830947165342839393878831914879334660250621422877333022321117120398528430519794109624186204492</span>, <span class="number">1721659645750224819953244995460589691120672649732560768435214608167861246790136217219349234604724148039910656573436663379375048145045443527267790379816425</span>, <span class="number">668633520079344839648950502380059311916108468801009386138810324259146523323704014491547148973835774917331333581475920804677395949854411894556705238578896</span>, <span class="number">497860586379981076499130281851986010889356253371192266267220334713415782402939318483926418213877341511996918189750595755372560345085899109305344338944066</span>]</span><br><span class="line"></span><br><span class="line">L = matrix(ZZ, <span class="number">6</span>, <span class="number">6</span>)</span><br><span class="line">K = <span class="number">2</span>**(<span class="number">318</span>-<span class="number">50</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">    L[i,i] = q * K</span><br><span class="line">    L[<span class="number">4</span>,i] = mask_[i] * K</span><br><span class="line">    L[-<span class="number">1</span>,i] = c_[i] * K</span><br><span class="line">L[<span class="number">4</span>,<span class="number">4</span>] = <span class="number">1</span></span><br><span class="line">L[-<span class="number">1</span>,-<span class="number">1</span>] = <span class="number">2</span>**<span class="number">318</span></span><br><span class="line"></span><br><span class="line">res = L.LLL()</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">abs</span>(res[<span class="number">0</span>][-<span class="number">2</span>])))</span><br><span class="line"></span><br><span class="line"><span class="comment">#0xGame&#123;19255b5c7b19c790e28d87c8a8bb1d33&#125;</span></span><br></pre></td></tr></table></figure>
 <p><br></p>
 <p><br></p>
 <h3 id="Week-3-EzMatrix"><a href="#Week-3-EzMatrix" class="headerlink" title="[Week 3] EzMatrix"></a>[Week 3] EzMatrix</h3><p>题目描述：</p>
@@ -506,7 +544,7 @@ B^{secret} = PCP^{-1}</script><p>而由于B是一个对角矩阵的缘故，所�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-EzECC"><span class="nav-number">1.</span> <span class="nav-text">[Week 3] EzECC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-LLL-FirstBlood"><span class="nav-number">2.</span> <span class="nav-text">[Week 3] LLL-FirstBlood</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-LLL-SecondBlood"><span class="nav-number">3.</span> <span class="nav-text">[Week 3] LLL-SecondBlood</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-EzMatrix"><span class="nav-number">4.</span> <span class="nav-text">[Week 3] EzMatrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-EzOverflow"><span class="nav-number">5.</span> <span class="nav-text">[Week 3] EzOverflow</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-EzECC"><span class="nav-number">1.</span> <span class="nav-text">[Week 3] EzECC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-LLL-FirstBlood"><span class="nav-number">2.</span> <span class="nav-text">[Week 3] LLL-FirstBlood</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-LLL-SecondBlood"><span class="nav-number">3.</span> <span class="nav-text">[Week 3] LLL-SecondBlood</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9ACVP"><span class="nav-number">3.1.</span> <span class="nav-text">方法一：CVP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9ASVP"><span class="nav-number">3.2.</span> <span class="nav-text">方法二：SVP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-EzMatrix"><span class="nav-number">4.</span> <span class="nav-text">[Week 3] EzMatrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-EzOverflow"><span class="nav-number">5.</span> <span class="nav-text">[Week 3] EzOverflow</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
