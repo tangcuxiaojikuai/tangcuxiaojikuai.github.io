@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/87ec16c9/image-20231023200836792.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/87ec16c9/image-20231023200412149.png">
 <meta property="article:published_time" content="2023-10-22T02:50:36.000Z">
-<meta property="article:modified_time" content="2023-10-24T09:04:33.749Z">
+<meta property="article:modified_time" content="2023-10-24T09:06:47.460Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.github.io/post/87ec16c9/image-20231023200836792.png">
@@ -226,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-24 17:04:33" itemprop="dateModified" datetime="2023-10-24T17:04:33+08:00">2023-10-24</time>
+                <time title="修改时间：2023-10-24 17:06:47" itemprop="dateModified" datetime="2023-10-24T17:06:47+08:00">2023-10-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -545,7 +545,7 @@ ph_i - e = \frac{(x_P+x_i)(1+ay_Py_i)}{(1+bx_Px_i)(1-ay_Py_i)}</script><p>上下
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">b&#x27;n\xa3 you break the cipher!!how could it be??????? the flag is:DASCTF&#123;God_on_syM@etric_cRypto9raPhy&#125;\x00&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>其实前两个字节还有点小错误，正确flag中是”oh”，不过这个小bug暂时就不d了。</p>
 <p>这样利用中间相遇攻击，复杂度就由爆破完整密钥的2^32降低到了2*2^20，因此最多约半小时就能爆破出结果。而且运气比较好，其实一分多钟就有正确结果。</p>
-<h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><p>在复现完成后，出题师傅对我的一些说法进行了更细致的补充。就比如，其实再回头看我们刚才讲的encrypt函数不安全的第三点：</p>
+<h5 id="一些补充"><a href="#一些补充" class="headerlink" title="一些补充"></a>一些补充</h5><p>在复现完成后，出题师傅对我的一些说法进行了更细致的补充。就比如，其实再回头看我们刚才讲的encrypt函数不安全的第三点：</p>
 <ul>
 <li>bit_move函数中，有4个比特位并没有进行置换，分别是：0，5，10，15</li>
 </ul>
@@ -648,7 +648,7 @@ ph_i - e = \frac{(x_P+x_i)(1+ay_Py_i)}{(1+bx_Px_i)(1-ay_Py_i)}</script><p>上下
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#EzRSA"><span class="nav-number">1.</span> <span class="nav-text">EzRSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CB-backpack"><span class="nav-number">2.</span> <span class="nav-text">CB backpack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CB-curve"><span class="nav-number">3.</span> <span class="nav-text">*CB curve</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#negG"><span class="nav-number">3.1.</span> <span class="nav-text">negG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#groebner%E6%B1%82P%E7%82%B9%E5%9D%90%E6%A0%87"><span class="nav-number">3.2.</span> <span class="nav-text">groebner求P点坐标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mapping"><span class="nav-number">3.3.</span> <span class="nav-text">mapping</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CB-cipher"><span class="nav-number">4.</span> <span class="nav-text">*CB cipher</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95"><span class="nav-number">4.1.</span> <span class="nav-text">尝试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E6%80%9D%E8%B7%AF"><span class="nav-number">4.2.</span> <span class="nav-text">正确思路</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#iv"><span class="nav-number">4.2.1.</span> <span class="nav-text">iv</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E7%9B%B8%E9%81%87"><span class="nav-number">4.2.2.</span> <span class="nav-text">中间相遇</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">4.2.3.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#EzRSA"><span class="nav-number">1.</span> <span class="nav-text">EzRSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CB-backpack"><span class="nav-number">2.</span> <span class="nav-text">CB backpack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CB-curve"><span class="nav-number">3.</span> <span class="nav-text">*CB curve</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#negG"><span class="nav-number">3.1.</span> <span class="nav-text">negG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#groebner%E6%B1%82P%E7%82%B9%E5%9D%90%E6%A0%87"><span class="nav-number">3.2.</span> <span class="nav-text">groebner求P点坐标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mapping"><span class="nav-number">3.3.</span> <span class="nav-text">mapping</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CB-cipher"><span class="nav-number">4.</span> <span class="nav-text">*CB cipher</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95"><span class="nav-number">4.1.</span> <span class="nav-text">尝试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E6%80%9D%E8%B7%AF"><span class="nav-number">4.2.</span> <span class="nav-text">正确思路</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#iv"><span class="nav-number">4.2.1.</span> <span class="nav-text">iv</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E7%9B%B8%E9%81%87"><span class="nav-number">4.2.2.</span> <span class="nav-text">中间相遇</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E8%A1%A5%E5%85%85"><span class="nav-number">4.2.3.</span> <span class="nav-text">一些补充</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
