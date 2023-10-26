@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="NpkS3-mYBXgvBvpBrJfSXgHDiRxjGTAfNej436pZGp4" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="该文章主要记录一些后量子密码相关的趣题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Crypto趣题-后量子密码">
+<meta property="og:url" content="https://tangcuxiaojikuai.github.io/post/65473b07.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="该文章主要记录一些后量子密码相关的趣题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-26T01:46:49.000Z">
+<meta property="article:modified_time" content="2023-10-26T02:35:31.777Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.github.io/post/65473b07.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Crypto趣题-后量子密码 | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.github.io/post/65473b07.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Crypto趣题-后量子密码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-10-26 09:46:49 / 修改时间：10:35:31" itemprop="dateCreated datePublished" datetime="2023-10-26T09:46:49+08:00">2023-10-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/crypto%E8%B6%A3%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">crypto趣题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/65473b07.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/65473b07.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>该文章主要记录一些后量子密码相关的趣题</p>
+<span id="more"></span>
+<h3 id="sound"><a href="#sound" class="headerlink" title="sound"></a>sound</h3><p>题目来源：暂不明确：</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> numpy.polynomial <span class="keyword">import</span> polynomial <span class="keyword">as</span> poly</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># from secert import flag</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">poly_mul</span>(<span class="params">x, y, z, poly_mod</span>):</span><br><span class="line"></span><br><span class="line">  init_poly = poly.polymul(x, y)</span><br><span class="line">  res_poly = poly.polydiv(init_poly % z, poly_mod)[<span class="number">1</span>] % z</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.int64(np.<span class="built_in">round</span>(res_poly))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">poly_add</span>(<span class="params">x, y, z, poly_mod</span>):</span><br><span class="line"></span><br><span class="line">  init_poly = poly.polyadd(x, y)</span><br><span class="line">  res_poly = poly.polydiv(init_poly % z, poly_mod)[<span class="number">1</span>] % z</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.int64(np.<span class="built_in">round</span>(res_poly))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">r2_distribution</span>(<span class="params"><span class="built_in">len</span></span>):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.random.randint(<span class="number">0</span>, <span class="number">2</span>, <span class="built_in">len</span>, dtype=np.int64)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rz_distribution</span>(<span class="params">z, <span class="built_in">len</span></span>):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.random.randint(<span class="number">0</span>, z, <span class="built_in">len</span>, dtype=np.int64)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gass_distribution</span>(<span class="params"><span class="built_in">len</span></span>):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.int64(np.random.normal(<span class="number">0</span>, <span class="number">2</span>, size=<span class="built_in">len</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">keygen</span>(<span class="params"><span class="built_in">len</span>, z, poly_mod</span>):</span><br><span class="line"></span><br><span class="line">  s = r2_distribution(<span class="built_in">len</span>)</span><br><span class="line">  a = rz_distribution(z, <span class="built_in">len</span>)</span><br><span class="line">  e = gass_distribution(<span class="built_in">len</span>)</span><br><span class="line">  b = poly_add(poly_mul(-a, s, z, poly_mod), -e, z, poly_mod)</span><br><span class="line"></span><br><span class="line">  key = [a, b, s]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> key</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt</span>(<span class="params">key, lent, q, t, poly_mod, message</span>):</span><br><span class="line">    lm = []</span><br><span class="line">    mg = <span class="built_in">hex</span>(message)[<span class="number">2</span>:]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(mg)):</span><br><span class="line">        lm.append(<span class="built_in">ord</span>(mg[i]))</span><br><span class="line"></span><br><span class="line">    m = np.array(lm + [<span class="number">0</span>] * (lent - <span class="built_in">len</span>(lm)), dtype=np.int64) % t</span><br><span class="line">    delta = q // t</span><br><span class="line">    delta_m = delta * m % q</span><br><span class="line">    e1 = gass_distribution(lent)</span><br><span class="line">    e2 = gass_distribution(lent)</span><br><span class="line">    u = r2_distribution(lent)</span><br><span class="line">    a = key[<span class="number">0</span>]</span><br><span class="line">    b = key[<span class="number">1</span>]</span><br><span class="line">    c0 = poly_add(poly_add(poly_mul(b, u, q, poly_mod), e1, q, poly_mod), delta_m, q, poly_mod)</span><br><span class="line">    c1 = poly_add(poly_mul(a, u, q, poly_mod), e2, q, poly_mod)</span><br><span class="line"></span><br><span class="line">    c = [c0, c1]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">n = <span class="number">128</span></span><br><span class="line">q = <span class="number">2</span>**<span class="number">60</span></span><br><span class="line">t = <span class="number">2</span>**<span class="number">32</span></span><br><span class="line">poly_mod = np.array([<span class="number">1</span>] + [<span class="number">0</span>] * (n - <span class="number">1</span>) + [<span class="number">1</span>])</span><br><span class="line">key = keygen(n, q, poly_mod)</span><br><span class="line"><span class="built_in">print</span>(key)</span><br><span class="line"><span class="comment"># m = bytes_to_long(&quot;test&quot;)</span></span><br><span class="line"><span class="comment"># c = encrypt(key, n, q, t, poly_mod, m)</span></span><br><span class="line"><span class="comment"># print(&quot;c0 =&quot;, c[0].tolist())</span></span><br><span class="line"><span class="comment"># print(&quot;c1 =&quot;, c[1].tolist())</span></span><br><span class="line"><span class="comment"># print(&quot;a =&quot;, key[0].tolist())</span></span><br><span class="line"><span class="comment"># print(&quot;b =&quot;, key[1].tolist())</span></span><br><span class="line"><span class="comment"># print(&quot;s =&quot;, key[2].tolist())</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">c0 = [561582066946621440, 817928620285456128, 42443557674760704, 394102843794633984, 72227332717773568, 670192568490572288, 1124338053013283584, 280137744525874176, 63888555088669696, 208355146401743872, 301595565562120704, 50991331858064384, 686628375362950656, 584548366308243456, 1133668516727752192, 474240047688777728, 985154171217232384, 501564712591768576, 914588095025884160, 746830802337096704, 459209143204393984, 603634479787543552, 69069089375354880, 473248420863702016, 754603248638489600, 883576336602057728, 644743636485886976, 319901457654988800, 89793303522564096, 1090071466212856832, 369690536666460160, 1082593341867948032, 441359938321465344, 496386518207440896, 863575421687413760, 811516483959451648, 205996965699836928, 170811895655694336, 335832012272743424, 402108133996681216, 222897130593269760, 317187616437233664, 202919598933315584, 750395341955145728, 366873741733378048, 117730747288055808, 298767968401977344, 923270470424109056, 1076698083295752192, 926422812303050752, 216450081157644288, 981499274968659968, 349655761329862656, 557140442005530624, 858566688669024256, 1149813151825131520, 553370166035001344, 493722732465334272, 732590954557634560, 1052906163890288640, 1021790009160361984, 796011853108049920, 978483522580508672, 894955797433884672, 203559391733489664, 1062410754780596224, 452371485913219072, 651736133029277696, 313976115776903168, 31756099628290048, 71787963926824960, 1109713454413903872, 1112298691994664960, 539132530906077184, 435437107964127232, 833705546252720128, 928849583016886272, 526205130688186368, 1121288102191632384, 536933088453670912, 924962525849556992, 241106313851269120, 717238131918897152, 452642326250387456, 354673268076457984, 16428317258336256, 1061713751710105600, 1139952509444370432, 146561032291504128, 944139817563172864, 670119880592367616, 424458702156075008, 26734611035709440, 552311974354061312, 252009367779129344, 362515232289822720, 942674829586386944, 444916638598115328, 931633333648844800, 54609902697099264, 831316650858829824, 113431421994166272, 907245098202316800, 89326594807300096, 1016570475364521984, 175954756550047744, 53317212366995456, 49595714294925312, 490302383520435200, 260454924258463744, 713597063793843200, 759813046691484672, 491213271622251520, 861532845783883776, 1001029896578621440, 1017093991719427072, 901303193624896512, 85708980918313472, 1094723859831225856, 978173121944355840, 1074912611780537344, 816683396743236608, 406912122093641728, 326181480111288320, 644075764054597632, 114416502291357696, 543109737210728448, 311623753071517696]</span></span><br><span class="line"><span class="string">c1 = [91790686412574976, 744110810763883904, 864964412801026560, 548689841412167296, 740051294265845504, 57902427994320256, 1068935585666797056, 625707146907438848, 551559740589006848, 233440834921673728, 108552546335437312, 166310503165480448, 267060328550531584, 735758245725702656, 712188529675013632, 386374530222726144, 823764165634433536, 123823217368593408, 1004488834478358528, 177477850679225344, 882498511506926592, 5562190320664577, 1106414131124581376, 327516552070835200, 1028475201394497536, 847983498883162112, 1095687065391010816, 706624008349679616, 204676471898160128, 926864853752850432, 152748692869394432, 326128165710331904, 237842086203092992, 1057799799477599232, 345130623233955840, 790672249565697024, 523310000234446848, 840615312867051520, 924979087214993408, 979878291879419904, 115424422845719552, 884924921252442112, 579700963339163648, 1097673093701288960, 704450636638808064, 556078232166107136, 600772693891751936, 905676852758437888, 33621101477464064, 962348719049031680, 925511116990984192, 722520866171662336, 84706802559584256, 530104859095961600, 586276707214465024, 1037552671549552640, 47697269444673536, 210690498450145280, 65070464261654528, 550494166683250688, 777902097764929536, 490832146778818560, 229195607527737344, 767464696299196416, 237315984854040576, 836604288237121536, 507968614131243008, 1146549269233274880, 947811005289312256, 415029326696218624, 73794452197351424, 1111805188636655616, 574425125131241472, 1077883538301097984, 1093417286225403904, 860646266870226944, 238318354083344384, 200921121541777408, 896691473408880640, 794971973394204672, 128454122568243200, 1048391326124871680, 811035464481740800, 922934079239356416, 1033337101914234880, 253445566297591808, 820899412762693632, 51737950452322304, 115554283493984256, 1013231171511318528, 887144973891745792, 903483706965391360, 1100501053366775808, 691065365527990272, 265415356256839680, 969461346065672192, 719496129535698944, 177295085227089920, 860427351595780096, 125812051803891712, 852658796584968192, 487770283774704640, 1070758201904617472, 696983558330196992, 911281563710520320, 676402547272127488, 240686574930634752, 412323376183429120, 619325898981327872, 551028995171842048, 124379235049986048, 649110127901071360, 453922531021119488, 1022481642604582912, 637680606991188992, 51749356430436352, 388350126415356928, 335267552976254464, 960188628024263168, 1088514924986558976, 1094423617550431488, 451833526251570688, 870461009339176704, 697351158038040832, 536089791190207360, 1118146398557536256, 518612046112251904, 241398597936840704]</span></span><br><span class="line"><span class="string">a = [219983724512243970, 752269838678521187, 480509403910281428, 133185208045420765, 490932722804543133, 372886136396692359, 354557330633882122, 678374399146208018, 960245804475102275, 806115518790255556, 828442613098615970, 544833163224524043, 101022959319030935, 117082421755238805, 461182355875216799, 1056119810024896502, 1082000166040876591, 738717114032361767, 578460771662302172, 21556920074594644, 708384954866463679, 1128876901552996333, 874708202228666633, 1092990784029535155, 705415640472089353, 29671570923717836, 386333436179138094, 279081567858606603, 358852578576320987, 847350768179480795, 817603347707592640, 378977756047386392, 201769345485693076, 1063632060034171765, 1015775208741323787, 365127265851837110, 895275437758090601, 901913451551062231, 86419657119953320, 1149882820426142461, 157964525788076127, 631235061398583563, 470949966047613817, 180994349394944987, 228238609714444899, 73624200469844200, 521149905985689963, 19697681380014322, 233461826565515880, 891353264527116993, 1132362343348330909, 719302772676639611, 816690530086729127, 612858319654028202, 1029240232500231324, 266903296429217560, 66793172770160368, 836559325488504608, 1112595888239841739, 1115401337078198049, 261716078450833148, 235662011088480216, 24855917687216082, 619578281956001818, 589359800577838713, 780827177034370452, 62331996978291742, 757201723755709445, 325754948905836705, 298782045417610682, 958766007892311371, 474147826024027639, 1070490722277174646, 190459580153148093, 575005416421018885, 1120664053122918701, 982594533717886793, 252358471190638150, 869750160966337040, 1014322228871199234, 665558545558521628, 105433885394318337, 377027901347400638, 858616841227650075, 1043520529148794434, 1011002490399424434, 207664442877510988, 871194434207030706, 43210520355326250, 602232789264907632, 474051046305769969, 184712552380050689, 795080413713622552, 69957213032924047, 528473007846250043, 169221743016746138, 455880753546244419, 329225658406843642, 1150659098485422471, 626876298585651008, 490793379497608670, 933534706184661647, 467052917787037730, 1075596724935302342, 633000416730524162, 1090163205445120705, 72568659182243843, 571233962016655997, 1038522694640247261, 1025630622605696194, 553753007953333627, 231471906689387866, 558788723869154294, 673804202648107772, 232283327890481849, 39742925179368561, 135909458983766175, 192124298319965985, 839263496419016075, 162231894553173376, 661693215639557019, 655784289160683355, 1062416543453873451, 319938129595811007, 1002025365666496902, 272017768612866462, 482130564327357100, 982163056351966292]</span></span><br><span class="line"><span class="string">b = [820893636450185216, 1088723008695521024, 563505788571372160, 225792174390707712, 531991982654429312, 676436714054308864, 74314379213871872, 78960436919170688, 744901196366641920, 556510129527018752, 71967857250009600, 714820946954724352, 1047939442957058048, 475133098260006400, 764020773208596992, 495337689359947776, 969475874903125504, 132719289181729792, 301591784012423168, 886113347782835200, 477381121894258688, 843499387721308160, 508541992967101440, 135898603458110464, 373248303372987392, 696522694584843264, 22397882759483392, 867189773938512896, 231922357411858432, 452886634658905088, 337138259452950528, 246330467020038144, 336880752906045440, 712110254503864320, 1109022090563764224, 736941976050098176, 340820746543463424, 319152585759258624, 627473838419951616, 724549720670470144, 941976447076147200, 284306369459089408, 474986938990024704, 169392264058798080, 425082943668336640, 780502226419180544, 534812953559536640, 307991466712799232, 256772641512932352, 954565062645100544, 642433129475169280, 554579429440409600, 492586567437330432, 504243514518411264, 559583345168955392, 1047970717391220736, 354007966625097728, 944087368508420096, 48593600443238400, 412546108591775744, 371798716943661056, 109603610083078144, 912962403831732224, 493593202496430080, 435411737100828672, 416258656632209408, 41271759105748992, 547450588221173760, 1019985813100816384, 1133270880179824640, 416184705628168192, 1002938666972422144, 131467088438026240, 730507494540156928, 1122116292811296768, 179931222600130560, 704668788433995776, 693568343631073280, 159315312318967808, 228151058164389888, 78591434106697728, 1101441417145767936, 1011500470535821312, 103335769958184960, 723984495516817408, 421553904096403456, 1009636649059076096, 880471059436941312, 1017699541008359424, 880891531629418496, 1001214838765556736, 584549630850997248, 63724037422592000, 984435711617449984, 737723590588489728, 235901319105159168, 867142310717528064, 62598429756019712, 135623731618318336, 103508320292760576, 714343001741491200, 384031562306680832, 620521749068774400, 562199194838183936, 137440949282672640, 105902179785320448, 76984505248291840, 81968680790070272, 932887350172256256, 162426306785337344, 248707672736583680, 338911851801801216, 664174993098860032, 590418449833950720, 668934689108922112, 1050363471682760704, 627510981430159872, 157201265188110848, 332191804534742528, 610005938211220480, 789419961205813248, 350516436368000512, 135054071035246848, 1103634020293607168, 851221988945015936, 339941701245870080, 810615510791110656, 1139102409849577472]</span></span><br><span class="line"><span class="string">s = [0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>题目给的函数有点多，先理清每个函数具体作用是什么：</p>
+<h4 id="分析函数"><a href="#分析函数" class="headerlink" title="分析函数"></a>分析函数</h4><h5 id="poly-mul"><a href="#poly-mul" class="headerlink" title="poly_mul"></a>poly_mul</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">poly_mul</span>(<span class="params">x, y, z, poly_mod</span>):</span><br><span class="line"></span><br><span class="line">  init_poly = poly.polymul(x, y)</span><br><span class="line">  res_poly = poly.polydiv(init_poly % z, poly_mod)[<span class="number">1</span>] % z</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.int64(np.<span class="built_in">round</span>(res_poly))</span><br></pre></td></tr></table></figure>
+<p>输入：</p>
+<ul>
+<li>x、y：多项式系数列表</li>
+<li>z：模数</li>
+<li>poly_mod：模多项式系数列表</li>
+</ul>
+<p>具体来说，该函数实现x、y多项式相乘后，每项系数模z，再将整个多项式模poly_mod。</p>
+<h5 id="poly-add"><a href="#poly-add" class="headerlink" title="poly_add"></a>poly_add</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">poly_add</span>(<span class="params">x, y, z, poly_mod</span>):</span><br><span class="line"></span><br><span class="line">  init_poly = poly.polyadd(x, y)</span><br><span class="line">  res_poly = poly.polydiv(init_poly % z, poly_mod)[<span class="number">1</span>] % z</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.int64(np.<span class="built_in">round</span>(res_poly))</span><br></pre></td></tr></table></figure>
+<p>这个函数的输入参数列表与poly_add完全一样，它实现的是x、y多项式相加后，每项系数模z，再将整个多项式模poly_mod。</p>
+<h5 id="r2-distribution"><a href="#r2-distribution" class="headerlink" title="r2_distribution"></a>r2_distribution</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">r2_distribution</span>(<span class="params"><span class="built_in">len</span></span>):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.random.randint(<span class="number">0</span>, <span class="number">2</span>, <span class="built_in">len</span>, dtype=np.int64)</span><br></pre></td></tr></table></figure>
+<p>该函数生成一个长度为len，元素为0或1的随机数列表</p>
+<h5 id="rz-distribution"><a href="#rz-distribution" class="headerlink" title="rz_distribution"></a>rz_distribution</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">rz_distribution</span>(<span class="params">z, <span class="built_in">len</span></span>):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.random.randint(<span class="number">0</span>, z, <span class="built_in">len</span>, dtype=np.int64)</span><br></pre></td></tr></table></figure>
+<p>该函数生成一个长度为len，元素为0-z之间的随机数列表</p>
+<h5 id="gass-distribution"><a href="#gass-distribution" class="headerlink" title="gass_distribution"></a>gass_distribution</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">gass_distribution</span>(<span class="params"><span class="built_in">len</span></span>):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.int64(np.random.normal(<span class="number">0</span>, <span class="number">2</span>, size=<span class="built_in">len</span>))</span><br></pre></td></tr></table></figure>
+<p>该函数返回一个长度为len，随机数从给定正态分布中抽取的列表，各个参数意义详见：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wzy628810/article/details/103807829">numpy.random.normal详解-CSDN博客</a></p>
+<p>自己测试一下就可以知道，其实可以认为他就是一个小噪声：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">length = <span class="number">128</span></span><br><span class="line"><span class="built_in">print</span>(gass_distribution(length))</span><br><span class="line"></span><br><span class="line">[-<span class="number">1</span>  <span class="number">0</span> -<span class="number">1</span>  <span class="number">2</span>  <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">1</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">1</span> -<span class="number">4</span>  <span class="number">0</span>  <span class="number">0</span> -<span class="number">1</span>  <span class="number">3</span>  <span class="number">2</span> -<span class="number">1</span> -<span class="number">1</span>  <span class="number">2</span>  <span class="number">0</span>  <span class="number">0</span> -<span class="number">1</span>  <span class="number">3</span>  <span class="number">2</span>  <span class="number">1</span>  <span class="number">0</span>  <span class="number">1</span>  <span class="number">0</span> -<span class="number">2</span> -<span class="number">2</span>  <span class="number">3</span> -<span class="number">1</span>  <span class="number">3</span> -<span class="number">4</span> -<span class="number">1</span> -<span class="number">1</span>  <span class="number">0</span>  <span class="number">1</span>  <span class="number">0</span> -<span class="number">3</span> -<span class="number">3</span>  <span class="number">2</span>  <span class="number">2</span>  <span class="number">0</span> -<span class="number">4</span> <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span> -<span class="number">1</span> -<span class="number">1</span> -<span class="number">1</span>  <span class="number">0</span> -<span class="number">2</span>  <span class="number">0</span>  <span class="number">0</span> -<span class="number">2</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">1</span> -<span class="number">1</span>  <span class="number">0</span>  <span class="number">0</span> -<span class="number">2</span>  <span class="number">2</span>  <span class="number">0</span>  <span class="number">1</span> -<span class="number">1</span>  <span class="number">2</span>  <span class="number">2</span> -<span class="number">3</span>  <span class="number">0</span> -<span class="number">1</span>  <span class="number">3</span>  <span class="number">1</span> -<span class="number">2</span> -<span class="number">2</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span> -<span class="number">1</span>  <span class="number">4</span>  <span class="number">2</span>  <span class="number">2</span> -<span class="number">1</span>  <span class="number">0</span> -<span class="number">1</span>  <span class="number">4</span> -<span class="number">1</span>  <span class="number">1</span>  <span class="number">0</span> <span class="number">0</span> -<span class="number">1</span> -<span class="number">1</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">3</span>  <span class="number">0</span>  <span class="number">1</span> -<span class="number">3</span> -<span class="number">1</span>  <span class="number">0</span> -<span class="number">1</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">0</span>  <span class="number">1</span> -<span class="number">1</span> -<span class="number">1</span> -<span class="number">2</span> -<span class="number">1</span>  <span class="number">0</span> -<span class="number">1</span> -<span class="number">1</span>  <span class="number">1</span> <span class="number">2</span>  <span class="number">0</span>  <span class="number">3</span> -<span class="number">1</span>  <span class="number">1</span>  <span class="number">0</span> -<span class="number">2</span>  <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<p>以上就是五个加密需要用到的基本函数，总结一下，其实他就是定义了一个多项式的商环，运算也均在这个商环上进行。而这些随机生成的列表，也就可以看作是这个商环上的多项式系数列表，这个商环如下：</p>
+<script type="math/tex; mode=display">
+F_q[x]=Z_q[x]/f(x)</script><p>其中，f(x)就是题目中的poly_mod，Zq[x]指模q下的多项式环。</p>
+<p>那么从这里开始，本文后续的多项式运算都定义在该商环上。</p>
+<p>再看keygen函数，就可以知道几个多项式的关系：</p>
+<script type="math/tex; mode=display">
+b(x) = -s(x)a(x) - e(x)</script><p>其中，s的系数均为0或1，e的系数为一个正态分布的小噪声，而a、b的系数则应该是由较大的数构成的。</p>
+<p>然后对于encrypt函数，其加密流程如下：</p>
+<ul>
+<li>把flag转为十六进制字符串，然后把每个十六进制字符转为ASCII码，然后在后面填充足够的0使得m也是一个同长度的多项式系数列表(这些东西自己生成数据测试一下就明白了)</li>
+<li>定义一个较大的数delta，题目中是2^28，然后将m的多项式系数乘delta。这里就可以想到，对于m来说，只有前面非0的部分乘上了delta而显著变大，后面的填充0是不变的</li>
+<li>生成两个满足正态分布的小噪声e1、e2，再生成一个系数均为0或1的随机临时密钥u，计算下面两个多项式作为密文并返回(其中dm表示乘上了delta的m系数列表)：</li>
+</ul>
+<script type="math/tex; mode=display">
+c_0(x) = b(x)u(x) + e_1(x) + dm(x)</script><script type="math/tex; mode=display">
+c_1(x) = a(x)u(x) + e_2(x)</script><p>那么加密流程就分析完了，接下来进入解密。</p>
+<h4 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h4><p>其实见过的话，差不多就能反应过来这其实是RLWE加密，而题目实现的其实就是RLWE的标准加密过程，具体可以参考：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/348311060">格密码之Ring-LWE (section 1) - 知乎 (zhihu.com)</a></p>
+<p>了解了加解密流程的话，会发现其实这个题目已经给好了我们私钥s，而有了私钥s我们就可以用如下方式解密(为了表示方便，多项式后面就不写(x)了)：</p>
+<p>由于有：</p>
+<script type="math/tex; mode=display">
+b = -as+e</script><p>所以：</p>
+<script type="math/tex; mode=display">
+bu = -asu + eu</script><script type="math/tex; mode=display">
+c_0 + s*c_1 = (bu+e_1+dm) + s(au+e_2) = -asu + eu +e_1 +dm+asu +se_2 = dm +(eu+e_1+se_2)</script><p>也就是：</p>
+<script type="math/tex; mode=display">
+c_0 + s*c_1 = dm +(eu+e_1+se_2)</script><p>可以发现，后面的(eu+e_1+se_2)仍然是个小噪声，因此我们直接对(c_0 + s*c_1)模delta，就能得到m。然后有一点需要注意，噪声(eu+e_1+se_2)可能有负值，而为负值的时候，模delta会导致最终结果小1，需要对应添加回去。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> numpy.polynomial <span class="keyword">import</span> polynomial <span class="keyword">as</span> poly</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># from secert import flag</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">poly_mul</span>(<span class="params">x, y, z, poly_mod</span>):</span><br><span class="line"></span><br><span class="line">  init_poly = poly.polymul(x, y)</span><br><span class="line">  res_poly = poly.polydiv(init_poly % z, poly_mod)[<span class="number">1</span>] % z</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.int64(np.<span class="built_in">round</span>(res_poly))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">poly_add</span>(<span class="params">x, y, z, poly_mod</span>):</span><br><span class="line"></span><br><span class="line">  init_poly = poly.polyadd(x, y)</span><br><span class="line">  res_poly = poly.polydiv(init_poly % z, poly_mod)[<span class="number">1</span>] % z</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.int64(np.<span class="built_in">round</span>(res_poly))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">r2_distribution</span>(<span class="params"><span class="built_in">len</span></span>):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.random.randint(<span class="number">0</span>, <span class="number">2</span>, <span class="built_in">len</span>, dtype=np.int64)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rz_distribution</span>(<span class="params">z, <span class="built_in">len</span></span>):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.random.randint(<span class="number">0</span>, z, <span class="built_in">len</span>, dtype=np.int64)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gass_distribution</span>(<span class="params"><span class="built_in">len</span></span>):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> np.int64(np.random.normal(<span class="number">0</span>, <span class="number">2</span>, size=<span class="built_in">len</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">keygen</span>(<span class="params"><span class="built_in">len</span>, z, poly_mod</span>):</span><br><span class="line"></span><br><span class="line">  s = r2_distribution(<span class="built_in">len</span>)</span><br><span class="line">  a = rz_distribution(z, <span class="built_in">len</span>)</span><br><span class="line">  e = gass_distribution(<span class="built_in">len</span>)</span><br><span class="line">  b = poly_add(poly_mul(-a, s, z, poly_mod), -e, z, poly_mod)</span><br><span class="line"></span><br><span class="line">  key = [a, b, s]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> key</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt</span>(<span class="params">key, lent, q, t, poly_mod, message</span>):</span><br><span class="line">    lm = []</span><br><span class="line">    mg = <span class="built_in">hex</span>(message)[<span class="number">2</span>:]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(mg)):</span><br><span class="line">        lm.append(<span class="built_in">ord</span>(mg[i]))</span><br><span class="line"></span><br><span class="line">    m = np.array(lm + [<span class="number">0</span>] * (lent - <span class="built_in">len</span>(lm)), dtype=np.int64) % t</span><br><span class="line">    delta = q // t</span><br><span class="line">    delta_m = delta * m % q</span><br><span class="line">    e1 = gass_distribution(lent)</span><br><span class="line">    e2 = gass_distribution(lent)</span><br><span class="line">    u = r2_distribution(lent)</span><br><span class="line">    a = key[<span class="number">0</span>]</span><br><span class="line">    b = key[<span class="number">1</span>]</span><br><span class="line">    c0 = poly_add(poly_add(poly_mul(b, u, q, poly_mod), e1, q, poly_mod), delta_m, q, poly_mod)</span><br><span class="line">    c1 = poly_add(poly_mul(a, u, q, poly_mod), e2, q, poly_mod)</span><br><span class="line"></span><br><span class="line">    c = [c0, c1]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line">n = <span class="number">128</span></span><br><span class="line">q = <span class="number">2</span>**<span class="number">60</span></span><br><span class="line">t = <span class="number">2</span>**<span class="number">32</span></span><br><span class="line">poly_mod = np.array([<span class="number">1</span>] + [<span class="number">0</span>] * (n - <span class="number">1</span>) + [<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">c0 = [<span class="number">561582066946621440</span>, <span class="number">817928620285456128</span>, <span class="number">42443557674760704</span>, <span class="number">394102843794633984</span>, <span class="number">72227332717773568</span>, <span class="number">670192568490572288</span>, <span class="number">1124338053013283584</span>, <span class="number">280137744525874176</span>, <span class="number">63888555088669696</span>, <span class="number">208355146401743872</span>, <span class="number">301595565562120704</span>, <span class="number">50991331858064384</span>, <span class="number">686628375362950656</span>, <span class="number">584548366308243456</span>, <span class="number">1133668516727752192</span>, <span class="number">474240047688777728</span>, <span class="number">985154171217232384</span>, <span class="number">501564712591768576</span>, <span class="number">914588095025884160</span>, <span class="number">746830802337096704</span>, <span class="number">459209143204393984</span>, <span class="number">603634479787543552</span>, <span class="number">69069089375354880</span>, <span class="number">473248420863702016</span>, <span class="number">754603248638489600</span>, <span class="number">883576336602057728</span>, <span class="number">644743636485886976</span>, <span class="number">319901457654988800</span>, <span class="number">89793303522564096</span>, <span class="number">1090071466212856832</span>, <span class="number">369690536666460160</span>, <span class="number">1082593341867948032</span>, <span class="number">441359938321465344</span>, <span class="number">496386518207440896</span>, <span class="number">863575421687413760</span>, <span class="number">811516483959451648</span>, <span class="number">205996965699836928</span>, <span class="number">170811895655694336</span>, <span class="number">335832012272743424</span>, <span class="number">402108133996681216</span>, <span class="number">222897130593269760</span>, <span class="number">317187616437233664</span>, <span class="number">202919598933315584</span>, <span class="number">750395341955145728</span>, <span class="number">366873741733378048</span>, <span class="number">117730747288055808</span>, <span class="number">298767968401977344</span>, <span class="number">923270470424109056</span>, <span class="number">1076698083295752192</span>, <span class="number">926422812303050752</span>, <span class="number">216450081157644288</span>, <span class="number">981499274968659968</span>, <span class="number">349655761329862656</span>, <span class="number">557140442005530624</span>, <span class="number">858566688669024256</span>, <span class="number">1149813151825131520</span>, <span class="number">553370166035001344</span>, <span class="number">493722732465334272</span>, <span class="number">732590954557634560</span>, <span class="number">1052906163890288640</span>, <span class="number">1021790009160361984</span>, <span class="number">796011853108049920</span>, <span class="number">978483522580508672</span>, <span class="number">894955797433884672</span>, <span class="number">203559391733489664</span>, <span class="number">1062410754780596224</span>, <span class="number">452371485913219072</span>, <span class="number">651736133029277696</span>, <span class="number">313976115776903168</span>, <span class="number">31756099628290048</span>, <span class="number">71787963926824960</span>, <span class="number">1109713454413903872</span>, <span class="number">1112298691994664960</span>, <span class="number">539132530906077184</span>, <span class="number">435437107964127232</span>, <span class="number">833705546252720128</span>, <span class="number">928849583016886272</span>, <span class="number">526205130688186368</span>, <span class="number">1121288102191632384</span>, <span class="number">536933088453670912</span>, <span class="number">924962525849556992</span>, <span class="number">241106313851269120</span>, <span class="number">717238131918897152</span>, <span class="number">452642326250387456</span>, <span class="number">354673268076457984</span>, <span class="number">16428317258336256</span>, <span class="number">1061713751710105600</span>, <span class="number">1139952509444370432</span>, <span class="number">146561032291504128</span>, <span class="number">944139817563172864</span>, <span class="number">670119880592367616</span>, <span class="number">424458702156075008</span>, <span class="number">26734611035709440</span>, <span class="number">552311974354061312</span>, <span class="number">252009367779129344</span>, <span class="number">362515232289822720</span>, <span class="number">942674829586386944</span>, <span class="number">444916638598115328</span>, <span class="number">931633333648844800</span>, <span class="number">54609902697099264</span>, <span class="number">831316650858829824</span>, <span class="number">113431421994166272</span>, <span class="number">907245098202316800</span>, <span class="number">89326594807300096</span>, <span class="number">1016570475364521984</span>, <span class="number">175954756550047744</span>, <span class="number">53317212366995456</span>, <span class="number">49595714294925312</span>, <span class="number">490302383520435200</span>, <span class="number">260454924258463744</span>, <span class="number">713597063793843200</span>, <span class="number">759813046691484672</span>, <span class="number">491213271622251520</span>, <span class="number">861532845783883776</span>, <span class="number">1001029896578621440</span>, <span class="number">1017093991719427072</span>, <span class="number">901303193624896512</span>, <span class="number">85708980918313472</span>, <span class="number">1094723859831225856</span>, <span class="number">978173121944355840</span>, <span class="number">1074912611780537344</span>, <span class="number">816683396743236608</span>, <span class="number">406912122093641728</span>, <span class="number">326181480111288320</span>, <span class="number">644075764054597632</span>, <span class="number">114416502291357696</span>, <span class="number">543109737210728448</span>, <span class="number">311623753071517696</span>]</span><br><span class="line">c1 = [<span class="number">91790686412574976</span>, <span class="number">744110810763883904</span>, <span class="number">864964412801026560</span>, <span class="number">548689841412167296</span>, <span class="number">740051294265845504</span>, <span class="number">57902427994320256</span>, <span class="number">1068935585666797056</span>, <span class="number">625707146907438848</span>, <span class="number">551559740589006848</span>, <span class="number">233440834921673728</span>, <span class="number">108552546335437312</span>, <span class="number">166310503165480448</span>, <span class="number">267060328550531584</span>, <span class="number">735758245725702656</span>, <span class="number">712188529675013632</span>, <span class="number">386374530222726144</span>, <span class="number">823764165634433536</span>, <span class="number">123823217368593408</span>, <span class="number">1004488834478358528</span>, <span class="number">177477850679225344</span>, <span class="number">882498511506926592</span>, <span class="number">5562190320664577</span>, <span class="number">1106414131124581376</span>, <span class="number">327516552070835200</span>, <span class="number">1028475201394497536</span>, <span class="number">847983498883162112</span>, <span class="number">1095687065391010816</span>, <span class="number">706624008349679616</span>, <span class="number">204676471898160128</span>, <span class="number">926864853752850432</span>, <span class="number">152748692869394432</span>, <span class="number">326128165710331904</span>, <span class="number">237842086203092992</span>, <span class="number">1057799799477599232</span>, <span class="number">345130623233955840</span>, <span class="number">790672249565697024</span>, <span class="number">523310000234446848</span>, <span class="number">840615312867051520</span>, <span class="number">924979087214993408</span>, <span class="number">979878291879419904</span>, <span class="number">115424422845719552</span>, <span class="number">884924921252442112</span>, <span class="number">579700963339163648</span>, <span class="number">1097673093701288960</span>, <span class="number">704450636638808064</span>, <span class="number">556078232166107136</span>, <span class="number">600772693891751936</span>, <span class="number">905676852758437888</span>, <span class="number">33621101477464064</span>, <span class="number">962348719049031680</span>, <span class="number">925511116990984192</span>, <span class="number">722520866171662336</span>, <span class="number">84706802559584256</span>, <span class="number">530104859095961600</span>, <span class="number">586276707214465024</span>, <span class="number">1037552671549552640</span>, <span class="number">47697269444673536</span>, <span class="number">210690498450145280</span>, <span class="number">65070464261654528</span>, <span class="number">550494166683250688</span>, <span class="number">777902097764929536</span>, <span class="number">490832146778818560</span>, <span class="number">229195607527737344</span>, <span class="number">767464696299196416</span>, <span class="number">237315984854040576</span>, <span class="number">836604288237121536</span>, <span class="number">507968614131243008</span>, <span class="number">1146549269233274880</span>, <span class="number">947811005289312256</span>, <span class="number">415029326696218624</span>, <span class="number">73794452197351424</span>, <span class="number">1111805188636655616</span>, <span class="number">574425125131241472</span>, <span class="number">1077883538301097984</span>, <span class="number">1093417286225403904</span>, <span class="number">860646266870226944</span>, <span class="number">238318354083344384</span>, <span class="number">200921121541777408</span>, <span class="number">896691473408880640</span>, <span class="number">794971973394204672</span>, <span class="number">128454122568243200</span>, <span class="number">1048391326124871680</span>, <span class="number">811035464481740800</span>, <span class="number">922934079239356416</span>, <span class="number">1033337101914234880</span>, <span class="number">253445566297591808</span>, <span class="number">820899412762693632</span>, <span class="number">51737950452322304</span>, <span class="number">115554283493984256</span>, <span class="number">1013231171511318528</span>, <span class="number">887144973891745792</span>, <span class="number">903483706965391360</span>, <span class="number">1100501053366775808</span>, <span class="number">691065365527990272</span>, <span class="number">265415356256839680</span>, <span class="number">969461346065672192</span>, <span class="number">719496129535698944</span>, <span class="number">177295085227089920</span>, <span class="number">860427351595780096</span>, <span class="number">125812051803891712</span>, <span class="number">852658796584968192</span>, <span class="number">487770283774704640</span>, <span class="number">1070758201904617472</span>, <span class="number">696983558330196992</span>, <span class="number">911281563710520320</span>, <span class="number">676402547272127488</span>, <span class="number">240686574930634752</span>, <span class="number">412323376183429120</span>, <span class="number">619325898981327872</span>, <span class="number">551028995171842048</span>, <span class="number">124379235049986048</span>, <span class="number">649110127901071360</span>, <span class="number">453922531021119488</span>, <span class="number">1022481642604582912</span>, <span class="number">637680606991188992</span>, <span class="number">51749356430436352</span>, <span class="number">388350126415356928</span>, <span class="number">335267552976254464</span>, <span class="number">960188628024263168</span>, <span class="number">1088514924986558976</span>, <span class="number">1094423617550431488</span>, <span class="number">451833526251570688</span>, <span class="number">870461009339176704</span>, <span class="number">697351158038040832</span>, <span class="number">536089791190207360</span>, <span class="number">1118146398557536256</span>, <span class="number">518612046112251904</span>, <span class="number">241398597936840704</span>]</span><br><span class="line">a = [<span class="number">219983724512243970</span>, <span class="number">752269838678521187</span>, <span class="number">480509403910281428</span>, <span class="number">133185208045420765</span>, <span class="number">490932722804543133</span>, <span class="number">372886136396692359</span>, <span class="number">354557330633882122</span>, <span class="number">678374399146208018</span>, <span class="number">960245804475102275</span>, <span class="number">806115518790255556</span>, <span class="number">828442613098615970</span>, <span class="number">544833163224524043</span>, <span class="number">101022959319030935</span>, <span class="number">117082421755238805</span>, <span class="number">461182355875216799</span>, <span class="number">1056119810024896502</span>, <span class="number">1082000166040876591</span>, <span class="number">738717114032361767</span>, <span class="number">578460771662302172</span>, <span class="number">21556920074594644</span>, <span class="number">708384954866463679</span>, <span class="number">1128876901552996333</span>, <span class="number">874708202228666633</span>, <span class="number">1092990784029535155</span>, <span class="number">705415640472089353</span>, <span class="number">29671570923717836</span>, <span class="number">386333436179138094</span>, <span class="number">279081567858606603</span>, <span class="number">358852578576320987</span>, <span class="number">847350768179480795</span>, <span class="number">817603347707592640</span>, <span class="number">378977756047386392</span>, <span class="number">201769345485693076</span>, <span class="number">1063632060034171765</span>, <span class="number">1015775208741323787</span>, <span class="number">365127265851837110</span>, <span class="number">895275437758090601</span>, <span class="number">901913451551062231</span>, <span class="number">86419657119953320</span>, <span class="number">1149882820426142461</span>, <span class="number">157964525788076127</span>, <span class="number">631235061398583563</span>, <span class="number">470949966047613817</span>, <span class="number">180994349394944987</span>, <span class="number">228238609714444899</span>, <span class="number">73624200469844200</span>, <span class="number">521149905985689963</span>, <span class="number">19697681380014322</span>, <span class="number">233461826565515880</span>, <span class="number">891353264527116993</span>, <span class="number">1132362343348330909</span>, <span class="number">719302772676639611</span>, <span class="number">816690530086729127</span>, <span class="number">612858319654028202</span>, <span class="number">1029240232500231324</span>, <span class="number">266903296429217560</span>, <span class="number">66793172770160368</span>, <span class="number">836559325488504608</span>, <span class="number">1112595888239841739</span>, <span class="number">1115401337078198049</span>, <span class="number">261716078450833148</span>, <span class="number">235662011088480216</span>, <span class="number">24855917687216082</span>, <span class="number">619578281956001818</span>, <span class="number">589359800577838713</span>, <span class="number">780827177034370452</span>, <span class="number">62331996978291742</span>, <span class="number">757201723755709445</span>, <span class="number">325754948905836705</span>, <span class="number">298782045417610682</span>, <span class="number">958766007892311371</span>, <span class="number">474147826024027639</span>, <span class="number">1070490722277174646</span>, <span class="number">190459580153148093</span>, <span class="number">575005416421018885</span>, <span class="number">1120664053122918701</span>, <span class="number">982594533717886793</span>, <span class="number">252358471190638150</span>, <span class="number">869750160966337040</span>, <span class="number">1014322228871199234</span>, <span class="number">665558545558521628</span>, <span class="number">105433885394318337</span>, <span class="number">377027901347400638</span>, <span class="number">858616841227650075</span>, <span class="number">1043520529148794434</span>, <span class="number">1011002490399424434</span>, <span class="number">207664442877510988</span>, <span class="number">871194434207030706</span>, <span class="number">43210520355326250</span>, <span class="number">602232789264907632</span>, <span class="number">474051046305769969</span>, <span class="number">184712552380050689</span>, <span class="number">795080413713622552</span>, <span class="number">69957213032924047</span>, <span class="number">528473007846250043</span>, <span class="number">169221743016746138</span>, <span class="number">455880753546244419</span>, <span class="number">329225658406843642</span>, <span class="number">1150659098485422471</span>, <span class="number">626876298585651008</span>, <span class="number">490793379497608670</span>, <span class="number">933534706184661647</span>, <span class="number">467052917787037730</span>, <span class="number">1075596724935302342</span>, <span class="number">633000416730524162</span>, <span class="number">1090163205445120705</span>, <span class="number">72568659182243843</span>, <span class="number">571233962016655997</span>, <span class="number">1038522694640247261</span>, <span class="number">1025630622605696194</span>, <span class="number">553753007953333627</span>, <span class="number">231471906689387866</span>, <span class="number">558788723869154294</span>, <span class="number">673804202648107772</span>, <span class="number">232283327890481849</span>, <span class="number">39742925179368561</span>, <span class="number">135909458983766175</span>, <span class="number">192124298319965985</span>, <span class="number">839263496419016075</span>, <span class="number">162231894553173376</span>, <span class="number">661693215639557019</span>, <span class="number">655784289160683355</span>, <span class="number">1062416543453873451</span>, <span class="number">319938129595811007</span>, <span class="number">1002025365666496902</span>, <span class="number">272017768612866462</span>, <span class="number">482130564327357100</span>, <span class="number">982163056351966292</span>]</span><br><span class="line">b = [<span class="number">820893636450185216</span>, <span class="number">1088723008695521024</span>, <span class="number">563505788571372160</span>, <span class="number">225792174390707712</span>, <span class="number">531991982654429312</span>, <span class="number">676436714054308864</span>, <span class="number">74314379213871872</span>, <span class="number">78960436919170688</span>, <span class="number">744901196366641920</span>, <span class="number">556510129527018752</span>, <span class="number">71967857250009600</span>, <span class="number">714820946954724352</span>, <span class="number">1047939442957058048</span>, <span class="number">475133098260006400</span>, <span class="number">764020773208596992</span>, <span class="number">495337689359947776</span>, <span class="number">969475874903125504</span>, <span class="number">132719289181729792</span>, <span class="number">301591784012423168</span>, <span class="number">886113347782835200</span>, <span class="number">477381121894258688</span>, <span class="number">843499387721308160</span>, <span class="number">508541992967101440</span>, <span class="number">135898603458110464</span>, <span class="number">373248303372987392</span>, <span class="number">696522694584843264</span>, <span class="number">22397882759483392</span>, <span class="number">867189773938512896</span>, <span class="number">231922357411858432</span>, <span class="number">452886634658905088</span>, <span class="number">337138259452950528</span>, <span class="number">246330467020038144</span>, <span class="number">336880752906045440</span>, <span class="number">712110254503864320</span>, <span class="number">1109022090563764224</span>, <span class="number">736941976050098176</span>, <span class="number">340820746543463424</span>, <span class="number">319152585759258624</span>, <span class="number">627473838419951616</span>, <span class="number">724549720670470144</span>, <span class="number">941976447076147200</span>, <span class="number">284306369459089408</span>, <span class="number">474986938990024704</span>, <span class="number">169392264058798080</span>, <span class="number">425082943668336640</span>, <span class="number">780502226419180544</span>, <span class="number">534812953559536640</span>, <span class="number">307991466712799232</span>, <span class="number">256772641512932352</span>, <span class="number">954565062645100544</span>, <span class="number">642433129475169280</span>, <span class="number">554579429440409600</span>, <span class="number">492586567437330432</span>, <span class="number">504243514518411264</span>, <span class="number">559583345168955392</span>, <span class="number">1047970717391220736</span>, <span class="number">354007966625097728</span>, <span class="number">944087368508420096</span>, <span class="number">48593600443238400</span>, <span class="number">412546108591775744</span>, <span class="number">371798716943661056</span>, <span class="number">109603610083078144</span>, <span class="number">912962403831732224</span>, <span class="number">493593202496430080</span>, <span class="number">435411737100828672</span>, <span class="number">416258656632209408</span>, <span class="number">41271759105748992</span>, <span class="number">547450588221173760</span>, <span class="number">1019985813100816384</span>, <span class="number">1133270880179824640</span>, <span class="number">416184705628168192</span>, <span class="number">1002938666972422144</span>, <span class="number">131467088438026240</span>, <span class="number">730507494540156928</span>, <span class="number">1122116292811296768</span>, <span class="number">179931222600130560</span>, <span class="number">704668788433995776</span>, <span class="number">693568343631073280</span>, <span class="number">159315312318967808</span>, <span class="number">228151058164389888</span>, <span class="number">78591434106697728</span>, <span class="number">1101441417145767936</span>, <span class="number">1011500470535821312</span>, <span class="number">103335769958184960</span>, <span class="number">723984495516817408</span>, <span class="number">421553904096403456</span>, <span class="number">1009636649059076096</span>, <span class="number">880471059436941312</span>, <span class="number">1017699541008359424</span>, <span class="number">880891531629418496</span>, <span class="number">1001214838765556736</span>, <span class="number">584549630850997248</span>, <span class="number">63724037422592000</span>, <span class="number">984435711617449984</span>, <span class="number">737723590588489728</span>, <span class="number">235901319105159168</span>, <span class="number">867142310717528064</span>, <span class="number">62598429756019712</span>, <span class="number">135623731618318336</span>, <span class="number">103508320292760576</span>, <span class="number">714343001741491200</span>, <span class="number">384031562306680832</span>, <span class="number">620521749068774400</span>, <span class="number">562199194838183936</span>, <span class="number">137440949282672640</span>, <span class="number">105902179785320448</span>, <span class="number">76984505248291840</span>, <span class="number">81968680790070272</span>, <span class="number">932887350172256256</span>, <span class="number">162426306785337344</span>, <span class="number">248707672736583680</span>, <span class="number">338911851801801216</span>, <span class="number">664174993098860032</span>, <span class="number">590418449833950720</span>, <span class="number">668934689108922112</span>, <span class="number">1050363471682760704</span>, <span class="number">627510981430159872</span>, <span class="number">157201265188110848</span>, <span class="number">332191804534742528</span>, <span class="number">610005938211220480</span>, <span class="number">789419961205813248</span>, <span class="number">350516436368000512</span>, <span class="number">135054071035246848</span>, <span class="number">1103634020293607168</span>, <span class="number">851221988945015936</span>, <span class="number">339941701245870080</span>, <span class="number">810615510791110656</span>, <span class="number">1139102409849577472</span>]</span><br><span class="line">s = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">_c1 = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c1))]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c1)):</span><br><span class="line">   _c1[i] = (q - c1[i]) % q</span><br><span class="line">final = poly_add(c0 , poly_mul(s, c1, q, poly_mod), q, poly_mod)</span><br><span class="line"></span><br><span class="line">temp = (final//(<span class="number">2</span>**<span class="number">28</span>))[:<span class="number">76</span>]</span><br><span class="line">temp1 = (final%(<span class="number">2</span>**<span class="number">28</span>))[:<span class="number">76</span>]</span><br><span class="line"></span><br><span class="line">c = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(temp)):</span><br><span class="line">  <span class="keyword">if</span>(temp1[i] &gt; <span class="number">100000</span>):</span><br><span class="line">    c += <span class="built_in">chr</span>(temp[i]+<span class="number">1</span>)</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    c += <span class="built_in">chr</span>(temp[i])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(c,<span class="number">16</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;32fd349072a04dab71a3f2c78e24b9c0&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.github.io/post/65473b07.html" title="Crypto趣题-后量子密码">https://tangcuxiaojikuai.github.io/post/65473b07.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/85e9cf6b.html" rel="prev" title="2023-"科来杯"第十届山东省大学生网络安全技能大赛-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2023-"科来杯"第十届山东省大学生网络安全技能大赛-wp-crypto
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#sound"><span class="nav-number">1.</span> <span class="nav-text">sound</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">分析函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#poly-mul"><span class="nav-number">1.1.1.</span> <span class="nav-text">poly_mul</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#poly-add"><span class="nav-number">1.1.2.</span> <span class="nav-text">poly_add</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#r2-distribution"><span class="nav-number">1.1.3.</span> <span class="nav-text">r2_distribution</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rz-distribution"><span class="nav-number">1.1.4.</span> <span class="nav-text">rz_distribution</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gass-distribution"><span class="nav-number">1.1.5.</span> <span class="nav-text">gass_distribution</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86"><span class="nav-number">1.2.</span> <span class="nav-text">解密</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
