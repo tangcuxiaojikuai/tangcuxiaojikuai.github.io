@@ -33,7 +33,7 @@
 <meta property="og:description" content="以下为本校第一届新生赛的Crypto方向官方题解">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-01T10:25:26.000Z">
-<meta property="article:modified_time" content="2023-11-01T10:38:59.912Z">
+<meta property="article:modified_time" content="2023-11-01T13:44:41.527Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 
@@ -217,7 +217,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-11-01 18:25:26 / 修改时间：18:38:59" itemprop="dateCreated datePublished" datetime="2023-11-01T18:25:26+08:00">2023-11-01</time>
+              <time title="创建时间：2023-11-01 18:25:26 / 修改时间：21:44:41" itemprop="dateCreated datePublished" datetime="2023-11-01T18:25:26+08:00">2023-11-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,7 +264,6 @@
         <p>以下为本校第一届新生赛的Crypto方向官方题解</p>
 <span id="more"></span>
 <h2 id="Baby"><a href="#Baby" class="headerlink" title="Baby"></a>Baby</h2><p>该分类用于热身。</p>
-<p><br></p>
 <h3 id="Baby-Classical"><a href="#Baby-Classical" class="headerlink" title="Baby_Classical"></a>Baby_Classical</h3><p>题目描述：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">暂无</span><br></pre></td></tr></table></figure>
 <p>题目：</p>
@@ -279,7 +278,6 @@
 <p><br></p>
 <p><br></p>
 <h2 id="Easy"><a href="#Easy" class="headerlink" title="Easy"></a>Easy</h2><p>该分类难度较低，适合入门新手了解各种加密基础概念以及crypto方向赛题的形式。</p>
-<p><br></p>
 <h3 id="Easy-AES"><a href="#Easy-AES" class="headerlink" title="Easy_AES"></a>Easy_AES</h3><p>题目描述：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“没有密钥还想解AES？”</span><br></pre></td></tr></table></figure>
 <p>题目：</p>
@@ -405,7 +403,6 @@ x[i]\;=\; x[i+100]\;+\;x[i+200]\;+\;x[i+300]\;+\;x[i+350]\;+ \;x[i+351]</script>
 <p><br></p>
 <p><br></p>
 <h2 id="Middle"><a href="#Middle" class="headerlink" title="Middle"></a>Middle</h2><p>该分类难度适中，存在一定思维量，适合接触crypto不久的选手进行初进阶练习。</p>
-<p><br></p>
 <h3 id="Middle-XOR"><a href="#Middle-XOR" class="headerlink" title="Middle_XOR"></a>Middle_XOR</h3><p>题目描述：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">异或了什么？</span><br></pre></td></tr></table></figure>
 <p>题目：</p>
@@ -460,7 +457,7 @@ m[2]=c[2]+m[4]</script><p>以此类推，我们能使用这个漏洞百出的异
 <li>如果不满足以下条件，则结束本次向后的搜索：</li>
 <li>1、将p、q当前确定的二进制位后方全部填充0，直至填满512位，此时p、q乘积应小于n。<br>2、将p、q当前确定的二进制位后方全部填充1，直至填满512位，此时p、q乘积应大于n。</li>
 </ul>
-<p>显然，对于正确的p、q，他会一直满足上述条件直至搜索至512位；而如果对p、q某比特判断错误，很快就会由于不满足上述条件而结束本次向后搜索。同时，由于p、q大小关系未知，所以一定能找出对称的p&gt;q、p<q两组解，但是谁大谁小并不重要，因此也可以设置p>q这一条件来节省一半搜索时间。</q两组解，但是谁大谁小并不重要，因此也可以设置p></p>
+<p>显然，对于正确的p、q，他会一直满足上述条件直至搜索至512位；而如果对p、q某比特判断错误，很快就会由于不满足上述条件而结束本次向后搜索。同时，由于p、q大小关系未知，所以一定能找出对称的两组解，但是谁大谁小并不重要，因此也可以设置p&gt;q这一条件来节省一半搜索时间。</p>
 <p>搜索完毕后，本题迎刃而解。</p>
 <p>当然，如果对位运算敏锐一点的话，很容易可以看出其实gift1+gift2=p+q，细致一点解释其原因的话其实也就是枚举每一比特位对应的四种情况：</p>
 <ul>
@@ -498,7 +495,9 @@ c1 \equiv m^{e1} \quad(mod\;n)\\
 c2 \equiv m^{e2} \quad(mod\;n)</script><p>对模等式两边略作处理：</p>
 <script type="math/tex; mode=display">
 c1^{-e2} \equiv m^{e1*(-e2)} \quad(mod\;n)\\
-c2^{e1} \equiv m^{e2*e1} \quad(mod\;n)</script><p>由于$e1<em>(-e2) + e2</em>e1 = 0$，所以将两式相乘可得：</p>
+c2^{e1} \equiv m^{e2*e1} \quad(mod\;n)</script><p>由于</p>
+<script type="math/tex; mode=display">
+e1*(-e2) + e2*e1 = 0</script><p>所以将两式相乘可得：</p>
 <script type="math/tex; mode=display">
 c1^{-e2}*c2^{e1} \equiv m^{e1*(-e2)+e2*e1} \quad(mod\;n)\\
 \equiv m^{0} \quad(mod\;n)\\
@@ -656,7 +655,6 @@ secret  \equiv -a_i \quad (mod\;p_i)</script><p>只要发送的素数乘积大�
 <p><br></p>
 <p><br></p>
 <h2 id="Hard"><a href="#Hard" class="headerlink" title="Hard"></a>Hard</h2><p>该分类存在一定难度，需要同时具有灵活的思维以及一定量的知识储备，适合想要进一步提升自己的cryptoer尝试。</p>
-<p><br></p>
 <h3 id="Hard-RSA"><a href="#Hard-RSA" class="headerlink" title="Hard_RSA"></a>Hard_RSA</h3><p>题目描述：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Nemo也想过成为一名铜匠，奈何数论太难学了。</span><br><span class="line">*hint1对你的解题有一定帮助，但是不解出hint1仍然可以解题。</span><br></pre></td></tr></table></figure>
 <p>题目：</p>
@@ -736,6 +734,8 @@ out[8]-out[2]- a*(out[7]-out[1]) =k2*n</script><p>求解gcd，即可得到模数
 <p><br></p>
 <p><br></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>至此，CatCTF2023新生赛crypto部分就全部讲解完毕啦！希望大家踊跃投入到crypto方向中来，我们校赛的时候再见！</p>
+<p><br></p>
+<p><br></p>
 
     </div>
 
@@ -771,7 +771,10 @@ out[8]-out[2]- a*(out[7]-out[1]) =k2*n</script><p>求解gcd，即可得到模数
     <a href="/post/11b9531d.html" rel="prev" title="2023-SHCTF-wp-crypto">
       <i class="fa fa-chevron-left"></i> 2023-SHCTF-wp-crypto
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/post/4311e802.html" rel="next" title="2023-0xGame-week4-wp-crypto">
+      2023-0xGame-week4-wp-crypto <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -847,7 +850,7 @@ out[8]-out[2]- a*(out[7]-out[1]) =k2*n</script><p>求解gcd，即可得到模数
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
