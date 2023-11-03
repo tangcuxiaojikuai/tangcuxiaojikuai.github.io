@@ -34,8 +34,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/ea445335/image-20231001174839341.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/ea445335/image-20231001174939785.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/ea445335/image-20231103104427349.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/ea445335/image-20231103105216406.png">
 <meta property="article:published_time" content="2023-09-29T01:53:51.000Z">
-<meta property="article:modified_time" content="2023-10-20T08:14:45.980Z">
+<meta property="article:modified_time" content="2023-11-03T03:05:06.823Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/ea445335/image-20231001174839341.png">
@@ -226,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-20 16:14:45" itemprop="dateModified" datetime="2023-10-20T16:14:45+08:00">2023-10-20</time>
+                <time title="修改时间：2023-11-03 11:05:06" itemprop="dateModified" datetime="2023-11-03T11:05:06+08:00">2023-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -489,6 +491,79 @@ a^{\frac{p-1}{k}} \equiv 1 \quad (mod\;p)</script><p>如果一个数a满足上�
 <p>同时注意，正常来说应该把所有符合条件的ei次剩余都进行一次AMM算法，但是这个题实际做下来每次AMM后都确实只有一个根符合要求，因此可以这么写。</p>
 <p><br></p>
 <p><br></p>
+<h3 id="sus"><a href="#sus" class="headerlink" title="sus"></a>sus</h3><p>题目来源：ImaginaryCTF 2023</p>
+<p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Apparently, there is something weird happening with the prime generation.</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, isPrime, bytes_to_long</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sus</span>(<span class="params">sz, d</span>):</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        p = getPrime(sz)</span><br><span class="line">        pp = <span class="built_in">sum</span>([p**i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(d)])</span><br><span class="line">        <span class="keyword">if</span> isPrime(pp):</span><br><span class="line">            <span class="keyword">return</span> p, pp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p, q = sus(<span class="number">512</span>, <span class="number">3</span>)</span><br><span class="line">r = getPrime(<span class="number">512</span> * <span class="number">3</span>)</span><br><span class="line">n = p * q * r</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">m = bytes_to_long(<span class="built_in">open</span>(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;rb&quot;</span>).read().strip())</span><br><span class="line">c = <span class="built_in">pow</span>(m, e, n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;n = &#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;e = &#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;c = &#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">n = <span class="number">1125214074953003550338693571791155006090796212726975350140792193817691133917160305053542782925680862373280169090301712046464465620409850385467397784321453675396878680853302837289474127359729865584385059201707775238870232263306676727868754652536541637937452062469058451096996211856806586253080405693761350527787379604466148473842686716964601958192702845072731564672276539223958840687948377362736246683236421110649264777630992389514349446404208015326249112846962181797559349629761850980006919766121844428696162839329082145670839314341690501211334703611464066066160436143122967781441535203415038656670887399283874866947000313980542931425158634358276922283935422468847585940180566157146439137197351555650475378438394062212134921921469936079889107953354092227029819250669352732749370070996858744765757449980454966317942024199049138183043402199967786003097786359894608611331234652313102498596516590920508269648305903583314189707679</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">c = <span class="number">27126515219921985451218320201366564737456358918573497792847882486241545924393718080635287342203823068993908455514036540227753141033250259348250042460824265354495259080135197893797181975792914836927018186710682244471711855070708553557141164725366015684184788037988219652565179002870519189669615988416860357430127767472945833762628172190228773085208896682176968903038031026206396635685564975604545616032008575709303331751883115339943537730056794403071865003610653521994963115230275035006559472462643936356750299150351321395319301955415098283861947785178475071537482868994223452727527403307442567556712365701010481560424826125138571692894677625407372483041209738234171713326474989489802947311918341152810838321622423351767716922856007838074781678539986694993211304216853828611394630793531337147512240710591162375077547224679647786450310708451590432452046103209161611561606066902404405369379357958777252744114825323084960942810</span></span><br></pre></td></tr></table></figure>
+<p>最近学习了一下商环，然后偶然发现了这道题，解法很有意思，因此记录一下。</p>
+<p>题目加密过程很简单：</p>
+<ul>
+<li>生成512比特的素数p，并按如下方式生成q，保证q为素数：</li>
+</ul>
+<script type="math/tex; mode=display">
+q = 1+p+p^2</script><ul>
+<li>生成512*3比特的素数r，然后计算n=pqr，并按RSA方式加密flag，给出公钥n、e以及密文c，要求还原flag</li>
+</ul>
+<p>我们的目标肯定是获得n的分解，而n具有如下形式：</p>
+<script type="math/tex; mode=display">
+n = p(1+p+p^2)r</script><p>第一个想法是，能否直接copper解出模pq下的小根p，但是马上就会发现不行：因为r是一个1536比特的大素数，同时写出的f(x)=x(1+x+x^2)的度也不低，p肯定远远超过了理论小根的上界。</p>
+<p>那么就换思路，肯定要利用素数q的特殊生成方式：</p>
+<script type="math/tex; mode=display">
+q = 1+p+p^2</script><p>看这个形式应该不难与立方差联系起来：</p>
+<script type="math/tex; mode=display">
+p^3-1 = (p-1)(1+p+p^2) = (p-1)q</script><p>但是接下来怎么用就完全没思路了，然后就只能看wp和请求认识的师傅帮助。最后发现解法对于我来说是真的很有想象力，原wp如下：</p>
+<blockquote>
+<p>Pick a random polynomial $f(x)=x^3+ax^2+bx+c$, and pick a random element $a$ in $\mathbb{R}=\mathbb{Z}_n[x]/f(x)$. If $f(x)$ is irreducible in $\mathbb{F}_p[x]$ then $\mathbb{K}=\mathbb{F}_p[x]/f(x)=\mathbb{F}_{p^3}$ will be a field with order $p^3-1=(p-1)(p^2+p+1)$.</p>
+<p>We raise $a$ to the power of $n=pqr=p(p^2+p+1)r$ then $a^n$ would probably be of order $p-1$, which implies it will be in the form of $u+0x+0x^2$ in $\mathbb{K}$. This means we can take the degree 1 or 2 coefficient of $a^n$ in $\mathbb{R}$ and gcd it with $n$ to get $p$, then we can fully factor $n$ to decrypt the flag.</p>
+<p>This is basically the same idea as Pollard’s p-1 or Williams’ p+1 factorization algorithm, but we are doing it in a field with higher degree.</p>
+</blockquote>
+<p>其实已经讲得非常清楚了，接下来我会对其中一些原理具体说明一下，有不严谨或者错误的地方欢迎各位师傅指出。</p>
+<p>首先就是，要利用上立方差公式，我们就要构造一个阶为p^3-1的群，并找某个群中的生成元g，这样就有：</p>
+<script type="math/tex; mode=display">
+g^n = g^{p(1+p+p^2)r} = (g^{(1+p+p^2)})^{pr}</script><p>我们就可以计算出g^n的阶为：</p>
+<script type="math/tex; mode=display">
+order(g^n) = \frac{p^3-1}{gcd(n,p^3-1)} = \frac{p^3-1}{1+p+p^2} = p-1</script><p>我们要想办法利用这一点。那么接下来就产生了两个待解决的问题：</p>
+<ul>
+<li>如何建立一个阶为p^3-1的群？</li>
+<li>如何利用g^n的阶为p-1这一条性质？</li>
+</ul>
+<h4 id="如何建立阶为p-3-1群"><a href="#如何建立阶为p-3-1群" class="headerlink" title="如何建立阶为p^3-1群"></a>如何建立阶为p^3-1群</h4><p>要明白这个问题需要对有限域、多项式环有一定了解。具体说来，我们先定义两个多项式环：</p>
+<script type="math/tex; mode=display">
+Ring1 = Z_n[x]</script><script type="math/tex; mode=display">
+Ring2 = F_p[x]</script><p>以这两个多项式环为基础，我们选择一个度为3的Ring1下的随机多项式f(x)，也就是：</p>
+<script type="math/tex; mode=display">
+f(x) = x^3 + ax^2 + bx + c</script><p>然后，以这个多项式为基础，我们定义两个多项式商环：</p>
+<script type="math/tex; mode=display">
+N = Z_n[x]/f(x)</script><script type="math/tex; mode=display">
+P = F_p[x]/f(x)</script><p>如果我们随机选择的f(x)在Ring2中不可约，那么我们可以证明，商环P其实就是一个大小为p^3的有限域，也就是：</p>
+<script type="math/tex; mode=display">
+P = F_p[x]/f(x) = F_{p^3}</script><p>对于他是域，这一点的证明是这样的：</p>
+<p><img src="/post/ea445335/image-20231103104427349.png" alt="image-20231103104427349"></p>
+<p>而对于这个域大小为p^3，这一点很好想通，其实就是每一项的系数共有p种选择，然后最高是二次项，所以域中共有p^3种不同的元素，因此其大小为p^3。</p>
+<p>但是这个域与我们需要的大小为p^3-1的循环群好像还差一点，但其实我们把域中的0去除掉，那么剩下的p^3-1个元素其实就构成了一个乘法循环群，这就是我们所需要的了。</p>
+<p>而好像我们没有p，只能构造出模n的多项式商环：</p>
+<script type="math/tex; mode=display">
+N = Z_n[x]/f(x)</script><p>但是我们要注意到，P环应该是N的子环，这一点我们会在之后用到。</p>
+<h4 id="如何利用g-n的阶为p-1"><a href="#如何利用g-n的阶为p-1" class="headerlink" title="如何利用g^n的阶为p-1"></a>如何利用g^n的阶为p-1</h4><p>我们继续在P环下分析，假设我们能取得其上的一个随机元素为生成元g，那么由前面我们知道，g^n的阶为p-1。</p>
+<p>然后我们又要用到一个比较重要的性质：</p>
+<p><img src="/post/ea445335/image-20231103105216406.png" alt="image-20231103105216406"></p>
+<p>也就是说，我们刚才去除0的乘法循环群的阶为p^3-1，那么也就是说，阶为p-1的元素一共也就只有：</p>
+<script type="math/tex; mode=display">
+\phi(p-1)</script><p>这么多个，然后我们又知道g^n为度最大为2的多项式，也就是：</p>
+<script type="math/tex; mode=display">
+g^n = ax^2 + bx +c</script><p>而阶为p-1的任意元素t在该循环群中都应当满足：</p>
+<script type="math/tex; mode=display">
+t^{p-1} = 1</script><p>然后我们又知道，对于任意0&lt;a&lt;p，以下式子在该群中都成立：</p>
+<script type="math/tex; mode=display">
+(a + 0x + 0x^2)^{p-1} = 1</script><p>而a有p-1种取值，显然大于phi(p-1)，所以g^n其实只能在这样形式的多项式中产生：</p>
+<script type="math/tex; mode=display">
+a + 0x + 0x^2</script><p>也就是说，g^n均只存在常数项，一次项和二次项系数均为0。而由于P是N的子环，所以我们在N上运算g^n，得到的一次项系数和二次项系数在模n意义下，就应该等于kp。因此我们将g^n的一次项或二次项系数与n求解gcd即可得到p，进而得到n的全部分解，从而求解密文。</p>
+<p>exp(搬运原wp中的exp)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = <span class="number">1125214074953003550338693571791155006090796212726975350140792193817691133917160305053542782925680862373280169090301712046464465620409850385467397784321453675396878680853302837289474127359729865584385059201707775238870232263306676727868754652536541637937452062469058451096996211856806586253080405693761350527787379604466148473842686716964601958192702845072731564672276539223958840687948377362736246683236421110649264777630992389514349446404208015326249112846962181797559349629761850980006919766121844428696162839329082145670839314341690501211334703611464066066160436143122967781441535203415038656670887399283874866947000313980542931425158634358276922283935422468847585940180566157146439137197351555650475378438394062212134921921469936079889107953354092227029819250669352732749370070996858744765757449980454966317942024199049138183043402199967786003097786359894608611331234652313102498596516590920508269648305903583314189707679</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">c = <span class="number">27126515219921985451218320201366564737456358918573497792847882486241545924393718080635287342203823068993908455514036540227753141033250259348250042460824265354495259080135197893797181975792914836927018186710682244471711855070708553557141164725366015684184788037988219652565179002870519189669615988416860357430127767472945833762628172190228773085208896682176968903038031026206396635685564975604545616032008575709303331751883115339943537730056794403071865003610653521994963115230275035006559472462643936356750299150351321395319301955415098283861947785178475071537482868994223452727527403307442567556712365701010481560424826125138571692894677625407372483041209738234171713326474989489802947311918341152810838321622423351767716922856007838074781678539986694993211304216853828611394630793531337147512240710591162375077547224679647786450310708451590432452046103209161611561606066902404405369379357958777252744114825323084960942810</span></span><br><span class="line">k = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">R = Zmod(n)[<span class="string">&quot;x&quot;</span>]</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    Q = R.quo(R.random_element(k))</span><br><span class="line">    pp = gcd(ZZ(<span class="built_in">list</span>(Q.random_element() ^ n)[<span class="number">1</span>]), n)</span><br><span class="line">    <span class="keyword">if</span> pp != <span class="number">1</span>:</span><br><span class="line">        qq = <span class="built_in">sum</span>([pp**i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k)])</span><br><span class="line">        rr = n // (pp * qq)</span><br><span class="line">        <span class="keyword">assert</span> n == pp * qq * rr</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">phi = (pp - <span class="number">1</span>) * (qq - <span class="number">1</span>) * (rr - <span class="number">1</span>)</span><br><span class="line">d = <span class="built_in">pow</span>(e, -<span class="number">1</span>, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(m))</span><br><span class="line"></span><br><span class="line"><span class="comment">#ictf&#123;idk_if_it_solvable_if_q_is_2+p+p^2_instead&#125;</span></span><br></pre></td></tr></table></figure>
+<p>中间有些地方阐述的可能会出错，欢迎各位师傅提出。</p>
+<p><br></p>
+<p><br></p>
 
     </div>
 
@@ -587,7 +662,7 @@ a^{\frac{p-1}{k}} \equiv 1 \quad (mod\;p)</script><p>如果一个数a满足上�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA3"><span class="nav-number">1.</span> <span class="nav-text">RSA3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BUAA-AITMCLAB-amp-Level4"><span class="nav-number">2.</span> <span class="nav-text">BUAA^AITMCLAB&amp;Level4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AITMCLAB-quiz2"><span class="nav-number">3.</span> <span class="nav-text">AITMCLAB quiz2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2048bit-e"><span class="nav-number">4.</span> <span class="nav-text">2048bit e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hardrsa"><span class="nav-number">5.</span> <span class="nav-text">hardrsa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#easycrt"><span class="nav-number">6.</span> <span class="nav-text">easycrt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BABY-RSA"><span class="nav-number">7.</span> <span class="nav-text">BABY RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ISITDTU-RSA"><span class="nav-number">8.</span> <span class="nav-text">ISITDTU_RSA</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA3"><span class="nav-number">1.</span> <span class="nav-text">RSA3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BUAA-AITMCLAB-amp-Level4"><span class="nav-number">2.</span> <span class="nav-text">BUAA^AITMCLAB&amp;Level4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AITMCLAB-quiz2"><span class="nav-number">3.</span> <span class="nav-text">AITMCLAB quiz2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2048bit-e"><span class="nav-number">4.</span> <span class="nav-text">2048bit e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hardrsa"><span class="nav-number">5.</span> <span class="nav-text">hardrsa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#easycrt"><span class="nav-number">6.</span> <span class="nav-text">easycrt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BABY-RSA"><span class="nav-number">7.</span> <span class="nav-text">BABY RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ISITDTU-RSA"><span class="nav-number">8.</span> <span class="nav-text">ISITDTU_RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sus"><span class="nav-number">9.</span> <span class="nav-text">sus</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B%E9%98%B6%E4%B8%BAp-3-1%E7%BE%A4"><span class="nav-number">9.1.</span> <span class="nav-text">如何建立阶为p^3-1群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8g-n%E7%9A%84%E9%98%B6%E4%B8%BAp-1"><span class="nav-number">9.2.</span> <span class="nav-text">如何利用g^n的阶为p-1</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
