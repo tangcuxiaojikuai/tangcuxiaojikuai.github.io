@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/187210a7/image-20230930114139546.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/187210a7/image-20230930114719034.png">
 <meta property="article:published_time" content="2023-09-29T01:54:01.000Z">
-<meta property="article:modified_time" content="2023-11-01T07:08:58.915Z">
+<meta property="article:modified_time" content="2023-11-08T03:03:51.991Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/187210a7/image-20230930114139546.png">
@@ -226,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-01 15:08:58" itemprop="dateModified" datetime="2023-11-01T15:08:58+08:00">2023-11-01</time>
+                <time title="修改时间：2023-11-08 11:03:51" itemprop="dateModified" datetime="2023-11-08T11:03:51+08:00">2023-11-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -408,6 +408,208 @@ d*eP' = P'</script><p>然后再将第一次映射逆回去就能得到原P点坐
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line">ecc_table1 = &#123;</span><br><span class="line">    <span class="string">&#x27;n&#x27;</span>: <span class="string">&#x27;FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFF7203DF6B21C6052B53BBF40939D54123&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;p&#x27;</span>: <span class="string">&#x27;FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFF&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;gx&#x27;</span>: <span class="string">&#x27;32c4ae2c1f1981195f9904466a39c9948fe30bbff2660be1715a4589334c74c7&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;gy&#x27;</span>: <span class="string">&#x27;bc3736a2f4f6779c59bdcee36b692153d0a9877cc62a474002df32e52139f0a0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;a&#x27;</span>: <span class="string">&#x27;FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFC&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;b&#x27;</span>: <span class="string">&#x27;28E9FA9E9D9F5E344D5A9E4BCF6509A7F39789F515AB8F92DDBCBD414D940E93&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ecc_table2 = &#123;</span><br><span class="line">    <span class="string">&#x27;n&#x27;</span>: <span class="string">&#x27;00000000000000000000000000000024c0a1eef669c78f5a60af4b7eece0cec3&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;p&#x27;</span>: <span class="string">&#x27;00000000000000000000000000000024c0a1eef669c78f5a60af4b7eece0cec3&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;gx&#x27;</span>: <span class="string">&#x27;00000000000000000000000000000001333d7197c5da65ad36ebbb3589634ad6&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;gy&#x27;</span>: <span class="string">&#x27;00000000000000000000000000000007b81a5934e5b39c8d36f449527767209b&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;a&#x27;</span>: <span class="string">&#x27;00000000000000000000000000000024c0a1eef669c78f5a60af4b7e22c0cec3&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;b&#x27;</span>: <span class="string">&#x27;00000000000000000000000000000024c0a1eef669c78f5a60af04915ce0cec3&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ecc1 = EllipticCurve(GF(<span class="built_in">int</span>(ecc_table1[<span class="string">&#x27;p&#x27;</span>],<span class="number">16</span>)),[<span class="built_in">int</span>(ecc_table1[<span class="string">&#x27;a&#x27;</span>],<span class="number">16</span>),<span class="built_in">int</span>(ecc_table1[<span class="string">&#x27;b&#x27;</span>],<span class="number">16</span>)])</span><br><span class="line">ecc2 = EllipticCurve(GF(<span class="built_in">int</span>(ecc_table2[<span class="string">&#x27;p&#x27;</span>],<span class="number">16</span>)),[<span class="built_in">int</span>(ecc_table2[<span class="string">&#x27;a&#x27;</span>],<span class="number">16</span>),<span class="built_in">int</span>(ecc_table2[<span class="string">&#x27;b&#x27;</span>],<span class="number">16</span>)])</span><br><span class="line">g1 = ecc1((<span class="built_in">int</span>(ecc_table1[<span class="string">&#x27;gx&#x27;</span>],<span class="number">16</span>),<span class="built_in">int</span>(ecc_table1[<span class="string">&#x27;gy&#x27;</span>],<span class="number">16</span>)))</span><br><span class="line">g2 = ecc2((<span class="built_in">int</span>(ecc_table2[<span class="string">&#x27;gx&#x27;</span>],<span class="number">16</span>),<span class="built_in">int</span>(ecc_table2[<span class="string">&#x27;gy&#x27;</span>],<span class="number">16</span>)))</span><br><span class="line"></span><br><span class="line">k1g1 = ecc1(<span class="built_in">int</span>(<span class="string">&quot;749180747cd167402449aa2ffdfacd87a3d8ff9a3e00670e9501cefc96c712f1&quot;</span>,<span class="number">16</span>),<span class="built_in">int</span>(<span class="string">&quot;6ddca6ba23ed4c9bbbd23bb5d4f16627cd30a82f64a75195c4c3337c17041e89&quot;</span>,<span class="number">16</span>))</span><br><span class="line">k2g2 = ecc2(<span class="built_in">int</span>(<span class="string">&quot;2030737f5765b0ca638572035d1143a221&quot;</span>,<span class="number">16</span>),<span class="built_in">int</span>(<span class="string">&quot;1c69be4b4c104fe2c888be4b659620d933&quot;</span>,<span class="number">16</span>))</span><br><span class="line">enc = <span class="string">b&#x27;\xb6\xe2\xd0\x00\xdb=3\xf2\xc3\x10\x9b\xb7\x04\xb2\t\x92\xed$Z\xf6.\xd8\xdd/\xad\x03M\xaec\xce\xa9Z\x00&#125;\xfd\xe2T\x859\x0b\x1f\xd3\xd4H^\xfa8\xb7&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#part1 bsgs</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">dic = &#123;&#125;</span></span><br><span class="line"><span class="string">for b in trange(2**20):</span></span><br><span class="line"><span class="string">    dic[b*g1] = b</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">cc = dic.keys()</span></span><br><span class="line"><span class="string">for a in trange(464193,2**20):</span></span><br><span class="line"><span class="string">    temp = k1g1 - a*2^20*g1</span></span><br><span class="line"><span class="string">    if(temp in cc):</span></span><br><span class="line"><span class="string">        print(a)</span></span><br><span class="line"><span class="string">        print(dic[temp])</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="comment">#d = a*2^20+b</span></span><br><span class="line">a = <span class="number">464193</span></span><br><span class="line">b = <span class="number">319430</span></span><br><span class="line">k1 = a*<span class="number">2</span>^<span class="number">20</span>+b</span><br><span class="line"><span class="comment">#print(k1*g1 == k1g1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#part2 smart_attack</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SmartAttack</span>(<span class="params">P,Q,p</span>):</span><br><span class="line">    E = P.curve()</span><br><span class="line">    Eqp = EllipticCurve(Qp(p, <span class="number">2</span>), [ ZZ(t) + randint(<span class="number">0</span>,p)*p <span class="keyword">for</span> t <span class="keyword">in</span> E.a_invariants() ])</span><br><span class="line"></span><br><span class="line">    P_Qps = Eqp.lift_x(ZZ(P.xy()[<span class="number">0</span>]), <span class="built_in">all</span>=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> P_Qp <span class="keyword">in</span> P_Qps:</span><br><span class="line">        <span class="keyword">if</span> GF(p)(P_Qp.xy()[<span class="number">1</span>]) == P.xy()[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    Q_Qps = Eqp.lift_x(ZZ(Q.xy()[<span class="number">0</span>]), <span class="built_in">all</span>=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> Q_Qp <span class="keyword">in</span> Q_Qps:</span><br><span class="line">        <span class="keyword">if</span> GF(p)(Q_Qp.xy()[<span class="number">1</span>]) == Q.xy()[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    p_times_P = p*P_Qp</span><br><span class="line">    p_times_Q = p*Q_Qp</span><br><span class="line"></span><br><span class="line">    x_P,y_P = p_times_P.xy()</span><br><span class="line">    x_Q,y_Q = p_times_Q.xy()</span><br><span class="line"></span><br><span class="line">    phi_P = -(x_P/y_P)</span><br><span class="line">    phi_Q = -(x_Q/y_Q)</span><br><span class="line">    k = phi_Q/phi_P</span><br><span class="line">    <span class="keyword">return</span> ZZ(k)</span><br><span class="line"></span><br><span class="line">k2 = <span class="built_in">int</span>(SmartAttack(g2, k2g2, ecc2.order()))</span><br><span class="line"><span class="comment">#print(k2*g2 == k2g2)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#part3 AES</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>**<span class="number">7</span>):</span><br><span class="line">    temp = k2 + i*g2.order()</span><br><span class="line">    <span class="comment">#print(temp*g2 == k2g2)</span></span><br><span class="line">    key2 = hashlib.md5(<span class="built_in">str</span>(temp).encode()).digest()</span><br><span class="line">    aes2 = AES.new(key2, AES.MODE_ECB)</span><br><span class="line">    dec2 = aes2.decrypt(enc)</span><br><span class="line"></span><br><span class="line">    key1 = hashlib.md5(<span class="built_in">str</span>(k1).encode()).digest()</span><br><span class="line">    aes1 = AES.new(key1, AES.MODE_ECB)</span><br><span class="line">    dec1 = aes1.decrypt(dec2)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="string">b&quot;flag&quot;</span> <span class="keyword">in</span> dec1):</span><br><span class="line">        <span class="built_in">print</span>(dec1)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;609a091e-6666-b7c9-edc2-c721958409e2&#125;</span></span><br></pre></td></tr></table></figure>
 <p><br></p>
 <p><br></p>
+<h3 id="Rosita"><a href="#Rosita" class="headerlink" title="Rosita"></a>Rosita</h3><p>题目来源：2023巅峰极客</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Problem by rec, without any sleep at all.</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> bytes_to_long <span class="keyword">as</span> b2l</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> urandom</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> p, a, b, flag</span><br><span class="line"></span><br><span class="line">ECC = EllipticCurve(GF(p), [a, b])</span><br><span class="line">R, E, C = [ECC.random_point() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>)]</span><br><span class="line"></span><br><span class="line">pad = <span class="keyword">lambda</span> m: urandom(<span class="number">8</span>) + m + <span class="string">b&#x27;\x00&#x27;</span> * (ZZ(p).nbits() // <span class="number">8</span> - <span class="built_in">len</span>(m) - <span class="number">8</span> - <span class="number">1</span>)</span><br><span class="line">out = <span class="built_in">list</span>()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(flag)):</span><br><span class="line">    m = pad(<span class="built_in">chr</span>(flag[i]).encode())</span><br><span class="line">    nonce = urandom(<span class="number">16</span>)</span><br><span class="line">    sh = sha256(nonce + m).digest()</span><br><span class="line">    </span><br><span class="line">    Q = b2l(m)*R + b2l(nonce)*E + b2l(sh)*C</span><br><span class="line">    out.append(Q.xy())</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;out.tuo&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(<span class="built_in">str</span>(out))</span><br></pre></td></tr></table></figure>
+<p>题目内容很简短，流程如下：</p>
+<ul>
+<li>用自定义参数a、b、p生成一条曲线ECC，并在上面随机取了三点R、E、C。曲线参数与REC三点坐标均未知</li>
+<li>对flag的每一个字节填充，填充方式为：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pad = <span class="keyword">lambda</span> m: urandom(<span class="number">8</span>) + m + <span class="string">b&#x27;\x00&#x27;</span> * (ZZ(p).nbits() // <span class="number">8</span> - <span class="built_in">len</span>(m) - <span class="number">8</span> - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>每一次加密生成一个临时密钥nonce，并依据nonce与填充后的m计算sh</li>
+<li>计算：</li>
+</ul>
+<script type="math/tex; mode=display">
+Q_i = m_i*R + nonce_i*E + sh_i*C</script><ul>
+<li>给出所有Qi坐标，要求还原m</li>
+</ul>
+<h4 id="还原ecc参数"><a href="#还原ecc参数" class="headerlink" title="还原ecc参数"></a>还原ecc参数</h4><p>第一步肯定是要先找到原曲线的a、b、p参数的，这里我采用消元办法，思路如下：</p>
+<p>我们知道椭圆曲线的点满足方程：</p>
+<script type="math/tex; mode=display">
+y^2 = x^3+ax+b \quad(mod\;p)</script><p>而Qi均为曲线上的点，所以我们取其中前四个点的坐标，就有四组方程：</p>
+<script type="math/tex; mode=display">
+y_1^2 = x_1^3+ax_1+b \quad(mod\;p)</script><script type="math/tex; mode=display">
+y_2^2 = x_2^3+ax_2+b \quad(mod\;p)</script><script type="math/tex; mode=display">
+y_3^2 = x_3^3+ax_3+b \quad(mod\;p)</script><script type="math/tex; mode=display">
+y_4^2 = x_4^3+ax_4+b \quad(mod\;p)</script><p>要求从四组方程中还原a、b、p，其实跟无参数的LCG很像，主要目的就是消元，求gcd得到p，然后再回到模方程中求解a、b。</p>
+<p>消元过程如下，我们取前两组方程：</p>
+<script type="math/tex; mode=display">
+y_1^2 -  x_1^3 =ax_1+b \quad(mod\;p)</script><script type="math/tex; mode=display">
+y_2^2 - x_2^3= ax_2+b \quad(mod\;p)</script><p>作差消掉b：</p>
+<script type="math/tex; mode=display">
+y_1^2 -  x_1^3 - y_2^2 + x_2^3=ax_1 - ax_2 \quad(mod\;p)</script><p>把a单独提出来：</p>
+<script type="math/tex; mode=display">
+(y_1^2 -  x_1^3 - y_2^2 + x_2^3)(x_1-x_2)^{-1} = a \quad(mod\;p)</script><p>同理，我们取第二三组方程也能得到：</p>
+<script type="math/tex; mode=display">
+(y_2^2 -  x_2^3 - y_3^2 + x_3^3)(x_2-x_3)^{-1} = a \quad(mod\;p)</script><p>那么作差就有：</p>
+<script type="math/tex; mode=display">
+(y_1^2 -  x_1^3 - y_2^2 + x_2^3)(x_1-x_2)^{-1} - (y_2^2 -  x_2^3 - y_3^2 + x_3^3)(x_2-x_3)^{-1} = 0 \quad(mod\;p)</script><p>那么同样再取一组求gcd，并消去小因子就能得到p，得到p过后还原ab就很轻松。</p>
+<p>当然，有更直接的梭哈办法就是直接定义在ZZ域上，用四个点的方程求Groebner就可以轻松还原a、b、p参数。</p>
+<h4 id="Smart-Attack"><a href="#Smart-Attack" class="headerlink" title="Smart Attack"></a>Smart Attack</h4><p>有了参数后我们就有了原曲线，经过观察与测试可以知道这个曲线有一个很特殊的性质：</p>
+<script type="math/tex; mode=display">
+E.order() = p</script><p>有这个性质的曲线可以用Smart attack轻松解决离散对数问题，那么接下来的思路就是如何利用DLP来转化问题。</p>
+<p>那么首先，我们期望还原的是明文的每个字符mi，想要解决这一点就要从Qi的生成方式入手：</p>
+<script type="math/tex; mode=display">
+Q_i = m_i*R + nonce_i*E + sh_i*C</script><p>给了多组Qi相关的线性等式，可以想到应该是要造格，但是造格之前我们需要想办法把ECC相关的计算式转到数域上，而由于DLP在这个曲线上能用Smart Attack轻松求解，因此我们可以考虑如下方式，将所以Qi的计算式转化到数域上：</p>
+<p>令G为曲线E的生成元，则G的阶等于曲线的阶，在这条曲线上也就等于p。然后我们就可以把Q、R、E、C等点均用生成元的倍点表示如下：</p>
+<script type="math/tex; mode=display">
+Q_i = d_iG</script><script type="math/tex; mode=display">
+R = rG,E=eG,C=cG</script><p>代回到Qi的计算式中，就有：</p>
+<script type="math/tex; mode=display">
+d_iG = m_i*rG + nonce_i*eG + sh_i*cG</script><p>即：</p>
+<script type="math/tex; mode=display">
+d_iG = (m_i*r + nonce_i*e + sh_i*c)G</script><p>而由于G的阶就是曲线的阶，因此有：</p>
+<script type="math/tex; mode=display">
+d_i \equiv m_i*r + nonce_i*e + sh_i*c \quad(mod\;order)</script><p>又因为曲线阶就等于p，所以有：</p>
+<script type="math/tex; mode=display">
+d_i \equiv m_i*r + nonce_i*e + sh_i*c \quad(mod\;p)</script><p>到这里，我们就完全脱离了曲线，而转化为了一个数域上的问题，也就是知道多组上述等式，如何求解mi。</p>
+<h4 id="格"><a href="#格" class="headerlink" title="格"></a>格</h4><p>现在我们有多组如下等式：</p>
+<script type="math/tex; mode=display">
+d_i \equiv m_i*r + nonce_i*e + sh_i*c \quad(mod\;p)</script><p>而注意到m_i的填充方式很奇怪：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pad = <span class="keyword">lambda</span> m: urandom(<span class="number">8</span>) + m + <span class="string">b&#x27;\x00&#x27;</span> * (ZZ(p).nbits() // <span class="number">8</span> - <span class="built_in">len</span>(m) - <span class="number">8</span> - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>他对flag逐个字节加密，因此len(m)是1，代入我们计算出的p可以得到，这种方式相当于是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pad(m) = urandom(<span class="number">8</span>) + m + <span class="string">b&#x27;\x00&#x27;</span>*<span class="number">54</span></span><br></pre></td></tr></table></figure>
+<p>而尾缀这些b’\x00’，其实也就相当于把(urandom(8) + m)左移54x8位，其实也就是乘2^432，所以上述等式可以进一步写成：</p>
+<script type="math/tex; mode=display">
+d_i \equiv m_i*2^{432}r + nonce_i*e + sh_i*c \quad(mod\;p)</script><p>我们把这些等式写成模p下的矩阵乘法的形式，便于我们发现格构造的方法：</p>
+<script type="math/tex; mode=display">
+\left(
+ \begin{matrix}
+   m_1 & nonce_1 &sh_1\\
+   m_2 & nonce_2 &sh_2\\
+   & ...&\\
+   m_{72} & nonce_{72} &sh_{72}\\
+   m_{73} & nonce_{73} &sh_{73}\\
+  \end{matrix}
+  \right)_{73*3}
+\left(
+ \begin{matrix}
+   2^{432}r\\
+   e\\
+   c\\
+  \end{matrix}
+  \right)_{3*1}
+  =
+  \left(
+ \begin{matrix}
+   d_1\\
+   d_1\\
+   ...\\
+   d_{72}\\
+   d_{73}\\
+  \end{matrix}
+  \right)_{73*1}</script><p>而观察到mi均为9字节的短向量，因此应该可以利用格规约。</p>
+<p>做到这里就没思路了，这能怎么造格呢？想了好一会儿也没想到。</p>
+<p>然后就去找别的师傅的wp，学习到了一种基于正交格的很妙的解法：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41626232/article/details/131861414">巅峰极客2023 Crypto Rosita-CSDN博客</a></p>
+<p>这个思路就是，我们首先把上述矩阵方程写作：</p>
+<script type="math/tex; mode=display">
+M_{73*3}
+\left(
+ \begin{matrix}
+   2^{432}r\\
+   e\\
+   c\\
+  \end{matrix}
+  \right)_{3*1}
+  =
+  D_{73*1}
+  \quad(mod\;p)</script><p>然后，我们假设有一个kx73的矩阵R满足下式：</p>
+<script type="math/tex; mode=display">
+R_{k*73}M_{73*3} = 
+\left(
+ \begin{matrix}
+   0&0&0\\
+   &...&\\
+   0&0&0\\
+  \end{matrix}
+  \right)_{k*3}
+   \quad(mod\;p)</script><p>这也就是说R与M正交，然后把这个R矩阵同时乘在矩阵方程的两侧：</p>
+<script type="math/tex; mode=display">
+R_{k*73}M_{73*3}
+\left(
+ \begin{matrix}
+   2^{432}r\\
+   e\\
+   c\\
+  \end{matrix}
+  \right)_{3*1}
+  =
+  R_{k*73}D_{73*1}
+   \quad(mod\;p)</script><p>显然就有：</p>
+<script type="math/tex; mode=display">
+R_{k*73}D_{73*1} =
+  \left(
+ \begin{matrix}
+   0\\
+   ...\\
+   0\\
+  \end{matrix}
+  \right)_{k*1}
+   \quad(mod\;p)</script><p>也就是说，如果R与M正交，那么R一定满足以下几点：</p>
+<ul>
+<li><p>R与D也正交</p>
+</li>
+<li><p>M的三列均在R的右核空间中</p>
+</li>
+<li>M的第一列是R的右核空间中的一个短向量</li>
+</ul>
+<p>所以我们就要完成以下的对应目标：</p>
+<ul>
+<li>找到与M正交的矩阵R</li>
+<li>对R的右核空间进行规约得到M的第一列</li>
+</ul>
+<h5 id="找到R"><a href="#找到R" class="headerlink" title="找到R"></a>找到R</h5><p>由于我们没有M，所以要找到与M正交的矩阵的话，只能通过R与D也正交这一关系来找。为此我们构造如下的格来找到R：</p>
+<script type="math/tex; mode=display">
+\left(
+ \begin{matrix}
+   E&D\\
+   0&p\\
+  \end{matrix}
+  \right)</script><p>其中，E是单位矩阵，D是DLP得到的列向量，p是曲线的阶，这里也正好是曲线的模数。</p>
+<p>构造这个格是基于：</p>
+<script type="math/tex; mode=display">
+R_{k*73}D_{73*1} =
+  \left(
+ \begin{matrix}
+   0\\
+   ...\\
+   0\\
+  \end{matrix}
+  \right)_{k*1}
+   \quad(mod\;p)</script><p>那么我们对R中的任意一行：</p>
+<script type="math/tex; mode=display">
+(r_1,r_2,...,r_{73})</script><p>都有：</p>
+<script type="math/tex; mode=display">
+(r_1,r_2,...,r_{73},t)
+\left(
+ \begin{matrix}
+   E&D\\
+   0&p\\
+  \end{matrix}
+  \right)
+  =
+  (r_1,r_2,...,r_{73},0)</script><p>因此我们就能用LLL规约出若干短向量，只要规约出的最后一个数字为0，就可以作为R的其中一行加入到R中。所以我们可以对格的最后一列配上一个大系数，从而保证规约出0，这样我们就能从中取70行，得到一个70x73的矩阵R。</p>
+<p>接下来就对R求解右核，然后进行规约即可找到M的第一列，依次取最低字节就可以还原flag。</p>
+<p>这里可能会有以下几个问题：</p>
+<ul>
+<li>为什么不取73行？</li>
+</ul>
+<p>这是因为，取73行后的R矩阵是满秩的，右核空间是0维，而我们需要一个至少一维的右核进行规约。</p>
+<ul>
+<li>为什么不取更少的比如60、50行？</li>
+</ul>
+<p>这是因为，少取若干行之后，右核空间维数也会对应增大，高斯启发式期望的短向量长度会显著减小，从而导致我们的目标向量规约不出。经测试取67以下的就规约不出了。</p>
+<ul>
+<li>为什么不取71、72行？</li>
+</ul>
+<p>这一点我也暂时不理解，因为既然规约出最后一列为0，就说明该行与D模p下正交，就应该可以作为R的一行才对。但事实上，只有前70行可以作规约，这也就是说，必须是不配大系数也能规约出的正交行，才能作为R中的一行，这我就暂时没有理解到了，如果有明白的师傅欢迎与我交流！</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#part1 recover a,b,p</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calc</span>(<span class="params">points</span>):</span><br><span class="line">    (x1,y1),(x2,y2),(x3,y3),(x4,y4) = points</span><br><span class="line">    t1 = (y2**<span class="number">2</span>-y1**<span class="number">2</span>-x2**<span class="number">3</span>+x1**<span class="number">3</span>)</span><br><span class="line">    t2 = (y3**<span class="number">2</span>-y2**<span class="number">2</span>-x3**<span class="number">3</span>+x2**<span class="number">3</span>)</span><br><span class="line">    t3 = (y4**<span class="number">2</span>-y3**<span class="number">2</span>-x4**<span class="number">3</span>+x3**<span class="number">3</span>)</span><br><span class="line">    k1p = t1*(x3-x2) - t2*(x2-x1)</span><br><span class="line">    k2p = t2*(x4-x3) - t3*(x3-x2)</span><br><span class="line">    k3p = t1*(x4-x3) - t3*(x2-x1)</span><br><span class="line">    p = GCD(k1p,k2p)</span><br><span class="line">    p = GCD(p,k3p)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">1000</span>):</span><br><span class="line">        <span class="keyword">while</span>(p % i == <span class="number">0</span>):</span><br><span class="line">            p //= i</span><br><span class="line">    a = inverse(x2-x1,p)*t1 % p</span><br><span class="line">    b = (y1**<span class="number">2</span>-x1**<span class="number">3</span>-a*x1) % p</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a,b,p</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&#x27;E:\题\历届赛题\巅峰极客 2023\Rosita\out.tuo&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    points = <span class="built_in">eval</span>(f.read())</span><br><span class="line">a,b,p = calc(points[:<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Smart&#x27;s attack</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SmartAttack</span>(<span class="params">P,Q,p</span>):</span><br><span class="line">    E = P.curve()</span><br><span class="line">    Eqp = EllipticCurve(Qp(p, <span class="number">2</span>), [ ZZ(t) + randint(<span class="number">0</span>,p)*p <span class="keyword">for</span> t <span class="keyword">in</span> E.a_invariants() ])</span><br><span class="line"></span><br><span class="line">    P_Qps = Eqp.lift_x(ZZ(P.xy()[<span class="number">0</span>]), <span class="built_in">all</span>=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> P_Qp <span class="keyword">in</span> P_Qps:</span><br><span class="line">        <span class="keyword">if</span> GF(p)(P_Qp.xy()[<span class="number">1</span>]) == P.xy()[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    Q_Qps = Eqp.lift_x(ZZ(Q.xy()[<span class="number">0</span>]), <span class="built_in">all</span>=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> Q_Qp <span class="keyword">in</span> Q_Qps:</span><br><span class="line">        <span class="keyword">if</span> GF(p)(Q_Qp.xy()[<span class="number">1</span>]) == Q.xy()[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    p_times_P = p*P_Qp</span><br><span class="line">    p_times_Q = p*Q_Qp</span><br><span class="line"></span><br><span class="line">    x_P,y_P = p_times_P.xy()</span><br><span class="line">    x_Q,y_Q = p_times_Q.xy()</span><br><span class="line"></span><br><span class="line">    phi_P = -(x_P/y_P)</span><br><span class="line">    phi_Q = -(x_Q/y_Q)</span><br><span class="line">    k = phi_Q/phi_P</span><br><span class="line">    <span class="keyword">return</span> ZZ(k)</span><br><span class="line"></span><br><span class="line">E = EllipticCurve(Zmod(p),[a,b])</span><br><span class="line">G = E.gens()[<span class="number">0</span>]</span><br><span class="line">d = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="built_in">len</span>(points)):</span><br><span class="line">    d.append(SmartAttack(G,E(points[i]),p))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part3 LLL</span></span><br><span class="line">L = Matrix(ZZ,<span class="number">74</span>,<span class="number">74</span>)</span><br><span class="line">K = <span class="number">2</span>^<span class="number">100</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">73</span>):</span><br><span class="line">    L[i,i] = <span class="number">1</span></span><br><span class="line">    L[i,-<span class="number">1</span>] = d[i]*K</span><br><span class="line">L[-<span class="number">1</span>,-<span class="number">1</span>] = p*K</span><br><span class="line">res = L.LLL()</span><br><span class="line"></span><br><span class="line">R = Matrix(ZZ,<span class="number">70</span>,<span class="number">73</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">70</span>):</span><br><span class="line">    R[i] = res[i][:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">bas = R.right_kernel().basis()</span><br><span class="line">bas = Matrix(ZZ,bas)</span><br><span class="line">res = bas.LLL()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">flag = <span class="string">b&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> res:</span><br><span class="line">    flag += long_to_bytes(<span class="built_in">int</span>(i&amp;<span class="number">0xff</span>))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Congratulations! Your flag is: flag&#123;893d041e-c0a2-3145-5320-cdee7d3c87fb&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
 
     </div>
 
@@ -506,7 +708,7 @@ d*eP' = P'</script><p>然后再将第一次映射逆回去就能得到原P点坐
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#EdRSA"><span class="nav-number">1.</span> <span class="nav-text">EdRSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EC-Party-I"><span class="nav-number">2.</span> <span class="nav-text">EC_Party-I</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strange-curve"><span class="nav-number">3.</span> <span class="nav-text">strange curve</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SMM"><span class="nav-number">4.</span> <span class="nav-text">SMM</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#EdRSA"><span class="nav-number">1.</span> <span class="nav-text">EdRSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EC-Party-I"><span class="nav-number">2.</span> <span class="nav-text">EC_Party-I</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strange-curve"><span class="nav-number">3.</span> <span class="nav-text">strange curve</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SMM"><span class="nav-number">4.</span> <span class="nav-text">SMM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rosita"><span class="nav-number">5.</span> <span class="nav-text">Rosita</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%98%E5%8E%9Fecc%E5%8F%82%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">还原ecc参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Smart-Attack"><span class="nav-number">5.2.</span> <span class="nav-text">Smart Attack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%BC"><span class="nav-number">5.3.</span> <span class="nav-text">格</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%BE%E5%88%B0R"><span class="nav-number">5.3.1.</span> <span class="nav-text">找到R</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
