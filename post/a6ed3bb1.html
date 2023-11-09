@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这篇文章的话特殊一点，记录的题目主要满足以下几条：  我还没有能解出 搜索不到wp 有一些思路，并且题目本身我觉得比较有趣  所以文章命名为Thoughts，对这些题目提供我的一些思路，希望对各位师傅有一些启发最终解决题目。如果其中的题目有师傅解出来了或者能找到wp，欢迎随时联系我！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thoughts">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/a6ed3bb1.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="这篇文章的话特殊一点，记录的题目主要满足以下几条：  我还没有能解出 搜索不到wp 有一些思路，并且题目本身我觉得比较有趣  所以文章命名为Thoughts，对这些题目提供我的一些思路，希望对各位师傅有一些启发最终解决题目。如果其中的题目有师傅解出来了或者能找到wp，欢迎随时联系我！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/a6ed3bb1/image-20231109091947570.png">
+<meta property="article:published_time" content="2023-11-09T00:26:15.000Z">
+<meta property="article:modified_time" content="2023-11-09T01:40:55.491Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/a6ed3bb1/image-20231109091947570.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/a6ed3bb1.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Thoughts | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/a6ed3bb1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Thoughts
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-09 08:26:15 / 修改时间：09:40:55" itemprop="dateCreated datePublished" datetime="2023-11-09T08:26:15+08:00">2023-11-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/crypto%E8%B6%A3%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">crypto趣题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/a6ed3bb1.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/a6ed3bb1.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇文章的话特殊一点，记录的题目主要满足以下几条：</p>
+<ul>
+<li>我还没有能解出</li>
+<li>搜索不到wp</li>
+<li>有一些思路，并且题目本身我觉得比较有趣</li>
+</ul>
+<p>所以文章命名为Thoughts，对这些题目提供我的一些思路，希望对各位师傅有一些启发最终解决题目。如果其中的题目有师傅解出来了或者能找到wp，欢迎随时联系我！</p>
+<span id="more"></span>
+<h3 id="DangerousRSA"><a href="#DangerousRSA" class="headerlink" title="DangerousRSA"></a>DangerousRSA</h3><p>题目来源：广东强网杯 2021 个人组</p>
+<p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">It is very dangerous</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n=<span class="number">1130559951242142418553461557920917245278152787036994964813122956739956040733223190585188299825937660853090732755660557900622564346469528239989519875434612493124663925800482373019421482927567375862528994310090666571233446002163478309309649223886467303834842172338454971591276606602163799133000582891965785243482166772793400065793927508012418516719549212969303944155066541587875789636798394581666621711612432864870236407912486149901575077993702841083287354610398446101725184000000000000000000000000000000149</span></span><br><span class="line"></span><br><span class="line">e=<span class="number">65537</span></span><br><span class="line"></span><br><span class="line">m=bytes_to_long(flag)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">zhuanzhuan</span>(<span class="params">n</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>: <span class="keyword">return</span> n</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">9</span>* zhuanzhuan(n - <span class="number">1</span>) + zhuanzhuan(n - <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">g = <span class="number">1766592252951269548814352411327322447034194093921285273353477875204196603230641896039854934719468650093602325707751568</span></span><br><span class="line"></span><br><span class="line">hint_0=zhuanzhuan(g)%<span class="number">50254221567892101225665855</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt</span>(<span class="params">hint_0</span>):</span><br><span class="line">    <span class="comment">#n_1,n_2 both are int   </span></span><br><span class="line">    <span class="keyword">if</span>   (n_1+hint_0)**<span class="number">2</span>+<span class="number">1712463104290490642</span>*n_1+<span class="number">4730060142800357260761833404838169046987798</span>-<span class="number">66666666</span>*n_2**<span class="number">2</span>=<span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        d=<span class="number">55607604802787651645008458776960381905274761803290637507632188635838921065681450951091689278291418693230528750002533602907652688436593464630306292523277204515196410606067221890882848225521819884919432609641732036959698443050773592482567332594684068998082886109352105201496925283866221090767083891241755981564899917062843679988341936588610298860835342859782896551931353504004447312763256966682142206683209406463516580194846276027818291321875085607298572702721743561</span>*n_1+n_2-<span class="number">69462057634597116805075535702860983356198049</span></span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> d  </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">c=<span class="built_in">pow</span>(m,e,n)=encrypt(hint_0)</span><br><span class="line"></span><br><span class="line"><span class="comment">#The n is very dangerous</span></span><br></pre></td></tr></table></figure>
+<p>题目加密流程如下：</p>
+<ul>
+<li>定义一个递归函数zhuanzhuan()，并用一个大数g作为该函数的形参计算函数值后，模一个数作为hint0</li>
+<li>以hint0定义了一个关于n1、n2的方程</li>
+<li>用n1、n2生成一个加密值d，保证其与RSA得到的密文相等</li>
+</ul>
+<p>那么其实要解决的就是以下几个问题：</p>
+<ul>
+<li>计算zhuanzhuan()函数得到hint0</li>
+<li>用hint0解方程得到n1、n2，然后得到RSA密文</li>
+<li>分解n从而求解RSA明文</li>
+</ul>
+<h4 id="计算zhuanzhuan-函数"><a href="#计算zhuanzhuan-函数" class="headerlink" title="计算zhuanzhuan()函数"></a>计算zhuanzhuan()函数</h4><p>zhuanzhuan函数如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">zhuanzhuan</span>(<span class="params">n</span>):   </span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>: <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">return</span> <span class="number">9</span>* zhuanzhuan(n - <span class="number">1</span>) + zhuanzhuan(n - <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>其实就是个加了一项系数的斐波那契，而直接用它进行计算的话，由于g过大，肯定会爆栈，因此要优化一下。</p>
+<p>而对斐波那契数列有一种矩阵快速幂计算的办法，当然也就可以用在这个题，具体来说如下。</p>
+<p>我们直接把zhuanzhuan(n)叫做f(n)，这样看上去更直接，那么开始我们拥有初值：</p>
+<script type="math/tex; mode=display">
+f(0) = 0</script><script type="math/tex; mode=display">
+f(1) = 1</script><p>而后面的所有项都是基于这两项进行递推的，写成矩阵形式就是：</p>
+<script type="math/tex; mode=display">
+\left(
+ \begin{matrix}
+   f(2)\\
+   f(1)\\
+  \end{matrix}
+  \right)
+  =
+\left(
+ \begin{matrix}
+   9&1\\
+   1&0\\
+  \end{matrix}
+  \right)
+  \left(
+ \begin{matrix}
+   f(1)\\
+   f(0)\\
+  \end{matrix}
+  \right)</script><p>同理：</p>
+<script type="math/tex; mode=display">
+\left(
+ \begin{matrix}
+   f(3)\\
+   f(2)\\
+  \end{matrix}
+  \right)
+  =
+\left(
+ \begin{matrix}
+   9&1\\
+   1&0\\
+  \end{matrix}
+  \right)
+  \left(
+ \begin{matrix}
+   f(2)\\
+   f(1)\\
+  \end{matrix}
+  \right)
+  =
+  \left(
+ \begin{matrix}
+   9&1\\
+   1&0\\
+  \end{matrix}
+  \right)^2
+  \left(
+ \begin{matrix}
+   f(1)\\
+   f(0)\\
+  \end{matrix}
+  \right)</script><p>所以就有通项：</p>
+<script type="math/tex; mode=display">
+\left(
+ \begin{matrix}
+   f(n)\\
+   f(n-1)\\
+  \end{matrix}
+  \right)
+  =
+\left(
+ \begin{matrix}
+   9&1\\
+   1&0\\
+  \end{matrix}
+  \right)^{n-1}
+  \left(
+ \begin{matrix}
+   f(1)\\
+   f(0)\\
+  \end{matrix}
+  \right)</script><p>而由于hint0最后也要模一个素数，因此完全可以将整个矩阵都定义在模数的有限域下进行计算，所以能用矩阵快速幂计算出f(g)，从而得到hint0。</p>
+<h4 id="解方程得到n1、n2"><a href="#解方程得到n1、n2" class="headerlink" title="解方程得到n1、n2"></a>解方程得到n1、n2</h4><p>n1、n2的方程如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(n_1+hint_0)**<span class="number">2</span>+<span class="number">1712463104290490642</span>*n_1+<span class="number">4730060142800357260761833404838169046987798</span>-<span class="number">66666666</span>*n_2**<span class="number">2</span>=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>槽点不少，比如这里都不是”==”而是”=”。。。而现在由于我们已经有hint0，所以把他展开再合并同类项能有以下形式：</p>
+<script type="math/tex; mode=display">
+n_1^2 + tn_1 -Dn_2^2 + c = 0</script><p>然后其实能看出有佩尔方程的雏形，试一下果然发现这几个数都是凑好的，也就是说我们可以把方程写成如下佩尔方程的标准形式：</p>
+<script type="math/tex; mode=display">
+(n_1+k)^2 -Dn_2^2 = 1</script><p>那么我们可以求解这个佩尔方程得到多组可能的n1、n2，从而得到多个可能的RSA密文。</p>
+<p>但是，没能解出来这个题的问题也就在这里，我会在最后一部分展开详述。</p>
+<h4 id="分解n"><a href="#分解n" class="headerlink" title="分解n"></a>分解n</h4><p>假设解佩尔方程我们得到了正确的RSA密文，那么现在我们显然是需要获得n的分解才能解出明文的。但是题目里关于n一共就两点信息：</p>
+<p>一个是n本身：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="number">1130559951242142418553461557920917245278152787036994964813122956739956040733223190585188299825937660853090732755660557900622564346469528239989519875434612493124663925800482373019421482927567375862528994310090666571233446002163478309309649223886467303834842172338454971591276606602163799133000582891965785243482166772793400065793927508012418516719549212969303944155066541587875789636798394581666621711612432864870236407912486149901575077993702841083287354610398446101725184000000000000000000000000000000149</span></span><br></pre></td></tr></table></figure>
+<p>另一个是对n的描述：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#The n is very dangerous</span></span><br></pre></td></tr></table></figure>
+<p>因此n肯定是由于质数选取不当等原因，导致其可用某种方法简单分解。而观察到n的低位为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.....<span class="number">.000000000000000000000000000000149</span></span><br></pre></td></tr></table></figure>
+<p>低位由很多0再加上一个149组成，而n的低位也就是pq乘积的低位，并且149是一个质数，那么这也就是说，p、q之中有一个的十进制低位应该是如下形式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.....<span class="number">.000000000000001</span></span><br></pre></td></tr></table></figure>
+<p>那么就可以猜测他是p-1光滑数，事实上也确实可以用pohlig-hellman获得n的分解。</p>
+<p>看上去题目好像已经顺利解决了，但是接下来就是问题：</p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>问题就出在佩尔方程那一步。我们已知RSA密文是如下方式产生的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d=<span class="number">55607604802787651645008458776960381905274761803290637507632188635838921065681450951091689278291418693230528750002533602907652688436593464630306292523277204515196410606067221890882848225521819884919432609641732036959698443050773592482567332594684068998082886109352105201496925283866221090767083891241755981564899917062843679988341936588610298860835342859782896551931353504004447312763256966682142206683209406463516580194846276027818291321875085607298572702721743561</span>*n_1+n_2-<span class="number">69462057634597116805075535702860983356198049</span></span><br></pre></td></tr></table></figure>
+<p>写直观一点如下：</p>
+<script type="math/tex; mode=display">
+d = kn_1 + n_2 - t</script><p>这一步本身并没有什么问题，因为k、t肯定是用RSA得到的密文以及佩尔方程的某一组解凑出来的两个正数。那么显然，随着n1、n2增大，得到的密文d也会增大。</p>
+<p>而已知：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=<span class="built_in">pow</span>(m,e,n)=encrypt(hint_0)</span><br></pre></td></tr></table></figure>
+<p>这里也用的是”=”而不是”==”，无力吐槽。。。总之就是说，我们得到的密文应该是在(0,n)范围内的。所以我们需要先找到佩尔方程的最小正整数解，然后逐个解搜索，一直到得到的d不落在(0,n)范围内就退出。</p>
+<p>但是问题就在于，求出的一组最小正整数解(n1,n2)得到的d也大于了n？什么情况？</p>
+<p>这里简单阐述一下佩尔方程的求解思路，用连分数解决的思路很易懂，如下：</p>
+<p>方程基本形式是：</p>
+<script type="math/tex; mode=display">
+x^2-Dy^2 = 1</script><p>就有：</p>
+<script type="math/tex; mode=display">
+x^2 = Dy^2 + 1 \approx Dy^2</script><p>所以：</p>
+<script type="math/tex; mode=display">
+\sqrt{D} \approx \frac{x}{y}</script><p>因此对根号D连分数展开，检验是否有x^2-Dy^2 = 1，第一次得到的就是最小正整数解。正常来说这样解是没什么问题的，但是这题里D=66666666，较大，这样解是不是会因为根号D的精度问题漏解？</p>
+<p>然后我找到了这一篇参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wh2124335/article/details/8871535">连分数法解佩尔方程特解_连分数求解pell方程-CSDN博客</a></p>
+<p>看了这个文章会发现，一个数的根号如果是无理数，那么这个无理数的连分数其实是可以用一个有循环节的连分数表示的，并且有算法能精确的计算出这个连分数，因为它不需要用到无理数的小数部分。</p>
+<p>我照着这个方式实现了一遍根号表示的无理数连分数展开，这里打印连分数的前一百项示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> iroot</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sol_Pell</span>(<span class="params">D</span>):</span><br><span class="line">    a = []</span><br><span class="line">    b = []</span><br><span class="line">    c = []</span><br><span class="line"></span><br><span class="line">    <span class="comment">#init</span></span><br><span class="line">    D_ = <span class="built_in">int</span>(iroot(D,<span class="number">2</span>)[<span class="number">0</span>])</span><br><span class="line">    b.append(D_)</span><br><span class="line">    c.append(D-D_**<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">        a.append((D_ + b[i])//c[i])</span><br><span class="line">        b.append(a[i]*c[i] - b[i])</span><br><span class="line">        c.append((D-b[i+<span class="number">1</span>]**<span class="number">2</span>) // c[i])</span><br><span class="line">    a.insert(<span class="number">0</span>,D_)</span><br><span class="line">    <span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line">D = <span class="number">66666666</span></span><br><span class="line">sol_Pell(D)</span><br></pre></td></tr></table></figure>
+<p>然后与我们常用的连分数求解佩尔方程对比一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">solve_pell</span>(<span class="params">N, numTry = <span class="number">10000</span></span>):</span><br><span class="line">    ring = RealField(<span class="number">1000</span>)</span><br><span class="line">    cf = continued_fraction(sqrt(ring(N)))</span><br><span class="line">    <span class="built_in">print</span>(cf[:<span class="number">100</span>])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(numTry):</span><br><span class="line">        denom = cf.denominator(i)</span><br><span class="line">        numer = cf.numerator(i)</span><br><span class="line">        <span class="keyword">if</span> numer^<span class="number">2</span> - N * denom^<span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> numer, denom</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>, <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<p>打印结果可以发现，这两种方法对于根号66666666的连分数展开是完全一样的，这也就是说精度已经足够展开得到精确的连分数循环表示。而由于参考文章中的一个定理：</p>
+<p><img src="/post/a6ed3bb1/image-20231109091947570.png" alt="image-20231109091947570"></p>
+<p>那么也就是说，我们得到的n1、n2的确就是最小正整数解。而既然最小正整数解得到的d都大于n，那么由于d单增，之后迭代得到的其他所有正整数解都肯定大于n，因此肯定都不是正确解。</p>
+<p>然后我的思路是：一组正整数解其实对应四组解，比如如果(x,y)是佩尔方程的解的话，那么以下三组肯定也都是佩尔方程的解：</p>
+<script type="math/tex; mode=display">
+(x,-y),(-x,y),(-x,-y)</script><p>但是显而易见，n1乘了一个大系数，所以要想d落在(0,n)，就只能改变n2为负数试试。但是肯定也能想到杯水车薪，因为n2完全影响不了前面那个大数的比特位数。</p>
+<p>那到底哪里出了问题？我猜测了一下是不是n2、n1打反了，因为如果调整位置的话确实就可以刚好落在(0,n)内，但是事实上也出不了结果。</p>
+<p>那难道数字打错了或者我还有别的疏忽？这就不得而知了。</p>
+<p>总之还是放个exp，毕竟也许代码有点什么错误导致出不了结果，有兴趣的师傅可以看看：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = <span class="number">1130559951242142418553461557920917245278152787036994964813122956739956040733223190585188299825937660853090732755660557900622564346469528239989519875434612493124663925800482373019421482927567375862528994310090666571233446002163478309309649223886467303834842172338454971591276606602163799133000582891965785243482166772793400065793927508012418516719549212969303944155066541587875789636798394581666621711612432864870236407912486149901575077993702841083287354610398446101725184000000000000000000000000000000149</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">g = <span class="number">1766592252951269548814352411327322447034194093921285273353477875204196603230641896039854934719468650093602325707751568</span></span><br><span class="line">p = <span class="number">50254221567892101225665855</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#part1 factor n</span></span><br><span class="line">a = <span class="number">2</span></span><br><span class="line">m = <span class="number">2</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    a = <span class="built_in">pow</span>(a, m, n)</span><br><span class="line">    pp = GCD(a-<span class="number">1</span>, n)</span><br><span class="line">    <span class="keyword">if</span> pp != <span class="number">1</span> <span class="keyword">and</span> pp != n:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    m += <span class="number">1</span></span><br><span class="line">qq = <span class="built_in">int</span>(n // pp)</span><br><span class="line">phi = (pp-<span class="number">1</span>)*(qq-<span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part2 Get hint0</span></span><br><span class="line">L = Matrix(Zmod(p),[[<span class="number">9</span>,<span class="number">1</span>],</span><br><span class="line">                    [<span class="number">1</span>,<span class="number">0</span>]]) </span><br><span class="line">init = vector(Zmod(p),[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">hint0 = <span class="built_in">int</span>((L^(g-<span class="number">1</span>)*init)[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part3 pell</span></span><br><span class="line"><span class="comment">#(n_1+hint_0)**2+1712463104290490642*n_1+4730060142800357260761833404838169046987798-66666666*n_2**2=0:</span></span><br><span class="line">temp = hint0**<span class="number">2</span>+<span class="number">4730060142800357260761833404838169046987798</span>+<span class="number">1</span></span><br><span class="line">k1 = (<span class="number">2</span>*hint0+<span class="number">1712463104290490642</span>)//<span class="number">2</span></span><br><span class="line"><span class="comment">#print(k1**2 == temp)</span></span><br><span class="line"><span class="comment">#(n1+k1)^2 -D*n2^2 = 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">solve_pell</span>(<span class="params">N, numTry = <span class="number">10000</span></span>):</span><br><span class="line">    ring = RealField(<span class="number">10000</span>)</span><br><span class="line">    cf = continued_fraction(sqrt(ring(N)))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(numTry):</span><br><span class="line">        denom = cf.denominator(i)</span><br><span class="line">        numer = cf.numerator(i)</span><br><span class="line">        <span class="keyword">if</span> numer^<span class="number">2</span> - N * denom^<span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> numer, denom</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">D = <span class="number">66666666</span></span><br><span class="line">n1_,n2 = solve_pell(D)</span><br><span class="line">n1 = n1_ - k1</span><br><span class="line"><span class="comment">#print((n1+hint0)**2+1712463104290490642*n1+4730060142800357260761833404838169046987798-66666666*n2**2==0)</span></span><br><span class="line">k = <span class="number">55607604802787651645008458776960381905274761803290637507632188635838921065681450951091689278291418693230528750002533602907652688436593464630306292523277204515196410606067221890882848225521819884919432609641732036959698443050773592482567332594684068998082886109352105201496925283866221090767083891241755981564899917062843679988341936588610298860835342859782896551931353504004447312763256966682142206683209406463516580194846276027818291321875085607298572702721743561</span></span><br><span class="line">t = <span class="number">69462057634597116805075535702860983356198049</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part4 Get flag</span></span><br><span class="line">c = k*n1 + n2 - t</span><br><span class="line">flag = long_to_bytes(<span class="built_in">int</span>(<span class="built_in">pow</span>(c,d,n)))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/a6ed3bb1.html" title="Thoughts">https://tangcuxiaojikuai.xyz/post/a6ed3bb1.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/9e0dbdd4.html" rel="prev" title="2023-NewStarCTF-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2023-NewStarCTF-wp-crypto
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DangerousRSA"><span class="nav-number">1.</span> <span class="nav-text">DangerousRSA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97zhuanzhuan-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">计算zhuanzhuan()函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E6%96%B9%E7%A8%8B%E5%BE%97%E5%88%B0n1%E3%80%81n2"><span class="nav-number">1.2.</span> <span class="nav-text">解方程得到n1、n2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E8%A7%A3n"><span class="nav-number">1.3.</span> <span class="nav-text">分解n</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.4.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
