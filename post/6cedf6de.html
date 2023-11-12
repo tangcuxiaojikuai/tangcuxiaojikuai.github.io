@@ -33,7 +33,7 @@
 <meta property="og:description" content="有师傅问了几个题，就做了做。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-11T08:57:46.000Z">
-<meta property="article:modified_time" content="2023-11-11T11:10:31.983Z">
+<meta property="article:modified_time" content="2023-11-12T03:22:58.120Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 
@@ -215,10 +215,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-11-11 16:57:46 / 修改时间：19:10:31" itemprop="dateCreated datePublished" datetime="2023-11-11T16:57:46+08:00">2023-11-11</time>
+              <time title="创建时间：2023-11-11 16:57:46" itemprop="dateCreated datePublished" datetime="2023-11-11T16:57:46+08:00">2023-11-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-12 11:22:58" itemprop="dateModified" datetime="2023-11-12T11:22:58+08:00">2023-11-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -271,7 +277,10 @@
 <script type="math/tex; mode=display">
 c = g^mr^n \quad (mod\;n^2)</script><p>这是Paillier同态加密的特征，可以参考：</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/557034854">应用密码学 | Paillier同态加密算法简介 - 知乎 (zhihu.com)</a></p>
-<p>那么只要我们有n的分解，就有这个加密的私钥，进而解密。然后其实将hint与n求gcd就能得到n的分解，然后代入Paillier解密就可以了。</p>
+<p>那么只要我们有n的分解，就有这个加密的私钥，进而解密。然后这里其实出题人弄的数据有点问题，hint1、hint2并不是按题目代码中给的方式进行计算的，而均是先计算异或再计算乘，也就是：</p>
+<script type="math/tex; mode=display">
+hint1 = (p \oplus 2)*q</script><script type="math/tex; mode=display">
+hint2 = p * (q \oplus 2)</script><p>所以其实将hint与n求gcd就能得到n的分解，然后代入Paillier解密就可以了。而如果是按题目代码的顺序运算得到hint1、hint2的话，预期应该是用hint1进行深搜。</p>
 <p>exp：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = <span class="number">6401013954612445818165507289870580041358569258817613282142852881965884799988941535910939664068503367303343695466899335792545332690862283029809823423608093</span></span><br><span class="line">c1 = <span class="number">22910385210568304958107161962017571071703393748261640924342214385124480716797688566364653958202687496536914575643833029904856616616361552065618233346044007555777302010059956180989299881167620123404157184856914845192870935052388587836639109148835943673531131160427033530692003589837535181715398419950146539295</span></span><br><span class="line">c2 = <span class="number">1575524821989347564982343787894614774971961408914047143111430998332905514952763763178813184329394269351923009990561408822591722869938177600916108444223304303415189694914099273457779531528733347451404048342144363056595763890310306908442288806184110971228621297398433865511027539993213883705000977616240346813</span></span><br><span class="line">g1 = <span class="number">17972230632127848019159546735961788940716048105141697301143941156703842346042203282817931551107307709193702947228391512160043387022559315244264272847054598619204201233617960636207483484678274743413667794843966312743641773413722257484289905138257413051485362435527999048370294082815591234891288108779292951281</span></span><br><span class="line">hint1 = <span class="number">6401013954612445818165507289870580041358569258817613282142852881965884799988781523237008972618187818067224685481215653712129336192028926158248667825733199</span></span><br><span class="line">hint2 = <span class="number">6401013954612445818165507289870580041358569258817613282142852881965884799988781523237008972618187818067224685481215653712129336192028926158248667825732455</span></span><br><span class="line">g2 = n+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">p = GCD(n,hint2)</span><br><span class="line">q = n// p</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part1</span></span><br><span class="line">lamda = lcm(p-<span class="number">1</span>,q-<span class="number">1</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">L</span>(<span class="params">x</span>):</span><br><span class="line">	<span class="keyword">return</span> (x-<span class="number">1</span>)//n</span><br><span class="line"></span><br><span class="line">miu = inverse(L(<span class="built_in">pow</span>(g1,lamda,n**<span class="number">2</span>)),n)</span><br><span class="line">b = gmpy2.powmod(c1,lamda,n*n)</span><br><span class="line">m1 = (L(b)*miu) % n</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(long_to_bytes(m1))[<span class="number">2</span>:-<span class="number">1</span>],end = <span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part2</span></span><br><span class="line">r2 = <span class="built_in">pow</span>(c2,inverse(n,(p-<span class="number">1</span>)*(q-<span class="number">1</span>)),n)</span><br><span class="line">r2n = <span class="built_in">pow</span>(r2,n,n**<span class="number">2</span>)</span><br><span class="line">m2 = (((c2*inverse(r2n,n**<span class="number">2</span>) % n**<span class="number">2</span>) - <span class="number">1</span>) // n )% n</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(long_to_bytes(m2))[<span class="number">2</span>:-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#DASCTF&#123;a59055ff-0a22-641d-2bf2-7b0b69c2244b&#125;</span></span><br></pre></td></tr></table></figure>
 <p><br></p>
@@ -350,7 +359,10 @@ cipher_i^{\frac{p-1}{2}} \equiv -1 \quad(mod\;p)</script><p>exp：</p>
     <a href="/post/a6ed3bb1.html" rel="prev" title="Thoughts">
       <i class="fa fa-chevron-left"></i> Thoughts
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/post/e69bccb7.html" rel="next" title="2023-强网拟态-wp-crypto">
+      2023-强网拟态-wp-crypto <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -426,7 +438,7 @@ cipher_i^{\frac{p-1}{2}} \equiv -1 \quad(mod\;p)</script><p>exp：</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
