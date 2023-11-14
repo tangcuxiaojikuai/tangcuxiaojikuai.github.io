@@ -33,7 +33,7 @@
 <meta property="og:description" content="该文章主要记录一些格相关的趣题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-29T01:54:15.000Z">
-<meta property="article:modified_time" content="2023-11-09T13:17:23.739Z">
+<meta property="article:modified_time" content="2023-11-14T02:26:02.244Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-09 21:17:23" itemprop="dateModified" datetime="2023-11-09T21:17:23+08:00">2023-11-09</time>
+                <time title="修改时间：2023-11-14 10:26:02" itemprop="dateModified" datetime="2023-11-14T10:26:02+08:00">2023-11-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -727,6 +727,73 @@ e^{2^{k-1}(-1)^{flag_{k-1}}}</script><p>我们算出这两种取值，然后分�
 <p>总的来说这题对我来说难度还是很大，路还很长。</p>
 <p><br></p>
 <p><br></p>
+<h3 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h3><p>题目来源：暂不明确</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64encode, b64decode</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint, getrandbits, choices</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, long_to_bytes</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">import</span> signal</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">genX</span>(<span class="params">rho, eta, gam, p</span>):</span><br><span class="line">    <span class="keyword">return</span> p * getrandbits(gam-eta) + getrandbits(rho)</span><br><span class="line"></span><br><span class="line">rho = <span class="number">12</span></span><br><span class="line">eta = <span class="number">256</span></span><br><span class="line">gamma = <span class="number">1000</span></span><br><span class="line">x = getPrime(<span class="number">256</span>)</span><br><span class="line">X = genX(rho, eta, gamma, x)</span><br><span class="line">p = getPrime(<span class="built_in">int</span>(X.bit_length() * <span class="number">2.5</span>))</span><br><span class="line">A = randint(<span class="number">2</span>, p - <span class="number">1</span>)</span><br><span class="line">B = randint(<span class="number">2</span>, p - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(b64encode(long_to_bytes(p)).decode())</span><br><span class="line">signal.alarm(<span class="number">30</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    choice = <span class="built_in">input</span>().strip()</span><br><span class="line">    <span class="keyword">if</span> choice == <span class="string">&quot;reset1&quot;</span>:</span><br><span class="line">        y = randint(<span class="number">1</span>, X)</span><br><span class="line">        a = randint(<span class="number">1</span>, p - <span class="number">1</span>)</span><br><span class="line">        b = (y**<span class="number">2</span> - (X**<span class="number">3</span> + a*X)) % p</span><br><span class="line">        A = a</span><br><span class="line">        B = b</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;reset successful.&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(b64encode(long_to_bytes(A) + <span class="string">b&quot;||&quot;</span> + long_to_bytes(B)).decode())</span><br><span class="line">    <span class="keyword">elif</span> choice == <span class="string">&quot;reset2&quot;</span>:</span><br><span class="line">        X = genX(rho, eta, gamma, x)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;reset successful.&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> choice == <span class="string">&quot;check&quot;</span>:</span><br><span class="line">        user_input = <span class="built_in">int</span>(<span class="built_in">input</span>().strip())</span><br><span class="line">        <span class="keyword">if</span> user_input == x:</span><br><span class="line">            <span class="built_in">print</span>(flag)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            exit(-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        exit(-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>是一个师傅问我的一道靶机题，但是我没有环境，所以就讲讲思路。</p>
+<p>题目任务如下：</p>
+<ul>
+<li>生成一个256bit的素数x，同时生成一个X，满足：</li>
+</ul>
+<script type="math/tex; mode=display">
+X = qx+r</script><ul>
+<li>生成一个2500bit数量级的p并发送给我们，然后限时30s，交互开始</li>
+</ul>
+<p>交互开始后，我们在时间允许范围内有无限次交互机会，每次交互我们可以：</p>
+<ul>
+<li>输入”reset1”，题目会随机生成yi、ai，并计算出对应bi后，发送(ai，bi)给我们。满足(X,yi)在下面的椭圆曲线上：</li>
+</ul>
+<script type="math/tex; mode=display">
+y_i^{2} = X^3 + a_iX + b_i \quad(mod \; p)</script><ul>
+<li>输入”reset2”，题目会更新X的值</li>
+<li>输入”check”，我们可以给靶机核对小写x(就是最初生成的256bit的素数)的值，正确则可以得到flag</li>
+</ul>
+<p>那么首先就要明白reset1、reset2这两个交互功能各有什么作用。首先我们知道有：</p>
+<script type="math/tex; mode=display">
+X = qx+r</script><p>那么如果能知道多组X的值，这就变成了一个AGCD问题，这也就是reset2的作用。</p>
+<p>因此，我们的想法就是：</p>
+<ul>
+<li>每次reset2，得到一个未知的Xi</li>
+<li>想办法用reset1来解出Xi的值</li>
+<li>得到多组Xi后，解AGCD得到x去通过核验，拿到flag</li>
+</ul>
+<p>那么接下来的任务就落在了如何利用reset1上。我们已知每次reset1会提供给我们一组满足如下等式的(ai，bi)：</p>
+<script type="math/tex; mode=display">
+y_i^{2} = X^3 + a_iX + b_i \quad(mod \; p)</script><p>看上去是引导人往椭圆曲线想，就会自然想到groebner，但是稍微再想一想就知道变量多了，肯定groebner不出来。</p>
+<p>而实际上，既然我们可以多次reset1，那么这其实也是一个HNP问题。我们把模等式展开：</p>
+<script type="math/tex; mode=display">
+y_i^{2} = X^3 + a_iX + b_i + k_ip</script><p>那么我们完全可以同样用HNP构造格的思路，构造下面的格来求解X：</p>
+<script type="math/tex; mode=display">
+L = 
+\left(\begin{matrix}
+p &  & ... & & \\
+ &p & ... & & \\
+  & & ... & & \\
+ & & ... &p & \\
+1&1&...&1&1\\
+a_1 & a_2 & ... &a_n  & &1\\
+b_1 & b_2 & ... &b_n  & &&1\\
+\end{matrix}
+\right)</script><p>这个格具有如下线性关系：</p>
+<script type="math/tex; mode=display">
+(k_1,k_2,...k_n,X^3,X,1)
+\left(\begin{matrix}
+p &  & ... & & \\
+ &p & ... & & \\
+  & & ... & & \\
+ & & ... &p & \\
+1&1&...&1&1\\
+a_1 & a_2 & ... &a_n  & &1\\
+b_1 & b_2 & ... &b_n  & &&1\\
+\end{matrix}
+\right)
+=
+(y_1^2,y_2^2,...y_n^2,X^3,X,1)</script><p>然后，我们配平一下这个格并进行规约就有机会得到目标向量。经过测试，申请四组(ai，bi)，就可以在第三行得到我们需要的目标向量，并且所用时间也很短，符合要求。</p>
+<p>得到一个Xi后我们就reset2更新下一个Xi，并继续按这个方法求解即可。然后有多组Xi就可以AGCD求x了。</p>
+<p>由于没有靶机，这里我就放一下我本地验证HNP问题的exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint, getrandbits, choices</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">genX</span>(<span class="params">rho, eta, gam, p</span>):</span><br><span class="line">    <span class="keyword">return</span> p * getrandbits(gam-eta) + getrandbits(rho)</span><br><span class="line"></span><br><span class="line">rho = <span class="number">12</span></span><br><span class="line">eta = <span class="number">256</span></span><br><span class="line">gamma = <span class="number">1000</span></span><br><span class="line">x = getPrime(<span class="number">256</span>)</span><br><span class="line">X = genX(rho, eta, gamma, x)</span><br><span class="line">p = getPrime(<span class="built_in">int</span>(X.bit_length() * <span class="number">2.5</span>))</span><br><span class="line"></span><br><span class="line">Alist = []</span><br><span class="line">Blist = []</span><br><span class="line"><span class="built_in">round</span> = <span class="number">4</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">round</span>):</span><br><span class="line">    y = randint(<span class="number">1</span>, X)</span><br><span class="line">    a = randint(<span class="number">1</span>, p - <span class="number">1</span>)</span><br><span class="line">    b = (y**<span class="number">2</span> - (X**<span class="number">3</span> + a*X)) % p</span><br><span class="line">    Alist.append(a)</span><br><span class="line">    Blist.append(b)</span><br><span class="line"></span><br><span class="line">L = Matrix(ZZ,<span class="number">3</span>+<span class="built_in">round</span>,<span class="number">3</span>+<span class="built_in">round</span>)</span><br><span class="line">K = <span class="number">2</span>^<span class="number">1000</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">round</span>):</span><br><span class="line">    L[i,i] = p*K</span><br><span class="line">    L[-<span class="number">3</span>,i] = <span class="number">1</span>*K</span><br><span class="line">    L[-<span class="number">2</span>,i] = Alist[i]*K</span><br><span class="line">    L[-<span class="number">1</span>,i] = Blist[i]*K</span><br><span class="line"></span><br><span class="line">L[-<span class="number">3</span>,-<span class="number">3</span>] = <span class="number">1</span></span><br><span class="line">L[-<span class="number">2</span>,-<span class="number">2</span>] = <span class="number">2</span>^<span class="number">2000</span></span><br><span class="line">L[-<span class="number">1</span>,-<span class="number">1</span>] = <span class="number">2</span>^<span class="number">3000</span></span><br><span class="line"><span class="built_in">print</span>(X)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">abs</span>(L.LLL()[<span class="number">2</span>][-<span class="number">2</span>]) // <span class="number">2</span>^<span class="number">2000</span>)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
 
     </div>
 
@@ -825,7 +892,7 @@ e^{2^{k-1}(-1)^{flag_{k-1}}}</script><p>我们算出这两种取值，然后分�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E5%8C%96AGCD"><span class="nav-number">1.</span> <span class="nav-text">转化AGCD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Matrix"><span class="nav-number">2.</span> <span class="nav-text">Matrix</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#challenge1"><span class="nav-number">2.1.</span> <span class="nav-text">challenge1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#challenge2"><span class="nav-number">2.2.</span> <span class="nav-text">challenge2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#challenge3"><span class="nav-number">2.3.</span> <span class="nav-text">challenge3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#final"><span class="nav-number">2.4.</span> <span class="nav-text">final</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSSMMM"><span class="nav-number">3.</span> <span class="nav-text">SSSMMM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e2D1p"><span class="nav-number">4.</span> <span class="nav-text">e2D1p</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%A2%84%E5%A4%87"><span class="nav-number">4.1.</span> <span class="nav-text">一些预备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%81%A2%E5%A4%8Dp"><span class="nav-number">4.2.</span> <span class="nav-text">恢复p</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3flag"><span class="nav-number">4.3.</span> <span class="nav-text">求解flag</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E5%8C%96AGCD"><span class="nav-number">1.</span> <span class="nav-text">转化AGCD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Matrix"><span class="nav-number">2.</span> <span class="nav-text">Matrix</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#challenge1"><span class="nav-number">2.1.</span> <span class="nav-text">challenge1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#challenge2"><span class="nav-number">2.2.</span> <span class="nav-text">challenge2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#challenge3"><span class="nav-number">2.3.</span> <span class="nav-text">challenge3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#final"><span class="nav-number">2.4.</span> <span class="nav-text">final</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSSMMM"><span class="nav-number">3.</span> <span class="nav-text">SSSMMM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e2D1p"><span class="nav-number">4.</span> <span class="nav-text">e2D1p</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%A2%84%E5%A4%87"><span class="nav-number">4.1.</span> <span class="nav-text">一些预备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%81%A2%E5%A4%8Dp"><span class="nav-number">4.2.</span> <span class="nav-text">恢复p</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3flag"><span class="nav-number">4.3.</span> <span class="nav-text">求解flag</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vector"><span class="nav-number">5.</span> <span class="nav-text">vector</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
