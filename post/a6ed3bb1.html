@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/a6ed3bb1/image-20231114152241975.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/a6ed3bb1/image-20231114152241975.png">
 <meta property="article:published_time" content="2023-11-09T00:26:15.000Z">
-<meta property="article:modified_time" content="2023-11-16T01:07:05.513Z">
+<meta property="article:modified_time" content="2023-11-16T01:37:39.876Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/a6ed3bb1/image-20231109091947570.png">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-16 09:07:05" itemprop="dateModified" datetime="2023-11-16T09:07:05+08:00">2023-11-16</time>
+                <time title="修改时间：2023-11-16 09:37:39" itemprop="dateModified" datetime="2023-11-16T09:37:39+08:00">2023-11-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -551,12 +551,16 @@ n = pqr = (2^{256}x_1 + e_1)(2^{256}x_2 + e_2)(2^{256}x_3 + e_3)</script><p>把2
 <li>x1e2e3+x2e1e3+x3e1e2的低256位</li>
 <li>x1x3e2+x2x3e1+x1x2e3的中间128位</li>
 </ul>
-<p>而这些信息应该对我们造copper或者造格要有一些优化。我们现在知道，如果我们想要求单元copper，其能接受的最大上界最多到160比特左右，那么由这些信息，如果我们能确定x1、x2、x3的100个左右的比特位，我们就可以单元copper求解出n的分解，因此我觉得这几个信息目前看来最有用的是：</p>
+<p>而这些信息应该对我们造copper或者造格要有一些优化。我们现在知道，如果我们想要求单元copper，其能接受的最大上界最多到160比特左右，那么由这些信息，如果我们能确定x1、x2、x3的100个左右的比特位，我们就可以单元copper求解出n的分解，因此这几个信息目前看来我觉得有用的是：</p>
 <ul>
 <li>x1x2x3的高444位</li>
+<li>x1e2e3+x2e1e3+x3e1e2的低256位</li>
 </ul>
-<p>这个能否用来近似确定x1、x2、x3的分别的高100位左右？但目前我还没想出具体怎么操作。</p>
-<p>然后还有一些比较离奇的想法比如深搜之类。但是想想就不太可能，首先一次搜索就有8种分支，实在过多，其次根本就不确定p、q、r的比特位，难以返回。</p>
+<p>这个能否用来近似确定x1、x2、x3的分别的高100位或者低100位左右？但目前我还没想出具体怎么操作。</p>
+<p>然后还有一些比较离奇的想法：</p>
+<p>第一个就是直接z3，试了过后发现z3虽然一般来说很强，但确实也还没有这么强。代码如下，这几个约束想直接解是解不了的(数据是我生成的测试数据)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">e = [<span class="number">10333799336736048411</span>, <span class="number">10048938500043630937</span>, <span class="number">13770567448032700553</span>]</span><br><span class="line"><span class="comment">#x1 = 134530121267138061692122246190685342329406941720572324580169098024935310581168</span></span><br><span class="line"><span class="comment">#x2 = 123427567449792804014455419800830894394580447784489056793113376627868537160216</span></span><br><span class="line"><span class="comment">#x3 = 54022871114718186939252665659796781248148877214115427587582690293386954260174</span></span><br><span class="line">n = <span class="number">1392662992231878453618153650352932233685479923380378591186749945448215216646971207443890669678951977168432541888832218967441146964183473856940088594238372985102279239596228498511057175872182183657147834996556681844161888332641986487531352611082243721457395282059148273836559101486130523166444160903027354883310771050656525852022898214928288842219786550934402364392466948737121570741902353211576548652037840953521222373985396759933500395549254979602390182860639739</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#z3solve</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">z3_solve</span>():</span><br><span class="line">    x1 = Int(<span class="string">&quot;x1&quot;</span>)</span><br><span class="line">    x2 = Int(<span class="string">&quot;x2&quot;</span>)</span><br><span class="line">    x3 = Int(<span class="string">&quot;x3&quot;</span>)</span><br><span class="line">    solver = Solver()</span><br><span class="line"></span><br><span class="line">    t1 = n &gt;&gt; (<span class="number">1092</span>)</span><br><span class="line">    solver.add((x1*x2*x3 / <span class="number">2</span>**(<span class="number">768</span> - (<span class="number">1536</span>-<span class="number">1092</span>))) == t1)</span><br><span class="line"></span><br><span class="line">    t2 = ((n &gt;&gt; <span class="number">256</span>) &amp; ((<span class="number">1</span> &lt;&lt; <span class="number">256</span>) - <span class="number">1</span>))</span><br><span class="line">    solver.add(((e[<span class="number">1</span>]*e[<span class="number">2</span>]*x1)+(e[<span class="number">0</span>]*e[<span class="number">2</span>]*x2)+(e[<span class="number">0</span>]*e[<span class="number">1</span>]*x3)) % <span class="number">2</span>**<span class="number">256</span> == t2)</span><br><span class="line"></span><br><span class="line">    K = <span class="number">2</span>**<span class="number">256</span></span><br><span class="line">    solver.add((K*x1+e[<span class="number">0</span>])*(K*x2+e[<span class="number">1</span>])*(K*x3+e[<span class="number">2</span>])  == n)</span><br><span class="line"></span><br><span class="line">    solver.add(x1 &lt; K)</span><br><span class="line">    solver.add(x2 &lt; K)</span><br><span class="line">    solver.add(x3 &lt; K)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> solver.check()==sat:</span><br><span class="line">        <span class="built_in">print</span>(solver.model())</span><br><span class="line"></span><br><span class="line">z3_solve()</span><br></pre></td></tr></table></figure>
+<p>然后是比如深搜之类，但是想想就不太可能。首先一次搜索就有8种分支，实在过多；并且根本就不确定p、q、r具体有多少比特位，难以设置返回条件。</p>
 <p>黔驴技穷了，希望我的一些思路对看到这里的师傅有一些启发。</p>
 <p><br></p>
 <p><br></p>
