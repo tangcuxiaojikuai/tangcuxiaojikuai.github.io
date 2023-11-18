@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/a6ed3bb1/image-20231114152241975.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/a6ed3bb1/image-20231117091459512.png">
 <meta property="article:published_time" content="2023-11-09T00:26:15.000Z">
-<meta property="article:modified_time" content="2023-11-17T07:59:52.542Z">
+<meta property="article:modified_time" content="2023-11-17T11:41:29.937Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/a6ed3bb1/image-20231109091947570.png">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-17 15:59:52" itemprop="dateModified" datetime="2023-11-17T15:59:52+08:00">2023-11-17</time>
+                <time title="修改时间：2023-11-17 19:41:29" itemprop="dateModified" datetime="2023-11-17T19:41:29+08:00">2023-11-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -592,14 +592,14 @@ c \equiv 2^{8i}flag + padding \quad(mod\; t)</script><p>那么就应该有：</p
 <p>然后我的想法就是利用上已知的flag串开头”flag{“和结尾”}”(这是我搜索其他这场比赛的其他题解看到的flag头尾)，进一步缩小6个字节，这一步缩小的原理如下，我们把flag表示成：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="string">b&quot;flag&#123;&quot;</span>*<span class="number">2</span>^8k + <span class="number">2</span>^8flag  + <span class="string">b&quot;&#125;&quot;</span></span><br></pre></td></tr></table></figure>
 <p>但是这样会有一个小问题存在：既然flag长度达到了107字节以上，那么他的开头或结尾会不会可能也是填充而非flag头尾？所以我只使用了flag头来缩短5个字节，而并没有用flag尾。</p>
-<p>如此一来，，记flag头为prefix，我们可以进一步改变刚才的等式：</p>
+<p>如此一来，记flag头为prefix，我们可以进一步改变刚才的等式：</p>
 <script type="math/tex; mode=display">
 2^{-8i}(c - padding) - 2^{8k}prefix \equiv flag \quad(mod\;t)</script><p>其中，k是可以根据当前的padding长度计算出来的，那么我们进一步缩短了flag的比特长度。但是实际上测试出来即使缩短到这样，<strong>依然还不够</strong>。这说明了两种可能性：</p>
 <ul>
 <li>flag本身去除前五个字节后依然大于t，所以flag在112-117字节之间，同时也说明padding的长度在11-16之间</li>
 <li>flag本身的前缀不是flag{</li>
 </ul>
-<p>而如果是第二种可能性的话，我就没什么好办法了。因此我先假设是第一种可能性。由于同一场比赛的其他flag串我查到都是uuid格式。所以我假设flag的前面是flag串的话，我们可以爆破其开始的几个十六进制字符，来进一步缩短flag，也就是现在我们将flag前缀表示为如下形式，xxxxx是待爆破的5个十六进制字符：</p>
+<p>而如果是第二种可能性的话，我就没什么好办法了。因此我先假设是第一种可能性。由于同一场比赛的其他flag串我查到有一些是uuid格式。所以假设flag的前面是flag串的话，我们可以爆破其开始的几个十六进制字符，来进一步缩短flag，也就是现在我们将flag前缀表示为如下形式，xxxxx是待爆破的5个十六进制字符：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix = <span class="string">&quot;flag&#123;xxxxx&quot;</span></span><br></pre></td></tr></table></figure>
 <p>那么仍然用刚才的表达式：</p>
 <script type="math/tex; mode=display">
