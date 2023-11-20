@@ -25,18 +25,18 @@
     var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="*没有参加这个比赛，赛后从其他师父那里要到了题目附件于是写个题解。">
+  <meta name="description" content="没有参加这个比赛，赛后从其他师傅那里要到了题目附件于是写个题解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2023-HECTF-wp-crypto">
 <meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/3cd51af7.html">
 <meta property="og:site_name" content="糖醋小鸡块的blog">
-<meta property="og:description" content="*没有参加这个比赛，赛后从其他师父那里要到了题目附件于是写个题解。">
+<meta property="og:description" content="没有参加这个比赛，赛后从其他师傅那里要到了题目附件于是写个题解。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/3cd51af7/image-20231120085226648.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/3cd51af7/image-20231120090555239.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/3cd51af7/image-20231120090606879.png">
 <meta property="article:published_time" content="2023-11-20T00:46:35.000Z">
-<meta property="article:modified_time" content="2023-11-20T03:30:28.591Z">
+<meta property="article:modified_time" content="2023-11-20T05:24:00.122Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/3cd51af7/image-20231120085226648.png">
@@ -221,7 +221,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-11-20 08:46:35 / 修改时间：11:30:28" itemprop="dateCreated datePublished" datetime="2023-11-20T08:46:35+08:00">2023-11-20</time>
+              <time title="创建时间：2023-11-20 08:46:35 / 修改时间：13:24:00" itemprop="dateCreated datePublished" datetime="2023-11-20T08:46:35+08:00">2023-11-20</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,7 +265,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>*没有参加这个比赛，赛后从其他师父那里要到了题目附件于是写个题解。</p>
+        <p>没有参加这个比赛，赛后从其他师傅那里要到了题目附件于是写个题解。</p>
 <span id="more"></span>
 <h3 id="大帝攻占福岛"><a href="#大帝攻占福岛" class="headerlink" title="大帝攻占福岛"></a>大帝攻占福岛</h3><p>题目描述：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">大帝攻占了福岛，并与他的士兵一起在海边痛饮海水，于是大帝发生了奇妙的变化，每十秒增长1厘米</span><br></pre></td></tr></table></figure>
@@ -334,7 +334,7 @@
 <p>总的来说，s是我们需要的解密密钥，如果有s我们就可以用如下方式解密：</p>
 <p><img src="/post/3cd51af7/image-20231120090555239.png" alt="image-20231120090555239"></p>
 <p><img src="/post/3cd51af7/image-20231120090606879.png" alt="image-20231120090606879"></p>
-<p>但是题目并没有给出s，所以正常说来我们是解密不了的，所以题目肯定有别的漏洞。</p>
+<p>但是题目并没有给出s，所以正常说来我们是解密不了的(看出题人的wp可以知道能构造CVP问题规约出密钥s)，所以题目肯定有别的漏洞。</p>
 <p>然后就仔细看加密函数，会发现他对每个flag的比特位加密均用的是同一个噪声，那么题目就简单很多，既然噪声相同，那么对flag中的所有为0的比特位和所有为1的比特位，其加密密文均相同。我们用这个对cipher进行统计就可以还原flag串了。</p>
 <p>然后我这里是对cipher.txt作了一些小处理才能像下面的exp一样做，具体是：</p>
 <ul>
