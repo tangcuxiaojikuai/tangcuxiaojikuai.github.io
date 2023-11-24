@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="包含三道crypto题目的题解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023-全国智能驾驶测试赛-车联网安全专项赛-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/167905f9.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="包含三道crypto题目的题解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-24T08:12:42.000Z">
+<meta property="article:modified_time" content="2023-11-24T08:35:36.459Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/167905f9.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2023-全国智能驾驶测试赛-车联网安全专项赛-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/167905f9.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2023-全国智能驾驶测试赛-车联网安全专项赛-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-24 16:12:42 / 修改时间：16:35:36" itemprop="dateCreated datePublished" datetime="2023-11-24T16:12:42+08:00">2023-11-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/167905f9.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/167905f9.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>包含三道crypto题目的题解。</p>
+<span id="more"></span>
+<h3 id="crypto1"><a href="#crypto1" class="headerlink" title="crypto1"></a>crypto1</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crypto1</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Random <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> gcd</span><br><span class="line"><span class="keyword">from</span> flag <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">gift = bytes_to_long(get_random_bytes(<span class="number">128</span>))</span><br><span class="line"></span><br><span class="line">e = <span class="number">7</span></span><br><span class="line">p = getStrongPrime(<span class="number">1024</span>)</span><br><span class="line">q = getStrongPrime(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">tmp = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> gcd(e, (p-<span class="number">1</span>)*(q-<span class="number">1</span>)) != <span class="number">1</span>:</span><br><span class="line">    p = getStrongPrime(<span class="number">1024</span>)</span><br><span class="line">    q = getStrongPrime(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">N = p * q</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;N = &quot;</span>+<span class="built_in">str</span>(N))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;e = &quot;</span>+<span class="built_in">str</span>(e))</span><br><span class="line"></span><br><span class="line">ciphertext = []</span><br><span class="line">ciphertext.append(<span class="built_in">pow</span>(gift &lt;&lt; <span class="number">48</span>, e, N))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> flag:</span><br><span class="line">    ciphertext.append(<span class="built_in">pow</span>(<span class="built_in">pow</span>(i, e, N)+<span class="number">2023</span>*(gift &lt;&lt; <span class="number">48</span>), e, N))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ciphertext = &quot;</span>+ <span class="built_in">str</span>(ciphertext))</span><br></pre></td></tr></table></figure>
+<p>题目首先生成了一个128字节的gift，并给出一个加密值：</p>
+<script type="math/tex; mode=display">
+c_0 = (gift<<48)^7 \quad (mod \; N)</script><p>然后，对flag的每一个字节mi又进行如下加密，并给出密文：</p>
+<script type="math/tex; mode=display">
+c_i = (m_i^7 +2023(gift<<48))^7 \quad (mod \; N)</script><p>显然只要知道gift就可以对密文逐字节爆破，为了求出gift我这里采用groebner，首先把gift&lt;&lt;48看作一个整体，然后令：</p>
+<script type="math/tex; mode=display">
+y = gift<<48</script><p>然后我们又知道前几个被加密的flag字符应该是”flag{“，取第一个字符就能造出如下的groebner用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PR.&lt;x,y&gt; = PolynomialRing(Zmod(N))</span><br><span class="line">f1 = y^<span class="number">7</span> - c[<span class="number">0</span>]</span><br><span class="line">f2 = (x^<span class="number">7</span> + <span class="number">2023</span>*y)^<span class="number">7</span> - c[<span class="number">1</span>]</span><br><span class="line">f3 = x - <span class="built_in">ord</span>(<span class="string">&quot;f&quot;</span>)</span><br><span class="line">F = [f1,f2,f3]</span><br><span class="line">res = Ideal(F).groebner_basis()</span><br></pre></td></tr></table></figure>
+<p>就可以求出y的值，然后对flag逐个爆破即可。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">N = <span class="number">28030238512690531111510905324352711028769445699753206071074774407031349518295509831143882962724716770686092065650727417424394155902220289445197720282229148032418681708758247443216915115346756827153571890808547818879975685654209367532485173383474558982943808515469933268791874369723230872496387952426801105889239421726038202707792418475366902957126686490303887476298738095685810654749088802190128957347808198709306257669747864457057771350717967926804755766522667557179166590745298378520106551612092770314645497872046345140216957631796089002032258793559875097613544314340760025734895215641403266709209531616900387420627</span></span><br><span class="line">e = <span class="number">1</span></span><br><span class="line">c = </span><br><span class="line"></span><br><span class="line">PR.&lt;x,y&gt; = PolynomialRing(Zmod(N))</span><br><span class="line">f1 = y^<span class="number">7</span> - c[<span class="number">0</span>]</span><br><span class="line">f2 = (x^<span class="number">7</span> + <span class="number">2023</span>*y)^<span class="number">7</span> - c[<span class="number">1</span>]</span><br><span class="line">f3 = x - <span class="built_in">ord</span>(<span class="string">&quot;f&quot;</span>)</span><br><span class="line">F = [f1,f2,f3]</span><br><span class="line">res = Ideal(F).groebner_basis()</span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line">g248 = N - <span class="number">28030238512690531111510905324352711028769445699753206071074774407031349518295509831143882962724716770686092065650727417424394155902220289445197720282229148032418681708758247443216915115346756827153571890808547818879975685654209367532485173383474558982943808515469933268791874369723230872496387925061950679751229508334737846581849642718943487664911224579796160120937971798591654116334523485101275149393366539625116275024319843218472007925637243314071824464480684660459813510853780314528442564016238041088056042144573478710939561442357078845551274653928291288835456159318263865158121183756404921395911389431593404971475</span></span><br><span class="line"></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">        <span class="keyword">if</span>((i^<span class="number">7</span> + <span class="number">2023</span>*g248)^<span class="number">7</span> % N == c[j]):</span><br><span class="line">            flag += <span class="built_in">chr</span>(i)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;78bf24db-7e98-4e95-af9d-b9b3ca7ddff4&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="一种新的密码算法"><a href="#一种新的密码算法" class="headerlink" title="一种新的密码算法"></a>一种新的密码算法</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">车厂好像在搞一些很新的东西。</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> flag</span><br><span class="line">pk_mt = matrix(ZZ, <span class="number">6</span>, <span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">pk_mt[<span class="number">0</span>] = [<span class="number">24</span>, -<span class="number">246</span>, <span class="number">6</span>, <span class="number">2</span>, -<span class="number">188</span>, -<span class="number">7</span>]</span><br><span class="line">pk_mt[<span class="number">1</span>] = [-<span class="number">28</span>, -<span class="number">243</span>, <span class="number">6</span>, -<span class="number">1</span>, <span class="number">2</span>, -<span class="number">9</span>]</span><br><span class="line">pk_mt[<span class="number">2</span>] = [-<span class="number">29</span>, <span class="number">251</span>, -<span class="number">6</span>, <span class="number">0</span>, -<span class="number">206</span>, <span class="number">14</span>]</span><br><span class="line">pk_mt[<span class="number">3</span>] = [-<span class="number">101</span>, <span class="number">246</span>, -<span class="number">6</span>, -<span class="number">16</span>, <span class="number">575</span>, <span class="number">5</span>]</span><br><span class="line">pk_mt[<span class="number">4</span>] = [<span class="number">2</span>, <span class="number">230</span>, -<span class="number">7</span>, -<span class="number">37</span>, <span class="number">206</span>, <span class="number">19</span>]</span><br><span class="line">pk_mt[<span class="number">5</span>] = [<span class="number">425</span>, -<span class="number">734</span>, <span class="number">30</span>, <span class="number">52</span>, -<span class="number">3089</span>, -<span class="number">8</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> hadamard_ratio(pk_mt) &lt; <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line">plain = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> flag:</span><br><span class="line">    plain.append(<span class="built_in">ord</span>(i))</span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt</span>(<span class="params">m, pk</span>):</span><br><span class="line">    r = vector(ZZ, [-<span class="number">1</span>, -<span class="number">0</span>, <span class="number">1</span>, -<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">    <span class="keyword">return</span> m * pk + r</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hadamard_ratio</span>(<span class="params">mt</span>):</span><br><span class="line">    d = <span class="built_in">abs</span>(mt.determinant())</span><br><span class="line">    <span class="comment"># print(&quot;d&quot;, d)</span></span><br><span class="line">    <span class="keyword">if</span> mt.rank() != mt.nrows():</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    dim = mt.rank()</span><br><span class="line">    a = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> mt:</span><br><span class="line">        a *= i.norm()</span><br><span class="line">    a = <span class="built_in">float</span>(a)</span><br><span class="line">    <span class="keyword">return</span> (d/a)^(<span class="number">1</span>/mt.rank())</span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line">cipher = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> i &lt; <span class="built_in">len</span>(plain):</span><br><span class="line">    cipher.extend(encrypt(vector(ZZ, plain[i:i+<span class="number">6</span>]), pk_mt))</span><br><span class="line">    i += <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;cipher &quot;</span>,cipher)</span><br></pre></td></tr></table></figure>
+<p>cipher：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cipher  [<span class="number">8107</span>, -<span class="number">15748</span>, <span class="number">921</span>, -<span class="number">2565</span>, -<span class="number">124146</span>, <span class="number">1775</span>, <span class="number">33149</span>, -<span class="number">50478</span>, <span class="number">2349</span>, <span class="number">168</span>, -<span class="number">267559</span>, <span class="number">1183</span>, <span class="number">35010</span>, -<span class="number">50623</span>, <span class="number">2407</span>, <span class="number">2758</span>, -<span class="number">304997</span>, <span class="number">959</span>, <span class="number">34378</span>, -<span class="number">71456</span>, <span class="number">2807</span>, <span class="number">700</span>, -<span class="number">280622</span>, <span class="number">498</span>, <span class="number">29055</span>, -<span class="number">68814</span>, <span class="number">2638</span>, <span class="number">1126</span>, -<span class="number">249750</span>, <span class="number">76</span>, <span class="number">30408</span>, -<span class="number">47829</span>, <span class="number">2106</span>, -<span class="number">559</span>, -<span class="number">262141</span>, <span class="number">1698</span>, <span class="number">9089</span>, -<span class="number">18788</span>, <span class="number">974</span>, -<span class="number">1915</span>, -<span class="number">128297</span>, <span class="number">1542</span>, <span class="number">31591</span>, -<span class="number">50627</span>, <span class="number">2338</span>, <span class="number">410</span>, -<span class="number">276685</span>, <span class="number">1315</span>, <span class="number">36859</span>, -<span class="number">66598</span>, <span class="number">2856</span>, <span class="number">1250</span>, -<span class="number">330512</span>, <span class="number">1210</span>, <span class="number">8776</span>, -<span class="number">11380</span>, <span class="number">793</span>, -<span class="number">1469</span>, -<span class="number">111219</span>, <span class="number">1361</span>, <span class="number">25034</span>, -<span class="number">38643</span>, <span class="number">1945</span>, <span class="number">965</span>, -<span class="number">226238</span>, <span class="number">849</span>, <span class="number">35515</span>, -<span class="number">39060</span>, <span class="number">2164</span>, <span class="number">187</span>, -<span class="number">304231</span>, <span class="number">2176</span>]</span><br></pre></td></tr></table></figure>
+<p>估计预期要用LWE之类的，所以才给了500分。但实际上r向量给定了，并且pk_mt矩阵满秩，所以直接解矩阵方程就可以得到作为flag的唯一解，最大的槽点是解出来的那一坨居然就是flag，甚至不需要包一个”flag{}”，我还以为套了一层古典。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">pk_mt = matrix(ZZ, <span class="number">6</span>, <span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">pk_mt[<span class="number">0</span>] = [<span class="number">24</span>, -<span class="number">246</span>, <span class="number">6</span>, <span class="number">2</span>, -<span class="number">188</span>, -<span class="number">7</span>]</span><br><span class="line">pk_mt[<span class="number">1</span>] = [-<span class="number">28</span>, -<span class="number">243</span>, <span class="number">6</span>, -<span class="number">1</span>, <span class="number">2</span>, -<span class="number">9</span>]</span><br><span class="line">pk_mt[<span class="number">2</span>] = [-<span class="number">29</span>, <span class="number">251</span>, -<span class="number">6</span>, <span class="number">0</span>, -<span class="number">206</span>, <span class="number">14</span>]</span><br><span class="line">pk_mt[<span class="number">3</span>] = [-<span class="number">101</span>, <span class="number">246</span>, -<span class="number">6</span>, -<span class="number">16</span>, <span class="number">575</span>, <span class="number">5</span>]</span><br><span class="line">pk_mt[<span class="number">4</span>] = [<span class="number">2</span>, <span class="number">230</span>, -<span class="number">7</span>, -<span class="number">37</span>, <span class="number">206</span>, <span class="number">19</span>]</span><br><span class="line">pk_mt[<span class="number">5</span>] = [<span class="number">425</span>, -<span class="number">734</span>, <span class="number">30</span>, <span class="number">52</span>, -<span class="number">3089</span>, -<span class="number">8</span>]</span><br><span class="line"></span><br><span class="line">r = vector(ZZ, [-<span class="number">1</span>, -<span class="number">0</span>, <span class="number">1</span>, -<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">c = [<span class="number">8107</span>, -<span class="number">15748</span>, <span class="number">921</span>, -<span class="number">2565</span>, -<span class="number">124146</span>, <span class="number">1775</span>, <span class="number">33149</span>, -<span class="number">50478</span>, <span class="number">2349</span>, <span class="number">168</span>, -<span class="number">267559</span>, <span class="number">1183</span>, <span class="number">35010</span>, -<span class="number">50623</span>, <span class="number">2407</span>, <span class="number">2758</span>, -<span class="number">304997</span>, <span class="number">959</span>, <span class="number">34378</span>, -<span class="number">71456</span>, <span class="number">2807</span>, <span class="number">700</span>, -<span class="number">280622</span>, <span class="number">498</span>, <span class="number">29055</span>, -<span class="number">68814</span>, <span class="number">2638</span>, <span class="number">1126</span>, -<span class="number">249750</span>, <span class="number">76</span>, <span class="number">30408</span>, -<span class="number">47829</span>, <span class="number">2106</span>, -<span class="number">559</span>, -<span class="number">262141</span>, <span class="number">1698</span>, <span class="number">9089</span>, -<span class="number">18788</span>, <span class="number">974</span>, -<span class="number">1915</span>, -<span class="number">128297</span>, <span class="number">1542</span>, <span class="number">31591</span>, -<span class="number">50627</span>, <span class="number">2338</span>, <span class="number">410</span>, -<span class="number">276685</span>, <span class="number">1315</span>, <span class="number">36859</span>, -<span class="number">66598</span>, <span class="number">2856</span>, <span class="number">1250</span>, -<span class="number">330512</span>, <span class="number">1210</span>, <span class="number">8776</span>, -<span class="number">11380</span>, <span class="number">793</span>, -<span class="number">1469</span>, -<span class="number">111219</span>, <span class="number">1361</span>, <span class="number">25034</span>, -<span class="number">38643</span>, <span class="number">1945</span>, <span class="number">965</span>, -<span class="number">226238</span>, <span class="number">849</span>, <span class="number">35515</span>, -<span class="number">39060</span>, <span class="number">2164</span>, <span class="number">187</span>, -<span class="number">304231</span>, <span class="number">2176</span>]</span><br><span class="line">c = [c[<span class="number">6</span>*i:<span class="number">6</span>*i+<span class="number">6</span>] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)//<span class="number">6</span>)]</span><br><span class="line"></span><br><span class="line">flag_ = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> c:</span><br><span class="line">    temp = vector(ZZ,i)</span><br><span class="line">    flag = pk_mt.solve_left(temp-r)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> flag:</span><br><span class="line">        flag_ += <span class="built_in">chr</span>(j)</span><br><span class="line"><span class="built_in">print</span>(flag_)</span><br><span class="line"></span><br><span class="line"><span class="comment">#ftlnd6a13fdg33f00ebe56bbfd88EVtQb9yZOwiRY37hUJcemnxAaof2PlB1D4Cj6X0KgSup</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="DSA"><a href="#DSA" class="headerlink" title="DSA"></a>DSA</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这个签名有什么问题呢</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">from</span> Crypto.Hash <span class="keyword">import</span> SHA256</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> DSA</span><br><span class="line">message = <span class="string">b&quot;We1c0me to My DSA~&quot;</span></span><br><span class="line"></span><br><span class="line">key = DSA.generate(<span class="number">2048</span>)</span><br><span class="line">g = key.g</span><br><span class="line">p = key.p</span><br><span class="line">q = key.q</span><br><span class="line">x = key.x</span><br><span class="line"></span><br><span class="line">y = <span class="built_in">pow</span>(g,x,p)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pad</span>(<span class="params">mes</span>):</span><br><span class="line">    <span class="keyword">return</span> mes+<span class="string">b&#x27;\x00&#x27;</span>*(<span class="number">16</span>-(<span class="built_in">len</span>(mes)%<span class="number">16</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sign</span>(<span class="params">m, sk</span>):</span><br><span class="line">    k = getRandomInteger(<span class="number">210</span>)</span><br><span class="line">    r = <span class="built_in">pow</span>(g, k, p) % q</span><br><span class="line">    h = <span class="built_in">int</span>(SHA256.new(m).hexdigest(),<span class="number">16</span>)</span><br><span class="line">    s = (<span class="built_in">pow</span>(k,-<span class="number">1</span>, q) * (h + sk * r)) % q</span><br><span class="line">    <span class="keyword">return</span> (r,s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">verify</span>(<span class="params">m, sig, pk</span>):</span><br><span class="line">    r, s = sig</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> (<span class="number">0</span> &lt; r &lt; q) <span class="keyword">or</span> <span class="keyword">not</span> (<span class="number">0</span> &lt; s &lt; q):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    h = <span class="built_in">int</span>(SHA256.new(m).hexdigest(),<span class="number">16</span>)</span><br><span class="line">    w = <span class="built_in">pow</span>(s,-<span class="number">1</span>, q)</span><br><span class="line">    u1 = (w * h) % q</span><br><span class="line">    u2 = (w * r) % q</span><br><span class="line">    v = ( (<span class="built_in">pow</span>(g, u1, p) * <span class="built_in">pow</span>(pk, u2, p)) % p ) % q</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> v == r</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;result.txt&quot;</span>,<span class="string">&#x27;w&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">19</span>):</span><br><span class="line">    s = sign(message, x)</span><br><span class="line">    f.write(<span class="built_in">str</span>(s)+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">assert</span>(verify(message,s,y))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">hash</span> = SHA256.new(long_to_bytes(x)).hexdigest()</span><br><span class="line">key, iv =<span class="built_in">int</span>(<span class="built_in">hash</span>[:<span class="number">32</span>],<span class="number">16</span>),<span class="built_in">int</span>(<span class="built_in">hash</span>[<span class="number">32</span>:],<span class="number">16</span>)</span><br><span class="line">Cry = AES.new(key=long_to_bytes(key),iv=long_to_bytes(iv),mode=AES.MODE_CBC)</span><br><span class="line">Cip = Cry.encrypt(pad(flag))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;y = %d&quot;</span>%y)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;g = %d&quot;</span>%g)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;p = %d&quot;</span>%p)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;q = %d&quot;</span>%q)</span><br><span class="line"><span class="built_in">print</span>(Cip)</span><br><span class="line"></span><br><span class="line"><span class="comment"># cipher = b&#x27;\x95\xf7\xa4\xec\xd9X\x83\x8b\x07\x80\xfe\x13\x1f\xb7\xbc\xdb&gt;D\xd9\x81\xea \xde\xa4\xe2\x1dqbVh\x05\x7fSql\xcb\xbc&gt;\xa7\x97\xc43\xf5\x9b\x007$\xc9&#x27;</span></span><br><span class="line"><span class="comment"># y = 10865252628977982718403069421818763814235837963131657427013029838115823600026336301447650009296905255642313560614829551414305461349368310042639287174589738371871741669394848449628044522285747368712081660541770583698167114808057698350786229602723897528207412571691070008591305998686441545245935074526540367888505082808339119240505754542244988927696478960460825964816624418555049437463940360457911924601327318567655697900820622946726145105652407044994786590422434786210702091749354399109010238703002733213717843576865823660052640934212789357807787991082174138275574313009398721223181931145132115294972007801753173408741</span></span><br><span class="line"><span class="comment"># g = 10878177066786201817104669144134368086712364755276065919108711478199751092510166851087043647216283625336810425197547358392780958373012106267072258504608165416441218758023152298309265892294553201074526777067230246439537417511861809178218169256652718105178190531196938563066075049513162080607898394164761142987189540919834231524565226906188464783536188862914987217998962718991606850419980530798524804129840222467271485055647515909053842052939260751746609937602730547514994036006926590348766594949197409442317049666999374778475862558340612771396592183794892824814325810064157857169327255025279120759002239011771662085338</span></span><br><span class="line"><span class="comment"># p = 20384762745031920484342583090217007578889531799944456287350542020280428183544133614297677240387166875661657848083207276915863377102624811969097780972047544492418067487713520174772431897063705267454857523565989648021927658166607167532208110984841922116249828872341082286532560521732253899817674270499471088325222125596455980431820124332946754612276146984417926433629287154223788213445218119081147675710811509544642585633492685907180108137818208905518403931854775047349966947896551628689905814775976869615951137482223176231926274859815993780667146033144320174578733368829000886681042308444467510423523202661128031456749</span></span><br><span class="line"><span class="comment"># q = 16059555483679266293519046196529336235978742561121132269882524559139</span></span><br></pre></td></tr></table></figure>
+<p>标准的DSA签名实现，造的HNP的格子也很标准，如下：</p>
+<script type="math/tex; mode=display">
+\left(
+ \begin{matrix}
+   Tq      &      &    &      &      &  &  \\
+          &Tq     &    &      &      &  &  \\
+          &      &... &      &      &  &  \\
+          &      &    &Tq     &      &  &  \\
+          &      &    &      &Tq     &  &  \\
+  Tr_1s_1^{-1}   &Tr_2s_2^{-1} &    &Tr_{i-1}s_{i-1}^{-1} &Tr_is_i^{-1} &1 &  \\
+  Ts_1^{-1}H(m_1)      & Ts_2^{-1}H(m_2)     &    & Ts_{i-1}^{-1}H(m_{i-1})     & Ts_i^{-1}H(m_i)     &  &KT  \\
+  \end{matrix}
+  \right)</script><p>线性关系是：</p>
+<script type="math/tex; mode=display">
+(t_1,t_2,...t_{i-1},t_i,x,1)
+\left(
+ \begin{matrix}
+   Tq      &      &    &      &      &  &  \\
+          &Tq     &    &      &      &  &  \\
+          &      &... &      &      &  &  \\
+          &      &    &Tq     &      &  &  \\
+          &      &    &      &Tq     &  &  \\
+  Tr_1s_1^{-1}   &Tr_2s_2^{-1} &    &Tr_{i-1}s_{i-1}^{-1} &Tr_is_i^{-1} &1 &  \\
+  Ts_1^{-1}H(m_1)      & Ts_2^{-1}H(m_2)     &    & Ts_{i-1}^{-1}H(m_{i-1})     & Ts_i^{-1}H(m_i)     &  &KT  \\
+  \end{matrix}
+  \right)
+  =
+  (Tk_1,Tk_2,...Tk_{i-1},Tk_i,x,KT)</script><p>这部分的原理不明白的话可以去la佬博客看，或者也可以看我写的这篇文章中的LLL-Third Blood一题：</p>
+<p><a href="https://tangcuxiaojikuai.xyz/post/4311e802.html">2023-0xGame-week4-wp-crypto | 糖醋小鸡块的blog (tangcuxiaojikuai.xyz)</a></p>
+<p>而之所以要乘T，是因为测试一下会发现x大约在221比特的数量级，而k是210比特，因此用最经典的这个不消x的格子的话，要对前面数列均乘上一个2^11的平衡系数。然后题目把界也小卡了一下，导致x并不在规约出的前几行，但是可以在后面的行中找到结果。</p>
+<p>如果这样出不了结果的话，就必须消去x后再利用消去后的表达式造格。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256,sha1</span><br><span class="line"><span class="keyword">from</span> Crypto.Hash <span class="keyword">import</span> SHA256</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"></span><br><span class="line">y = <span class="number">10865252628977982718403069421818763814235837963131657427013029838115823600026336301447650009296905255642313560614829551414305461349368310042639287174589738371871741669394848449628044522285747368712081660541770583698167114808057698350786229602723897528207412571691070008591305998686441545245935074526540367888505082808339119240505754542244988927696478960460825964816624418555049437463940360457911924601327318567655697900820622946726145105652407044994786590422434786210702091749354399109010238703002733213717843576865823660052640934212789357807787991082174138275574313009398721223181931145132115294972007801753173408741</span></span><br><span class="line">g = <span class="number">10878177066786201817104669144134368086712364755276065919108711478199751092510166851087043647216283625336810425197547358392780958373012106267072258504608165416441218758023152298309265892294553201074526777067230246439537417511861809178218169256652718105178190531196938563066075049513162080607898394164761142987189540919834231524565226906188464783536188862914987217998962718991606850419980530798524804129840222467271485055647515909053842052939260751746609937602730547514994036006926590348766594949197409442317049666999374778475862558340612771396592183794892824814325810064157857169327255025279120759002239011771662085338</span></span><br><span class="line">p = <span class="number">20384762745031920484342583090217007578889531799944456287350542020280428183544133614297677240387166875661657848083207276915863377102624811969097780972047544492418067487713520174772431897063705267454857523565989648021927658166607167532208110984841922116249828872341082286532560521732253899817674270499471088325222125596455980431820124332946754612276146984417926433629287154223788213445218119081147675710811509544642585633492685907180108137818208905518403931854775047349966947896551628689905814775976869615951137482223176231926274859815993780667146033144320174578733368829000886681042308444467510423523202661128031456749</span></span><br><span class="line">q = <span class="number">16059555483679266293519046196529336235978742561121132269882524559139</span></span><br><span class="line"></span><br><span class="line">A = []</span><br><span class="line">B = []</span><br><span class="line">signature = [(<span class="number">2651558219817923218885823963897260420176545960343598667867618915660</span>, <span class="number">11285816086368751074109807519682248739109554636148737271500083537417</span>),</span><br><span class="line">(<span class="number">15159143958487838460075807722657200246551544153777271489563240754127</span>, <span class="number">15574028065051178976252376196210445119143972043472176642720172824755</span>),</span><br><span class="line">(<span class="number">7334771057693645276373675422605645698307853033502318431556090316928</span>, <span class="number">6063664160680809155067032900851770429777185431953964702591332774751</span>),</span><br><span class="line">(<span class="number">928813147850498035541325046699769660854294047481987393214283003280</span>, <span class="number">2359099476212088034126071969947328704946886362350965235806751873933</span>),</span><br><span class="line">(<span class="number">10756179914730048417034591322991978275926820605297796431931889472674</span>, <span class="number">2349069276798971208875587309205974111570897310059935267460698787788</span>),</span><br><span class="line">(<span class="number">5395032251012269871339702026358544368409728696829831137765135028710</span>, <span class="number">14541819319033398596067833169973598645287341185811419362483931783080</span>),</span><br><span class="line">(<span class="number">7707755349429495659081900965148964403842406770852558806614847175682</span>, <span class="number">7916779517282712595083104629413988726608383004702906141922602933402</span>),</span><br><span class="line">(<span class="number">8098866315261554816535142111632690419097404681325212258803857977062</span>, <span class="number">7486882204317626188147283131494263880908962953665482516614967081469</span>),</span><br><span class="line">(<span class="number">6585255977570662636366961627967477649303885975481667867002696710900</span>, <span class="number">7050405537230656640841278656385704509298147260795206532189278359688</span>),</span><br><span class="line">(<span class="number">9733185020571255364851834495254193616397113258442029083450145893092</span>, <span class="number">14538877554014218885469149222290514169647117667714352125531034512881</span>),</span><br><span class="line">(<span class="number">476382690090526362242110565278819708767706623772259921405889478044</span>, <span class="number">6629120796071917463067134836627343917592036512490288602623696238384</span>),</span><br><span class="line">(<span class="number">11658423900110864391219329183839322243249235714791059601340802196208</span>, <span class="number">6309138805333718533163024368819064891035022958432616288605553865275</span>),</span><br><span class="line">(<span class="number">6624480284442737902170118511976620228495533535417309953409286312688</span>, <span class="number">1585040354840052038493822588306877769807152286806711020282983083323</span>),</span><br><span class="line">(<span class="number">12500492501896641877943474224842595722088756387252325695802412043965</span>, <span class="number">15791887939377716915772190131671032089627700508416675633562539289043</span>),</span><br><span class="line">(<span class="number">790911772304570751431732853300786781785988499657744022403336570087</span>, <span class="number">7290481987895296622377849484817569567851785511571138304802515237238</span>),</span><br><span class="line">(<span class="number">14768876072589989591802829850125118348444835711265544481946738102522</span>, <span class="number">12276139584405885626209147904885272298662855591983062665819395492901</span>),</span><br><span class="line">(<span class="number">2720379820192652433716681505472760118612194441261895908434968343267</span>, <span class="number">11009896938993997051452180649011069356079650275512031692997316449738</span>),</span><br><span class="line">(<span class="number">10929710272021428918709699423132485135279826072973367875338765673546</span>, <span class="number">5609221737242798070789409810240458330622610364332606783276719790040</span>),</span><br><span class="line">(<span class="number">6138570840922629831774582509339593535872131768273566238642001258637</span>, <span class="number">5091543827605292439524069263267534093895949138610994913158756383227</span>),</span><br><span class="line">]</span><br><span class="line">message = <span class="string">b&quot;We1c0me to My DSA~&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(signature)):</span><br><span class="line">    R = signature[i][<span class="number">0</span>]</span><br><span class="line">    S = signature[i][<span class="number">1</span>]</span><br><span class="line">    A.append(inverse(S,q)*R % q)</span><br><span class="line">    B.append(inverse(S,q)*<span class="built_in">int</span>(SHA256.new(message).hexdigest(),<span class="number">16</span>) % q)</span><br><span class="line"></span><br><span class="line">K = <span class="number">2</span>^<span class="number">210</span></span><br><span class="line">T = <span class="number">2</span>^<span class="number">11</span></span><br><span class="line">length = <span class="number">19</span></span><br><span class="line">L = Matrix(ZZ, length+<span class="number">2</span>,length+<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">    L[i,i] = q*T</span><br><span class="line">    L[length,i] = A[i]*T</span><br><span class="line">    L[length+<span class="number">1</span>,i] = B[i]*T</span><br><span class="line">L[length,length] = <span class="number">1</span></span><br><span class="line">L[-<span class="number">1</span>,-<span class="number">1</span>] = K*T</span><br><span class="line">res = L.LLL()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> res:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        x = <span class="built_in">abs</span>(<span class="built_in">int</span>(t[-<span class="number">2</span>]))</span><br><span class="line">        cipher = <span class="string">b&#x27;\x95\xf7\xa4\xec\xd9X\x83\x8b\x07\x80\xfe\x13\x1f\xb7\xbc\xdb&gt;D\xd9\x81\xea \xde\xa4\xe2\x1dqbVh\x05\x7fSql\xcb\xbc&gt;\xa7\x97\xc43\xf5\x9b\x007$\xc9&#x27;</span></span><br><span class="line">        <span class="built_in">hash</span> = SHA256.new(long_to_bytes(x)).hexdigest()</span><br><span class="line">        key, iv =<span class="built_in">int</span>(<span class="built_in">hash</span>[:<span class="number">32</span>],<span class="number">16</span>),<span class="built_in">int</span>(<span class="built_in">hash</span>[<span class="number">32</span>:],<span class="number">16</span>)</span><br><span class="line">        Cry = AES.new(key=long_to_bytes(key),iv=long_to_bytes(iv),mode=AES.MODE_CBC)</span><br><span class="line">        flag = Cry.decrypt(cipher)</span><br><span class="line">        <span class="built_in">print</span>(flag)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;db32daec-dde9-63e4-0afe-e49a80a745db&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/167905f9.html" title="2023-全国智能驾驶测试赛-车联网安全专项赛-wp-crypto">https://tangcuxiaojikuai.xyz/post/167905f9.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/3cd51af7.html" rel="prev" title="2023-HECTF-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2023-HECTF-wp-crypto
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#crypto1"><span class="nav-number">1.</span> <span class="nav-text">crypto1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%A7%8D%E6%96%B0%E7%9A%84%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">一种新的密码算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DSA"><span class="nav-number">3.</span> <span class="nav-text">DSA</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
