@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="有还是写一写 题目内容很容易，不过还是写一写。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024-NSSCTF-Round#16-Basic-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/afc6e4d2.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="有还是写一写 题目内容很容易，不过还是写一写。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-13T09:54:36.000Z">
+<meta property="article:modified_time" content="2024-01-13T10:26:12.941Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/afc6e4d2.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2024-NSSCTF-Round#16-Basic-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/afc6e4d2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024-NSSCTF-Round#16-Basic-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-01-13 17:54:36 / 修改时间：18:26:12" itemprop="dateCreated datePublished" datetime="2024-01-13T17:54:36+08:00">2024-01-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/afc6e4d2.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/afc6e4d2.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>有还是写一写</p>
+<p>题目内容很容易，不过还是写一写。</p>
+<span id="more"></span>
+<h3 id="pr"><a href="#pr" class="headerlink" title="pr"></a>pr</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CRT</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">flag=plaintext = <span class="string">&#x27;NSSCTF&#123;****************&#125;&#x27;</span></span><br><span class="line">charset = <span class="string">&#x27;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#x27;</span></span><br><span class="line">padding_length = <span class="number">100</span> - <span class="built_in">len</span>(plaintext)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(padding_length):</span><br><span class="line">    plaintext += random.choice(charset)</span><br><span class="line"></span><br><span class="line">public_exponent = <span class="number">31413537523</span></span><br><span class="line">message = bytes_to_long(plaintext.encode())</span><br><span class="line"><span class="keyword">assert</span> message &gt; (<span class="number">1</span> &lt;&lt; <span class="number">512</span>)</span><br><span class="line"><span class="keyword">assert</span> message &lt; (<span class="number">1</span> &lt;&lt; <span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">prime_p = getPrime(<span class="number">512</span>)</span><br><span class="line">prime_q = getPrime(<span class="number">512</span>)</span><br><span class="line">prime_r = getPrime(<span class="number">512</span>)</span><br><span class="line">n1 = prime_p * prime_q</span><br><span class="line">n2 = prime_q * prime_r</span><br><span class="line">ciphertext1 = <span class="built_in">pow</span>(message, public_exponent, n1)</span><br><span class="line">ciphertext2 = <span class="built_in">pow</span>(message, public_exponent, n2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c1=&#x27;</span>, ciphertext1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c2=&#x27;</span>, ciphertext2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;p=&#x27;</span>, prime_p)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;r=&#x27;</span>, prime_r)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">c1= 36918910341116680090654563538246204134840776220077189276689868322808977412566781872132517635399441578464309667998925236488280867210758507758915311644529399878185776345227817559234605958783077866016808605942558810445187434690812992072238407431218047312484354859724174751718700409405142819140636116559320641695</span></span><br><span class="line"><span class="string">c2= 15601788304485903964195122196382181273808496834343051747331984997977255326224514191280515875796224074672957848566506948553165091090701291545031857563686815297483181025074113978465751897596411324331847008870832527695258040104858667684793196948970048750296571273364559767074262996595282324974180754813257013752</span></span><br><span class="line"><span class="string">p= 12101696894052331138951718202838643670037274599483776996203693662637821825873973767235442427190607145999472731101517998719984942030184683388441121181962123</span></span><br><span class="line"><span class="string">r= 10199001137987151966640837133782537428248507382360655526592866939552984259171772190788036403425837649697437126360866173688083643144865107648483668545682383</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>题目首先把flag填充到100个字节，在这之后，题目生成三个512bit的素数p，q，r，并且令：</p>
+<script type="math/tex; mode=display">
+n_1 = pq</script><script type="math/tex; mode=display">
+n_2 = qr</script><p>然后按如下方式计算出两个密文：</p>
+<script type="math/tex; mode=display">
+c_1 = m^e \quad(mod\;n_1)</script><script type="math/tex; mode=display">
+c_2 = m^e \quad(mod\;n_2)</script><p>最后，题目提供密文c1，c2和p，r，要求还原明文。</p>
+<p>由于q不知道，所以首先由同余性质，把两个式子分别先转到模p和模r下：</p>
+<script type="math/tex; mode=display">
+c_1 = m^e \quad(mod\;p)</script><script type="math/tex; mode=display">
+c_2 = m^e \quad(mod\;r)</script><p>然后直接crt就能得到：</p>
+<script type="math/tex; mode=display">
+c = m^e \quad(mod\;pr)</script><p>然后由于flag只填充到100字节，所以就800bit左右，在模pr下一定能解出明文，所以直接RSA解密就好。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sympy.ntheory.modular <span class="keyword">import</span> crt</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#M = crt(n,c)[0]</span></span><br><span class="line"></span><br><span class="line">c1= <span class="number">36918910341116680090654563538246204134840776220077189276689868322808977412566781872132517635399441578464309667998925236488280867210758507758915311644529399878185776345227817559234605958783077866016808605942558810445187434690812992072238407431218047312484354859724174751718700409405142819140636116559320641695</span></span><br><span class="line">c2= <span class="number">15601788304485903964195122196382181273808496834343051747331984997977255326224514191280515875796224074672957848566506948553165091090701291545031857563686815297483181025074113978465751897596411324331847008870832527695258040104858667684793196948970048750296571273364559767074262996595282324974180754813257013752</span></span><br><span class="line">p= <span class="number">12101696894052331138951718202838643670037274599483776996203693662637821825873973767235442427190607145999472731101517998719984942030184683388441121181962123</span></span><br><span class="line">r= <span class="number">10199001137987151966640837133782537428248507382360655526592866939552984259171772190788036403425837649697437126360866173688083643144865107648483668545682383</span></span><br><span class="line">e  = <span class="number">31413537523</span></span><br><span class="line"></span><br><span class="line">n = [p,r]</span><br><span class="line">c = [c1,c2]</span><br><span class="line">M = crt(n,c)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">phi = (p-<span class="number">1</span>)*(r-<span class="number">1</span>)</span><br><span class="line">d = inverse(e,phi)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">pow</span>(M,d,p*r)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#NSSCTF&#123;yUanshEnx1ncHun2o23!&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="break"><a href="#break" class="headerlink" title="break"></a>break</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">私钥好像坏掉了，如何拿到里面的数据捏~</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<p>pri-break.pem：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Bc8tSTrvGJm2oYuCzIz+Yg4nwwKBgQDiYUawe5Y+rPbFhVOMVB8ZByfMa4LjeSDd</span><br><span class="line">Z23jEGvylBHSeyvFCQq3ISUE40k1D2XmmeaZML3a1nUn6ORIWGaG2phcwrWLkR6n</span><br><span class="line">ubVmb1QJSzgzmFHGnL56KHByZxD9q6DPB+o6gGWt8/6ddBl2NIZU/1btdPQgojfA</span><br><span class="line">XXJFzR92RQKBgQC7qlB0U7m2U4FdG9eelSd+WSKNUVllZAuHji7jgh7Ox6La9xN5</span><br><span class="line">miGZ1yvP44yX218OJ9Zi08o6vIrM6Eil45KzTtGm4iuIn8CMpox+5eUtoxyvxa9r</span><br><span class="line">s2Wu+IRZN9zCME+p+qI8/TG27dIyDzsdgNqcUo8ESls7uW5/FEA7bYTCiQKBgQC7</span><br><span class="line">1KybeB+kZ0zlfIdi8tVOpeI+uaHDbdh3+/5wHUsD3hmfg7VAag0q/2RA1vkB/oG1</span><br><span class="line">QVLVHl0Yu0I/<span class="number">1</span>/u5jyeakrtClAegAsvlrK+3i321rGS4YpTPb3SX1P/f3GZ7o7Ds</span><br><span class="line">touA+NHk8IL9T7xkmJYw5h/RLG32ucH6aU6MXfLR5QKBgD/skfdFxGWxhHk6U1mS</span><br><span class="line">27IM9jJNg9xLz5nxzkqPPhLn+rdgIIuTuQtv++eEjEP++7ZV10rg5yKVJd/bxy8H</span><br><span class="line">2IN7aQo7kZWulHTQDZMFwgOhn0u6glJi+qC8bWzYDFOQSFrY9XQ3vwKMspqm+<span class="number">697</span></span><br><span class="line">xM+dMUW0LML6oUE9ZjEiAY/<span class="number">5</span></span><br><span class="line">-----END PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+<p>パスワード(密文文件名。。)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6081370370545409218106271903400346695565292992689150366474451604281551878507114813906275593034729563149286993189430514737137534129570304832172520820901940874698337733991868650159489601159238582002010625666203730677577976307606665760650563172302688129824842780090723167480409842707790983962415315804311334507726664838464859751689906850572044873633896253285381878416855505301919877714965930289139921111644393144686543207867970807469735534838601255712764863973853116693691206791007433101433703535127367245739289103650669095061417223994665200039533840922696282929063608853551346533188464573323230476645532002621795338655</span></span><br></pre></td></tr></table></figure>
+<p>简单来说这题泄露了私钥pem文件的尾部。先base64解码后就能得到原始数据。然后了解私钥文件数据格式的话，把这段数字数据按02先简单分组，会知道这个尾部其实包含了q和dq的数据信息。而flag较短的话就可以直接在模q下解密，事实也的确如此。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#part1</span></span><br><span class="line">s = <span class="string">&#x27;&#x27;&#x27;Bc8tSTrvGJm2oYuCzIz+Yg4nwwKBgQDiYUawe5Y+rPbFhVOMVB8ZByfMa4LjeSDd</span></span><br><span class="line"><span class="string">Z23jEGvylBHSeyvFCQq3ISUE40k1D2XmmeaZML3a1nUn6ORIWGaG2phcwrWLkR6n</span></span><br><span class="line"><span class="string">ubVmb1QJSzgzmFHGnL56KHByZxD9q6DPB+o6gGWt8/6ddBl2NIZU/1btdPQgojfA</span></span><br><span class="line"><span class="string">XXJFzR92RQKBgQC7qlB0U7m2U4FdG9eelSd+WSKNUVllZAuHji7jgh7Ox6La9xN5</span></span><br><span class="line"><span class="string">miGZ1yvP44yX218OJ9Zi08o6vIrM6Eil45KzTtGm4iuIn8CMpox+5eUtoxyvxa9r</span></span><br><span class="line"><span class="string">s2Wu+IRZN9zCME+p+qI8/TG27dIyDzsdgNqcUo8ESls7uW5/FEA7bYTCiQKBgQC7</span></span><br><span class="line"><span class="string">1KybeB+kZ0zlfIdi8tVOpeI+uaHDbdh3+/5wHUsD3hmfg7VAag0q/2RA1vkB/oG1</span></span><br><span class="line"><span class="string">QVLVHl0Yu0I/1/u5jyeakrtClAegAsvlrK+3i321rGS4YpTPb3SX1P/f3GZ7o7Ds</span></span><br><span class="line"><span class="string">touA+NHk8IL9T7xkmJYw5h/RLG32ucH6aU6MXfLR5QKBgD/skfdFxGWxhHk6U1mS</span></span><br><span class="line"><span class="string">27IM9jJNg9xLz5nxzkqPPhLn+rdgIIuTuQtv++eEjEP++7ZV10rg5yKVJd/bxy8H</span></span><br><span class="line"><span class="string">2IN7aQo7kZWulHTQDZMFwgOhn0u6glJi+qC8bWzYDFOQSFrY9XQ3vwKMspqm+697</span></span><br><span class="line"><span class="string">xM+dMUW0LML6oUE9ZjEiAY/5&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">s = b64decode(s)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(binascii.hexlify(s))</span><br><span class="line"></span><br><span class="line"><span class="comment">#part2</span></span><br><span class="line"><span class="comment">#key = &quot;05cf2d493aef1899b6a18b82cc8cfe620e27c3</span></span><br><span class="line">q = <span class="built_in">int</span>(<span class="string">&quot;00e26146b07b963eacf6c585538c541f190727cc6b82e37920dd676de3106bf29411d27b2bc5090ab7212504e349350f65e699e69930bddad67527e8e448586686da985cc2b58b911ea7b9b5666f54094b38339851c69cbe7a2870726710fdaba0cf07ea3a8065adf3fe9d741976348654ff56ed74f420a237c05d7245cd1f7645&quot;</span>,<span class="number">16</span>)</span><br><span class="line"><span class="comment">#02818100bbaa507453b9b653815d1bd79e95277e59228d515965640b878e2ee3821ecec7a2daf713799a2199d72bcfe38c97db5f0e27d662d3ca3abc8acce848a5e392b34ed1a6e22b889fc08ca68c7ee5e52da31cafc5af6bb365aef8845937dcc2304fa9faa23cfd31b6edd2320f3b1d80da9c528f044a5b3bb96e7f14403b6d84c289</span></span><br><span class="line">dq = <span class="built_in">int</span>(<span class="string">&quot;00bbd4ac9b781fa4674ce57c8762f2d54ea5e23eb9a1c36dd877fbfe701d4b03de199f83b5406a0d2aff6440d6f901fe81b54152d51e5d18bb423fd7fbb98f279a92bb429407a002cbe5acafb78b7db5ac64b86294cf6f7497d4ffdfdc667ba3b0ecb68b80f8d1e4f082fd4fbc64989630e61fd12c6df6b9c1fa694e8c5df2d1e5&quot;</span>,<span class="number">16</span>)</span><br><span class="line"><span class="comment">#0281803fec91f745c465b184793a535992dbb20cf6324d83dc4bcf99f1ce4a8f3e12e7fab760208b93b90b6ffbe7848c43fefbb655d74ae0e7229525dfdbc72f07d8837b690a3b9195ae9474d00d9305c203a19f4bba825262faa0bc6d6cd80c5390485ad8f57437bf028cb29aa6fbaf7bc4cf9d3145b42cc2faa1413d663122018ff9&quot;</span></span><br><span class="line"></span><br><span class="line">c = <span class="number">6081370370545409218106271903400346695565292992689150366474451604281551878507114813906275593034729563149286993189430514737137534129570304832172520820901940874698337733991868650159489601159238582002010625666203730677577976307606665760650563172302688129824842780090723167480409842707790983962415315804311334507726664838464859751689906850572044873633896253285381878416855505301919877714965930289139921111644393144686543207867970807469735534838601255712764863973853116693691206791007433101433703535127367245739289103650669095061417223994665200039533840922696282929063608853551346533188464573323230476645532002621795338655</span></span><br><span class="line">m = <span class="built_in">pow</span>(c, dq, q)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br><span class="line"></span><br><span class="line"><span class="comment">#NSSCTF&#123;oi!_you_find___what_i_Wa1t_talK_y0n!!!&#125;</span></span><br></pre></td></tr></table></figure>
+<p>然后想详细了解pem文件证书格式的话，这一部分在Xenny师傅的RSA(三)工坊中有介绍。我非常推荐NSS平台上Xenny师傅的所有密码探索工坊的课程，我初学的时候就是跟着这些工坊一步一步入门的，质量很高，讲的也很详细。</p>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/afc6e4d2.html" title="2024-NSSCTF-Round#16-Basic-wp-crypto">https://tangcuxiaojikuai.xyz/post/afc6e4d2.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/b6d8f66a.html" rel="prev" title="2023-强网杯-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2023-强网杯-wp-crypto
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/9b3c95d4.html" rel="next" title="最近更新">
+      最近更新 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#pr"><span class="nav-number">1.</span> <span class="nav-text">pr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#break"><span class="nav-number">2.</span> <span class="nav-text">break</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
