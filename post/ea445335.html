@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/ea445335/image-20231103104427349.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/ea445335/image-20231103105216406.png">
 <meta property="article:published_time" content="2023-09-29T01:53:51.000Z">
-<meta property="article:modified_time" content="2023-11-24T00:14:04.000Z">
+<meta property="article:modified_time" content="2024-02-11T09:19:03.554Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/ea445335/image-20231001174839341.png">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-24 08:14:04" itemprop="dateModified" datetime="2023-11-24T08:14:04+08:00">2023-11-24</time>
+                <time title="修改时间：2024-02-11 17:19:03" itemprop="dateModified" datetime="2024-02-11T17:19:03+08:00">2024-02-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -532,7 +532,7 @@ order(g^n) = \frac{p^3-1}{gcd(n,p^3-1)} = \frac{p^3-1}{1+p+p^2} = p-1</script><p
 <li>如何建立一个阶为p^3-1的群？</li>
 <li>如何利用g^n的阶为p-1这一条性质？</li>
 </ul>
-<h4 id="如何建立阶为p-3-1群"><a href="#如何建立阶为p-3-1群" class="headerlink" title="如何建立阶为p^3-1群"></a>如何建立阶为p^3-1群</h4><p>要明白这个问题需要对有限域、多项式环有一定了解。具体说来，我们先定义两个多项式环：</p>
+<h4 id="如何建立阶为p-3-1的群"><a href="#如何建立阶为p-3-1的群" class="headerlink" title="如何建立阶为p^3-1的群"></a>如何建立阶为p^3-1的群</h4><p>要明白这个问题需要对有限域、多项式环有一定了解。具体说来，我们先定义两个多项式环：</p>
 <script type="math/tex; mode=display">
 Ring1 = Z_n[x]</script><script type="math/tex; mode=display">
 Ring2 = F_p[x]</script><p>以这两个多项式环为基础，我们选择一个度为3的Ring1下的随机多项式f(x)，也就是：</p>
@@ -563,6 +563,27 @@ t^{p-1} = 1</script><p>然后我们又知道，对于任意0&lt;a&lt;p，以下�
 (a + 0x + 0x^2)^{p-1} = 1</script><p>而a有p-1种取值，显然大于phi(p-1)，所以g^n其实只能在这样形式的多项式中产生：</p>
 <script type="math/tex; mode=display">
 a + 0x + 0x^2</script><p>也就是说，g^n均只存在常数项，一次项和二次项系数均为0。而由于P是N的子环，所以我们在N上运算g^n，得到的一次项系数和二次项系数在模n意义下，就应该等于kp。因此我们将g^n的一次项或二次项系数与n求解gcd即可得到p，进而得到n的全部分解，从而求解密文。</p>
+<h4 id="2-11更新"><a href="#2-11更新" class="headerlink" title="(2.11更新)"></a>(2.11更新)</h4><p>在好几个师傅提问后，我发现上面的说法对下面这一点的确讲的不是很清楚：</p>
+<blockquote>
+<p>g^n其实只能在这样形式的多项式中产生：</p>
+<script type="math/tex; mode=display">
+a + 0x + 0x^2</script></blockquote>
+<p>所以在这里重新组织一下说法。首先从这一点出发：</p>
+<ul>
+<li>对我们刚才生成的大小为p^3-1的循环群，记他为G，那么G中所有满足g^(p-1)=1的元素g会构成一个大小为p-1的循环群，记他为K</li>
+</ul>
+<p>而要说清楚这一点主要是要说清楚三个方面：</p>
+<ul>
+<li><p>K是群。这个很好验证，因为显然K中任意元素a、b均满足 $ab^{-1} \in K$</p>
+</li>
+<li><p>K是循环群。因为有 $\phi(p-1)$ 个阶为p-1的元素是K的生成元</p>
+</li>
+<li>K大小为p-1。因为生成元的阶是p-1，也就是K的阶</li>
+</ul>
+<p>现在我们知道，K是一个大小为p-1的循环群，他包含了所有G中所有满足g^(p-1)=1的元素g。也就是说，这样的元素g一共只有p-1个。</p>
+<p>那么显然下面这样的元素g都在K中，且两两不相同：</p>
+<script type="math/tex; mode=display">
+a + 0x + 0x^2</script><p>这样的元素一共有p-1个，刚好等于K的大小，这说明K其实就是由所有常数项构成的群。而g^n由定义又都在K里(因为$(g^n)^{p-1}=1$)，所以就证明了这个结论。</p>
 <p>exp(搬运原wp中的exp)：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = <span class="number">1125214074953003550338693571791155006090796212726975350140792193817691133917160305053542782925680862373280169090301712046464465620409850385467397784321453675396878680853302837289474127359729865584385059201707775238870232263306676727868754652536541637937452062469058451096996211856806586253080405693761350527787379604466148473842686716964601958192702845072731564672276539223958840687948377362736246683236421110649264777630992389514349446404208015326249112846962181797559349629761850980006919766121844428696162839329082145670839314341690501211334703611464066066160436143122967781441535203415038656670887399283874866947000313980542931425158634358276922283935422468847585940180566157146439137197351555650475378438394062212134921921469936079889107953354092227029819250669352732749370070996858744765757449980454966317942024199049138183043402199967786003097786359894608611331234652313102498596516590920508269648305903583314189707679</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">c = <span class="number">27126515219921985451218320201366564737456358918573497792847882486241545924393718080635287342203823068993908455514036540227753141033250259348250042460824265354495259080135197893797181975792914836927018186710682244471711855070708553557141164725366015684184788037988219652565179002870519189669615988416860357430127767472945833762628172190228773085208896682176968903038031026206396635685564975604545616032008575709303331751883115339943537730056794403071865003610653521994963115230275035006559472462643936356750299150351321395319301955415098283861947785178475071537482868994223452727527403307442567556712365701010481560424826125138571692894677625407372483041209738234171713326474989489802947311918341152810838321622423351767716922856007838074781678539986694993211304216853828611394630793531337147512240710591162375077547224679647786450310708451590432452046103209161611561606066902404405369379357958777252744114825323084960942810</span></span><br><span class="line">k = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">R = Zmod(n)[<span class="string">&quot;x&quot;</span>]</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    Q = R.quo(R.random_element(k))</span><br><span class="line">    pp = gcd(ZZ(<span class="built_in">list</span>(Q.random_element() ^ n)[<span class="number">1</span>]), n)</span><br><span class="line">    <span class="keyword">if</span> pp != <span class="number">1</span>:</span><br><span class="line">        qq = <span class="built_in">sum</span>([pp**i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k)])</span><br><span class="line">        rr = n // (pp * qq)</span><br><span class="line">        <span class="keyword">assert</span> n == pp * qq * rr</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">phi = (pp - <span class="number">1</span>) * (qq - <span class="number">1</span>) * (rr - <span class="number">1</span>)</span><br><span class="line">d = <span class="built_in">pow</span>(e, -<span class="number">1</span>, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(m))</span><br><span class="line"></span><br><span class="line"><span class="comment">#ictf&#123;idk_if_it_solvable_if_q_is_2+p+p^2_instead&#125;</span></span><br></pre></td></tr></table></figure>
 <p>中间有些地方阐述的可能会出错，欢迎各位师傅提出。</p>
@@ -706,7 +727,7 @@ c_1^n \equiv m_1 \quad(mod\;q)</script><p>然后注意，m1是一个sha256值，
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA3"><span class="nav-number">1.</span> <span class="nav-text">RSA3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BUAA-AITMCLAB-amp-Level4"><span class="nav-number">2.</span> <span class="nav-text">BUAA^AITMCLAB&amp;Level4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AITMCLAB-quiz2"><span class="nav-number">3.</span> <span class="nav-text">AITMCLAB quiz2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2048bit-e"><span class="nav-number">4.</span> <span class="nav-text">2048bit e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hardrsa"><span class="nav-number">5.</span> <span class="nav-text">hardrsa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#easycrt"><span class="nav-number">6.</span> <span class="nav-text">easycrt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BABY-RSA"><span class="nav-number">7.</span> <span class="nav-text">BABY RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ISITDTU-RSA"><span class="nav-number">8.</span> <span class="nav-text">ISITDTU_RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sus"><span class="nav-number">9.</span> <span class="nav-text">sus</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B%E9%98%B6%E4%B8%BAp-3-1%E7%BE%A4"><span class="nav-number">9.1.</span> <span class="nav-text">如何建立阶为p^3-1群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8g-n%E7%9A%84%E9%98%B6%E4%B8%BAp-1"><span class="nav-number">9.2.</span> <span class="nav-text">如何利用g^n的阶为p-1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Complex-RSA"><span class="nav-number">10.</span> <span class="nav-text">Complex_RSA</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA3"><span class="nav-number">1.</span> <span class="nav-text">RSA3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BUAA-AITMCLAB-amp-Level4"><span class="nav-number">2.</span> <span class="nav-text">BUAA^AITMCLAB&amp;Level4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AITMCLAB-quiz2"><span class="nav-number">3.</span> <span class="nav-text">AITMCLAB quiz2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2048bit-e"><span class="nav-number">4.</span> <span class="nav-text">2048bit e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hardrsa"><span class="nav-number">5.</span> <span class="nav-text">hardrsa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#easycrt"><span class="nav-number">6.</span> <span class="nav-text">easycrt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BABY-RSA"><span class="nav-number">7.</span> <span class="nav-text">BABY RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ISITDTU-RSA"><span class="nav-number">8.</span> <span class="nav-text">ISITDTU_RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sus"><span class="nav-number">9.</span> <span class="nav-text">sus</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B%E9%98%B6%E4%B8%BAp-3-1%E7%9A%84%E7%BE%A4"><span class="nav-number">9.1.</span> <span class="nav-text">如何建立阶为p^3-1的群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8g-n%E7%9A%84%E9%98%B6%E4%B8%BAp-1"><span class="nav-number">9.2.</span> <span class="nav-text">如何利用g^n的阶为p-1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-11%E6%9B%B4%E6%96%B0"><span class="nav-number">9.3.</span> <span class="nav-text">(2.11更新)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Complex-RSA"><span class="nav-number">10.</span> <span class="nav-text">Complex_RSA</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
