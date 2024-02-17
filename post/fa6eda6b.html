@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="运气还不错，做出了所有crypto方向的题目，在这里记录一下题解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024-VNCTF-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/fa6eda6b.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="运气还不错，做出了所有crypto方向的题目，在这里记录一下题解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/fa6eda6b/image-20240217200300703.png">
+<meta property="article:published_time" content="2024-02-17T09:16:24.000Z">
+<meta property="article:modified_time" content="2024-02-17T12:13:22.708Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/fa6eda6b/image-20240217200300703.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/fa6eda6b.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2024-VNCTF-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/fa6eda6b.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024-VNCTF-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-02-17 17:16:24 / 修改时间：20:13:22" itemprop="dateCreated datePublished" datetime="2024-02-17T17:16:24+08:00">2024-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/fa6eda6b.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/fa6eda6b.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>运气还不错，做出了所有crypto方向的题目，在这里记录一下题解。</p>
+<p><img src="/post/fa6eda6b/image-20240217200300703.png" alt="image-20240217200300703"></p>
+<span id="more"></span>
+<h3 id="SignAhead"><a href="#SignAhead" class="headerlink" title="SignAhead"></a>SignAhead</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">试试伪造token和md5签名！</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">from</span> secrets <span class="keyword">import</span> token_bytes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ROUNDS = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">successful_forge = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(ROUNDS):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;Round <span class="subst">&#123;i&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    key = token_bytes(<span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">    msg = token_bytes(<span class="number">64</span>)</span><br><span class="line"></span><br><span class="line">    sign = md5(key + msg).hexdigest()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;msg:&#x27;</span>, msg.<span class="built_in">hex</span>())</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;sign:&#x27;</span>, sign)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;FORGE ME!!!!&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    newmsg = <span class="built_in">bytes</span>.fromhex(<span class="built_in">input</span>(<span class="string">&#x27;msg: &#x27;</span>))</span><br><span class="line">    newsign = <span class="built_in">input</span>(<span class="string">&#x27;sign: &#x27;</span>).strip()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">assert</span> msg != newmsg</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> md5(key + newmsg).hexdigest() == newsign:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;GREAT JOB&#x27;</span>)</span><br><span class="line">        successful_forge += <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;you failed!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> successful_forge == ROUNDS:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Here is your reward:&#x27;</span>, flag)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;try harder next time !&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>看得出来是很经典的md5哈希长度扩展攻击，直接随便找了个脚本来用就能出。详细原理及代码可以参考：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/587802432">MD5哈希碰撞之哈希长度拓展攻击 - 知乎 (zhihu.com)</a></p>
+<p>因为赛前的确只是听说，没仔细了解过原理，所以先直接当次脚本小子。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Any</span>, <span class="type">Dict</span>, <span class="type">List</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">rotate_amounts = [<span class="number">7</span>, <span class="number">12</span>, <span class="number">17</span>, <span class="number">22</span>, <span class="number">7</span>, <span class="number">12</span>, <span class="number">17</span>, <span class="number">22</span>, <span class="number">7</span>, <span class="number">12</span>, <span class="number">17</span>, <span class="number">22</span>, <span class="number">7</span>, <span class="number">12</span>, <span class="number">17</span>, <span class="number">22</span>,</span><br><span class="line">                  <span class="number">5</span>, <span class="number">9</span>, <span class="number">14</span>, <span class="number">20</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">14</span>, <span class="number">20</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">14</span>, <span class="number">20</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">14</span>, <span class="number">20</span>,</span><br><span class="line">                  <span class="number">4</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">23</span>, <span class="number">4</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">23</span>, <span class="number">4</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">23</span>, <span class="number">4</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">23</span>,</span><br><span class="line">                  <span class="number">6</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">21</span>, <span class="number">6</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">21</span>, <span class="number">6</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">21</span>, <span class="number">6</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">21</span>]</span><br><span class="line"></span><br><span class="line">constants = [<span class="built_in">int</span>(<span class="built_in">abs</span>(math.sin(i + <span class="number">1</span>)) * <span class="number">2</span> ** <span class="number">32</span>) &amp; <span class="number">0xFFFFFFFF</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>)]</span><br><span class="line"></span><br><span class="line">functions = <span class="number">16</span> * [<span class="keyword">lambda</span> b, c, d: (b &amp; c) | (~b &amp; d)] + \</span><br><span class="line">            <span class="number">16</span> * [<span class="keyword">lambda</span> b, c, d: (d &amp; b) | (~d &amp; c)] + \</span><br><span class="line">            <span class="number">16</span> * [<span class="keyword">lambda</span> b, c, d: b ^ c ^ d] + \</span><br><span class="line">            <span class="number">16</span> * [<span class="keyword">lambda</span> b, c, d: c ^ (b | ~d)]</span><br><span class="line"></span><br><span class="line">index_functions = <span class="number">16</span> * [<span class="keyword">lambda</span> i: i] + \</span><br><span class="line">                  <span class="number">16</span> * [<span class="keyword">lambda</span> i: (<span class="number">5</span> * i + <span class="number">1</span>) % <span class="number">16</span>] + \</span><br><span class="line">                  <span class="number">16</span> * [<span class="keyword">lambda</span> i: (<span class="number">3</span> * i + <span class="number">5</span>) % <span class="number">16</span>] + \</span><br><span class="line">                  <span class="number">16</span> * [<span class="keyword">lambda</span> i: (<span class="number">7</span> * i) % <span class="number">16</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_init_values</span>(<span class="params">A: <span class="built_in">int</span> = <span class="number">0x67452301</span>, B: <span class="built_in">int</span> = <span class="number">0xefcdab89</span>, C: <span class="built_in">int</span> = <span class="number">0x98badcfe</span>, D: <span class="built_in">int</span> = <span class="number">0x10325476</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">    <span class="keyword">return</span> [A, B, C, D]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">left_rotate</span>(<span class="params">x, amount</span>):</span><br><span class="line">    x &amp;= <span class="number">0xFFFFFFFF</span></span><br><span class="line">    <span class="keyword">return</span> ((x &lt;&lt; amount) | (x &gt;&gt; (<span class="number">32</span> - amount))) &amp; <span class="number">0xFFFFFFFF</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">padding_message</span>(<span class="params">msg: <span class="built_in">bytes</span></span>) -&gt; <span class="built_in">bytes</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    在MD5算法中，首先需要对输入信息进行填充，使其位长对512求余的结果等于448，并且填充必须进行，即使其位长对512求余的结果等于448。</span></span><br><span class="line"><span class="string">    因此，信息的位长（Bits Length）将被扩展至N*512+448，N为一个非负整数，N可以是零。</span></span><br><span class="line"><span class="string">    填充的方法如下：</span></span><br><span class="line"><span class="string">        1) 在信息的后面填充一个1和无数个0，直到满足上面的条件时才停止用0对信息的填充。</span></span><br><span class="line"><span class="string">        2) 在这个结果后面附加一个以64位二进制表示的填充前信息长度（单位为Bit），如果二进制表示的填充前信息长度超过64位，则取低64位。</span></span><br><span class="line"><span class="string">    经过这两步的处理，信息的位长=N*512+448+64=(N+1）*512，即长度恰好是512的整数倍。这样做的原因是为满足后面处理中对信息长度的要求。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    orig_len_in_bits = (<span class="number">8</span> * <span class="built_in">len</span>(msg)) &amp; <span class="number">0xffffffffffffffff</span></span><br><span class="line">    msg += <span class="built_in">bytes</span>([<span class="number">0x80</span>])</span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>(msg) % <span class="number">64</span> != <span class="number">56</span>:</span><br><span class="line">        msg += <span class="built_in">bytes</span>([<span class="number">0x00</span>])</span><br><span class="line">    msg += orig_len_in_bits.to_bytes(<span class="number">8</span>, byteorder = <span class="string">&#x27;little&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> msg</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">md5</span>(<span class="params">message: <span class="built_in">bytes</span>, A: <span class="built_in">int</span> = <span class="number">0x67452301</span>, B: <span class="built_in">int</span> = <span class="number">0xefcdab89</span>, C: <span class="built_in">int</span> = <span class="number">0x98badcfe</span>, D: <span class="built_in">int</span> = <span class="number">0x10325476</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    message = padding_message(message)</span><br><span class="line">    hash_pieces = get_init_values(A, B, C, D)[:]</span><br><span class="line">    <span class="keyword">for</span> chunk_ofst <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(message), <span class="number">64</span>):</span><br><span class="line">        a, b, c, d = hash_pieces</span><br><span class="line">        chunk = message[chunk_ofst:chunk_ofst + <span class="number">64</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>):</span><br><span class="line">            f = functions[i](b, c, d)</span><br><span class="line">            g = index_functions[i](i)</span><br><span class="line">            to_rotate = a + f + constants[i] + <span class="built_in">int</span>.from_bytes(chunk[<span class="number">4</span> * g:<span class="number">4</span> * g + <span class="number">4</span>], byteorder = <span class="string">&#x27;little&#x27;</span>)</span><br><span class="line">            new_b = (b + left_rotate(to_rotate, rotate_amounts[i])) &amp; <span class="number">0xFFFFFFFF</span></span><br><span class="line">            a, b, c, d = d, new_b, b, c</span><br><span class="line">        <span class="keyword">for</span> i, val <span class="keyword">in</span> <span class="built_in">enumerate</span>([a, b, c, d]):</span><br><span class="line">            hash_pieces[i] += val</span><br><span class="line">            hash_pieces[i] &amp;= <span class="number">0xFFFFFFFF</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(x &lt;&lt; (<span class="number">32</span> * i) <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(hash_pieces))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">md5_to_hex</span>(<span class="params">digest: <span class="built_in">int</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    raw = digest.to_bytes(<span class="number">16</span>, byteorder = <span class="string">&#x27;little&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#123;:032x&#125;&#x27;</span>.<span class="built_in">format</span>(<span class="built_in">int</span>.from_bytes(raw, byteorder = <span class="string">&#x27;big&#x27;</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_md5</span>(<span class="params">message: <span class="built_in">bytes</span>, A: <span class="built_in">int</span> = <span class="number">0x67452301</span>, B: <span class="built_in">int</span> = <span class="number">0xefcdab89</span>, C: <span class="built_in">int</span> = <span class="number">0x98badcfe</span>, D: <span class="built_in">int</span> = <span class="number">0x10325476</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="keyword">return</span> md5_to_hex(md5(message, A, B, C, D))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">md5_attack</span>(<span class="params">message: <span class="built_in">bytes</span>, A: <span class="built_in">int</span> = <span class="number">0x67452301</span>, B: <span class="built_in">int</span> = <span class="number">0xefcdab89</span>, C: <span class="built_in">int</span> = <span class="number">0x98badcfe</span>,</span></span><br><span class="line"><span class="params">               D: <span class="built_in">int</span> = <span class="number">0x10325476</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    hash_pieces = get_init_values(A, B, C, D)[:]</span><br><span class="line">    <span class="keyword">for</span> chunk_ofst <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(message), <span class="number">64</span>):</span><br><span class="line">        a, b, c, d = hash_pieces</span><br><span class="line">        chunk = message[chunk_ofst:chunk_ofst + <span class="number">64</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>):</span><br><span class="line">            f = functions[i](b, c, d)</span><br><span class="line">            g = index_functions[i](i)</span><br><span class="line">            to_rotate = a + f + constants[i] + <span class="built_in">int</span>.from_bytes(chunk[<span class="number">4</span> * g:<span class="number">4</span> * g + <span class="number">4</span>], byteorder = <span class="string">&#x27;little&#x27;</span>)</span><br><span class="line">            new_b = (b + left_rotate(to_rotate, rotate_amounts[i])) &amp; <span class="number">0xFFFFFFFF</span></span><br><span class="line">            a, b, c, d = d, new_b, b, c</span><br><span class="line">        <span class="keyword">for</span> i, val <span class="keyword">in</span> <span class="built_in">enumerate</span>([a, b, c, d]):</span><br><span class="line">            hash_pieces[i] += val</span><br><span class="line">            hash_pieces[i] &amp;= <span class="number">0xFFFFFFFF</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(x &lt;&lt; (<span class="number">32</span> * i) <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(hash_pieces))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_init_values_from_hash_str</span>(<span class="params">real_hash: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        real_hash: 真实的hash结算结果</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns: 哈希初始化值[A, B, C, D]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    str_list: <span class="type">List</span>[<span class="built_in">str</span>] = [real_hash[i * <span class="number">8</span>:(i + <span class="number">1</span>) * <span class="number">8</span>] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>)]</span><br><span class="line">    <span class="comment"># 先按照小端字节序将十六进制字符串转换成整数，然后按照大端字节序重新读取这个数字</span></span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">int</span>.from_bytes(<span class="built_in">int</span>(<span class="string">&#x27;0x&#x27;</span> + s, <span class="number">16</span>).to_bytes(<span class="number">4</span>, byteorder = <span class="string">&#x27;little&#x27;</span>), byteorder = <span class="string">&#x27;big&#x27;</span>) <span class="keyword">for</span> s <span class="keyword">in</span> str_list]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_md5_attack_materials</span>(<span class="params">origin_msg: <span class="built_in">bytes</span>, key_len: <span class="built_in">int</span>, real_hash: <span class="built_in">str</span>, append_data: <span class="built_in">bytes</span></span>) -&gt; <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="type">Any</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        origin_msg: 原始的消息字节流</span></span><br><span class="line"><span class="string">        key_len: 原始密钥（盐）的长度</span></span><br><span class="line"><span class="string">        real_hash: 计算出的真实的hash值</span></span><br><span class="line"><span class="string">        append_data: 需要添加的攻击数据</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns: 发起攻击需要的物料信息</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">            &#x27;attack_fake_msg&#x27;: bytes([...]),</span></span><br><span class="line"><span class="string">            &#x27;attack_hash_value&#x27;: str(a1b2c3d4...)</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    init_values = get_init_values_from_hash_str(real_hash)</span><br><span class="line">    <span class="comment"># print([&#x27;&#123;:08x&#125;&#x27;.format(x) for x in init_values])</span></span><br><span class="line">    <span class="comment"># 只知道key的长度，不知道key的具体内容时，任意填充key的内容</span></span><br><span class="line">    fake_key: <span class="built_in">bytes</span> = <span class="built_in">bytes</span>([<span class="number">0xff</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(key_len)])</span><br><span class="line">    <span class="comment"># 计算出加了append_data后的真实填充数据</span></span><br><span class="line">    finally_padded_attack_data = padding_message(padding_message(fake_key + origin_msg) + append_data)</span><br><span class="line">    <span class="comment"># 攻击者提前计算添加了攻击数据的哈希</span></span><br><span class="line">    attack_hash_value = md5_to_hex(md5_attack(finally_padded_attack_data[<span class="built_in">len</span>(padding_message(fake_key + origin_msg)):],</span><br><span class="line">                                              A = init_values[<span class="number">0</span>],</span><br><span class="line">                                              B = init_values[<span class="number">1</span>],</span><br><span class="line">                                              C = init_values[<span class="number">2</span>],</span><br><span class="line">                                              D = init_values[<span class="number">3</span>]))</span><br><span class="line">    fake_padding_data = padding_message(fake_key + origin_msg)[<span class="built_in">len</span>(fake_key + origin_msg):]</span><br><span class="line">    attack_fake_msg = origin_msg + fake_padding_data + append_data</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&#x27;attack_fake_msg&#x27;</span>: attack_fake_msg, <span class="string">&#x27;attack_hash_value&#x27;</span>: attack_hash_value&#125;</span><br><span class="line"></span><br><span class="line">sh = remote(<span class="string">&quot;manqiu.top&quot;</span>,<span class="number">20445</span>)</span><br><span class="line"><span class="keyword">for</span> Rounds <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;Round&quot;</span>)</span><br><span class="line"></span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;msg:&quot;</span>)</span><br><span class="line">    <span class="comment"># 服务端根据正常的数据预先计算出来的哈希值</span></span><br><span class="line">    msg = long_to_bytes(<span class="built_in">int</span>(sh.recvline().strip().decode(),<span class="number">16</span>))</span><br><span class="line">    attack_data: <span class="built_in">bytes</span> = <span class="string">b&quot;Tiffany&quot;</span></span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;sign:&quot;</span>)</span><br><span class="line">    h = sh.recvline().strip().decode()</span><br><span class="line">    md5_value = h</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 预备发起攻击，先计算构造碰撞相关的参数</span></span><br><span class="line">    attack_materials = get_md5_attack_materials(msg, <span class="number">32</span>, md5_value, attack_data)</span><br><span class="line">    newmsg = attack_materials[<span class="string">&#x27;attack_fake_msg&#x27;</span>]</span><br><span class="line">    h = attack_materials[<span class="string">&#x27;attack_hash_value&#x27;</span>]</span><br><span class="line">    sh.sendline(newmsg.<span class="built_in">hex</span>().encode())</span><br><span class="line">    sh.sendline(h.encode())</span><br><span class="line"></span><br><span class="line">sh.recvline()</span><br><span class="line">sh.recvline()</span><br><span class="line"><span class="built_in">print</span>(sh.recvline())</span><br><span class="line"></span><br><span class="line"><span class="comment">#VNCTF&#123;append_key_instead_of_message#6603db4e&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="basiclog"><a href="#basiclog" class="headerlink" title="basiclog"></a>basiclog</h3><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> signal</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line">flag = <span class="string">&quot;************************&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeout</span>(<span class="params">*args</span>):</span><br><span class="line">    sys.exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">q = <span class="number">11769445852166501942131444325164359907623906505859865854871085543754710159882777389890225783970170353153967463136054852998337865848469266919651006863215539</span></span><br><span class="line">p = <span class="number">23538891704333003884262888650328719815247813011719731709742171087509420319765554779780451567940340706307934926272109705996675731696938533839302013726431079</span></span><br><span class="line">g = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">signal.signal(signal.SIGALRM, timeout)</span><br><span class="line">signal.alarm(<span class="number">1800</span>)</span><br><span class="line"></span><br><span class="line">x = random.getrandbits(<span class="number">48</span>)</span><br><span class="line">y = <span class="built_in">pow</span>(g, <span class="built_in">pow</span>(g, x, q), p)</span><br><span class="line"><span class="built_in">print</span>(y)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	_x = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;&gt; &#x27;</span>))</span><br><span class="line">	<span class="keyword">if</span> x == _x:</span><br><span class="line">		<span class="built_in">print</span>(flag)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Error...&quot;</span>)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">	exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>题目要求在30min内解一个DLP，并发送给靶机从而拿到flag。具体来说要解的是下面式子的x：</p>
+<script type="math/tex; mode=display">
+y = g^{g^x} \quad(mod\;p)</script><p>可以检验出g是一个q阶元素，所以最外层的指数上有模一个q来加快运算。</p>
+<p>由于x只有48bit，所以可以想到是用bsgs。那还是用bsgs的思路先把x拆一波：</p>
+<script type="math/tex; mode=display">
+y = g^{g^{at+b}} \quad(mod\;p)</script><p>其中有：</p>
+<script type="math/tex; mode=display">
+a \leq 2^{24},b \leq 2^{24},t=2^{24}</script><p>然后把a和b的两部分分开：</p>
+<script type="math/tex; mode=display">
+y = g^{g^{at+b}}  \rightarrow y = g^{g^{at}g^{b}}   \rightarrow y = (g^{g^{at}})^{g^{b}}
+\rightarrow y^{({g^{b}})^{-1}} = g^{g^{at}}</script><p>也就最终得到：</p>
+<script type="math/tex; mode=display">
+g^{g^{at}} = y^{({g^{b}})^{-1}} \quad(mod\;p)</script><p>所以爆破a建立左侧字典，然后爆破b来查字典即可。不过考虑到30min可能比较紧张，所以采取了一些优化：</p>
+<ul>
+<li>用gmpy2的powmod来计算模幂</li>
+<li>g^at可以看作多个g^t累乘，所以不用多次计算大的模幂</li>
+</ul>
+<p>这样优化一下后，发现30min的时间并不是特别紧张，运气好就能跑出来，我也就一次成功了。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">q = <span class="number">11769445852166501942131444325164359907623906505859865854871085543754710159882777389890225783970170353153967463136054852998337865848469266919651006863215539</span></span><br><span class="line">p = <span class="number">23538891704333003884262888650328719815247813011719731709742171087509420319765554779780451567940340706307934926272109705996675731696938533839302013726431079</span></span><br><span class="line">g = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">sh = remote(<span class="string">&quot;manqiu.top&quot;</span>,<span class="number">21130</span>)</span><br><span class="line">c = <span class="built_in">int</span>(sh.recvline().strip().decode())</span><br><span class="line"></span><br><span class="line">dic = &#123;&#125;</span><br><span class="line">t = <span class="number">2</span>**<span class="number">24</span></span><br><span class="line">t1 = <span class="number">1</span></span><br><span class="line">gt = powmod(g,t,q)</span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> trange(<span class="number">2</span>**<span class="number">24</span>):</span><br><span class="line">    dic[powmod(g,t1,p)] = a</span><br><span class="line">    t1 *= gt</span><br><span class="line">    t1 %= q</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> b <span class="keyword">in</span> trange(<span class="number">2</span>**<span class="number">24</span>):</span><br><span class="line">    inv = invert(powmod(g,b,q),q)</span><br><span class="line">    <span class="keyword">if</span>(powmod(c,inv,p) <span class="keyword">in</span> dic.keys()):</span><br><span class="line">        x = dic[powmod(c,inv,p)]*t + b</span><br><span class="line">        sh.sendline(<span class="built_in">str</span>(x).encode())</span><br><span class="line">        <span class="built_in">print</span>(sh.recvline())</span><br><span class="line">        <span class="built_in">print</span>(sh.recvline())</span><br><span class="line">        <span class="built_in">print</span>(sh.recvline())</span><br><span class="line">        <span class="built_in">print</span>(sh.recvline())</span><br><span class="line">        exit()</span><br><span class="line"></span><br><span class="line"><span class="comment">#VNCTF&#123;BSGS_1s_a_BaSIc_AlGOrIThM_and_NeeD_S0mE_OPTIm1ZAT1ON&#125;</span></span><br></pre></td></tr></table></figure>
+<p>后面和zima师傅交流了一下，可以知道一个事实：既然字典不会变，所以完全可以打完字典再去交互拿数据，时间就绰绰有余了。</p>
+<p><br></p>
+<p><br></p>
+<h3 id="basiccry"><a href="#basiccry" class="headerlink" title="basiccry"></a>basiccry</h3><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random </span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">flag = <span class="string">b&#x27;********************************&#x27;</span></span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line"></span><br><span class="line">rr = matrix(ZZ,[random_vector(ZZ,<span class="number">256</span>,<span class="number">0</span>,<span class="number">2</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>)])</span><br><span class="line">mm = matrix(GF(<span class="number">2</span>),[<span class="built_in">list</span>(<span class="built_in">bin</span>(m)[<span class="number">2</span>:].rjust(<span class="number">256</span>,<span class="string">&#x27;0&#x27;</span>))]*<span class="number">256</span>)</span><br><span class="line">cc = mm+rr</span><br><span class="line">ii = vector(ZZ,<span class="built_in">input</span>(<span class="string">&quot;Undoubtedly, this is a backdoor left for you: &quot;</span>).split(<span class="string">&quot;,&quot;</span>))</span><br><span class="line">dd = rr*ii</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(cc)</span><br><span class="line"><span class="built_in">print</span>(dd)</span><br></pre></td></tr></table></figure>
+<p>连接上靶机后，题目生成一个ZZ上的256x256的随机01矩阵rr，并用flag的二进制串生成长为256的GF(2)上的向量mm。之后可以自行输入一个ZZ上的长为256的向量ii，然后靶机会返回：</p>
+<ul>
+<li>cc=mm+rr</li>
+<li>dd=rr*ii</li>
+</ul>
+<p>相当于要在已知ii、cc、dd的情况下求出mm来。</p>
+<p>而刚才特意念了一遍每个向量究竟是ZZ上的，还是模2上的。其目的就在于要发现这样一个事实：虽然rr仅由01组成，但他是ZZ上的，而由于ii也在ZZ上，所以dd也在ZZ上。所以可以直接令ii为一个超递增序列，然后用dd的第一个值就能解出rr的第一行，就可以得到mm了。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Pwn4Sage.pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gen_list</span>(<span class="params">length</span>):</span><br><span class="line">    pack = [<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length-<span class="number">1</span>):</span><br><span class="line">        temp = <span class="built_in">sum</span>(pack) + <span class="number">1</span></span><br><span class="line">        pack.append(temp)</span><br><span class="line">    <span class="keyword">return</span> pack</span><br><span class="line"></span><br><span class="line">length = <span class="number">256</span></span><br><span class="line">pack = gen_list(length)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    sh = remote(<span class="string">&quot;manqiu.top&quot;</span>,<span class="number">21724</span>)</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;Undoubtedly, this is a backdoor left for you: &quot;</span>)</span><br><span class="line">    sh.sendline(<span class="built_in">str</span>(pack)[<span class="number">1</span>:-<span class="number">1</span>].encode())</span><br><span class="line">    <span class="built_in">print</span>(sh.recvline())</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length-<span class="number">1</span>):</span><br><span class="line">        sh.recvline()</span><br><span class="line">    <span class="built_in">print</span>(sh.recvline())</span><br><span class="line"></span><br><span class="line">plus1 = [<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>]</span><br><span class="line">sum1 = <span class="number">93712906916124172189611184615071012407406264290121211003290014222822299910750</span></span><br><span class="line"></span><br><span class="line">T = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">    <span class="keyword">if</span>(sum1 &lt; pack[length-i-<span class="number">1</span>]):</span><br><span class="line">        T.append(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        sum1 -= pack[length-i-<span class="number">1</span>]</span><br><span class="line">        T.append(<span class="number">1</span>)</span><br><span class="line">T = vector(GF(<span class="number">2</span>),T[::-<span class="number">1</span>])</span><br><span class="line">plus1 = vector(GF(<span class="number">2</span>),plus1)</span><br><span class="line">m = <span class="built_in">list</span>(plus1-T)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(m)):</span><br><span class="line">    m[i] = <span class="built_in">str</span>(m[i])</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(<span class="string">&quot;&quot;</span>.join(m),<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#VNCTF&#123;H4__1ngw__ght_simp0__4nt!&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="crypto-sign-in-5"><a href="#crypto-sign-in-5" class="headerlink" title="crypto_sign_in_5"></a>crypto_sign_in_5</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This challenge will be the last one in the crypto_sign_in series. It&#x27;s just a coin game.We believe that you can solve it, so good luck!</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sage.stats.distributions.discrete_gaussian_integer <span class="keyword">import</span> DiscreteGaussianDistributionIntegerSampler</span><br><span class="line"><span class="keyword">from</span> sage.crypto.lwe <span class="keyword">import</span> LWE, samples</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">flagbin = <span class="built_in">bin</span>(<span class="built_in">int</span>.from_bytes(flag.split(<span class="string">b&#x27;VNCTF&#123;&#x27;</span>)[<span class="number">1</span>][:-<span class="number">1</span>],<span class="string">&#x27;little&#x27;</span>))[<span class="number">2</span>:].rjust(<span class="number">34</span> * <span class="number">8</span>,<span class="string">&quot;0&quot;</span>)</span><br><span class="line">q = <span class="number">0xfffffffffffffffffffffffffffffffeffffffffffffffff</span></span><br><span class="line">n,m = <span class="number">77</span>,<span class="number">32</span></span><br><span class="line">F = GF(q)</span><br><span class="line">V = VectorSpace(F,n)</span><br><span class="line">D = DiscreteGaussianDistributionIntegerSampler(<span class="number">2</span>**<span class="number">64</span>)</span><br><span class="line">lwe = LWE(n=n, q=q, D=D)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">t055_4_c01n</span>(<span class="params">m,n,lwe,coin</span>):</span><br><span class="line">    <span class="keyword">if</span> coin == <span class="number">1</span>: <span class="keyword">return</span> <span class="built_in">list</span>(<span class="built_in">zip</span>(*samples(m=m, n=n, lwe=lwe)))</span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span> <span class="built_in">list</span>(<span class="built_in">zip</span>(*[[V.random_element(),(F.random_element())] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(m)]))</span><br><span class="line"></span><br><span class="line">enc01n = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> coinb <span class="keyword">in</span> flagbin:</span><br><span class="line">    c01n = t055_4_c01n(m,n,lwe,<span class="built_in">int</span>(coinb))</span><br><span class="line">    enc01n.append(c01n)</span><br><span class="line"></span><br><span class="line">f=<span class="built_in">open</span>(<span class="string">r&quot;./out&quot;</span>,<span class="string">&quot;wb&quot;</span>)</span><br><span class="line">f.write(<span class="built_in">str</span>(enc01n).encode())</span><br><span class="line">f.close() </span><br></pre></td></tr></table></figure>
+<p>out足足有30多M所以没办法放在这里，有兴趣的师傅可以找我要。</p>
+<p>具体来说，这是一个Decision-LWE问题，把flag去掉头尾后转为二进制串，并根据当前bit具体是1还是0，来选择生成一个LWE样本或是一个随机样本。要做的事情就是判断出每个样本究竟是LWE样本还是随机样本从而还原flag的每个bit。</p>
+<p>用以下语句可以打印出来调的这个LWE的私钥s：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(lwe._LWE__s)</span><br></pre></td></tr></table></figure>
+<p>可以发现私钥也是在模q下随便取的，所以不存在私钥是短向量的漏洞。因此着眼点就只有想办法利用e都是64bit数量级的这一事实。</p>
+<p>只给一组样本的话，的确应该是没有办法判定这个困难问题的。所以想到的是多取几组数据来一起规约，如果能规约出符合要求的短向量的话，说明取的这几组都是LWE样本，也就都对应flag中的1。但是实测了一下，至少要四组正确数据才够，这就只有1/16的机会成功(当然，由于每个字符均可见，所以最高bit肯定是0，可以不取这些数据，来增大取到1对应的数据的概率)</p>
+<p>但是，自己造一下格子可以发现时间真的很慢。而且还有一个严峻的问题是out文件实在太大，直接粘到jupyter里会卡死，然后又没有找到让Arch里的sage10.2读文件的办法，所以只能用本机的9.3来读文件，也就只能用9.3来做LLL，这就又会慢很多。</p>
+<p>然后在maple的博客里找到了一种叫做primal attack的LWE造格的降维技巧：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.maple3142.net/2023/11/05/tsg-ctf-2023-writeups/?highlight=lwe#learning-with-exploitation">TSG CTF 2023 WriteUps | 廢文集中區 (maple3142.net)</a></p>
+<p>直接自己生成四组LWE的数据并且拼到一起，发现由于这个降维硬生生降了77维，所以即使是用9.3的LLL，也能在一分钟多一点就规约出私钥。</p>
+<p>所以现在的任务就很简单，随机取out里的四组样本并规约，虽然一定能规约出一个向量，但是只有四组样本都是LWE样本的时候，才会规约出正确的私钥s的短向量。也就是说，如果某两次随机取的四组样本，其规约出的向量相同，那么就可以断定两个事实：</p>
+<ul>
+<li>规约出的这个向量是正确私钥s</li>
+<li>这两次取到的样本都是LWE样本，在flag里也就都是1</li>
+</ul>
+<p>有了s后，就可以对每个样本计算：</p>
+<script type="math/tex; mode=display">
+e = b-as</script><p>然后检查向量e中的数值是否位于2^64之内就可以判断该样本是不是LWE样本了，也就可以判断该bit是0还是1从而得到flag。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> ast</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;D:\题\2024\VNCTF 2024\sign_in_5\out&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    temp = f.read()</span><br><span class="line">out = ast.literal_eval(temp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>):</span><br><span class="line">        w,x,y,z = randrange(<span class="number">0</span>,<span class="number">34</span>*<span class="number">8</span>-<span class="number">1</span>),randrange(<span class="number">0</span>,<span class="number">34</span>*<span class="number">8</span>-<span class="number">1</span>),randrange(<span class="number">0</span>,<span class="number">34</span>*<span class="number">8</span>-<span class="number">1</span>),randrange(<span class="number">0</span>,<span class="number">34</span>*<span class="number">8</span>-<span class="number">1</span>)</span><br><span class="line">        A = [out[w][<span class="number">0</span>],out[x][<span class="number">0</span>],out[y][<span class="number">0</span>],out[z][<span class="number">0</span>]]</span><br><span class="line">        B = [out[w][<span class="number">1</span>],out[x][<span class="number">1</span>],out[y][<span class="number">1</span>],out[z][<span class="number">1</span>]]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">solve_LWE</span>(<span class="params">public_key,p,d,n</span>):</span><br><span class="line">            errsz = <span class="number">64</span></span><br><span class="line">            A, T = public_key</span><br><span class="line">            L = block_matrix(</span><br><span class="line">                [</span><br><span class="line">                    [matrix(Zmod(p), A).T.echelon_form().change_ring(ZZ), <span class="number">0</span>],</span><br><span class="line">                    [matrix.zero(d - n, n).augment(matrix.identity(d - n) * p), <span class="number">0</span>],</span><br><span class="line">                    [matrix(ZZ, T), <span class="number">1</span>],</span><br><span class="line">                ]</span><br><span class="line">            )</span><br><span class="line">            <span class="comment"># for row in L:</span></span><br><span class="line">            <span class="comment">#     print(&quot;&quot;.join([&quot;*&quot; if x else &quot; &quot; for x in row]))</span></span><br><span class="line">            bounds = [<span class="number">2</span>**errsz] * d + [<span class="number">1</span>]</span><br><span class="line">            K = p**<span class="number">2</span></span><br><span class="line">            Q = diagonal_matrix([K // x <span class="keyword">for</span> x <span class="keyword">in</span> bounds])</span><br><span class="line">            L *= Q</span><br><span class="line">            L = L.LLL()</span><br><span class="line">            L /= Q</span><br><span class="line">            err = vector(F, <span class="built_in">next</span>(v[-<span class="number">1</span>] * v <span class="keyword">for</span> v <span class="keyword">in</span> L <span class="keyword">if</span> <span class="built_in">abs</span>(v[-<span class="number">1</span>]) == <span class="number">1</span>)[:-<span class="number">1</span>])</span><br><span class="line">            private_key = matrix(F, A).solve_right(vector(F, T) - err)</span><br><span class="line">            <span class="built_in">print</span>(private_key)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        q = <span class="number">0xfffffffffffffffffffffffffffffffeffffffffffffffff</span></span><br><span class="line">        n,m = <span class="number">77</span>,<span class="number">32</span>*<span class="number">4</span></span><br><span class="line">        F = GF(q)</span><br><span class="line">        V = VectorSpace(F,n)</span><br><span class="line">        t = [A[<span class="number">0</span>]+A[<span class="number">1</span>]+A[<span class="number">2</span>]+A[<span class="number">3</span>],B[<span class="number">0</span>]+B[<span class="number">1</span>]+B[<span class="number">2</span>]+B[<span class="number">3</span>]]</span><br><span class="line">        <span class="built_in">print</span>(w,x,y,z)</span><br><span class="line">        solve_LWE(t,q,m,n)</span><br><span class="line"></span><br><span class="line"><span class="comment">#140 71 47 38</span></span><br><span class="line"><span class="comment">#(6083834021475335823567742758933693611200764070417372403448, 4566359739347146259000248085687536225050661289753942379883, 5140084698212546616928962519978960958151532144124467390108, 3213100908819453745514676249812506308283223978934112109369, 4513460395501737424224195589573835296813757052452274949023, 2465021575910495604641861126885224008737671019424350880749, 4686280207140936462945451329422808759734897183546413348370, 2894642368563034408352945598025387588651994814070169093577, 1797920039438635873205221650527638888862692991400404867597, 1995451041629650469062449379306390749306628332054790355160, 1496259789765879442009505862846410391042272941735930646789, 4281723246418158931313375486823574814307947783193719906078, 2865797257902484299464256062690350663243227661212176240105, 2257429823298349527900373553599416016234113575223272600000, 4565967021648505424321165254910510944654290567948481442769, 4047521573788473684416151029035954151983858369668435016302, 2402026219608709074767488823322533980796028754885334823529, 4846202500389756789726871514561820402406895168767892056284, 4002842354714907870069482728903144869534756107379097438554, 2930075288567783998751605107933834249216488586954550253367, 540213814686136482197549432837595803042120599951527463304, 4026976235711976231413989024511359800924707763084340499485, 328947225588765752907432280369424578628138990673091139628, 248651792592328026373442684027219854952001218589366644666, 3745671327332784859781121744269959089185480746601729905096, 5441534553818364652711000056615931308026598308993319505926, 1848939381332648799446998628822269626638872978252321324130, 2415306867409431096322504397108111604114776098428990292496, 3593603666041492237924417675999030725918574118359318463850, 5464712878509886681641419654762416890108754278827333923849, 1447155323597156111597890696751122281134900914723437183085, 882201639514135772027310589952737533410885816783672485162, 4184779989223626059564408112028579950731267227945450219952, 5353988367466099287243478824441826370321351430837351758014, 3150947196817608517248047967231431423661445190917154394060, 2453948533540870197355607847121071648186824130787565582526, 5116759774826369407193068866376928576813521296078874661219, 5133449393060998653462888411818342123310520360904796105165, 3625606257240243668325920566344968077667452672727209555779, 4411494409772523210012448361844045008985063012176317662703, 1099968388709816804469906841357256033036474253010597841757, 2261060056632377251100608517403067809152448207960579613030, 394769211664654548458581078470204359561177816687538186893, 1141752650156677754797914655361413955851715086457928117498, 1343340630874933289175866976678770322279233377681489371447, 3404072708309202557513425913792951886144478172109130232937, 3578401269055296980843644133047177574441735122413159784406, 623896315881622971753416056296752475798836585545687028533, 6273285482202595235996665391651217591942811682582717932941, 1262993935923029233140264799444952608761518049948007274381, 4280689594861934321611447640047696504661540637657192572784, 1945402853811583177359359675470111282915614793401510224269, 2740771104526695458853229085774671602194248386044638942411, 1237686487142251049979208718533069233280200826831703910445, 1949422073032071232061954272133182339963985645270640558311, 5717002233703373796631557441485415049384045985691832377321, 3420287446018035851190699700441550244699705262517534938401, 5674817320578506858997642720340953779620156823493583944698, 5727958402496586122827239222955155899242098509617010812210, 1363766616410535566753748779173414393887896186541216102487, 2022170681706917700011359173984145892730258545550864150963, 2189082463827105787808971574476684010247341822823417964747, 1025109114274698712218028456780283343973232210863861618797, 1964502126347801011599206640360152569512884203488767340398, 5129307406885723570172407401817872782573182109883338902822, 332688815199971876917731331992708803848814941341322088531, 4981500170538142268227893404311216913232356480580702937318, 889945207709279193316822408630428415664056207218323136722, 2277450611954959517246153409683019504554854576106067384738, 3375543737035886922143626629308660522619838043673895105017, 3680523808279157005143351950828171997718304325128262484219, 6196451435472884414559871006977923824209976975620578099346, 322597173578283285049022478572932456872999197846183175136, 4170132166713231824611540017314409428179807536361462459933, 5031571130868805964685360291246248951497587972714798887652, 3867434567034846216674716885412887414432188555647648388885, 218648389511481570063454008207406519205791436458874972660)</span></span><br><span class="line"><span class="comment">#86 105 16 0</span></span><br><span class="line"><span class="comment">#(5114583822240110842413496797301006821782507703746395307380, 5844407379931174468679273484139776533624446366432563004075, 5333533466009351307774129017246950787609550435509747266860, 587204139877255983915944487585804414954394295673624883969, 4645569427735592424185456245690168647816253334206191614775, 2225770257692453630765611251333504790926325365590144097117, 5079260924513247699755134790680149714630184836071581279758, 5438440613682790269938976204873043254018297818854393559028, 5097108213439035669479003550434928190604967030545191762985, 773865315473799762836083478150880411225639643793923386321, 1482271694756463867217890247941751829614228975732265502276, 4077772443187503570398971625945498208226870504943936113144, 697104406539983874152099639665679309794429962099625162043, 2597654110148380384582379676922607568679966864616376999113, 1837267337179991973588000904351885681401371569810996066886, 2798267024485055542767270695615427987681614832347438689521, 6062263884882582596603140567442252273364374140878291620674, 3551500508850833299099578233168544605354821069710309724155, 3886987933786538394998889665857520687517674588672498953412, 2724099032025001647155983168477436602116273774825286531766, 2602467287587787001938604917602385263068435295306511718472, 582095607389631970434336671711871805696273491534068642589, 361964471627560175973596037797547589671969426258705141812, 1118846131394740267036687877105917399795899029320251254082, 2572116979143392097416814690898813338860027526314680003383, 4423211396367088713927604137681837258540498780451066016193, 6006470345580920361068802337290786766848143572864947248639, 4572263424450796825681792491184975874106158239828011070281, 1992243165024161494461566528650365455222700265787855578150, 2009015813555881104932999273373874156385611054921395134403, 3190857152302134340678710512447143350985235242171566792920, 838184496226440640257461392863584783156808323912598721556, 1978747844046437213194825686796664057947497298703770031803, 3209378220522795530624395227442051104096827359262486540433, 4678244015345735497521818073733192397316390495869383714116, 4152680848054282513702303928314701385235904109123119584487, 4773165195371156869278412055536901159125039874089827968796, 4679830049589420419127354368404140613017898050088808217381, 4135376751594849576299174378161982859021086041657134866455, 3782825941572463158082519335927896138520089863837291228205, 2237198911783285913314846125736337950866523949210410330748, 2754232529356813954814880532498303712531682867678081954710, 587120306886213151922564207244870879488038059061970270589, 359697530615108307822765564172787353100839085743328809248, 3472288007559277740586998457663607333708533389244472388089, 1551469002490603966766455294938040120954636465980631402245, 4247113952053104076119528246650153083306072450679695083069, 2305799810255199391357387726864936715649063887105995374683, 1738124570426618818375516962135339405019762100439823824233, 3886283611951426066726781537622859162326928822578348459432, 2554505161171235633774993119000638199696684982614799115975, 2561642653010325399136966322709537674502620545889618776212, 5846977724147182401108371004123093346864390482103617531902, 378848654378090800503236720419328257367630078195500232043, 1413316694294785217437209754944159183525507741527209638410, 2598415673398047732168837672881310695046349612425031752365, 1268360976087952594866205611051897631944468395783109511377, 566541568157597726856413053968586801463070079265338259952, 5815443870000543537075891188585804503971621099625226623577, 2028973208281644510144420361804540059779407560127396860713, 6054880309296081211840549111415535790277106267516100156294, 3119950198062613889520974152263777707543003015571906337018, 3904759498449081621974912039310988182870701186830661166241, 5784641946608748859555912785982972852508894623795658962178, 3098105435854144223980225089953112746082838645112464454781, 2429351476926734996027352250105046861325800502852009816762, 3404839648879533789471814381277179311404020756091849008753, 6056661938796482890322880478436430252536943646525114160047, 5276934667546404687745653362845284482894255323834527197563, 3645372452747959446998565432636521567760523663421715230087, 3044916391944397116936128073425943832365623904207835470777, 33835006459087824826246025202470661199874980459775981304, 5681217695394840109431791527040752012116596192124637981539, 133913656461827606525350283116384963991550236488242852160, 2771884709076235658907244445580043276515942141381355213167, 5401442096322221781864419574070229177683440173677132791014, 4591288618393414104342457023421990422221305595936762551178)</span></span><br><span class="line"><span class="comment">#4 1 20 198</span></span><br><span class="line"><span class="comment">#(6222317551517701633454517495353610175072379419360284760483, 5200129689554314538858675872924467072443893909457958011080, 2009799813027977992299402348281501973227435457689884008305, 1255199378958373275986210996439995171827453954506456226853, 3258396624786344293914735081912859146275947986918719100261, 4454196874529842088524053384368874010739522821685557809690, 5875218158700924822420179692228980603995511917805349169725, 1350073035033404494850107514861273782134782726657192754074, 5439542484373354834814072651054778956605928843922793101014, 2498056464817802802630363479573160299813120349212892286625, 1203427231402121583070247051446760407215890343704964876954, 1959079683559194688476771092890078904593620920187681055917, 5138906741402647216463393233851199099326400781486297973711, 2555578448866721672453609455014519148099434498488560558871, 24721666697762026353959362243657539858239638613200271516, 669051008588103647415827055046152938424958635890059452376, 5487138003650239330594765186433734061525870926763188651311, 831410340090372529981581998439876009891010026960607929030, 2363662803618293838283746453707110351601096899951803492352, 2264062760560186210291692721657447472725787027389537106196, 3282802740827286904051370026040332965341650981590539231578, 6063451103235622859977989971745684399798433532691290979010, 571189626397437784552074197424013906007963112338117333030, 515006449619701538664573315628800781001345805676990628740, 2752093810032966613819450091023253308573616179669846346505, 5248425778200576056847436905441965819547379908800744590877, 1631314906253246788047306197825073069912486535061966931001, 6123490875157938649717686148828876731855752856946686287307, 325978392357925412216759337229910011949463338409441506782, 3449091821011363409547305940540786818175682245739641724971, 4385074035200607176740189739567057696395292335546243264188, 4318495547625671824466258404567152978805624631894853454421, 2452490448593944139347172998924058745416836833485527046104, 5250793942577828640459040441821117138328180967389198249460, 2774305839285122138968803431080140143781196593383979379856, 2652661951657260880995997771681145389446456808571415531644, 5837553205388017180940781345454247631681383835864307258682, 1344426844691737869989021571188302520764023414083825923577, 3447006049723868579692537098638375497089355874142415921606, 3726265245688948032764949368697683873501348599569064597809, 2528476847323412990383468283210543604690644140812855928686, 5844282876076562553764743628459614575237345785357681087445, 1772382669057193516587725089637774242800332001012839419768, 2498883401373338812755268563635793225090666490370313626518, 3501372665385071979784946707953941237468333980663012105552, 4973518474075137299590720867550964662575180013346317002202, 4253735816369161802978753466958868323739467052456755871699, 2132904566622100793084542247896578377426987145830556426203, 5492936412823241297341334825717282194885051769133346315217, 4822744492880482494117406023421573760796026225034668334091, 4264205286256235435932274697385576581198684110831049321075, 3210483577371966660504016694291224996011069912333279727838, 2917999658517385833849486756550254300995495350610550278511, 5201790822960286706599767681013457559987725063511460188205, 2240393461346951925393116282447179626085780197531702898431, 4885969557239030529250379286874449891179153050422090607171, 4752281660267418208969874976240144550165569887294686907165, 752580276667260317838573259684948189875729146639519425807, 413252171282525816845929329870426165577774494070883448386, 2428614152230749727839752701058193979240522917209297694110, 791359301619336749243357658505275956120025288355384327030, 1065149343870654272103312355807204061984423557734550975054, 1828946170230921890158237516908719681853001802564461621923, 3522283791140235289133990014142065027964179578660683795003, 3172043875973813872301065081039939422498827898323690494623, 3851681453770885975508743069704494975548947348601826973991, 1847301196538151829595830831514742776946594578523646111182, 3545556255634531894897898987213959389047994864372993740720, 3763369022133048479314762867375132324759607225022944846685, 3919990160504542183733857182132618452695706783626647312182, 2588661454699164705188651028269953108763585174516046372310, 495261345166747359332123767863194475621395586572186909481, 1459085019640701074016349213292284883519570702790565220338, 4135337256589509708480119235996362531492936799112203057211, 3309795870547019909464469792837544428071295592631712821401, 6176747611190419298213111146200140116883763246893179760429, 6119934992929935542065536047229541419089658113013443856441)</span></span><br><span class="line"><span class="comment">#9 10 93 62</span></span><br><span class="line"><span class="comment">#(1807793105576180924772034582510321797676838930216754065447, 1605630885678894510794827191730915328327477523473097609898, 6117619997534335053964013058256109345928324789397189453404, 5342947317212918044793300090397738968226550912549762785316, 5234787137863920623839953035091418928324009887214999185476, 1690854955718741873745190674591455740696876465095608288648, 3353263944551736604919380481284089104735009512631720475999, 3501929601633124467133239301771115577842911656562840775249, 2933427630921255120521546485483258739721536957383696558824, 2247341309229256696821290851368353273561651415188475666779, 6167208606788849409407701441764183092054945798399864623386, 1646934330999789560414034766272336506281700891634274602152, 2856155672438042174461062570485981655155669766271203836340, 6171257317850045387106402935793183800159823454983369410462, 3488323392905233408843046921782378630959405935854773824117, 2964705621045548539137490236147291204013129058128219959306, 2945152472095616371258416947817649432995336154399860272925, 3182413132816293326634721187397490612420517660474401995197, 3074620179018053708075298660420949569903117234516290123181, 4631368960883902389337583988159060659351649586917616591266, 3431022620703339587189465416637073521513786325691223007183, 92818709009128499897233069697854634522186526289180169242, 5049464446747830939705878813318247321239072557214111021986, 5493649314183713959085404065928445066028377346683985186037, 581947638923675556441544054767175625968084925613207928293, 5122320341944568068616161494828478815078641764421103410247, 2392463766190615365468887589916995941266126358431945806834, 2370624198332825462958383626738843685419502158551783576756, 5110843872401852375119689938902346294996191485008470067317, 1556219445903067968581392031609067283592409194581847133959, 4038369421580511970547379352303828415552112905107463932238, 5880098856641405173599306916351270342627970713785090553496, 1760418563865911039728426598252984659098838083881742185925, 3365833907879657773369440646968805774275344610013108545086, 473934034005517359768969091357843099642850788869884381963, 3181515101797253728629569823054552198177583024961922343734, 1319865512776619980038194662225571543526163351544320967768, 4376650855327357347994112109657792654134458873842480337407, 1239945813569744114387719485027582079831174228264136532643, 3502961689714988367079178130854469396410638826319685519667, 4837693458125439393166878422243116812522856723779066137892, 2266550799240241020936821108740081345503673833795674471664, 6060943026114287265931427521846389947036641655807229112130, 2001101588012692283744442819810363179990610207890375733806, 5816213844418337992909923037872203578601997330587946818343, 5874234766444677664740420267328932006851405975078980840635, 4850135240080864338421310984308240480509399170424870441058, 6040690489891224694169419604946764354238468413708344385900, 3617848737268993886970953144275709296588378491123901535944, 3493864645155902177364319646348828302763804897246280772041, 435121088389753010301957182724891043921036952296349971131, 4194546870991220398791085176301753233716525049229461482235, 4391278173460640343990593179526409216097771943429025427430, 5997269873360554244015854762373143826263432820076707836220, 4667180976535135027412355031467893380969013754429554250292, 4997001716790295870731999257134286876976868105687282456684, 4050515242443821644392234193388075326164245520380287079695, 2616924589773880376250266881654345847691627197067590842463, 2928089837302896784344983638048603773633301407396098112186, 942860621066404127098282148758898737054835303052305467622, 1609138241427194036125750716186338640977640845649810057369, 576298179944940911229274757885117081585041439019548059799, 3536411687045892758987681963045060340477420197400118281027, 2600152123655405915830076269004977291670864888675140408206, 932966976283851469483658975814642080940127880089687774773, 3435608706267120533099377047517604755557301793755273899682, 3032183960080368259552858442230037786482784832104759045560, 5621807748888691032230290777006582724882964903122605902039, 32400843809142388010816878731880658810796370863476748145, 196551366411603315762332859039916677969696191178276885283, 4528245845036734368523423431535702035324366844399710034054, 908998280861117742288656899951722090007998345982382101666, 4095997545964294835205259265166946952524832394332118915602, 6254321909728428586779961813696078676126790382683588479925, 2217038887737813108462073259248048018227516940121186493575, 264888712460112175102191569550346195091355089582827445458, 174436109520476098392929210282630147468453720840050306192)   </span></span><br><span class="line"><span class="comment">#121 148 13 156</span></span><br><span class="line"><span class="comment">#(613342273242036261606833016088319123132463277984910497463, 4076650513326143955491088167137912178627075597221450789684, 2549329906726812935530524509341909119364264617786599824635, 535825522006396518527259832351330338193381413950360697402, 1609872304355460970010960140887318263622234725519166702406, 4595648789779280064119910463215267170990700939562132539856, 6202941719906820763530582781492236402841826474765381162280, 146383509309656787207823188501734527824176111154201047305, 25465872034667643064463909501005010953305593087213127158, 5013485259639758680882777067036463419496758042789385275137, 1777422319247882636219090680426283447165722916857107812190, 4959421098066179466799808560075065301437350592274808503820, 5723391070377102449743744081625157290937426760607048647001, 5579167484101457150344070851692559997547063390029102558581, 2123271456411769395820302754063016393550466129156442328858, 572058681829484719437875549021975496708981376651445779146, 1996754083172275118297200314213966122004207462974545461480, 649415622894973498105884989211940045248578796902502764848, 5343837733439620532064693899882946579011468824877590399514, 4536734106153254802558272688809162548812447820425538913213, 5330631409834614101978921134450800123996327668689271752562, 3479983000539044724588779352660845278735195980776395027810, 3819253260295783049342002965120739671341459503288137480575, 4203827071561779747450292829144913726210324604507524236546, 2491286714418962202580023309790386099266344551250969556718, 1284159714630186695529322535424527510357589893722000356110, 5945223614993453619096411961460130943025519769351880807493, 4853551820393706768019940098023131816582202306119169299946, 612130553158171949998733188220755133455097622737437555843, 2069818290572633490441459927726787913447295145871681294648, 1721604262696206995101427365487774084172530684313841766129, 941992114362349379667188584785492090202787936696274882240, 820918862506577184430380412598414630041014584836402707073, 2207995725975508564021969157015055383801820064184897666133, 2603675124173872645273641656213158346794031794544252313064, 1152474642143941579481586830337369451253957814755827106091, 3137106011714933777398359233072786179282925280355476692226, 2407629898411598025375194659733233259982658121473567407429, 3659895586541780443981349844632992233738047374694648636006, 2310837293084147067530609507749051065944151673853921223406, 1640871947615472637216990217553991774883479690302348099722, 4830535708422702613923767099370434529889347525347902777213, 5019741735770970782480381041696380223642687390664704650310, 991969565874178227134453184707552154182572077243789543260, 4909785842087840030235943197623687650876171812056534150439, 3773768837236098163715986177993051361236507942750746831148, 397534731486562148071305497381758192970358672378750915563, 2796675043111656256467778670859459278093029377191272188741, 4167266993961025070805032689385675908547671929406921232596, 346647451942475485693015925869687421701930054004916260574, 586360956467414830855168453803543785818551269847562030989, 3588946199702605057506260970541185925556239035692289638912, 2796604217410149817200479231285250748317498451864055700999, 3485472841164546323016317722882932534865109132447165398110, 5314728761364377662914045078695354454771116896662907057928, 5521801509166850292893781523688616981445396600629548416897, 67447221478386207363391806711173495736430653080107109699, 1898784416069477798532280168280942817663210516125108589121, 4200901541382254360983657360195133471550622021724160631587, 5460951264207299348884719125155894296120852903988927811022, 2418976951418330350640044927403501277655615571198829532052, 3691405202544890951334673062283622185746825271560023431647, 4744699962160201987084598064817319585281592830197760470519, 1865343841649655849266964014370456784574472476885160920227, 4506368784364659407517685533581197632681345304635168961930, 3646407247384584510081202388574488073494387419945213959476, 349552518504785289958278502765037520722049405385328745854, 2864650519996879527078243770452413201226591274415075877322, 986152544517790120157595798843105909729407704517235470569, 2016533672424827908649317477614551994772180969976718862723, 2893772817238631212619926691197835869131378430346292726699, 3771965446904261763835807766932528368204887116209948717194, 5609332408378363868262390400372472969609701270556855514940, 3193437145789347465294366134791949966776680837982066048790, 2193208047726349886809630566059761684256220792081704391394, 2406583171012025048019478267451943324775008158368449793220, 2116191831529534802481963230213833718182407681577238467477)</span></span><br><span class="line"><span class="comment">#163 111 74 108</span></span><br><span class="line"><span class="comment">#(613342273242036261606833016088319123132463277984910497463, 4076650513326143955491088167137912178627075597221450789684, 2549329906726812935530524509341909119364264617786599824635, 535825522006396518527259832351330338193381413950360697402, 1609872304355460970010960140887318263622234725519166702406, 4595648789779280064119910463215267170990700939562132539856, 6202941719906820763530582781492236402841826474765381162280, 146383509309656787207823188501734527824176111154201047305, 25465872034667643064463909501005010953305593087213127158, 5013485259639758680882777067036463419496758042789385275137, 1777422319247882636219090680426283447165722916857107812190, 4959421098066179466799808560075065301437350592274808503820, 5723391070377102449743744081625157290937426760607048647001, 5579167484101457150344070851692559997547063390029102558581, 2123271456411769395820302754063016393550466129156442328858, 572058681829484719437875549021975496708981376651445779146, 1996754083172275118297200314213966122004207462974545461480, 649415622894973498105884989211940045248578796902502764848, 5343837733439620532064693899882946579011468824877590399514, 4536734106153254802558272688809162548812447820425538913213, 5330631409834614101978921134450800123996327668689271752562, 3479983000539044724588779352660845278735195980776395027810, 3819253260295783049342002965120739671341459503288137480575, 4203827071561779747450292829144913726210324604507524236546, 2491286714418962202580023309790386099266344551250969556718, 1284159714630186695529322535424527510357589893722000356110, 5945223614993453619096411961460130943025519769351880807493, 4853551820393706768019940098023131816582202306119169299946, 612130553158171949998733188220755133455097622737437555843, 2069818290572633490441459927726787913447295145871681294648, 1721604262696206995101427365487774084172530684313841766129, 941992114362349379667188584785492090202787936696274882240, 820918862506577184430380412598414630041014584836402707073, 2207995725975508564021969157015055383801820064184897666133, 2603675124173872645273641656213158346794031794544252313064, 1152474642143941579481586830337369451253957814755827106091, 3137106011714933777398359233072786179282925280355476692226, 2407629898411598025375194659733233259982658121473567407429, 3659895586541780443981349844632992233738047374694648636006, 2310837293084147067530609507749051065944151673853921223406, 1640871947615472637216990217553991774883479690302348099722, 4830535708422702613923767099370434529889347525347902777213, 5019741735770970782480381041696380223642687390664704650310, 991969565874178227134453184707552154182572077243789543260, 4909785842087840030235943197623687650876171812056534150439, 3773768837236098163715986177993051361236507942750746831148, 397534731486562148071305497381758192970358672378750915563, 2796675043111656256467778670859459278093029377191272188741, 4167266993961025070805032689385675908547671929406921232596, 346647451942475485693015925869687421701930054004916260574, 586360956467414830855168453803543785818551269847562030989, 3588946199702605057506260970541185925556239035692289638912, 2796604217410149817200479231285250748317498451864055700999, 3485472841164546323016317722882932534865109132447165398110, 5314728761364377662914045078695354454771116896662907057928, 5521801509166850292893781523688616981445396600629548416897, 67447221478386207363391806711173495736430653080107109699, 1898784416069477798532280168280942817663210516125108589121, 4200901541382254360983657360195133471550622021724160631587, 5460951264207299348884719125155894296120852903988927811022, 2418976951418330350640044927403501277655615571198829532052, 3691405202544890951334673062283622185746825271560023431647, 4744699962160201987084598064817319585281592830197760470519, 1865343841649655849266964014370456784574472476885160920227, 4506368784364659407517685533581197632681345304635168961930, 3646407247384584510081202388574488073494387419945213959476, 349552518504785289958278502765037520722049405385328745854, 2864650519996879527078243770452413201226591274415075877322, 986152544517790120157595798843105909729407704517235470569, 2016533672424827908649317477614551994772180969976718862723, 2893772817238631212619926691197835869131378430346292726699, 3771965446904261763835807766932528368204887116209948717194, 5609332408378363868262390400372472969609701270556855514940, 3193437145789347465294366134791949966776680837982066048790, 2193208047726349886809630566059761684256220792081704391394, 2406583171012025048019478267451943324775008158368449793220, 2116191831529534802481963230213833718182407681577238467477)</span></span><br><span class="line"><span class="comment">#same</span></span><br><span class="line">s = (<span class="number">613342273242036261606833016088319123132463277984910497463</span>, <span class="number">4076650513326143955491088167137912178627075597221450789684</span>, <span class="number">2549329906726812935530524509341909119364264617786599824635</span>, <span class="number">535825522006396518527259832351330338193381413950360697402</span>, <span class="number">1609872304355460970010960140887318263622234725519166702406</span>, <span class="number">4595648789779280064119910463215267170990700939562132539856</span>, <span class="number">6202941719906820763530582781492236402841826474765381162280</span>, <span class="number">146383509309656787207823188501734527824176111154201047305</span>, <span class="number">25465872034667643064463909501005010953305593087213127158</span>, <span class="number">5013485259639758680882777067036463419496758042789385275137</span>, <span class="number">1777422319247882636219090680426283447165722916857107812190</span>, <span class="number">4959421098066179466799808560075065301437350592274808503820</span>, <span class="number">5723391070377102449743744081625157290937426760607048647001</span>, <span class="number">5579167484101457150344070851692559997547063390029102558581</span>, <span class="number">2123271456411769395820302754063016393550466129156442328858</span>, <span class="number">572058681829484719437875549021975496708981376651445779146</span>, <span class="number">1996754083172275118297200314213966122004207462974545461480</span>, <span class="number">649415622894973498105884989211940045248578796902502764848</span>, <span class="number">5343837733439620532064693899882946579011468824877590399514</span>, <span class="number">4536734106153254802558272688809162548812447820425538913213</span>, <span class="number">5330631409834614101978921134450800123996327668689271752562</span>, <span class="number">3479983000539044724588779352660845278735195980776395027810</span>, <span class="number">3819253260295783049342002965120739671341459503288137480575</span>, <span class="number">4203827071561779747450292829144913726210324604507524236546</span>, <span class="number">2491286714418962202580023309790386099266344551250969556718</span>, <span class="number">1284159714630186695529322535424527510357589893722000356110</span>, <span class="number">5945223614993453619096411961460130943025519769351880807493</span>, <span class="number">4853551820393706768019940098023131816582202306119169299946</span>, <span class="number">612130553158171949998733188220755133455097622737437555843</span>, <span class="number">2069818290572633490441459927726787913447295145871681294648</span>, <span class="number">1721604262696206995101427365487774084172530684313841766129</span>, <span class="number">941992114362349379667188584785492090202787936696274882240</span>, <span class="number">820918862506577184430380412598414630041014584836402707073</span>, <span class="number">2207995725975508564021969157015055383801820064184897666133</span>, <span class="number">2603675124173872645273641656213158346794031794544252313064</span>, <span class="number">1152474642143941579481586830337369451253957814755827106091</span>, <span class="number">3137106011714933777398359233072786179282925280355476692226</span>, <span class="number">2407629898411598025375194659733233259982658121473567407429</span>, <span class="number">3659895586541780443981349844632992233738047374694648636006</span>, <span class="number">2310837293084147067530609507749051065944151673853921223406</span>, <span class="number">1640871947615472637216990217553991774883479690302348099722</span>, <span class="number">4830535708422702613923767099370434529889347525347902777213</span>, <span class="number">5019741735770970782480381041696380223642687390664704650310</span>, <span class="number">991969565874178227134453184707552154182572077243789543260</span>, <span class="number">4909785842087840030235943197623687650876171812056534150439</span>, <span class="number">3773768837236098163715986177993051361236507942750746831148</span>, <span class="number">397534731486562148071305497381758192970358672378750915563</span>, <span class="number">2796675043111656256467778670859459278093029377191272188741</span>, <span class="number">4167266993961025070805032689385675908547671929406921232596</span>, <span class="number">346647451942475485693015925869687421701930054004916260574</span>, <span class="number">586360956467414830855168453803543785818551269847562030989</span>, <span class="number">3588946199702605057506260970541185925556239035692289638912</span>, <span class="number">2796604217410149817200479231285250748317498451864055700999</span>, <span class="number">3485472841164546323016317722882932534865109132447165398110</span>, <span class="number">5314728761364377662914045078695354454771116896662907057928</span>, <span class="number">5521801509166850292893781523688616981445396600629548416897</span>, <span class="number">67447221478386207363391806711173495736430653080107109699</span>, <span class="number">1898784416069477798532280168280942817663210516125108589121</span>, <span class="number">4200901541382254360983657360195133471550622021724160631587</span>, <span class="number">5460951264207299348884719125155894296120852903988927811022</span>, <span class="number">2418976951418330350640044927403501277655615571198829532052</span>, <span class="number">3691405202544890951334673062283622185746825271560023431647</span>, <span class="number">4744699962160201987084598064817319585281592830197760470519</span>, <span class="number">1865343841649655849266964014370456784574472476885160920227</span>, <span class="number">4506368784364659407517685533581197632681345304635168961930</span>, <span class="number">3646407247384584510081202388574488073494387419945213959476</span>, <span class="number">349552518504785289958278502765037520722049405385328745854</span>, <span class="number">2864650519996879527078243770452413201226591274415075877322</span>, <span class="number">986152544517790120157595798843105909729407704517235470569</span>, <span class="number">2016533672424827908649317477614551994772180969976718862723</span>, <span class="number">2893772817238631212619926691197835869131378430346292726699</span>, <span class="number">3771965446904261763835807766932528368204887116209948717194</span>, <span class="number">5609332408378363868262390400372472969609701270556855514940</span>, <span class="number">3193437145789347465294366134791949966776680837982066048790</span>, <span class="number">2193208047726349886809630566059761684256220792081704391394</span>, <span class="number">2406583171012025048019478267451943324775008158368449793220</span>, <span class="number">2116191831529534802481963230213833718182407681577238467477</span>)</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">34</span>*<span class="number">8</span>):</span><br><span class="line">    a = Matrix(F,out[i][<span class="number">0</span>])</span><br><span class="line">    b = vector(F,out[i][<span class="number">1</span>])</span><br><span class="line">    s = vector(F,s)</span><br><span class="line">    e = a*s-b</span><br><span class="line"></span><br><span class="line">    final = []</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> e:</span><br><span class="line">        <span class="keyword">if</span>(j &gt; q//<span class="number">2</span>):</span><br><span class="line">            final.append(q-j)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            final.append(j)</span><br><span class="line">    <span class="keyword">if</span>(final[<span class="number">0</span>] &lt; <span class="number">2</span>^<span class="number">70</span>):</span><br><span class="line">        flag += <span class="string">&#x27;1&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&#x27;0&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>))[::-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#VNCTF&#123;__w1sh_z1m@_c4n_s!gnin_thI5_y4@r__&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/fa6eda6b.html" title="2024-VNCTF-wp-crypto">https://tangcuxiaojikuai.xyz/post/fa6eda6b.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/9b3c95d4.html" rel="prev" title="最近更新">
+      <i class="fa fa-chevron-left"></i> 最近更新
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SignAhead"><span class="nav-number">1.</span> <span class="nav-text">SignAhead</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#basiclog"><span class="nav-number">2.</span> <span class="nav-text">basiclog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#basiccry"><span class="nav-number">3.</span> <span class="nav-text">basiccry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crypto-sign-in-5"><span class="nav-number">4.</span> <span class="nav-text">crypto_sign_in_5</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
