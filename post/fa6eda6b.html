@@ -34,7 +34,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/fa6eda6b/image-20240217200300703.png">
 <meta property="article:published_time" content="2024-02-17T09:16:24.000Z">
-<meta property="article:modified_time" content="2024-02-18T03:08:19.763Z">
+<meta property="article:modified_time" content="2024-02-21T06:49:07.287Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/fa6eda6b/image-20240217200300703.png">
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-02-18 11:08:19" itemprop="dateModified" datetime="2024-02-18T11:08:19+08:00">2024-02-18</time>
+                <time title="修改时间：2024-02-21 14:49:07" itemprop="dateModified" datetime="2024-02-21T14:49:07+08:00">2024-02-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -344,7 +344,7 @@ g^{g^{at}} = y^{({g^{b}})^{-1}} \quad(mod\;p)</script><p>所以爆破a建立左�
 &&&&&&&p\\
 \end{matrix}\right)</script><p>其中，a的下标(x,y,z)的含义是第x组样本中的矩阵A的y行z列；b下标(x,y)的含义是第x组样本的第y个值。这个格有的线性关系是：</p>
 <script type="math/tex; mode=display">
-(s_1,s_2,...s_n,1,k_1,k_2,k_{4m})
+(s_1,s_2,...s_n,1,k_1,k_2,...,k_{4m})
 \left(\begin{matrix}
 1&&&&a_{1,1,1}&a_{1,2,1}&&a_{4,m,1}\\
 &1&&&\vdots&\vdots&\ddots\\
@@ -356,7 +356,7 @@ g^{g^{at}} = y^{({g^{b}})^{-1}} \quad(mod\;p)</script><p>所以爆破a建立左�
 &&&&&&&p\\
 \end{matrix}\right)
 =
-(s_1,s_2,...s_n,1,e_1,e_2,e_{4m})</script><p>然后由于s并不是一个较小的值，所以需要对1和e做配平处理才行。造格的测试脚本是：</p>
+(s_1,s_2,...s_n,1,e_1,e_2,...,e_{4m})</script><p>然后由于s并不是一个较小的值，所以需要对1和e做配平处理才行。造格的测试脚本是：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sage.stats.distributions.discrete_gaussian_integer <span class="keyword">import</span> DiscreteGaussianDistributionIntegerSampler</span><br><span class="line"><span class="keyword">from</span> sage.crypto.lwe <span class="keyword">import</span> LWE, samples</span><br><span class="line"></span><br><span class="line">q = <span class="number">0xfffffffffffffffffffffffffffffffeffffffffffffffff</span></span><br><span class="line">n,m = <span class="number">77</span>,<span class="number">32</span>*<span class="number">4</span></span><br><span class="line">F = GF(q)</span><br><span class="line">V = VectorSpace(F,n)</span><br><span class="line">D = DiscreteGaussianDistributionIntegerSampler(<span class="number">2</span>**<span class="number">64</span>)</span><br><span class="line">lwe = LWE(n=n, q=q, D=D)</span><br><span class="line">t = <span class="built_in">list</span>(<span class="built_in">zip</span>(*samples(m=m, n=n, lwe=lwe)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">solve_LWE</span>(<span class="params">A,b,m,n,p,esz</span>):</span><br><span class="line">    L = block_matrix(</span><br><span class="line">        [</span><br><span class="line">            [identity_matrix(n+<span class="number">1</span>),(matrix(ZZ,A).T).stack(-vector(ZZ,b))],</span><br><span class="line">            [matrix.zero(m, n+<span class="number">1</span>),identity_matrix(m)*p]</span><br><span class="line">        ]</span><br><span class="line">        )</span><br><span class="line">    Q = diagonal_matrix([<span class="number">1</span>]*n + [p] + [p//<span class="number">2</span>^esz]*m)</span><br><span class="line">    L *= Q</span><br><span class="line">    L = L.LLL()</span><br><span class="line">    L /= Q</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> L:</span><br><span class="line">        <span class="keyword">if</span>(i[n] == <span class="number">1</span>):</span><br><span class="line">            s = vector(GF(p),i[:n])</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">s = solve_LWE(t[<span class="number">0</span>],t[<span class="number">1</span>],m,n,q,<span class="number">64</span>)</span><br><span class="line"><span class="built_in">print</span>(lwe._LWE__s)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
 <p>跑起来可以发现，由于维度不小，所以十几分钟才能跑完一组(看maple博客发现把矩阵上下换个顺序就只需要六分多钟，不清楚是为什么，还是LLL理解得不够)，而由于我们本身就是随机取的四组样本，本来就只有1/16的概率都是LWE样本，所以还需要跑多组拼一下手气才能出结果，所以这个时间没法接受。还有一个严峻的问题是out文件实在太大，直接粘到jupyter里会卡死，然后又没有找到让Arch里的sage10.2读文件的办法，所以只能用本机的9.3来读文件，也就只能用9.3来做LLL，这就又会慢很多。</p>
 <p>然后在maple的博客里找到了一种叫做primal attack的LWE造格的降维技巧：</p>
@@ -488,14 +488,14 @@ e = b-as</script><p>然后检查向量e中的数值是否位于2^64之内就可�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
