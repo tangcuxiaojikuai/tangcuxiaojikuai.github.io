@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/d4b677a0/image-20240226092252690.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/d4b677a0/image-20240226104358139.png">
 <meta property="article:published_time" content="2024-02-26T01:17:51.000Z">
-<meta property="article:modified_time" content="2024-02-26T03:57:36.224Z">
+<meta property="article:modified_time" content="2024-02-26T11:48:13.995Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/d4b677a0/image-20240226092252690.png">
@@ -220,7 +220,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-02-26 09:17:51 / 修改时间：11:57:36" itemprop="dateCreated datePublished" datetime="2024-02-26T09:17:51+08:00">2024-02-26</time>
+              <time title="创建时间：2024-02-26 09:17:51 / 修改时间：19:48:13" itemprop="dateCreated datePublished" datetime="2024-02-26T09:17:51+08:00">2024-02-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -325,6 +325,24 @@ ks_i = 69^{k_i} \quad(mod\;rr^{i+2})</script><p>求的思路也很明确，先�
 <p>但是有个显著的问题是模数至少都是二次幂，对这种模数来说可以用p-adic的discrete_log去计算出模p^(i-1)下的值，只有一次幂下难以求解。因此这个题目里求dlp这个问题就搞定了。</p>
 <blockquote>
 <p>这种做法看maple博客里有介绍，既可以理解为一种二项式定理的延申；也可以理解为其实是找到了一种从$Z_{p^i}^*$到$Z_{p^{i-1}}^+$的同态，因为对于后者的加法群来说求dlp其实就是求逆</p>
+<p>其实原理的话要说明白也并不算难事，这里就简单展开一下。比如对于一个模p^2下的等式：</p>
+<script type="math/tex; mode=display">
+y = g^x \quad(mod\;p^2)</script><p>要求dlp，由于p是素数，所以对于模p^2下的任意一个数a都有：</p>
+<script type="math/tex; mode=display">
+a^{(p-1)p} = 1 \quad(mod\;p^2)</script><p>有了这个过后，给原式的两侧都再求p-1次幂就得到：</p>
+<script type="math/tex; mode=display">
+y^{p-1} = (g^{p-1})^x \quad(mod\;p^2)</script><p>这样做的好处是，两边的元素的阶由原来的$(p-1)p$的因子，变成了$p$的因子。同时，由费马小定理知道：</p>
+<script type="math/tex; mode=display">
+a^{p-1} = 1 \quad(mod\;p)</script><p>所以上面的两个元素都可以写成：</p>
+<script type="math/tex; mode=display">
+y^{p-1} = 1 + k_1p</script><script type="math/tex; mode=display">
+g^{p-1} = 1+ k_2p</script><p>那么对于模p^2下的g^(p-1)^x来说，就可以由二项式定理展开变成：</p>
+<script type="math/tex; mode=display">
+(g^{p-1})^x = (1+k_2p)^x = 1 + xk_2p \quad(mod\;p^2)</script><p>所以最终就有：</p>
+<script type="math/tex; mode=display">
+1 + xk_2p = 1 + k_1p \quad(mod\;p^2)</script><p>也就得到了(注意两边消去p的同时，模数也要消)：</p>
+<script type="math/tex; mode=display">
+x = k_1k_2^{-1} \quad(mod\;p)</script><p>就解决了DLP，更高次幂道理是基本一致的。</p>
 </blockquote>
 <p>求出k后就是两个明文做gcd，由于度比较大所以选择HGCD，同时由于两个多项式根相同，所以可以将f2先模f1后再做HGCD能更节省时间。</p>
 <p>exp：</p>
@@ -414,7 +432,7 @@ c^{p-1} = (3^{p-1})^m \quad(mod\;p^5)</script><p>然后依然是利用p-adic求d
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Can you help me test out this PRNG I implemented? I&#x27;m inserting a backdoor, but I&#x27;m sure you can&#x27;t find it. Oh btw, I did some optimizing, so version 2 is faster. You can still try out version 1 though. They&#x27;re the same anyway.</span><br></pre></td></tr></table></figure>
 <p>题目没有附件，花一段时间连上靶机过后发现会给两个点，然后可以生成随机数和预测随机数，应该是预测成功就给flag。</p>
 <p>因为有两个点，结合提示的backdoor，盲猜了一下可能是Dual EC，但是这两个点都求不出P=dQ或是Q=dP这种关系，也没对上其他脑电波，没所以就放弃了。</p>
-<p>今早看discord听说是有关点加和点乘的时间侧信道攻击，之后看看思路。</p>
+<p>今早看discord听说是有关点加和点乘的时间侧信道攻击，后来又问了问rec师傅，rec师傅又问了问他们做出这题的SUS的队员，发现其实前面的加载时间是用来求出d的，具体来说，进度每跳一次，就是快速幂计算点乘的一个bit。慢的对应1，快的对应0，如此就可以还原出后门需要的d，然后就是个基础的Dual EC预测了。</p>
 <p><br></p>
 <p><br></p>
 
