@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="在今年N1CTF junior之后越发觉得还是很有必要学习一下同源，至少了解一些它的概念和性质。于是就跟着hashhash师傅给的一篇论文学了学，在这里用文字记录下来。 我会尽量用好懂一点的语言来阐述我的理解，因为本质上仅仅是入个门。如果有不准确的、错误的地方欢迎各位师傅指出。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Isogeny">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/e06139e7.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="在今年N1CTF junior之后越发觉得还是很有必要学习一下同源，至少了解一些它的概念和性质。于是就跟着hashhash师傅给的一篇论文学了学，在这里用文字记录下来。 我会尽量用好懂一点的语言来阐述我的理解，因为本质上仅仅是入个门。如果有不准确的、错误的地方欢迎各位师傅指出。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/e06139e7/image-20240229102148144.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/e06139e7/image-20240229115730410.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/e06139e7/image-20240229115759660.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/e06139e7/image-20240229120631360.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/e06139e7/image-20240229120909653.png">
+<meta property="article:published_time" content="2024-02-29T01:21:45.000Z">
+<meta property="article:modified_time" content="2024-02-29T08:05:32.219Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/e06139e7/image-20240229102148144.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/e06139e7.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Isogeny | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/e06139e7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Isogeny
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-02-29 09:21:45 / 修改时间：16:05:32" itemprop="dateCreated datePublished" datetime="2024-02-29T09:21:45+08:00">2024-02-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/crypto-learning/" itemprop="url" rel="index"><span itemprop="name">crypto-learning</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/e06139e7.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/e06139e7.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在今年N1CTF junior之后越发觉得还是很有必要学习一下同源，至少了解一些它的概念和性质。于是就跟着hashhash师傅给的一篇论文学了学，在这里用文字记录下来。</p>
+<p>我会尽量用好懂一点的语言来阐述我的理解，因为本质上仅仅是入个门。如果有不准确的、错误的地方欢迎各位师傅指出。</p>
+<span id="more"></span>
+<h3 id="参考文档指路"><a href="#参考文档指路" class="headerlink" title="参考文档指路"></a>参考文档指路</h3><p>论文指路：</p>
+<p><a target="_blank" rel="noopener" href="https://eprint.iacr.org/2019/1321.pdf">1321.pdf (iacr.org)</a></p>
+<p>sage函数使用：</p>
+<p><a target="_blank" rel="noopener" href="https://doc.sagemath.org/html/en/reference/arithmetic_curves/sage/schemes/elliptic_curves/ell_curve_isogeny.html">Isogenies - Elliptic curves (sagemath.org)</a></p>
+<p><br></p>
+<p><br></p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>具体来说，这篇学习笔记主要是围绕超奇异椭圆曲线同源的Diffie-Hellman(SIDH)，以及基于其的超奇异椭圆曲线同源密钥交换(SIKE)展开的，这些名词看着就相当复杂，所以先弄明白一些基础概念很有必要。</p>
+<p><br></p>
+<h4 id="扩张-extension"><a href="#扩张-extension" class="headerlink" title="扩张(extension)"></a>扩张(extension)</h4><p>扩张的概念其实很简单。扩张也称作扩域，对于两个域来说，如果K是F的子域，F就是K的扩域或扩张。那么这里不妨选一个素数p，其为一个模4余3的大素数，则对于有限域$F_p$来说，他的二次扩张就是$F_{p^2}$。</p>
+<p>而SIDH就是在有限域$F_{p^2}$下工作的，这个有限域的大小是p^2，也就是说其中有p^2个元素。而这样一个有限域的元素有个最方便的表示方法，就是写成复数形式：</p>
+<script type="math/tex; mode=display">
+u + vi \quad (u,v \in F_p)</script><p>这样表示显然满足域的定义，因为首先它含有单位元1和零元0，并且满足：</p>
+<ul>
+<li>$(F_{p^2},+)$是阿贝尔群</li>
+<li>$(F_{p^2}-\{0\},\times)$是阿贝尔群</li>
+<li>乘法对加法满足分配律</li>
+</ul>
+<p>论文中取p=431，因此之后的所有情境就都放在$F_{431^2}$这个有限域下。</p>
+<p><br></p>
+<h4 id="超奇异椭圆曲线-supersigular-elliptic-curve"><a href="#超奇异椭圆曲线-supersigular-elliptic-curve" class="headerlink" title="超奇异椭圆曲线(supersigular elliptic curve)"></a>超奇异椭圆曲线(supersigular elliptic curve)</h4><p>之前一直把超椭圆曲线(hyperellitic curve)和超奇异椭圆曲线当成差不多的东西，现在看来是个相当大的误解。超椭圆曲线以后有机会再展开说说，这里就只介绍一下超奇异椭圆曲线。</p>
+<p>若曲线E定义在有限域$F_{p^r} (r \in Z^*)$下，若E的阶order满足：</p>
+<script type="math/tex; mode=display">
+order = 1 \quad(mod\;p)</script><p>则E是一条超奇异椭圆曲线。</p>
+<p>用sage简单测试一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#example</span></span><br><span class="line">p = <span class="number">2</span>^<span class="number">4</span>*<span class="number">3</span>^<span class="number">3</span>-<span class="number">1</span></span><br><span class="line">F.&lt;i&gt; = GF(p^<span class="number">2</span>, modulus = x^<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">a1 = <span class="number">208</span>*i + <span class="number">161</span></span><br><span class="line">Ea1 = EllipticCurve(F,[<span class="number">0</span>,a1,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(Ea1.order() % p , Ea1.is_supersingular())</span><br><span class="line"></span><br><span class="line">a2 = <span class="number">208</span>*i + <span class="number">162</span></span><br><span class="line">Ea2 = EllipticCurve(F,[<span class="number">0</span>,a2,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(Ea2.order() % p , Ea2.is_supersingular())</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="literal">True</span></span><br><span class="line"><span class="number">173</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="j不变量-j-invariant"><a href="#j不变量-j-invariant" class="headerlink" title="j不变量(j-invariant)"></a>j不变量(j-invariant)</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>对于椭圆曲线来说，j不变量可以简单理解为一个判定两条椭圆曲线是否同构的值。也就是说，任何一个曲线都有自己独特的j不变量，而如果两条曲线的j不变量相等，则说明这两条曲线彼此同构。而由于同构的曲线本质上都可以看作同一条曲线，这也就说明，一个j不变量其实在同构意义上其实就唯一对应着一条曲线。</p>
+<p>而对于蒙哥马利形的椭圆曲线(Montgomery form)来说，其曲线方程可以写成：</p>
+<script type="math/tex; mode=display">
+E: \quad \quad y^2 = x^3 + ax^2 + x</script><p>他的j不变量的表达式就是：</p>
+<script type="math/tex; mode=display">
+j(E) = \frac{256(a^2-3)^3}{a^2-4}</script><p>我们简单验证一下论文里的$a_1 = 208i+161$和$a_2 = 172i+162$两种情况，计算他们各自的j不变量来判定两者是否同构，sage实现为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#example</span></span><br><span class="line">p = <span class="number">2</span>^<span class="number">4</span>*<span class="number">3</span>^<span class="number">3</span>-<span class="number">1</span></span><br><span class="line">F.&lt;i&gt; = GF(p^<span class="number">2</span>, modulus = x^<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">a1 = <span class="number">208</span>*i + <span class="number">161</span></span><br><span class="line">Ea1 = EllipticCurve(F,[<span class="number">0</span>,a1,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">j1 = Ea1.j_invariant()</span><br><span class="line"></span><br><span class="line">a2 = <span class="number">172</span>*i + <span class="number">162</span></span><br><span class="line">Ea2 = EllipticCurve(F,[<span class="number">0</span>,a2,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">j2 = Ea2.j_invariant()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(j1 == j2)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>因此这两条曲线是同构的，因为他们的j不变量相同。这也就是说，可以找到一个同构，将一条曲线映射到另一条曲线上。</p>
+<h5 id="相关性质"><a href="#相关性质" class="headerlink" title="相关性质"></a>相关性质</h5><p>在这样的二次扩域下，所有p^2个元素也就可以看作是p^2个j不变量。而论文提及了一个事实，那就是其中包含着一个特殊的大小为$\lfloor \frac{p}{12} \rfloor + z,z \in \{0,1,2\}$的子集(其中z与p具体取值有关)，这个子集恰好包含了所有该二次扩域下超奇异椭圆曲线的j不变量。</p>
+<p>比如对于论文中p=431的情境，二次扩域$F_{431^2}$下共有431^2个j不变量，而其中有一个大小为37的子集如下，使得该子集中所有元素都代表着同构意义下的一条超奇异椭圆曲线：</p>
+<p><img src="/post/e06139e7/image-20240229102148144.png" alt="image-20240229102148144"></p>
+<p><br></p>
+<h4 id="同源-isogeny"><a href="#同源-isogeny" class="headerlink" title="同源(isogeny)"></a>同源(isogeny)</h4><h5 id="总体概念"><a href="#总体概念" class="headerlink" title="总体概念"></a>总体概念</h5><p>同源本质上是一条曲线向另一条曲线上的映射(两条曲线也可以相同)。而之所以论文使用蒙哥马利曲线来做例子，是因为对于蒙哥马利曲线之间的映射来说，可以简单地只用x坐标之间的映射，就能表示出完整的映射。这是因为其映射形式为：</p>
+<script type="math/tex; mode=display">
+(x,y) \rightarrow (f(x) , cyf'(x))</script><p>可以看出，只要确定了x坐标的映射函数f(x)，就可以唯一确定y坐标的映射而不会有多解。因为c是一个常数，不会有改变，而f’(x)是f(x)的导函数，由f(x)唯一确定。</p>
+<p>因此映射可以简写为：</p>
+<script type="math/tex; mode=display">
+x \rightarrow f(x)</script><p>而映射的例子很容易举，就比如说，给定一条曲线E，将它上面的点都映射到他本身，这实际上就是个E到E的映射，只是没什么用而已。</p>
+<p>进一步说，比如对于一条蒙哥马利曲线：</p>
+<script type="math/tex; mode=display">
+E: \quad \quad y^2 = x^3 + ax^2 + x</script><p>可以将E上的点都映射到他的二倍点，这也是一个E到E的映射，用仅含x坐标的简化形式就可以写为：</p>
+<script type="math/tex; mode=display">
+E \rightarrow E,\quad x \rightarrow \frac{(x^2-1)^2}{4x(x^2+ax+1)}</script><p>这里还要提一句，我们常见的椭圆曲线坐标，都是二维的仿射坐标，而这有一个小缺点就是没有办法表示无穷远点。而在三维的也就是椭圆曲线的射影坐标里就不存在这个问题，比如sage里，无穷远点通常就会用射影坐标表示成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0</span>:<span class="number">1</span>:<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>不过这里也不会展开说这些，提这一点的原因其实仅仅是因为，可以发现我们上面的映射好像没有办法表示出哪些点映射到了单位元(也就是无穷远点)，但是映射到单位元的点是很重要的，因为这些点构成的集合是这个映射的核(kernel)，而一个映射的核总是一个正规子群，就可以用来构造商群，也可以利用第一同构定理找出一个与映射的像(image)之间的同构。</p>
+<p>说了这么一些，其实只是想说明一点——找出核是很重要的。而上面的映射形式其实已经能帮我们找出这个映射的核了，这是因为我们可以把分母为0的点看作无穷远点，那么映射的核里的点的横坐标就是分母代表的方程的解：</p>
+<script type="math/tex; mode=display">
+4x(x^2+ax+1) = 0</script><p>可以看出这个式子有三个解，分别是$0,\alpha,\frac{1}{\alpha}$，其中$\alpha$满足：</p>
+<script type="math/tex; mode=display">
+\alpha^2+a\alpha+1 = 0</script><p>代入曲线方程就可以找到这个映射的核中的三个非平凡点：</p>
+<script type="math/tex; mode=display">
+(0,0),(\alpha,0),(\frac{1}{\alpha},0)</script><p>又因为同态都具有一个性质，就是单位元也会映射到单位元，所以核中总共就含四个点：</p>
+<script type="math/tex; mode=display">
+Kernel = \{O,(0,0),(\alpha,0),(\frac{1}{\alpha},0)\}</script><p>可以看出，这个核是原曲线加法群上一个大小为4的子群(subgroup)。</p>
+<p>而到现在就可以正式介绍同源的概念了，一个可分的(separable)同源可以描述为：对于一条曲线E以及E上一个子群G，都可以构造一个以G为核的映射$\phi: E \rightarrow E’$，这个映射就是同源，映射到的曲线$E’$就叫做这个同源的陪域(codomain)。</p>
+<blockquote>
+<p>这里没有提到可分和不可分的概念区别(因为我也不知道)，大概可以理解成：如果一个同源可分，那么其映射后的f(x)的导数f’(x)不等于0；否则就是不可分的</p>
+</blockquote>
+<p>如果用论文中更标准的Velu’s formulas的定义来说，同源可以描述成如下过程：</p>
+<ul>
+<li>输入一条曲线E，以及E上的一个子群G里的所有点</li>
+<li>输出陪域$E’=E/G$，以及对应的映射$\phi$</li>
+</ul>
+<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><h6 id="1"><a href="#1" class="headerlink" title="1"></a>1</h6><p>首先举的例子就是刚才的二倍点的映射，这个同源的计算过程就是：</p>
+<ul>
+<li>输入E，以及子群$G=\{O,(0,0),(\alpha,0),(\frac{1}{\alpha},0)\}$</li>
+<li>输出E’(其实也就是E)，以及对应的映射$x \rightarrow \frac{(x^2-1)^2}{4x(x^2+ax+1)}$</li>
+</ul>
+<p>这个可以用sage实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#example</span></span><br><span class="line">p = <span class="number">2</span>^<span class="number">4</span>*<span class="number">3</span>^<span class="number">3</span>-<span class="number">1</span></span><br><span class="line">F.&lt;i&gt; = GF(p^<span class="number">2</span>, modulus = x^<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">a1 = <span class="number">208</span>*i + <span class="number">161</span></span><br><span class="line">E = EllipticCurve(F,[<span class="number">0</span>,a1,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">phi = E.scalar_multiplication(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">E_ = phi.codomain()</span><br><span class="line">fx = phi.rational_maps()[<span class="number">0</span>] <span class="comment">#only care about f(x)</span></span><br><span class="line"><span class="built_in">print</span>(E_ == E)</span><br><span class="line"><span class="built_in">print</span>(fx)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">True</span></span><br><span class="line">(x^<span class="number">4</span> - <span class="number">2</span>*x^<span class="number">2</span> + <span class="number">1</span>)/(<span class="number">4</span>*x^<span class="number">3</span> + (-<span class="number">30</span>*i + <span class="number">213</span>)*x^<span class="number">2</span> + <span class="number">4</span>*x)</span><br></pre></td></tr></table></figure>
+<h6 id="2"><a href="#2" class="headerlink" title="2"></a>2</h6><p>可以发现，其实第一个例子举的子群G并不是一个循环群，因为群里除了单位元之外的元素阶都是2，因此没有生成元。而椭圆曲线虽然本身并不一定是一个循环群，但在其上任取一个点，都可以生成一个循环子群。就比如说我们取E上的$(\alpha,0)$这个点，他生成的就是一个阶为2的循环子群$G=\{O,(\alpha,0)\}$，那么我们可以用这个子群和曲线E生成一个同源，表示为：</p>
+<ul>
+<li>输入E，以及子群$G=\{O,(\alpha,0)\}$</li>
+<li>输出E’，以及对应的映射</li>
+</ul>
+<p>而此时的E’就不再是原来的曲线E了，他的j不变量发生了变化。然而有一点不会变：E’依然是条超奇异椭圆曲线。</p>
+<p>我们用代码验证一下，首先可以用如下方式求出曲线上所有阶为2的点：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">torsion_2_points = E(<span class="number">0</span>).division_points(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(torsion_2_points)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="number">0</span> : <span class="number">0</span> : <span class="number">1</span>), (<span class="number">0</span> : <span class="number">1</span> : <span class="number">0</span>), (<span class="number">350</span>*i + <span class="number">68</span> : <span class="number">0</span> : <span class="number">1</span>), (<span class="number">304</span>*i + <span class="number">202</span> : <span class="number">0</span> : <span class="number">1</span>)]</span><br></pre></td></tr></table></figure>
+<p>然后就取$\alpha = 350i + 68$，由于他的所有倍点产生的是一个循环子群，所以整个子群G可以就用该点来表示，因此计算这个同源的代码可以写为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#example</span></span><br><span class="line">p = <span class="number">2</span>^<span class="number">4</span>*<span class="number">3</span>^<span class="number">3</span>-<span class="number">1</span></span><br><span class="line">F.&lt;i&gt; = GF(p^<span class="number">2</span>, modulus = x^<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">a1 = <span class="number">208</span>*i + <span class="number">161</span></span><br><span class="line">E = EllipticCurve(F,[<span class="number">0</span>,a1,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">alpha = E(<span class="number">0</span>).division_points(<span class="number">2</span>)[<span class="number">2</span>]</span><br><span class="line">phi = E.isogeny(alpha)</span><br><span class="line"></span><br><span class="line">E_ = phi.codomain()</span><br><span class="line"><span class="built_in">print</span>(E_.montgomery_model())</span><br><span class="line"><span class="built_in">print</span>(E_.j_invariant())</span><br><span class="line"><span class="built_in">print</span>(phi.rational_maps()[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Elliptic Curve defined by y^<span class="number">2</span> = x^<span class="number">3</span> + (<span class="number">102</span>*i+<span class="number">423</span>)*x^<span class="number">2</span> + x over Finite Field <span class="keyword">in</span> i of size <span class="number">431</span>^<span class="number">2</span></span><br><span class="line"><span class="number">344</span>*i + <span class="number">190</span></span><br><span class="line">(x^<span class="number">2</span> + (<span class="number">81</span>*i - <span class="number">68</span>)*x + (<span class="number">190</span>*i - <span class="number">214</span>))/(x + (<span class="number">81</span>*i - <span class="number">68</span>))</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h5 id="扩展概念与性质"><a href="#扩展概念与性质" class="headerlink" title="扩展概念与性质"></a>扩展概念与性质</h5><p>最基本的同源概念就说完了。总结一下其性质有：</p>
+<ul>
+<li><p>同一条曲线上，一个唯一的子群对应唯一的同源</p>
+</li>
+<li><p>同源本质上是一种同态，因此它具有同态的性质，也就是：</p>
+<script type="math/tex; mode=display">
+\phi(P+Q) = \phi(P) + \phi(Q)</script></li>
+<li><p>同源可以进行复合运算</p>
+</li>
+<li><p>一个同源拥有一个唯一的对偶同源，他们度相等，并且这两个同源复合后等价于曲线向其度倍点上的同源</p>
+<blockquote>
+<p>这里对偶同源的概念其实和逆同态很类似，只是他们符合后并不是恒等映射，这是同源的特殊性质</p>
+</blockquote>
+</li>
+</ul>
+<p>这里又牵扯出了一些新概念，比如同源的度，以及刚才代码里出现的torsion一词，这里对这两个词简单解释一下。</p>
+<p>同源的度其实就是同源的核的大小，也可以定义为同源映射后f(x)分子和分母的多项式的度的最大值。对于度为d的同源，可以记为d-isogeny。</p>
+<p>比如刚才举的两个例子，对于第一个同源来说，其核为$G=\{O,(0,0),(\alpha,0),(\frac{1}{\alpha},0)\}$，大小为4，所以该同源度为4；也可以说其f(x)中分子分母度的最大值为4，所以同源度为4。对于第二个同源，同理可得其度为2。</p>
+<p>而torsion的概念指的又是什么呢？我查了一些代数几何和拓扑几何的概念，发现中文的翻译为”扭”或者”挠”，感觉并不是很好听所以我在后面也就直称他为torsion。而torsion在群论，或者说其在椭圆曲线中的定义，就是所有满足：</p>
+<script type="math/tex; mode=display">
+lP = O</script><p>的P点形成的集合，就叫做$l-torsion$。</p>
+<p>比如说刚才提到的二倍点映射的核$G=\{O,(0,0),(\alpha,0),(\frac{1}{\alpha},0)\}$其实就是E上的一个2-torsion，其结构可以画为：</p>
+<p><img src="/post/e06139e7/image-20240229115730410.png" alt="image-20240229115730410"></p>
+<p>同理，3-torsion也可以画为：</p>
+<p><img src="/post/e06139e7/image-20240229115759660.png" alt="image-20240229115759660"></p>
+<p><br></p>
+<h4 id="同源图-isogeny-graph"><a href="#同源图-isogeny-graph" class="headerlink" title="同源图(isogeny graph)"></a>同源图(isogeny graph)</h4><p>还是举刚才同源的第二个例子，可以看出我们取的点是2-torsion中的一个点，其生成的循环子群G大小也就是2，用这个子群G与曲线E就能生成一个同源，它将E映射到E’，这使得j不变量发生了变化：</p>
+<script type="math/tex; mode=display">
+364i + 304 \rightarrow 344i + 190</script><p>而2-torsion中除去单位元还有两个点，分别取他们来生成循环子群，也可以和原曲线E生成同源，j不变量分别会发生如下变化：</p>
+<script type="math/tex; mode=display">
+364i + 304 \rightarrow 67</script><script type="math/tex; mode=display">
+364i + 304 \rightarrow 319</script><p>而回顾刚才我们给出的$F_{431^2}$上的所有超奇异椭圆曲线的j不变量的图：</p>
+<p><img src="/post/e06139e7/image-20240229120631360.png" alt="image-20240229120631360"></p>
+<p>可以发现，整个E的2-torsion其实给出了三条边，他们的起点是E的j不变量对应的点，终点是映射到的E’的j不变量对应的点。而如果对所有点的2-torsion都画出这些边，就得到了完整的2-isogeny的同源图，他能表示出这个二次扩域中所有度为2的isogeny的映射关系：</p>
+<p><img src="/post/e06139e7/image-20240229120909653.png" alt="image-20240229120909653"></p>
+<p>而之所以边是无向的，就是因为我们刚才提过的对偶映射，如果E向E’有个度为2的同源，那么E’向E也一定有一个度为2的对偶同源。可以发现图中大多数点都是有三个邻居的，因为他们的2-torsion除去单位元都有三个点；但也有一些点比如0、4、242有些特殊，要么邻居数不够，要么邻居有自己(也就是产生了环)，这里就不详细展开这种情况了，知道有特殊的一些点就好。</p>
+<p>因此，在同一个二次扩域下，度为2的所有超奇异椭圆曲线同源生成了一张同源图，他指示出了度为2的同源会如何在点之间移动。同理，度为3乃至更高的同源图也可以如此绘制出来，指示出对应度的同源的点之间的移动关系。</p>
+<p>而绘制出同源图也更好理解同源之间的复合，比如对于如下移动路径：</p>
+<script type="math/tex; mode=display">
+364i + 304 \rightarrow 319 \rightarrow 67i + 304</script><p>他可以看作是两个度为2的同源的复合，也可以看作是单独的一个度为4的同源。这同时说明度为d^e的同源可以拆解为e个度为d的同源，从而变成d-isogeny图中一条长为e的路径。</p>
+<p><br></p>
+<h4 id="modular-polynomial"><a href="#modular-polynomial" class="headerlink" title="modular polynomial"></a>modular polynomial</h4><p>此外，还有一个比较有用的东西叫做modular polynomial，他的独特作用是用一个多项式关联了d-isogeny中互为邻居的两个j不变量。也就是说，如果知道了一个j不变量，那么可以将其代入对应度的modular polynomial去求根，得到的所有根就是所有作为他的邻居的j不变量。</p>
+<p>这为一些中间相遇提供了快速计算的便利，modular polynomial对应的度较低的多项式形式都可以在如下网站找到：</p>
+<p><a target="_blank" rel="noopener" href="https://math.mit.edu/~drew/ClassicalModPolys.html">Modular polynomials (mit.edu)</a></p>
+<p><br></p>
+<p><br></p>
+<h3 id="超奇异椭圆曲线同源密钥交换"><a href="#超奇异椭圆曲线同源密钥交换" class="headerlink" title="超奇异椭圆曲线同源密钥交换"></a>超奇异椭圆曲线同源密钥交换</h3><h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><p>基本概念说得差不多了，下面就来讲一讲利用同源如何进行Diffie-Hellman的密钥交换。首先他选择如下形式的素数式：</p>
+<script type="math/tex; mode=display">
+p = 2^{e_A}3^{e_B}-1  , \quad \quad 2^{e_A} \approx 3^{e_B}</script><p>并定义其二次扩域上的超奇异椭圆曲线E。在下文的情境中依然使用论文选择的参数：</p>
+<script type="math/tex; mode=display">
+p= 2^43^3-1 = 431</script><script type="math/tex; mode=display">
+E_{a_0} : \quad \quad y^2 = x^3 + a_0x^2 + x , \quad \quad a_0 =329i+423</script><p>满足：</p>
+<script type="math/tex; mode=display">
+j(E_{a_0}) = 87i + 190</script><p>此后，Alice与Bob想利用SIDH交换一个共享密钥。对于Alice来说，他选择曲线上阶为$2^{e_A}$的两个点$P_A,Q_A$。注意这里要求这两个点不在同一个循环子群中，也就是其中一个点不能被另一个点表示出来。这一点可以用weil配对是否为1来验证(线性配对这里也不展开了，有机会再说)。比如在论文情境中，他选择了如下两点：</p>
+<script type="math/tex; mode=display">
+P_A = (100i+248,304i+199)</script><script type="math/tex; mode=display">
+Q_A = (426i+394,51i+79)</script><p>可以验证一下这两个点是否满足刚才的性质：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#part1 construct supersingular ECC on F_p2</span></span><br><span class="line">p = <span class="number">2</span>^<span class="number">4</span>*<span class="number">3</span>^<span class="number">3</span>-<span class="number">1</span></span><br><span class="line">F.&lt;i&gt; = GF(p^<span class="number">2</span>, modulus = x**<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line">a0 = <span class="number">329</span>*i+<span class="number">423</span></span><br><span class="line"></span><br><span class="line">E = EllipticCurve(F,[<span class="number">0</span>,a0,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line"><span class="keyword">assert</span> E.j_invariant() == <span class="number">87</span>*i + <span class="number">190</span></span><br><span class="line"><span class="keyword">assert</span> E.is_supersingular()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part2 Alice&#x27;s and Bob&#x27;s public points</span></span><br><span class="line">PA = E(<span class="number">100</span>*i+<span class="number">248</span>,<span class="number">304</span>*i+<span class="number">199</span>)</span><br><span class="line">QA = E(<span class="number">426</span>*i+<span class="number">394</span>,<span class="number">51</span>*i+<span class="number">79</span>)</span><br><span class="line"><span class="keyword">assert</span> PA.order() == <span class="number">2</span>^<span class="number">4</span></span><br><span class="line"><span class="keyword">assert</span> QA.order() == <span class="number">2</span>^<span class="number">4</span></span><br><span class="line"><span class="keyword">assert</span> PA.weil_pairing(QA,<span class="number">2</span>^<span class="number">4</span>) != <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>可以发现是满足的。同理，Bob选择两个阶为$3^{e_B}$的两个点$P_B,Q_B$。这四个点都是公开的参数。</p>
+<p>之后，Alice在$k_A \in [0,2^{e_A})$中选择他的秘密私钥kA，在论文给的具体情境里也就是在0到15中选择kA，并计算：</p>
+<script type="math/tex; mode=display">
+S_A = P_A + k_AQ_A</script><blockquote>
+<p>这里可以简单证明一些事情：</p>
+<ul>
+<li>SA是一个阶为16的点</li>
+<li>SA生成的阶为16的循环子群与PA、QA生成的不相同</li>
+</ul>
+<p>先证明第一点，因为显然有$16S_A = 16(P_A + k_AQ_A) = O$，所以SA的阶只会是16的因子；又因为$8S_A = 8P_A + 8k_AQ_A$，若有$8S_A = O$，就有$8P_A + 8k_AQ_A = O$，则PA可以表示为QA的倍点，与假设矛盾。因此SA阶为16</p>
+<p>证明了第一点，第二点就很轻松了，比如假设SA生成的循环子群和PA生成的相同，那么任意一个SA的倍点也就都可以用PA的倍点表示，则PA可以表示为QA的倍点，与假设矛盾。</p>
+</blockquote>
+<p>通过上述说明可以发现，我们这样选择的SA形成了一个新的阶为16的循环子群(虽然选0的时候并不是)。而从前面对同源的介绍来说，一条曲线和其上一个唯一的子群就会构成一个唯一的同源。因此我们就可以计算E和SA产生的同源，记为$\phi_A$，并计算Bob公开的两个点PB、QB经$\phi_A$映射后的坐标$\phi_A(P_B),\phi_A(Q_B)$，如此就形成了Alice的全部公钥：</p>
+<script type="math/tex; mode=display">
+(P_A,Q_A)</script><script type="math/tex; mode=display">
+(\phi_A(E),\phi_A(P_B),\phi_A(Q_B))</script><p>其私钥为$S_A,\phi_A,k_A$</p>
+<p>同理，Bob同样经历上述过程，其全部公钥就是：</p>
+<script type="math/tex; mode=display">
+(P_B,Q_B)</script><script type="math/tex; mode=display">
+(\phi_B(E),\phi_B(P_A),\phi_B(Q_A))</script><p>其私钥为$S_B,\phi_B,k_B$</p>
+<p>我们代入具体的数字$K_A = 11,k_B = 2$，就可以把这个过程用代码展示出来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#part1 construct supersingular ECC on F_p2</span></span><br><span class="line">p = <span class="number">2</span>^<span class="number">4</span>*<span class="number">3</span>^<span class="number">3</span>-<span class="number">1</span></span><br><span class="line">F.&lt;i&gt; = GF(p^<span class="number">2</span>, modulus = x**<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line">a0 = <span class="number">329</span>*i+<span class="number">423</span></span><br><span class="line"></span><br><span class="line">E = EllipticCurve(F,[<span class="number">0</span>,a0,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line"><span class="keyword">assert</span> E.j_invariant() == <span class="number">87</span>*i + <span class="number">190</span></span><br><span class="line"><span class="keyword">assert</span> E.is_supersingular()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part2 Alice&#x27;s and Bob&#x27;s public points</span></span><br><span class="line">PA = E(<span class="number">100</span>*i+<span class="number">248</span>,<span class="number">304</span>*i+<span class="number">199</span>)</span><br><span class="line">QA = E(<span class="number">426</span>*i+<span class="number">394</span>,<span class="number">51</span>*i+<span class="number">79</span>)</span><br><span class="line"><span class="keyword">assert</span> PA.order() == <span class="number">2</span>^<span class="number">4</span></span><br><span class="line"><span class="keyword">assert</span> QA.order() == <span class="number">2</span>^<span class="number">4</span></span><br><span class="line">PB = E(<span class="number">358</span>*i+<span class="number">275</span>,<span class="number">410</span>*i+<span class="number">104</span>)</span><br><span class="line">QB = E(<span class="number">20</span>*i+<span class="number">185</span>,<span class="number">281</span>*i+<span class="number">239</span>)</span><br><span class="line"><span class="keyword">assert</span> PB.order() == <span class="number">3</span>^<span class="number">3</span></span><br><span class="line"><span class="keyword">assert</span> QB.order() == <span class="number">3</span>^<span class="number">3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part3 Alice choose secret kA and gen Alice&#x27;s public key</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">1</span>):</span><br><span class="line">    kA = <span class="number">11</span></span><br><span class="line">    SA = PA + kA*QA</span><br><span class="line">    S_A = SA</span><br><span class="line">    <span class="keyword">assert</span> SA.order() == <span class="number">2</span>^<span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phi0</span></span><br><span class="line">    RA = <span class="number">2</span>^<span class="number">3</span>*S_A</span><br><span class="line">    phi0 = E.isogeny(RA)</span><br><span class="line">    Ea1 = phi0.codomain()</span><br><span class="line">    S_A = phi0(S_A)</span><br><span class="line">    <span class="comment">#print(Ea1.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea1.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_A)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phi1</span></span><br><span class="line">    RA = <span class="number">2</span>^<span class="number">2</span>*S_A</span><br><span class="line">    phi1 = Ea1.isogeny(RA)</span><br><span class="line">    Ea2 = phi1.codomain()</span><br><span class="line">    S_A = phi1(S_A)</span><br><span class="line">    <span class="comment">#print(Ea2.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea2.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_A)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phi2</span></span><br><span class="line">    RA = <span class="number">2</span>*S_A</span><br><span class="line">    phi2 = Ea2.isogeny(RA)</span><br><span class="line">    Ea3 = phi2.codomain()</span><br><span class="line">    S_A = phi2(S_A)</span><br><span class="line">    <span class="comment">#print(Ea3.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea3.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_A)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phi3</span></span><br><span class="line">    RA = S_A</span><br><span class="line">    phi3 = Ea3.isogeny(RA)</span><br><span class="line">    Ea4 = phi3.codomain()</span><br><span class="line">    S_A = phi3(S_A)</span><br><span class="line">    <span class="comment">#print(Ea4.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea4.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_A)</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute phiA</span></span><br><span class="line">    phiA = phi3*phi2*phi1*phi0</span><br><span class="line">    <span class="comment">#print(phiA.codomain().montgomery_model())</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;pathA =(&quot;</span>,E.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea1.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea2.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea3.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea4.j_invariant(),<span class="string">&quot;)&quot;</span>)</span><br><span class="line">    PKA = (phiA.codomain(),phiA(PB),phiA(QB))</span><br><span class="line">    <span class="built_in">print</span>(PKA)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part4 Bob choose secret kB and gen Bob&#x27;s public key</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">1</span>):</span><br><span class="line">    kB = <span class="number">2</span></span><br><span class="line">    SB = PB + kB*QB</span><br><span class="line">    S_B = SB</span><br><span class="line">    <span class="keyword">assert</span> SB.order() == <span class="number">3</span>^<span class="number">3</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phi0</span></span><br><span class="line">    RB = <span class="number">3</span>^<span class="number">2</span>*S_B</span><br><span class="line">    phi0 = E.isogeny(RB)</span><br><span class="line">    Ea1 = phi0.codomain()</span><br><span class="line">    S_B = phi0(S_B)</span><br><span class="line">    <span class="comment">#print(Ea1.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea1.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_B)</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute phi1</span></span><br><span class="line">    RB = <span class="number">3</span>*S_B</span><br><span class="line">    phi1 = Ea1.isogeny(RB)</span><br><span class="line">    Ea2 = phi1.codomain()</span><br><span class="line">    S_B = phi1(S_B)</span><br><span class="line">    <span class="comment">#print(Ea2.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea2.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_B)</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute phi3</span></span><br><span class="line">    RB = S_B</span><br><span class="line">    phi2 = Ea2.isogeny(RB)</span><br><span class="line">    Ea3 = phi2.codomain()</span><br><span class="line">    S_B = phi2(S_B)</span><br><span class="line">    <span class="comment">#print(Ea3.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea3.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_B)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phiB</span></span><br><span class="line">    phiB = phi2*phi1*phi0</span><br><span class="line">    <span class="comment">#print(phiB.codomain().montgomery_model())</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;pathB =(&quot;</span>,E.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea1.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea2.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea3.j_invariant(),<span class="string">&quot;)&quot;</span>)</span><br><span class="line">    PKB = (phiB.codomain(),phiB(PA),phiB(QA))</span><br><span class="line">    <span class="built_in">print</span>(PKB)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pathA =( <span class="number">87</span>*i + <span class="number">190</span> )-&gt;( <span class="number">107</span> )-&gt;( <span class="number">344</span>*i + <span class="number">190</span> )-&gt;( <span class="number">350</span>*i + <span class="number">65</span> )-&gt;( <span class="number">222</span>*i + <span class="number">118</span> )</span><br><span class="line">(Elliptic Curve defined by y^<span class="number">2</span> = x^<span class="number">3</span> + (<span class="number">329</span>*i+<span class="number">423</span>)*x^<span class="number">2</span> + (<span class="number">63</span>*i+<span class="number">11</span>)*x + (<span class="number">52</span>*i+<span class="number">423</span>) over Finite Field <span class="keyword">in</span> i of size <span class="number">431</span>^<span class="number">2</span>, (<span class="number">311</span>*i + <span class="number">218</span> : <span class="number">289</span>*i + <span class="number">47</span> : <span class="number">1</span>), (<span class="number">108</span>*i + <span class="number">73</span> : <span class="number">161</span>*i + <span class="number">220</span> : <span class="number">1</span>))</span><br><span class="line">pathB =( <span class="number">87</span>*i + <span class="number">190</span> )-&gt;( <span class="number">106</span>*i + <span class="number">379</span> )-&gt;( <span class="number">325</span>*i + <span class="number">379</span> )-&gt;( <span class="number">344</span>*i + <span class="number">190</span> )</span><br><span class="line">(Elliptic Curve defined by y^<span class="number">2</span> = x^<span class="number">3</span> + (<span class="number">329</span>*i+<span class="number">423</span>)*x^<span class="number">2</span> + (<span class="number">215</span>*i+<span class="number">415</span>)*x + (<span class="number">419</span>*i+<span class="number">369</span>) over Finite Field <span class="keyword">in</span> i of size <span class="number">431</span>^<span class="number">2</span>, (<span class="number">402</span>*i + <span class="number">424</span> : <span class="number">191</span>*i + <span class="number">157</span> : <span class="number">1</span>), (<span class="number">198</span>*i + <span class="number">336</span> : <span class="number">29</span>*i + <span class="number">287</span> : <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<p>这里是按照论文演示的一样，将度为16、度为27的同源分别拆成4个2-isogeny和3个3-isogeny的复合，便于展示移动的路径。同时可以注意到中途的一些曲线参数和论文中的似乎并不一样，但是他们的j不变量都相同，因此在同构意义下都是同一条曲线。</p>
+<p>在这个基础上，Alice和Bob如何交换共享密钥呢？</p>
+<p>(\phi_B(E),\phi_B(P_A),\phi_B(Q_A))</p>
+<p>对于Alice来说，它只需要利用Bob公钥中的$\phi_B(E)$作为起始曲线，$\phi_B(P_A),\phi_B(Q_A)$作为新的起始点，计算出：</p>
+<script type="math/tex; mode=display">
+S_A' = \phi_B(P_A) + k_A\phi_B(Q_A)</script><p>然后在此基础上去计算$\phi_B(E)$和$S_A’$生成的循环子群的同源，就得到$\phi_{AB}(E)$。</p>
+<p>对于Bob也是一样，如此就可以计算出$\phi_{BA}(E)$。而两个同源最终会通过不同路径移动到同一个j不变量上，这个j不变量(或者说这个j不变量对应的同构意义下的那条曲线)就是他们的共享密钥了。</p>
+<p>这一段可以表示成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#part5 Alice&#x27;s shared secret computation</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">1</span>):</span><br><span class="line">    E_start = PKB[<span class="number">0</span>]</span><br><span class="line">    SA = PKB[<span class="number">1</span>] + kA*PKB[<span class="number">2</span>]</span><br><span class="line">    S_A = SA</span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phi0</span></span><br><span class="line">    RA = <span class="number">2</span>^<span class="number">3</span>*SA</span><br><span class="line">    phi0 = E_start.isogeny(RA)</span><br><span class="line">    Ea1 = phi0.codomain()</span><br><span class="line">    S_A = phi0(S_A)</span><br><span class="line">    <span class="comment">#print(Ea1.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(S_A)</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute phi1</span></span><br><span class="line">    RA = <span class="number">2</span>^<span class="number">2</span>*S_A</span><br><span class="line">    phi1 = Ea1.isogeny(RA)</span><br><span class="line">    Ea2 = phi1.codomain()</span><br><span class="line">    S_A = phi1(S_A)</span><br><span class="line">    <span class="comment">#print(Ea2.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea2.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_A)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phi2</span></span><br><span class="line">    RA = <span class="number">2</span>*S_A</span><br><span class="line">    phi2 = Ea2.isogeny(RA)</span><br><span class="line">    Ea3 = phi2.codomain()</span><br><span class="line">    S_A = phi2(S_A)</span><br><span class="line">    <span class="comment">#print(Ea3.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea3.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_A)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phi3</span></span><br><span class="line">    RA = S_A</span><br><span class="line">    phi3 = Ea3.isogeny(RA)</span><br><span class="line">    Ea4 = phi3.codomain()</span><br><span class="line">    S_A = phi3(S_A)</span><br><span class="line">    <span class="comment">#print(Ea4.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea4.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_A)</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute phiA</span></span><br><span class="line">    phiA = phi3*phi2*phi1*phi0</span><br><span class="line">    <span class="comment">#print(phiA.codomain().montgomery_model())</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;pathA =(&quot;</span>,E_start.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea1.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea2.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea3.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea4.j_invariant(),<span class="string">&quot;)&quot;</span>)</span><br><span class="line">    shared_key_AB = Ea4.j_invariant()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part6 Bob&#x27;s shared secret computation</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">1</span>):</span><br><span class="line">    E_start = PKA[<span class="number">0</span>]</span><br><span class="line">    SB = PKA[<span class="number">1</span>] + kB*PKA[<span class="number">2</span>]</span><br><span class="line">    S_B = SB</span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phi0</span></span><br><span class="line">    RB = <span class="number">3</span>^<span class="number">2</span>*SB</span><br><span class="line">    phi0 = E_start.isogeny(RB)</span><br><span class="line">    Ea1 = phi0.codomain()</span><br><span class="line">    S_B = phi0(S_B)</span><br><span class="line">    <span class="comment">#print(Ea1.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(S_B)</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute phi1</span></span><br><span class="line">    RB = <span class="number">3</span>*S_B</span><br><span class="line">    phi1 = Ea1.isogeny(RB)</span><br><span class="line">    Ea2 = phi1.codomain()</span><br><span class="line">    S_B = phi1(S_B)</span><br><span class="line">    <span class="comment">#print(Ea2.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea2.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_B)</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute phi3</span></span><br><span class="line">    RB = S_B</span><br><span class="line">    phi2 = Ea2.isogeny(RB)</span><br><span class="line">    Ea3 = phi2.codomain()</span><br><span class="line">    S_B = phi2(S_B)</span><br><span class="line">    <span class="comment">#print(Ea3.montgomery_model())</span></span><br><span class="line">    <span class="comment">#print(Ea3.j_invariant())</span></span><br><span class="line">    <span class="comment">#print(S_B)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute phiB</span></span><br><span class="line">    phiB = phi2*phi1*phi0</span><br><span class="line">    <span class="comment">#print(phiB.codomain().montgomery_model())</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;pathB =(&quot;</span>,E_start.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea1.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea2.j_invariant(),<span class="string">&quot;)-&gt;(&quot;</span>,Ea3.j_invariant(),<span class="string">&quot;)&quot;</span>)</span><br><span class="line">    shared_key_BA = Ea3.j_invariant()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(shared_key_AB == shared_key_BA)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pathA =( <span class="number">344</span>*i + <span class="number">190</span> )-&gt;( <span class="number">364</span>*i + <span class="number">304</span> )-&gt;( <span class="number">67</span> )-&gt;( <span class="number">242</span> )-&gt;( <span class="number">234</span> )</span><br><span class="line">pathB =( <span class="number">222</span>*i + <span class="number">118</span> )-&gt;( <span class="number">299</span>*i + <span class="number">315</span> )-&gt;( <span class="number">61</span> )-&gt;( <span class="number">234</span> )</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>如此就复现出了论文里的简单SIDH示例。</p>
+<p>而上述写法为了展示出路径所以采用了多个同源复合的写法，比较冗长。事实上一个普遍的SIDH可以写为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"></span><br><span class="line"><span class="comment">#part1 construct supersingular ECC on F_p2</span></span><br><span class="line">a = <span class="number">4</span></span><br><span class="line">b = <span class="number">3</span></span><br><span class="line">p = <span class="number">2</span>^a*<span class="number">3</span>^b - <span class="number">1</span></span><br><span class="line">F.&lt;i&gt; = GF(p^<span class="number">2</span>, modulus = x**<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line">a0 = <span class="number">329</span>*i+<span class="number">423</span></span><br><span class="line">E = EllipticCurve(F,[<span class="number">0</span>,a0,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part2 Alice&#x27;s and Bob&#x27;s public points</span></span><br><span class="line">PA = E(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">while</span> (<span class="number">2</span>^(a-<span class="number">1</span>))*PA == <span class="number">0</span>:</span><br><span class="line">    PA = <span class="number">3</span>^b * E.random_point()</span><br><span class="line">QA = PA</span><br><span class="line"><span class="keyword">while</span> PA.weil_pairing(QA, <span class="number">2</span>^a)^(<span class="number">2</span>^(a-<span class="number">1</span>)) == <span class="number">1</span>:</span><br><span class="line">    QA = <span class="number">3</span>^b * E.random_point()</span><br><span class="line"><span class="comment">#print(PA,QA)</span></span><br><span class="line"></span><br><span class="line">PB = E(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">while</span> (<span class="number">3</span>^(b-<span class="number">1</span>))*PB == <span class="number">0</span>:</span><br><span class="line">    PB = <span class="number">2</span>^a * E.random_point()</span><br><span class="line">QB = PB</span><br><span class="line"><span class="keyword">while</span> PB.weil_pairing(QB, <span class="number">3</span>^b)^(<span class="number">3</span>^(b-<span class="number">1</span>)) == <span class="number">1</span>:</span><br><span class="line">    QB = <span class="number">2</span>^a * E.random_point()</span><br><span class="line"><span class="comment">#print(PB,QB)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part3 Alice choose secret kA and gen Alice&#x27;s public key</span></span><br><span class="line">kA = randint(<span class="number">0</span>, <span class="number">2</span>^a-<span class="number">1</span>)</span><br><span class="line">SA = PA + kA * QA</span><br><span class="line">phiA = E.isogeny(SA)</span><br><span class="line">EA, phiA_PB, phiA_QB = phiA.codomain(), phiA(PB), phiA(QB)</span><br><span class="line">PKA = (EA, phiA_PB, phiA_QB)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part4 Bob choose secret kB and gen Bob&#x27;s public key</span></span><br><span class="line">kB = randint(<span class="number">0</span>, <span class="number">3</span>^b-<span class="number">1</span>)</span><br><span class="line">SB = PB + kB * QB</span><br><span class="line">phiB = E.isogeny(SB)</span><br><span class="line">EB, phiB_PA, phiB_QA = phiB.codomain(), phiB(PA), phiB(QA)</span><br><span class="line">PKB = (EB, phiB_PA, phiB_QA)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part5 Alice&#x27;s shared secret computation</span></span><br><span class="line">E_start = PKB[<span class="number">0</span>]</span><br><span class="line">SA_ = PKB[<span class="number">1</span>] + kA*PKB[<span class="number">2</span>]</span><br><span class="line">EAB = E_start.isogeny(SA_).codomain()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part6 Bob&#x27;s shared secret computation</span></span><br><span class="line">E_start = PKA[<span class="number">0</span>]</span><br><span class="line">SB_ = PKA[<span class="number">1</span>] + kB*PKA[<span class="number">2</span>]</span><br><span class="line">EBA = E_start.isogeny(SB_).codomain()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(EAB.j_invariant() == EBA.j_invariant())</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="困难性"><a href="#困难性" class="headerlink" title="困难性"></a>困难性</h4><p>SIDH的困难性在于，当有限域较大时，给定一个曲线E，以及其同源映射后的曲线EA，难以求解出他们之间的同源$\phi_A$。同理也就求不出Alice和Bob选择的秘密私钥kA和kB，以及对应的子群的生成元SA和SB了。</p>
+<p><br></p>
+<p><br></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>到这里对SIDH的基本概念就简单介绍完了，需要注意的是SIDH在两年前已经被宣布完全破解，并且github上就有现成的attack可以使用：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/GiacomoPope/Castryck-Decru-SageMath">GiacomoPope/Castryck-Decru-SageMath: A SageMath implementation of the Castryck-Decru Key Recovery attack on SIDH (github.com)</a></p>
+<p>所以除了见过的中间相遇(N1CTF junior的iev@l，以及seetf的isogeny maze)，以及直接利用这个attack恢复密钥(cryptoctf的shevid)外，我还并没有想到可以怎么设计题目。</p>
+<p>总而言之这篇学习笔记囿于我自身抽代水平等各种不足，以及并没有见过很多isogeny的相关题目，所以写的其实相当浅显，也可能会存在不少错误。本意是想记录自己的学习过程，并分享出来抛砖引玉，欢迎各位师傅与我交流。</p>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/e06139e7.html" title="Isogeny">https://tangcuxiaojikuai.xyz/post/e06139e7.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/d4b677a0.html" rel="prev" title="2024-bi0sCTF-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2024-bi0sCTF-wp-crypto
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/9b3c95d4.html" rel="next" title="最近更新">
+      最近更新 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3%E6%8C%87%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">参考文档指路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A9%E5%BC%A0-extension"><span class="nav-number">2.1.</span> <span class="nav-text">扩张(extension)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B6%85%E5%A5%87%E5%BC%82%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF-supersigular-elliptic-curve"><span class="nav-number">2.2.</span> <span class="nav-text">超奇异椭圆曲线(supersigular elliptic curve)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#j%E4%B8%8D%E5%8F%98%E9%87%8F-j-invariant"><span class="nav-number">2.3.</span> <span class="nav-text">j不变量(j-invariant)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">2.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%80%A7%E8%B4%A8"><span class="nav-number">2.3.2.</span> <span class="nav-text">相关性质</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%BA%90-isogeny"><span class="nav-number">2.4.</span> <span class="nav-text">同源(isogeny)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E6%A6%82%E5%BF%B5"><span class="nav-number">2.4.1.</span> <span class="nav-text">总体概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">2.4.2.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">2</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E6%A6%82%E5%BF%B5%E4%B8%8E%E6%80%A7%E8%B4%A8"><span class="nav-number">2.4.3.</span> <span class="nav-text">扩展概念与性质</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%BA%90%E5%9B%BE-isogeny-graph"><span class="nav-number">2.5.</span> <span class="nav-text">同源图(isogeny graph)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#modular-polynomial"><span class="nav-number">2.6.</span> <span class="nav-text">modular polynomial</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E5%A5%87%E5%BC%82%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%90%8C%E6%BA%90%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2"><span class="nav-number">3.</span> <span class="nav-text">超奇异椭圆曲线同源密钥交换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B"><span class="nav-number">3.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%B0%E9%9A%BE%E6%80%A7"><span class="nav-number">3.2.</span> <span class="nav-text">困难性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
