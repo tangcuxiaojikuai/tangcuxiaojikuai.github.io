@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="和余师傅的小队一块儿参加了这场比赛拿到第五，其中四道密码做出三道，在这里简单记录一下crypto的题解。 这是做过的最折磨的crypto没有之一，因为难度主要在把代码看懂，但是代码最简单的一道题目又不会OwO。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024-nullcon-HackIM-CTF-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/7e90ebcb.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="和余师傅的小队一块儿参加了这场比赛拿到第五，其中四道密码做出三道，在这里简单记录一下crypto的题解。 这是做过的最折磨的crypto没有之一，因为难度主要在把代码看懂，但是代码最简单的一道题目又不会OwO。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/7e90ebcb/image-20240316162127128.png">
+<meta property="article:published_time" content="2024-03-16T00:40:44.000Z">
+<meta property="article:modified_time" content="2024-03-16T09:06:34.934Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/7e90ebcb/image-20240316162127128.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/7e90ebcb.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2024-nullcon-HackIM-CTF-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/7e90ebcb.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024-nullcon-HackIM-CTF-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-16 08:40:44 / 修改时间：17:06:34" itemprop="dateCreated datePublished" datetime="2024-03-16T08:40:44+08:00">2024-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/7e90ebcb.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/7e90ebcb.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>和余师傅的小队一块儿参加了这场比赛拿到第五，其中四道密码做出三道，在这里简单记录一下crypto的题解。</p>
+<p>这是做过的最折磨的crypto没有之一，因为难度主要在把代码看懂，但是代码最简单的一道题目又不会OwO。</p>
+<span id="more"></span>
+<h3 id="double-trouble"><a href="#double-trouble" class="headerlink" title="double-trouble"></a>double-trouble</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">What can be better than a Crypto challenge? (kinda anything lol)</span><br><span class="line"></span><br><span class="line">A Crypto challenge written in Rust! its double the fun ;)</span><br><span class="line"></span><br><span class="line">Authors: @layton, @anajana, @moaath</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::io::Write;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> aes_gcm::&#123;</span><br><span class="line">    aead::&#123;Aead, AeadCore, KeyInit, OsRng&#125;,</span><br><span class="line">    Aes256Gcm,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> FLAG: &amp;<span class="type">str</span> = <span class="string">&quot;ENO&#123;repl4c3_m3&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">encrypt</span>(message: &amp;[<span class="type">u8</span>], key: &amp;[<span class="type">u8</span>]) <span class="punctuation">-&gt;</span> <span class="type">Vec</span>&lt;<span class="type">u8</span>&gt; &#123;</span><br><span class="line">    message</span><br><span class="line">        .<span class="title function_ invoke__">iter</span>()</span><br><span class="line">        .<span class="title function_ invoke__">enumerate</span>()</span><br><span class="line">        .<span class="title function_ invoke__">map</span>(|(i, m)| m ^ key[i % <span class="number">32</span>])</span><br><span class="line">        .<span class="title function_ invoke__">collect</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">key</span> = Aes256Gcm::<span class="title function_ invoke__">generate_key</span>(OsRng);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">cipher</span> = Aes256Gcm::<span class="title function_ invoke__">new</span>(&amp;key);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">nonce</span> = Aes256Gcm::<span class="title function_ invoke__">generate_nonce</span>(&amp;<span class="keyword">mut</span> OsRng);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">encrypted</span> = cipher.<span class="title function_ invoke__">encrypt</span>(&amp;nonce, FLAG.<span class="title function_ invoke__">as_ref</span>()).<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//println!(&quot;Key: 0x&#123;&#125;&quot;, hex::encode(&amp;key));</span></span><br><span class="line">    <span class="built_in">println!</span>(</span><br><span class="line">        <span class="string">&quot;Ciphertext: 0x&#123;&#125;&#123;&#125;&quot;</span>,</span><br><span class="line">        hex::<span class="title function_ invoke__">encode</span>(&amp;nonce),</span><br><span class="line">        hex::<span class="title function_ invoke__">encode</span>(&amp;encrypted)</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">message</span> = <span class="type">String</span>::<span class="title function_ invoke__">new</span>();</span><br><span class="line">    <span class="built_in">print!</span>(<span class="string">&quot;Let me encrypt one more thing for you: &quot;</span>);</span><br><span class="line">    std::io::<span class="title function_ invoke__">stdout</span>().<span class="title function_ invoke__">flush</span>().<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">    std::io::<span class="title function_ invoke__">stdin</span>().<span class="title function_ invoke__">read_line</span>(&amp;<span class="keyword">mut</span> message).<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> message.<span class="title function_ invoke__">len</span>() &gt; <span class="number">29</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;Woah! That&#x27;s too long for me :^)&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;0x&#123;&#125;&quot;</span>, hex::<span class="title function_ invoke__">encode</span>(<span class="title function_ invoke__">encrypt</span>(message.<span class="title function_ invoke__">as_ref</span>(), key.<span class="title function_ invoke__">as_ref</span>())));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这个题目主要在于他是用rust写的，其实整理出来就是：</p>
+<ul>
+<li>随机生成AES256-GCM加密所需的key(32字节)和nonce(12字节)，并对flag进行加密</li>
+<li>给出nonce和flag加密得到的值encrypted</li>
+<li>在这之后，可以再输入一段长度不大于29的message，靶机会将他与key逐字节异或后返回(注意这里只会异或到两者中较短的长度，也就是message的长度)</li>
+</ul>
+<p>由于有nonce，所以只要能求出key就可以AES解密出flag。然后又因为我们能发送给靶机29个字节，因此可以异或回去得到key的前29字节，那么爆破最后3字节并尝试解密就能得到flag了。</p>
+<p>需要注意的是靶机接受消息会自动在末尾加”\n”，所以其实只能发长为28的消息。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"></span><br><span class="line"><span class="comment">#context.log_level = &#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line">sh = remote(<span class="string">&quot;52.59.124.14&quot;</span>,<span class="number">5024</span>)</span><br><span class="line">sh.recvuntil(<span class="string">b&quot;Ciphertext: &quot;</span>)</span><br><span class="line">cipher = long_to_bytes(<span class="built_in">int</span>(sh.recvline().strip().decode(),<span class="number">16</span>))</span><br><span class="line">nonce1 = cipher[:<span class="number">12</span>]</span><br><span class="line">enc_flag = cipher[<span class="number">12</span>:]</span><br><span class="line"></span><br><span class="line">msg = <span class="string">b&quot;\x00&quot;</span>*<span class="number">28</span> + <span class="string">b&quot;\n&quot;</span></span><br><span class="line">sh.sendline(msg)</span><br><span class="line">sh.recvuntil(<span class="string">b&quot;Let me encrypt one more thing for you: &quot;</span>)</span><br><span class="line">enc2 = long_to_bytes(<span class="built_in">int</span>(sh.recvline().strip().decode(),<span class="number">16</span>))</span><br><span class="line">key_pre = xor(enc2,msg)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(key_pre))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(enc_flag))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">256</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">            key = key_pre + long_to_bytes(i)+long_to_bytes(j)+long_to_bytes(k)</span><br><span class="line">            dec = AES.new(key, AES.MODE_GCM, nonce=nonce1)</span><br><span class="line"></span><br><span class="line">            temp = dec.decrypt(enc_flag)</span><br><span class="line">            <span class="keyword">if</span>(<span class="string">b&quot;ENO&#123;&quot;</span> <span class="keyword">in</span> temp):</span><br><span class="line">                <span class="built_in">print</span>(temp)</span><br><span class="line">                exit()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#ENO&#123;otp_reuse_rethink_rewind&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="Inkblot"><a href="#Inkblot" class="headerlink" title="Inkblot"></a>Inkblot</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">My friend is really careless. He printed out his ECDSA key. But unfortunately, he spilled some inkblots on it, so some characters are unreadable.</span><br><span class="line"></span><br><span class="line">ssh cryptodude@52.59.124.14 -p 5025</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN OPENSSH PRIVATE KEY-----</span><br><span class="line">b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAaAAAABNlY2RzYS</span><br><span class="line">1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQSw+Fs***rO9Hbzkm****Mty8NFeb6Y</span><br><span class="line">ZloHs2KWjK****iQ78pJR+6T**SRi***BU7c0Oilk61i/***04RGPrMPAAAAqBAHrdwQB6</span><br><span class="line">3cAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLD4WzJfys**dvOS</span><br><span class="line">ZwUo4y3**0V5vp****ezYpaMrvZYmJD**klH7pOztJGJ7+oFTtz****TrWL/vcTThE**sw</span><br><span class="line">8AAAAgaJN/R323SVkRTqxz******8ClkzgxdWidxNTrTdwYIcAAAAOa*********B****y</span><br><span class="line">**IBAg==</span><br><span class="line">-----END OPENSSH PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+<p>这个题比较新鲜，是一个ECDSA的私钥恢复，要恢复肯定要先找到他的格式，google了一番找到了一片参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://coolaj86.com/articles/the-openssh-private-key-format/">The OpenSSH Private Key Format (coolaj86.com)</a></p>
+<p>巧合的是，文章里给出的参考私钥文件和这个题目里污损的私钥文件长度恰好相同，这提供了很多遍历。比如可以先把参考私钥文件拿去解密看看存了些什么：</p>
+<p><img src="/post/7e90ebcb/image-20240316162127128.png" alt="image-20240316162127128"></p>
+<p>对照着文档去一个一个看，可以发现私钥文件里存放的主要是曲线类型、q值以及私钥d，其中q其实就存放着倍点dG=(x,y)。而查标准的secp256r1参数可以知道其实生成元G也是固定的：</p>
+<p><a target="_blank" rel="noopener" href="https://neuromancer.sk/std/nist/P-256">P-256 | Standard curve database (neuromancer.sk)</a></p>
+<p>而题目给了ssh，所以恢复完整私钥文件就能连接上，应该就有flag。那么对照文档一步步恢复，会发现q、d以及最后的comment都是有污损的，恢复方式也不一样，分别列举如下：</p>
+<ul>
+<li>q虽然有污损，但是私钥文件里存了两份(这是因为私钥文件里会先存公钥的内容)，因此把两者结合起来就能得到没有污损的q，有了q就相当于有了倍点dG的坐标</li>
+<li>d污损了36位，用dG = d*G这一关系bsgs去爆破得到</li>
+<li>comment是什么内容都无所谓，所以随便填</li>
+</ul>
+<p>不过虽然说得似乎很容易，但是恢复过程还是比较折磨，这里分开列举一下。</p>
+<p>恢复q：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">c1 = <span class="string">&quot;QQSw+Fs***rO9Hbzkm****Mty8NFeb6YZloHs2KWjK****iQ78pJR+6T**SRi***BU7c0Oilk61i/***04RGPrMP&quot;</span></span><br><span class="line">c2 = <span class="string">&quot;BLD4WzJfys**dvOSZwUo4y3**0V5vp****ezYpaMrvZYmJD**klH7pOztJGJ7+oFTtz****TrWL/vcTThE**sw8&quot;</span></span><br><span class="line"></span><br><span class="line">table = string.ascii_uppercase + string.ascii_lowercase + string.digits + <span class="string">&quot;+/&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f1 = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> c1:</span><br><span class="line">    <span class="keyword">if</span>(i == <span class="string">&quot;*&quot;</span>):</span><br><span class="line">        f1 += <span class="string">&quot;******&quot;</span></span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    f1 += <span class="built_in">bin</span>(table.index(i))[<span class="number">2</span>:].zfill(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">f2 = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> c2:</span><br><span class="line">    <span class="keyword">if</span>(i == <span class="string">&quot;*&quot;</span>):</span><br><span class="line">        f2 += <span class="string">&quot;******&quot;</span></span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    f2 += <span class="built_in">bin</span>(table.index(i))[<span class="number">2</span>:].zfill(<span class="number">6</span>)</span><br><span class="line">    </span><br><span class="line"><span class="built_in">print</span>(f1[<span class="number">8</span>:])</span><br><span class="line"><span class="built_in">print</span>(f2)</span><br><span class="line"></span><br><span class="line">final = <span class="string">&quot;0000010010110000111110000101101100110010010111111100101011001110111101000111011011110011100100100110011100000101001010001110001100101101110010111100001101000101011110011011111010011000011001100101101000000111101100110110001010010110100011001010111011110110010110001001100010010000111011111100101001001001010001111110111010010011101100111011010010010001100010011110111111101010000001010100111011011100110100001110100010100101100100111010110101100010111111111011110111000100110100111000010001000110001111101011001100001111&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(final,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<p>恢复d：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = <span class="number">0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff</span></span><br><span class="line">K = GF(p)</span><br><span class="line">a = K(<span class="number">0xffffffff00000001000000000000000000000000fffffffffffffffffffffffc</span>)</span><br><span class="line">b = K(<span class="number">0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b</span>)</span><br><span class="line">E = EllipticCurve(K, (a, b))</span><br><span class="line">G = E(<span class="number">0x6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296</span>, <span class="number">0x4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5</span>)</span><br><span class="line">E.set_order(<span class="number">0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551</span> * <span class="number">0x1</span>)</span><br><span class="line"></span><br><span class="line">t = <span class="string">&quot;b0f85b325fcacef476f392670528e32dcbc34579be98665a07b362968caef6589890efca4947ee93b3b49189efea054edcd0e8a593ad62ffbdc4d384463eb30f&quot;</span></span><br><span class="line"></span><br><span class="line">x = <span class="built_in">int</span>(t[:<span class="number">64</span>],<span class="number">16</span>)</span><br><span class="line">y = <span class="built_in">int</span>(t[<span class="number">64</span>:],<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">Q = E(x,y)</span><br><span class="line"></span><br><span class="line">d1 = <span class="string">&quot;11010001001001101111111010001110111110110110111010010010101100100010001010011101010110001110011&quot;</span></span><br><span class="line">d2 = <span class="string">&quot;1111000000101001011001001100111000001100010111010101101000100111011100010011010100111010110100110111011100000110000010000111&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#bsgs</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">2</span>^<span class="number">18</span>):</span><br><span class="line">        d = <span class="built_in">int</span>((d1 + <span class="built_in">bin</span>(i)[<span class="number">2</span>:].zfill(<span class="number">18</span>)) , <span class="number">2</span>) * <span class="number">2</span>^(<span class="number">18</span> + <span class="built_in">len</span>(d2))</span><br><span class="line">        dic[(Q-d*G)[<span class="number">0</span>]] = i</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> trange(<span class="number">2</span>^<span class="number">18</span>):</span><br><span class="line">        d = <span class="built_in">int</span>((<span class="built_in">bin</span>(j)[<span class="number">2</span>:].zfill(<span class="number">18</span>)) + d2 , <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">if</span>((d*G)[<span class="number">0</span>] <span class="keyword">in</span> dic.keys()):</span><br><span class="line">            <span class="built_in">print</span>(dic[(d*G)[<span class="number">0</span>]] , j)</span><br><span class="line"></span><br><span class="line"><span class="comment">#27720 259974</span></span><br><span class="line">d = <span class="built_in">int</span>((d1 + <span class="built_in">bin</span>(<span class="number">27720</span>)[<span class="number">2</span>:].zfill(<span class="number">18</span>)) , <span class="number">2</span>) * <span class="number">2</span>^(<span class="number">18</span> + <span class="built_in">len</span>(d2)) + <span class="built_in">int</span>((<span class="built_in">bin</span>(<span class="number">259974</span>)[<span class="number">2</span>:].zfill(<span class="number">18</span>)) + d2 , <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(d)</span><br></pre></td></tr></table></figure>
+<p>恢复完整私钥pem文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = <span class="number">62899910107538091753472605731958716431532429784101879766564879776512571948297970028879774548189532173352114204695025969537124428037066379787090737034605327</span></span><br><span class="line">d = <span class="number">47301141220363818814201640121058873711332982879724793113526901098081948819591</span></span><br><span class="line"></span><br><span class="line">msg = <span class="string">b&quot;openssh-key-v1&quot;</span> + <span class="string">b&quot;\x00&quot;</span></span><br><span class="line">msg += <span class="string">b&quot;\x00\x00\x00\x04none&quot;</span> * <span class="number">2</span></span><br><span class="line">msg += <span class="string">b&quot;\x00\x00\x00\x00\x00\x00\x00\x01&quot;</span></span><br><span class="line">msg += <span class="string">b&#x27;\x00\x00\x00h\x00\x00\x00\x13ecdsa-sha2-nistp256\x00\x00\x00\x08nistp256\x00\x00\x00A&#x27;</span></span><br><span class="line">msg += long_to_bytes(p)</span><br><span class="line">msg += <span class="string">b&#x27;\x00\x00\x00\xa8&#x27;</span></span><br><span class="line">msg += <span class="string">b&#x27;\x10\x07\xad\xdc\x10\x07\xad\xdc&#x27;</span></span><br><span class="line">msg += <span class="string">b&#x27;\x00\x00\x00\x13ecdsa-sha2-nistp256\x00\x00\x00\x08nistp256&#x27;</span></span><br><span class="line"></span><br><span class="line">msg += <span class="string">b&#x27;\x00\x00\x00A&#x27;</span></span><br><span class="line">msg += long_to_bytes(p)</span><br><span class="line">msg += <span class="string">b&#x27;\x00\x00\x00 &#x27;</span></span><br><span class="line">msg += long_to_bytes(d)</span><br><span class="line">msg += <span class="string">b&#x27;\x00\x00\x00\x0e&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msg += <span class="string">b&quot;jjj123cat flag&quot;</span></span><br><span class="line">msg += <span class="string">b&quot;\x01\x02&quot;</span></span><br><span class="line"><span class="built_in">print</span>(b64encode(msg))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">-----BEGIN OPENSSH PRIVATE KEY-----</span></span><br><span class="line"><span class="string">b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAaAAAABNlY2RzYS</span></span><br><span class="line"><span class="string">1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQSw+FsyX8rO9HbzkmcFKOMty8NFeb6Y</span></span><br><span class="line"><span class="string">ZloHs2KWjK72WJiQ78pJR+6Ts7SRie/qBU7c0Oilk61i/73E04RGPrMPAAAAqBAHrdwQB6</span></span><br><span class="line"><span class="string">3cAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLD4WzJfys70dvOS</span></span><br><span class="line"><span class="string">ZwUo4y3Lw0V5vphmWgezYpaMrvZYmJDvyklH7pOztJGJ7+oFTtzQ6KWTrWL/vcTThEY+sw</span></span><br><span class="line"><span class="string">8AAAAgaJN/R323SVkRTqxzGxI/eG8ClkzgxdWidxNTrTdwYIcAAAAOampqMTIzY2B0IGZy</span></span><br><span class="line"><span class="string">YWIBAg==</span></span><br><span class="line"><span class="string">-----END OPENSSH PRIVATE KEY-----</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>然后连接上去就拿到flag：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENO&#123;s0m3_g4p5_c4n_b3_fi11ed&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="pwdHDL"><a href="#pwdHDL" class="headerlink" title="pwdHDL"></a>pwdHDL</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Introducing pwdHDL, our fancy new hardware RNG! Simply return your password to us when you&#x27;re done.</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<p>pwdhdl.vhd：</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span> ieee;</span><br><span class="line"><span class="keyword">use</span> ieee.std_logic_1164.<span class="keyword">all</span>;</span><br><span class="line"><span class="keyword">use</span> ieee.numeric_std.<span class="keyword">all</span>;</span><br><span class="line"><span class="keyword">use</span> std.textio.<span class="keyword">all</span>;</span><br><span class="line"><span class="keyword">use</span> work.rng.<span class="keyword">all</span>;</span><br><span class="line"><span class="keyword">use</span> work.stdio.<span class="keyword">all</span>;</span><br><span class="line"><span class="keyword">use</span> work.secret.FLAG;</span><br><span class="line"></span><br><span class="line"><span class="keyword">entity</span> pwdhdl <span class="keyword">is</span></span><br><span class="line"><span class="keyword">end</span> pwdhdl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">architecture</span> Behavioral <span class="keyword">of</span> pwdhdl <span class="keyword">is</span></span><br><span class="line">	<span class="keyword">constant</span> PASSWORD_SIZE : <span class="built_in">integer</span> := <span class="number">32</span>;</span><br><span class="line">	<span class="keyword">constant</span> SEED_SIZE     : <span class="built_in">integer</span> :=  <span class="number">8</span>;</span><br><span class="line">	<span class="keyword">constant</span> SECRET_SIZE   : <span class="built_in">INTEGER</span> := <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">constant</span> DB_SIZE       : <span class="built_in">INTEGER</span> := <span class="number">10</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">type</span> FSM_STATE <span class="keyword">is</span> (INITIALIZE, STORE_FLAG, STORE_FLAG_WAIT, MENU, STORE, STORE_WAIT, GET, FULL);</span><br><span class="line">	<span class="keyword">type</span> DB_ENTRY <span class="keyword">is</span> <span class="keyword">record</span></span><br><span class="line">		secret   : <span class="built_in">STRING</span>(<span class="number">1</span> <span class="keyword">to</span> SECRET_SIZE);</span><br><span class="line">		password : <span class="built_in">STRING</span>(<span class="number">1</span> <span class="keyword">to</span> PASSWORD_SIZE);</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">record</span>;</span><br><span class="line">	<span class="keyword">type</span> DB <span class="keyword">is</span> <span class="keyword">array</span>(<span class="number">0</span> <span class="keyword">to</span> DB_SIZE-<span class="number">1</span>) <span class="keyword">of</span> DB_ENTRY;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">signal</span> CLK      : <span class="built_in">STD_LOGIC</span> := <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">	<span class="keyword">signal</span> data : <span class="built_in">STD_LOGIC_VECTOR</span>(PASSWORD_SIZE*<span class="number">4</span>-<span class="number">1</span> <span class="keyword">downto</span> <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">signal</span> seed       : <span class="built_in">STD_LOGIC_VECTOR</span>(<span class="number">0</span> <span class="keyword">to</span> SEED_SIZE*<span class="number">8</span>-<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">signal</span> taps       : <span class="built_in">STD_LOGIC_VECTOR</span>(<span class="number">0</span> <span class="keyword">to</span> SEED_SIZE*<span class="number">8</span>-<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">signal</span> reset, enable, done : <span class="built_in">STD_LOGIC</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">signal</span> database : DB := (<span class="keyword">others</span> =&gt; ((<span class="keyword">others</span> =&gt; <span class="string">&#x27;0&#x27;</span>), (<span class="keyword">others</span> =&gt; <span class="string">&#x27;0&#x27;</span>)));</span><br><span class="line"></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	</span><br><span class="line">	password_generator: pwd_gen</span><br><span class="line">		<span class="keyword">generic</span> <span class="keyword">map</span>(</span><br><span class="line">			STATE_SIZE  =&gt; SEED_SIZE*<span class="number">8</span>,</span><br><span class="line">			OUTPUT_SIZE =&gt; PASSWORD_SIZE*<span class="number">4</span></span><br><span class="line">		)</span><br><span class="line">		<span class="keyword">port</span> <span class="keyword">map</span>(</span><br><span class="line">			CLK    =&gt; CLK,</span><br><span class="line">			RESET  =&gt; reset,</span><br><span class="line">			ENABLE =&gt; enable,</span><br><span class="line">			SEED   =&gt; seed,</span><br><span class="line">			TAPPED =&gt; taps,</span><br><span class="line">			VALID  =&gt; done,</span><br><span class="line">			DATA   =&gt; data</span><br><span class="line">		);</span><br><span class="line">	</span><br><span class="line">	clock: <span class="keyword">process</span></span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">		CLK &lt;= <span class="keyword">not</span> CLK;</span><br><span class="line">		<span class="keyword">wait</span> <span class="keyword">for</span> <span class="number">10</span> ns;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">process</span>;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	interface: <span class="keyword">process</span>(CLK)</span><br><span class="line">		<span class="keyword">variable</span> state : FSM_STATE := INITIALIZE;</span><br><span class="line">		<span class="keyword">variable</span> db_index : <span class="built_in">NATURAL</span> := <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">variable</span> selection : <span class="built_in">STRING</span>(<span class="number">1</span> <span class="keyword">to</span> <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">variable</span> secret : <span class="built_in">STRING</span>(<span class="number">1</span> <span class="keyword">to</span> SECRET_SIZE);</span><br><span class="line">		<span class="keyword">variable</span> password : <span class="built_in">STRING</span>(<span class="number">1</span> <span class="keyword">to</span> PASSWORD_SIZE);</span><br><span class="line">		<span class="keyword">variable</span> query_successful : <span class="built_in">BOOLEAN</span> := <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> rising_edge(CLK) <span class="keyword">then</span></span><br><span class="line">			state := state;</span><br><span class="line">			reset &lt;= <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">			enable &lt;= <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">case</span> state <span class="keyword">is</span></span><br><span class="line">				<span class="keyword">when</span> INITIALIZE =&gt;</span><br><span class="line">					enable &lt;= <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">					reset &lt;= <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">					seed &lt;= read_urandom(SEED_SIZE);</span><br><span class="line">					taps &lt;= read_urandom(SEED_SIZE);</span><br><span class="line">					taps(SEED_SIZE*<span class="number">8</span>-<span class="number">1</span>) &lt;= <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">					state := STORE_FLAG;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">when</span> STORE_FLAG =&gt;</span><br><span class="line">					secret := FLAG;</span><br><span class="line">					enable &lt;= <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">					state := STORE_FLAG_WAIT;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">when</span> STORE_FLAG_WAIT =&gt;</span><br><span class="line">					<span class="keyword">if</span> done = <span class="string">&#x27;1&#x27;</span> <span class="keyword">then</span></span><br><span class="line">						password := to_hstring(<span class="built_in">unsigned</span>(data));</span><br><span class="line">						database(<span class="number">0</span>) &lt;= (secret, password);</span><br><span class="line">						state := MENU;</span><br><span class="line">						write_stdout(<span class="string">&quot;+--------------------------------------------+&quot;</span>);</span><br><span class="line">						write_stdout(<span class="string">&quot;| Welcome to pwdHDL, the password pawn shop. |&quot;</span>);</span><br><span class="line">						write_stdout(<span class="string">&quot;+--------------------------------------------+&quot;</span>);</span><br><span class="line">						write_stdout(<span class="string">&quot;&quot;</span>);</span><br><span class="line">					<span class="keyword">else</span></span><br><span class="line">						state := STORE_FLAG_WAIT;</span><br><span class="line">					<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">when</span> MENU =&gt;</span><br><span class="line">					write_stdout(<span class="string">&quot;Please select one of the following options:&quot;</span>);</span><br><span class="line">					write_stdout(<span class="string">&quot;1) Offer a secret&quot;</span>);</span><br><span class="line">					write_stdout(<span class="string">&quot;2) Retrieve a secret&quot;</span>);</span><br><span class="line">					selection := read_stdin(<span class="number">1</span>);</span><br><span class="line">					write_stdout(<span class="string">&quot;&quot;</span>);</span><br><span class="line">					</span><br><span class="line">					<span class="keyword">case</span> (selection) <span class="keyword">is</span></span><br><span class="line">						<span class="keyword">when</span> <span class="string">&quot;1&quot;</span>    =&gt; state := STORE;</span><br><span class="line">						<span class="keyword">when</span> <span class="string">&quot;2&quot;</span>    =&gt; state := GET;</span><br><span class="line">						<span class="keyword">when</span> <span class="keyword">others</span> =&gt; state := MENU;</span><br><span class="line">					<span class="keyword">end</span> <span class="keyword">case</span>;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">when</span> STORE =&gt;</span><br><span class="line">					write_stdout(<span class="string">&quot;We will lend you a password in exchange for a collateral.&quot;</span>);</span><br><span class="line">					write_stdout(<span class="string">&quot;Please tell us a secret (at most &quot;</span> &amp; <span class="built_in">integer</span><span class="symbol">&#x27;image</span>(SECRET_SIZE) &amp; <span class="string">&quot; characters):&quot;</span>);</span><br><span class="line">					secret := read_stdin(SECRET_SIZE);</span><br><span class="line">					write_stdout(<span class="string">&quot;&quot;</span>);</span><br><span class="line">					enable &lt;= <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">					state := STORE_WAIT;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">when</span> STORE_WAIT =&gt;</span><br><span class="line">					<span class="keyword">if</span> done = <span class="string">&#x27;1&#x27;</span> <span class="keyword">then</span></span><br><span class="line">						password := to_hstring(<span class="built_in">unsigned</span>(data));</span><br><span class="line">						write_stdout(<span class="string">&quot;Your password is: &quot;</span> &amp; password);</span><br><span class="line">						write_stdout(<span class="string">&quot;&quot;</span>);</span><br><span class="line">						database(db_index) &lt;= (secret, password);</span><br><span class="line">						db_index := db_index + <span class="number">1</span>;</span><br><span class="line">						state := FULL <span class="keyword">when</span> db_index &gt;= DB_SIZE <span class="keyword">else</span> MENU;</span><br><span class="line">					<span class="keyword">else</span></span><br><span class="line">						state := STORE_WAIT;</span><br><span class="line">					<span class="keyword">end</span> <span class="keyword">if</span>;										</span><br><span class="line"></span><br><span class="line">				<span class="keyword">when</span> GET =&gt;</span><br><span class="line">					write_stdout(<span class="string">&quot;Please return your password to retrieve your secret:&quot;</span>);</span><br><span class="line">					password := read_stdin(PASSWORD_SIZE);</span><br><span class="line">					write_stdout(<span class="string">&quot;&quot;</span>);</span><br><span class="line">					query_successful := <span class="literal">false</span>;</span><br><span class="line">					<span class="keyword">for</span> I <span class="keyword">in</span> <span class="number">0</span> <span class="keyword">to</span> DB_SIZE-<span class="number">1</span> <span class="keyword">loop</span></span><br><span class="line">						<span class="keyword">if</span> database(I).password = password <span class="keyword">and</span> <span class="keyword">not</span> query_successful <span class="keyword">then</span></span><br><span class="line">							<span class="keyword">if</span> password /= <span class="string">&quot;00000000000000000000000000000000&quot;</span> <span class="keyword">then</span></span><br><span class="line">								write_stdout(<span class="string">&quot;Thank you for returning our valuable entropy to us.&quot;</span>);</span><br><span class="line">								write_stdout(<span class="string">&quot;Your secret is: &quot;</span> &amp; database(I).secret);</span><br><span class="line">							<span class="keyword">else</span></span><br><span class="line">								write_stdout(<span class="string">&quot;Nothing? Really?&quot;</span>);</span><br><span class="line">							<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">							query_successful := <span class="literal">true</span>;</span><br><span class="line">						<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">					<span class="keyword">end</span> <span class="keyword">loop</span>;</span><br><span class="line">					<span class="keyword">if</span> <span class="keyword">not</span> query_successful <span class="keyword">then</span></span><br><span class="line">						write_stdout(<span class="string">&quot;What is this? This is not one of our passwords.&quot;</span>);</span><br><span class="line">					<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">					write_stdout(<span class="string">&quot;&quot;</span>);</span><br><span class="line">					state := FULL <span class="keyword">when</span> db_index &gt;= DB_SIZE <span class="keyword">else</span> MENU;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">when</span> FULL =&gt;</span><br><span class="line">					write_stdout(<span class="string">&quot;We will not accept any additional secrets at this time.&quot;</span>);					</span><br><span class="line">					write_stdout(<span class="string">&quot;&quot;</span>);</span><br><span class="line">					state := GET;</span><br><span class="line">			<span class="keyword">end</span> <span class="keyword">case</span>;</span><br><span class="line">		<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">process</span>;</span><br><span class="line"><span class="keyword">end</span> Behavioral;</span><br></pre></td></tr></table></figure>
+<p>rng.vhd：</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span> ieee;</span><br><span class="line"><span class="keyword">use</span> ieee.std_logic_1164.<span class="keyword">all</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> rng <span class="keyword">is</span></span><br><span class="line">	<span class="keyword">component</span> pwd_gen <span class="keyword">is</span></span><br><span class="line">		<span class="keyword">generic</span>(</span><br><span class="line">			STATE_SIZE  : <span class="built_in">POSITIVE</span> := <span class="number">64</span>;</span><br><span class="line">			OUTPUT_SIZE : <span class="built_in">POSITIVE</span> := <span class="number">128</span></span><br><span class="line">		);</span><br><span class="line">		<span class="keyword">port</span>(</span><br><span class="line">			CLK    :  <span class="keyword">in</span> <span class="built_in">STD_LOGIC</span>;</span><br><span class="line">			RESET  :  <span class="keyword">in</span> <span class="built_in">STD_LOGIC</span>;</span><br><span class="line">			ENABLE :  <span class="keyword">in</span> <span class="built_in">STD_LOGIC</span>;</span><br><span class="line">			SEED   :  <span class="keyword">in</span> <span class="built_in">STD_LOGIC_VECTOR</span>(<span class="number">0</span> <span class="keyword">to</span> STATE_SIZE-<span class="number">1</span>);</span><br><span class="line">			TAPPED :  <span class="keyword">in</span> <span class="built_in">STD_LOGIC_VECTOR</span>(<span class="number">0</span> <span class="keyword">to</span> STATE_SIZE-<span class="number">1</span>);</span><br><span class="line">			VALID  : <span class="keyword">out</span> <span class="built_in">STD_LOGIC</span>;</span><br><span class="line">			DATA   : <span class="keyword">out</span> <span class="built_in">STD_LOGIC_VECTOR</span>(OUTPUT_SIZE-<span class="number">1</span> <span class="keyword">downto</span> <span class="number">0</span>) := (<span class="keyword">others</span> =&gt; <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">		);</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">component</span>;</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">package</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">library</span> ieee;</span><br><span class="line"><span class="keyword">use</span> ieee.std_logic_1164.<span class="keyword">all</span>;</span><br><span class="line"><span class="keyword">use</span> ieee.numeric_std.<span class="keyword">all</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">entity</span> pwd_gen <span class="keyword">is</span></span><br><span class="line">	<span class="keyword">generic</span>(</span><br><span class="line">		STATE_SIZE   : <span class="built_in">POSITIVE</span> := <span class="number">64</span>;</span><br><span class="line">		OUTPUT_SIZE : <span class="built_in">POSITIVE</span> := <span class="number">128</span></span><br><span class="line">	);</span><br><span class="line">	<span class="keyword">port</span>(</span><br><span class="line">		CLK    :  <span class="keyword">in</span> <span class="built_in">STD_LOGIC</span>;</span><br><span class="line">		RESET  :  <span class="keyword">in</span> <span class="built_in">STD_LOGIC</span>;</span><br><span class="line">		ENABLE :  <span class="keyword">in</span> <span class="built_in">STD_LOGIC</span>;</span><br><span class="line">		SEED   :  <span class="keyword">in</span> <span class="built_in">STD_LOGIC_VECTOR</span>(<span class="number">0</span> <span class="keyword">to</span> STATE_SIZE-<span class="number">1</span>);</span><br><span class="line">		TAPPED :  <span class="keyword">in</span> <span class="built_in">STD_LOGIC_VECTOR</span>(<span class="number">0</span> <span class="keyword">to</span> STATE_SIZE-<span class="number">1</span>);</span><br><span class="line">		VALID  : <span class="keyword">out</span> <span class="built_in">STD_LOGIC</span>;</span><br><span class="line">		DATA   : <span class="keyword">out</span> <span class="built_in">STD_LOGIC_VECTOR</span>(OUTPUT_SIZE-<span class="number">1</span> <span class="keyword">downto</span> <span class="number">0</span>) := (<span class="keyword">others</span> =&gt; <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">	);</span><br><span class="line"><span class="keyword">end</span> pwd_gen;</span><br><span class="line"></span><br><span class="line"><span class="keyword">architecture</span> Behavioral <span class="keyword">of</span> pwd_gen <span class="keyword">is</span></span><br><span class="line">	<span class="keyword">signal</span> running : <span class="built_in">BOOLEAN</span> := <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">signal</span> taps    : <span class="built_in">STD_LOGIC_VECTOR</span>(<span class="number">0</span> <span class="keyword">to</span> STATE_SIZE-<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">signal</span> state   : <span class="built_in">STD_LOGIC_VECTOR</span>(<span class="number">0</span> <span class="keyword">to</span> STATE_SIZE-<span class="number">1</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">signal</span> outbit : <span class="built_in">STD_LOGIC</span>;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	outbit &lt;= state(STATE_SIZE-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">process</span>(CLK) <span class="keyword">is</span></span><br><span class="line">		<span class="keyword">variable</span> counter : <span class="built_in">INTEGER</span>;</span><br><span class="line">		<span class="keyword">variable</span> xbit    : <span class="built_in">STD_LOGIC</span>;</span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> RESET = <span class="string">&#x27;1&#x27;</span> <span class="keyword">then</span></span><br><span class="line">			state &lt;= SEED;</span><br><span class="line">			taps &lt;= TAPPED;</span><br><span class="line">			running &lt;= <span class="literal">false</span>;</span><br><span class="line">			counter := <span class="number">0</span>;</span><br><span class="line">			VALID &lt;= <span class="string">&#x27;0&#x27;</span>;					</span><br><span class="line">		<span class="keyword">elsif</span> rising_edge(CLK) <span class="keyword">then</span></span><br><span class="line">			VALID &lt;= <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">			<span class="keyword">if</span> ENABLE = <span class="string">&#x27;1&#x27;</span> <span class="keyword">then</span></span><br><span class="line">				running &lt;= <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> running <span class="keyword">then</span>				</span><br><span class="line">				state &lt;= (<span class="keyword">xor</span> (state <span class="keyword">and</span> taps)) &amp; state(<span class="number">0</span> <span class="keyword">to</span> STATE_SIZE-<span class="number">2</span>);</span><br><span class="line">				DATA &lt;= DATA(OUTPUT_SIZE-<span class="number">2</span> <span class="keyword">downto</span> <span class="number">0</span>) &amp; outbit;</span><br><span class="line">				counter := counter + <span class="number">1</span>;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span> counter &gt;= OUTPUT_SIZE <span class="keyword">then</span></span><br><span class="line">					VALID &lt;= <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">					running &lt;= <span class="literal">false</span>;</span><br><span class="line">					counter := <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">end</span> <span class="keyword">if</span>;				</span><br><span class="line">			<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">		<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">process</span>;</span><br><span class="line"><span class="keyword">end</span> Behavioral;</span><br></pre></td></tr></table></figure>
+<p>stdio.vhd：</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span> ieee;</span><br><span class="line"><span class="keyword">use</span> ieee.std_logic_1164.<span class="keyword">all</span>;</span><br><span class="line"><span class="keyword">use</span> ieee.numeric_std.<span class="keyword">all</span>;</span><br><span class="line"><span class="keyword">use</span> std.textio.<span class="keyword">all</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> stdio <span class="keyword">is</span></span><br><span class="line">	<span class="keyword">procedure</span> write_stdout(str: <span class="keyword">in</span> <span class="built_in">STRING</span>);	</span><br><span class="line">	<span class="keyword">impure</span> <span class="keyword">function</span> read_stdin(n: <span class="keyword">in</span> <span class="built_in">POSITIVE</span>) <span class="keyword">return</span> <span class="built_in">STRING</span>;</span><br><span class="line">	<span class="keyword">impure</span> <span class="keyword">function</span> read_urandom(n: <span class="keyword">in</span> <span class="built_in">POSITIVE</span>) <span class="keyword">return</span> <span class="built_in">STD_LOGIC_VECTOR</span>;</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">package</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> <span class="keyword">body</span> stdio <span class="keyword">is</span></span><br><span class="line">	<span class="keyword">procedure</span> write_stdout(str: <span class="keyword">in</span> <span class="built_in">STRING</span>) <span class="keyword">is</span></span><br><span class="line">		<span class="keyword">variable</span> buf : <span class="literal">LINE</span>;</span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">		write(buf, str);</span><br><span class="line">		writeline(output, buf);</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">procedure</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">impure</span> <span class="keyword">function</span> read_stdin(n: <span class="keyword">in</span> <span class="built_in">POSITIVE</span>) <span class="keyword">return</span> <span class="built_in">STRING</span> <span class="keyword">is</span></span><br><span class="line">		<span class="keyword">variable</span> inbuf : <span class="literal">LINE</span>;</span><br><span class="line">		<span class="keyword">variable</span> outbuf : <span class="built_in">STRING</span>(<span class="number">1</span> <span class="keyword">to</span> n) := (<span class="keyword">others</span> =&gt; <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">		write(output, <span class="string">&quot;&gt; &quot;</span>);</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> endfile(input) <span class="keyword">then</span></span><br><span class="line">			readline(input, inbuf);</span><br><span class="line">			<span class="keyword">if</span> inbuf<span class="symbol">&#x27;length</span> &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">				read(inbuf, outbuf(<span class="number">1</span> <span class="keyword">to</span> minimum(inbuf<span class="symbol">&#x27;length</span>, n)));</span><br><span class="line">			<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			write_stdout(<span class="string">&quot;Failed to read from stdin.&quot;</span>);</span><br><span class="line">			std.env.stop;</span><br><span class="line">		<span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">		<span class="keyword">return</span> outbuf;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">function</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">impure</span> <span class="keyword">function</span> read_urandom(n: <span class="keyword">in</span> <span class="built_in">POSITIVE</span>) <span class="keyword">return</span> <span class="built_in">STD_LOGIC_VECTOR</span> <span class="keyword">is</span></span><br><span class="line">		<span class="keyword">TYPE</span> T_CHARFILE <span class="keyword">IS</span> <span class="keyword">FILE</span> <span class="keyword">OF</span> <span class="built_in">CHARACTER</span>;</span><br><span class="line">		<span class="keyword">FILE</span> dev_urandom : T_CHARFILE <span class="keyword">OPEN</span> read_mode <span class="keyword">IS</span> <span class="string">&quot;/dev/urandom&quot;</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">variable</span> byte : <span class="built_in">character</span>;</span><br><span class="line">		<span class="keyword">variable</span> data : <span class="built_in">STD_LOGIC_VECTOR</span>(<span class="number">0</span> <span class="keyword">to</span> <span class="number">8</span>*n-<span class="number">1</span>) := (<span class="keyword">others</span>=&gt;<span class="string">&#x27;X&#x27;</span>);</span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">for</span> I <span class="keyword">in</span> <span class="number">0</span> <span class="keyword">to</span> n-<span class="number">1</span> <span class="keyword">loop</span></span><br><span class="line">			read(dev_urandom, byte);</span><br><span class="line">			data(<span class="number">8</span>*I <span class="keyword">to</span> <span class="number">8</span>*I+<span class="number">7</span>) := <span class="built_in">std_logic_vector</span>(to_unsigned(<span class="built_in">character</span><span class="symbol">&#x27;pos</span>(byte), <span class="number">8</span>));</span><br><span class="line">		<span class="keyword">end</span> <span class="keyword">loop</span>;</span><br><span class="line">		<span class="keyword">return</span> data;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">function</span>;</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">package</span> <span class="keyword">body</span>;</span><br></pre></td></tr></table></figure>
+<p>很长的题目，而且还是用VHDL写的，我硬件学的本来就很烂所以只能一段一段送去给chatgpt翻译。翻译完过后大概可以把题目内容整合成：</p>
+<ul>
+<li>连接上靶机后，靶机会初始化一个LFSR作为伪随机数序列生成器，其中初始状态及抽头序列都是64位</li>
+<li>初始化一个秘密列表，每一个值的格式是(secret,password)</li>
+<li>生成password0，并在列表第一个位置存放(flag,password0)</li>
+<li>在之后，可以有两个选项。选择1，可以输入一个secret，并得到他的password，然后靶机会将本次的(secret,password)存入秘密列表中，秘密列表长度最大为10；选择2，可以输入password，靶机会在秘密列表里检索password，如果检索成功就返回它对应的secret</li>
+</ul>
+<p>可以看出目的是得到flag对应的password0，然后去检索从而得到flag。</p>
+<p>这里需要注意的就是，password是128位的量，是完全由LFSR一位一位产生的，和你的输入根本没关系。所以其实就是根据LFSR的输出去还原抽头序列，然后再递推回去就能拿到password0了。</p>
+<p>而由于抽头序列只有64位，所以其实随便输入一个secret，然后用拿到的128位password就可以完全破解这个LFSR。这是因为我们可以把拿到的这个password分成前后两部分，记为x1、x2，由于他们各64bit，所以可以写成：</p>
+<script type="math/tex; mode=display">
+LFSR(x_1) = x_2</script><p>也就是x2是以x1作为种子产生的前64位输出，而LFSR是线性的，所以可以写成矩阵方程形式去求出抽头序列对应的线性递推式，然后就可以解满秩的矩阵方程得到抽头序列了。</p>
+<p>得到抽头序列后就是由x1去回推得到password0，再送给靶机去检索就拿到flag。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">t = <span class="string">&quot;44E53F095370F0F4A29DBEEB6DA761D5&quot;</span></span><br><span class="line">init = <span class="built_in">bin</span>(<span class="built_in">int</span>(t[:<span class="number">16</span>],<span class="number">16</span>))[<span class="number">2</span>:].zfill(<span class="number">64</span>)</span><br><span class="line">t = <span class="string">&quot;A1FA2AD401B684B7C76FA36118B75AE1&quot;</span></span><br><span class="line"><span class="comment">#init = bin(int(t[:16],16))[2:].zfill(64)</span></span><br><span class="line">s0 = <span class="built_in">int</span>(t[:<span class="number">16</span>],<span class="number">16</span>)</span><br><span class="line">s1 = <span class="built_in">int</span>(t[<span class="number">16</span>:],<span class="number">16</span>)</span><br><span class="line">s0_bin = <span class="built_in">bin</span>(s0)[<span class="number">2</span>:].zfill(<span class="number">64</span>)</span><br><span class="line">s1_bin = <span class="built_in">bin</span>(s1)[<span class="number">2</span>:].zfill(<span class="number">64</span>)</span><br><span class="line"></span><br><span class="line">L = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>):</span><br><span class="line">    temp = s0_bin[i:] + s1_bin[:i]</span><br><span class="line">    L.append(<span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>,temp)))</span><br><span class="line">L = Matrix(GF(<span class="number">2</span>),L)</span><br><span class="line">B = vector(GF(<span class="number">2</span>),<span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>,s1_bin)))</span><br><span class="line">mask = L.solve_right(B)</span><br><span class="line"><span class="built_in">print</span>(mask)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tap = mask[<span class="number">1</span>:]</span><br><span class="line">t = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">    temp1 = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>,init[:-<span class="number">1</span>]))</span><br><span class="line">    temp2 = <span class="built_in">int</span>(init[-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">    sum1 = temp2</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(temp1)):</span><br><span class="line">        sum1 -= (<span class="built_in">int</span>(temp1[j]) * <span class="built_in">int</span>(tap[j]))</span><br><span class="line">    t = (<span class="built_in">str</span>(sum1 % <span class="number">2</span>)) + t</span><br><span class="line">    init = t[<span class="number">0</span>] + init[:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(<span class="built_in">int</span>(t,<span class="number">2</span>)).upper())</span><br><span class="line"></span><br><span class="line">temp = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>,t))[<span class="number">64</span>:]</span><br><span class="line"></span><br><span class="line">f = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">    tt = vector(Zmod(<span class="number">2</span>),temp)*mask</span><br><span class="line">    f += <span class="built_in">str</span>(tt)</span><br><span class="line">    temp = temp[<span class="number">1</span>:] + [tt]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(<span class="built_in">int</span>(f,<span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
+<p>得到flag：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">t = <span class="string">&quot;44E53F095370F0F4A29DBEEB6DA761D5&quot;</span></span><br><span class="line">init = <span class="built_in">bin</span>(<span class="built_in">int</span>(t[:<span class="number">16</span>],<span class="number">16</span>))[<span class="number">2</span>:].zfill(<span class="number">64</span>)</span><br><span class="line">t = <span class="string">&quot;A1FA2AD401B684B7C76FA36118B75AE1&quot;</span></span><br><span class="line"><span class="comment">#init = bin(int(t[:16],16))[2:].zfill(64)</span></span><br><span class="line">s0 = <span class="built_in">int</span>(t[:<span class="number">16</span>],<span class="number">16</span>)</span><br><span class="line">s1 = <span class="built_in">int</span>(t[<span class="number">16</span>:],<span class="number">16</span>)</span><br><span class="line">s0_bin = <span class="built_in">bin</span>(s0)[<span class="number">2</span>:].zfill(<span class="number">64</span>)</span><br><span class="line">s1_bin = <span class="built_in">bin</span>(s1)[<span class="number">2</span>:].zfill(<span class="number">64</span>)</span><br><span class="line"></span><br><span class="line">L = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>):</span><br><span class="line">    temp = s0_bin[i:] + s1_bin[:i]</span><br><span class="line">    L.append(<span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>,temp)))</span><br><span class="line">L = Matrix(GF(<span class="number">2</span>),L)</span><br><span class="line">B = vector(GF(<span class="number">2</span>),<span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>,s1_bin)))</span><br><span class="line">mask = L.solve_right(B)</span><br><span class="line"><span class="built_in">print</span>(mask)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tap = mask[<span class="number">1</span>:]</span><br><span class="line">t = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">    temp1 = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>,init[:-<span class="number">1</span>]))</span><br><span class="line">    temp2 = <span class="built_in">int</span>(init[-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">    sum1 = temp2</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(temp1)):</span><br><span class="line">        sum1 -= (<span class="built_in">int</span>(temp1[j]) * <span class="built_in">int</span>(tap[j]))</span><br><span class="line">    t = (<span class="built_in">str</span>(sum1 % <span class="number">2</span>)) + t</span><br><span class="line">    init = t[<span class="number">0</span>] + init[:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(<span class="built_in">int</span>(t,<span class="number">2</span>)).upper())</span><br><span class="line"></span><br><span class="line">temp = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>,t))[<span class="number">64</span>:]</span><br><span class="line"></span><br><span class="line">f = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">    tt = vector(Zmod(<span class="number">2</span>),temp)*mask</span><br><span class="line">    f += <span class="built_in">str</span>(tt)</span><br><span class="line">    temp = temp[<span class="number">1</span>:] + [tt]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(<span class="built_in">int</span>(f,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#ENO&#123;2LINEAR_4CRYPTO&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/7e90ebcb.html" title="2024-nullcon-HackIM-CTF-wp-crypto">https://tangcuxiaojikuai.xyz/post/7e90ebcb.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/523698ad.html" rel="prev" title="Crypto趣题-流密码">
+      <i class="fa fa-chevron-left"></i> Crypto趣题-流密码
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/b4a50eee.html" rel="next" title="2024-NSSCTF-Round19-Basic-wp-crypto">
+      2024-NSSCTF-Round19-Basic-wp-crypto <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#double-trouble"><span class="nav-number">1.</span> <span class="nav-text">double-trouble</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inkblot"><span class="nav-number">2.</span> <span class="nav-text">Inkblot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwdHDL"><span class="nav-number">3.</span> <span class="nav-text">pwdHDL</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
