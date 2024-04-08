@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="好多事情要忙 最近又忙又乱，很多事情突然堆在了一起。两个很麻烦的作业的ddl、几门选修的数学课的作业、还有我们专业的一些让人心烦的破事……来到大三下学期之后的一个月，压力似乎突然就变得好大。 但是又有很多开心的事情，比如和队友一起肝刚刚开赛的高校密码挑战赛、给一些需要的师傅出点密码工坊dlc题目、还有就是空下来的时候和小队队友一起打打ctf玩，又会感觉开心很多。 这里就记录一下周天下午和余师傅的小">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024-TAMUCTF-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/e1a814d3.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="好多事情要忙 最近又忙又乱，很多事情突然堆在了一起。两个很麻烦的作业的ddl、几门选修的数学课的作业、还有我们专业的一些让人心烦的破事……来到大三下学期之后的一个月，压力似乎突然就变得好大。 但是又有很多开心的事情，比如和队友一起肝刚刚开赛的高校密码挑战赛、给一些需要的师傅出点密码工坊dlc题目、还有就是空下来的时候和小队队友一起打打ctf玩，又会感觉开心很多。 这里就记录一下周天下午和余师傅的小">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-07T09:21:41.000Z">
+<meta property="article:modified_time" content="2024-04-08T03:42:50.355Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/e1a814d3.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2024-TAMUCTF-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/e1a814d3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024-TAMUCTF-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-07 17:21:41" itemprop="dateCreated datePublished" datetime="2024-04-07T17:21:41+08:00">2024-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-08 11:42:50" itemprop="dateModified" datetime="2024-04-08T11:42:50+08:00">2024-04-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/e1a814d3.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/e1a814d3.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>好多事情要忙</p>
+<p>最近又忙又乱，很多事情突然堆在了一起。两个很麻烦的作业的ddl、几门选修的数学课的作业、还有我们专业的一些让人心烦的破事……来到大三下学期之后的一个月，压力似乎突然就变得好大。</p>
+<p>但是又有很多开心的事情，比如和队友一起肝刚刚开赛的高校密码挑战赛、给一些需要的师傅出点密码工坊dlc题目、还有就是空下来的时候和小队队友一起打打ctf玩，又会感觉开心很多。</p>
+<p>这里就记录一下周天下午和余师傅的小队一起打的TAMUCTF，题目都是一些简单又有意思的小trick，就当放松一下了哈哈哈。这里会把队友做出的题目也整理进来。</p>
+<span id="more"></span>
+<h3 id="Truncated-1"><a href="#Truncated-1" class="headerlink" title="Truncated 1"></a>Truncated 1</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Only part of the private key was able to be retrieved. Decrypt the flag.txt.enc file.</span><br></pre></td></tr></table></figure>
+<p>题目主要内容是要恢复下面的破损私钥文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ZXPI0zfM5EJkeooRvNr3RKQEoQKBgQD0WrYbxhBveSRYvkOV0+omfutwS6wIoCme</span><br><span class="line">CYCq5MboHdZn8NDCHy+Y66b+G/GMZJewqEKQSLwHcAjKHxouneFXp6AxV0rkBWtO</span><br><span class="line">RNnjXfthsWXvOgBJzGm8CJQS+xVtUpYc4l1QnYaQpc0/SClSTPG775H5DnJ8t4rK</span><br><span class="line">oNQur+/pcwKBgD1BU0AjW6x+GYPXUzA0/tXQpu5XaAMxkinhiiOJWT/AExzJU8Jt</span><br><span class="line">eQULJ3EDENG6acSuwMhm0WMLhQ0JG6gIejRyOBZSIqjESWGHPmkU1XbUDz0iLb1h</span><br><span class="line">HTqJMAWYKWJs4RnJbx6NGJAhd2Ni4CyOGmujYpqNnp1qfZNhmcj/VOeBAoGBAJgD</span><br><span class="line">stU2c9UVlTIMM7mLG1kVjlzPBtha42ko2j32k3Ol1FPXcdfCVPcaa0ockjnX/rJt</span><br><span class="line">CvP9+9PYs+8iSESF/cFtS/BGMRYH9Qi9NpwHRLMzDIo2GCXRIFpVL+FbCKp5PV/<span class="number">8</span></span><br><span class="line">xza2uRdVvolG2EYWDjDvym0Zusmx2YtTYI0m8ObXAoGAZ6T8aF6GAZ0s814ZfEcy</span><br><span class="line">zZGrZZQ/MJ7W8ZGdU1/y+204LzfGsW+d+sTPfQPYhn03/qU3SFhP095sYzELeOOZ</span><br><span class="line">3yITOftHEdMP3XffnAudgn3tBHrtu0EsVFL44H7CWe4hx3M49M0lfERD60lPwUG1</span><br><span class="line">8hY5qcthSko1f1WkTgN7Rrs=</span><br><span class="line">-----END PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+<p>虽然私钥文件开头被隐藏掉了，但是其实从已有的部分可以提取出n的素因子，所以直接去解密题目的加密文件就好了。</p>
+<p><br></p>
+<p><br></p>
+<h3 id="Truncated-2"><a href="#Truncated-2" class="headerlink" title="Truncated 2"></a>Truncated 2</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">It seems even less was able to be retrieved this time. Decrypt the flag.txt.enc file.</span><br></pre></td></tr></table></figure>
+<p>题目和上一个区别不大，主要在于私钥文件给出的部分更少了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">WXH2tecCgYBIlOn6LCaw4cYxztL4a+AgeoJ1HXB7AYg5Vl6T9VHfWW6dFvBVmaK/</span><br><span class="line">sLuzAAZBOfOD3oXHk+BY2izOQamgOY5AvgW7m4JwP+gEFk9f9NdmI9DkxyD9cFzm</span><br><span class="line">76zpeUiaizor1mMAd2mcCqjaYlDB3ohA0+Wvw024ZeBlDOCPgotJrQKBgFTU0ZgY</span><br><span class="line">cNeZM05a5RdFJtKXnhTG7MdNe1lgD799tMBgSBw9OMg6pASOTGrUg6QW1DrsxY23</span><br><span class="line">/ouePRFBh1OMArIskZf+Ov0jqD9umsM/q1XIR3ax3iOmBX6RxH42qyrHYArbv+tB</span><br><span class="line">WdiwnYGJj5oE5HtnnL5pDa9qYFUfK4InhjN3AoGAZ2q2zPPhW9v75hq8fwVvLGjP</span><br><span class="line">yDT4gGIz168dnCBLLMHsNv8y0twKQMY8UnqKBBIIkaC+j6zdCM+9CU3SEGC/TwQc</span><br><span class="line">5iTOHmknFfuvRYN6WKOXbTQZJIx2aDHaRz4MZlpHOVFeHrmY9/s+y24U2nOG9kAC</span><br><span class="line">zBzyXKI5PxT40b/mIGs=</span><br><span class="line">-----END PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+<p>这时候私钥文件不再能提取到素因子p、q了，但是可以得到dp、dq的值。题目还给了完整的公钥文件，也就是说我们其实也拥有公钥n、e的值。那么可以通过如下方式还原出p来：</p>
+<script type="math/tex; mode=display">
+t = 2^e \quad(mod\;n)</script><script type="math/tex; mode=display">
+g = t^{dp} \quad(mod\;n)</script><script type="math/tex; mode=display">
+p = GCD(g-2,n)</script><p>而之所以能够这么做，是因为在模p下有：</p>
+<script type="math/tex; mode=display">
+g = t^{dp} = 2^{edp} = 2 \quad(mod\;p)</script><p>所以能够求GCD还原p、q。之后就解密就好了。</p>
+<p><br></p>
+<p><br></p>
+<h3 id="Criminal"><a href="#Criminal" class="headerlink" title="Criminal"></a>Criminal</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">It would be a crime for me to just give you the flag, so I&#x27;ll encrypt it first before sending it. I&#x27;ll even compress it to make it faster to transmit!</span><br><span class="line"></span><br><span class="line">Note: the flag matches the regex gigem&#123;[a-z_]+&#125; (the curly braces are not quantifiers).</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64encode</span><br><span class="line"><span class="keyword">from</span> Crypto.Random <span class="keyword">import</span> get_random_bytes</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> ChaCha20_Poly1305</span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"><span class="keyword">from</span> zlib <span class="keyword">import</span> compress</span><br><span class="line"></span><br><span class="line">flag = Path(<span class="string">&quot;flag.txt&quot;</span>).read_bytes()</span><br><span class="line">key = get_random_bytes(<span class="number">32</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        append = <span class="built_in">input</span>(<span class="string">&quot;Append whatever you want to the flag: &quot;</span>).encode()</span><br><span class="line">        <span class="comment"># gotta save on bandwidth!</span></span><br><span class="line">        m = compress(flag + append)</span><br><span class="line">        cipher = ChaCha20_Poly1305.new(key=key)</span><br><span class="line">        cipher.update(m)</span><br><span class="line">        c, tag = cipher.encrypt_and_digest(m)</span><br><span class="line">        res = cipher.nonce + tag + c</span><br><span class="line">        <span class="built_in">print</span>(b64encode(res).decode())</span><br><span class="line"><span class="keyword">except</span> (KeyboardInterrupt, EOFError):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>题目用上了不熟悉的ChaCha20_Poly1305加密，搜索了一下他对应的多项式实现，看上去并不是很容易。然而他的解数却是所有密码题目中第三多的，所以我想出题人想考的东西并不在这里。</p>
+<p>那就先简单梳理一下题目任务，题目给了我们一个能交互无限次的oracle，利用oracle可以：</p>
+<ul>
+<li>输入一段消息append</li>
+<li>靶机会将flag拼接上append，然后进行compress压缩之后，用ChaCha20_Poly1305去加密他</li>
+<li>给出加密的nonce，以及加密得到的tag和密文c</li>
+</ul>
+<p>结合题目提示，这里应该是compress的地方有蹊跷，搜索了一下zlib的compress：</p>
+<p><a target="_blank" rel="noopener" href="https://www.euccas.me/zlib/">https://www.euccas.me/zlib/</a></p>
+<p>发现他对消息的压缩主要是做了如下两点处理：</p>
+<ul>
+<li>处理一：把相同的字符串处理成一个字符串加上多个指针的形式(LZ77 algorithm)</li>
+<li>处理二：对字符串进行huffman编码</li>
+</ul>
+<p>而自己测试可以知道，ChaCha20_Poly1305的加密有一个比较重要的特点就是明文和密文字节流的长度相同。<strong>而这说明我们可以从返回消息的长度，去看出flag+append这个消息的压缩情况</strong>。就比如说，由于知道flag是gigem{开头的，那如果我们输入的append是gigem{，这两个字符串一定会被处理一给压缩到一起。</p>
+<p>那么解题思路就有了，我们爆破字符表中所有可能字符x，并发送给靶机gigem{x，当且仅当gigem{x与flag开头完全一致的时候，压缩的会更充分，因此返回消息的长度会更短，所以就可以逐字节去爆破了。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> string <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = remote(<span class="string">&quot;tamuctf.com&quot;</span>, <span class="number">443</span>, ssl=<span class="literal">True</span>, sni=<span class="string">&quot;criminal&quot;</span>)</span><br><span class="line"></span><br><span class="line">msg = <span class="string">b&quot;gigem&#123;&quot;</span></span><br><span class="line">table = [i.encode() <span class="keyword">for</span> i <span class="keyword">in</span> ascii_lowercase+<span class="string">&quot;_&quot;</span>]</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;Append whatever you want to the flag: &quot;</span>)</span><br><span class="line">    sh.sendline(msg)</span><br><span class="line">    res = b64decode(sh.recvline().strip().decode())</span><br><span class="line">    temp_len = <span class="built_in">len</span>(res[<span class="number">12</span>+<span class="number">16</span>:])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> table:</span><br><span class="line">        append = msg + i</span><br><span class="line">        sh.recvuntil(<span class="string">b&quot;Append whatever you want to the flag: &quot;</span>)</span><br><span class="line">        sh.sendline(append)</span><br><span class="line">        res = b64decode(sh.recvline().strip().decode())</span><br><span class="line">        length = <span class="built_in">len</span>(res[<span class="number">12</span>+<span class="number">16</span>:])</span><br><span class="line">        <span class="keyword">if</span>(length == temp_len):</span><br><span class="line">            msg += i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="built_in">print</span>(msg)</span><br><span class="line"></span><br><span class="line"><span class="comment">#gigem&#123;foiled_again&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="PCG"><a href="#PCG" class="headerlink" title="PCG"></a>PCG</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QCG seems a little too simple, so instead I rolled my own rng using polynomials.</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> secrets <span class="keyword">import</span> randbelow</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">SIZE = <span class="number">256</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PCG</span>: <span class="comment"># Polynomial Congruential Generator</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.m = getPrime(<span class="number">256</span>)</span><br><span class="line">        self.coeff = [randbelow(self.m-<span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(SIZE)]</span><br><span class="line">        self.x = randbelow(self.m-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self</span>):</span><br><span class="line">        newx = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> self.coeff:</span><br><span class="line">            newx *= self.x</span><br><span class="line">            newx += c</span><br><span class="line">            newx %= self.m</span><br><span class="line">        self.x = newx</span><br><span class="line">        <span class="keyword">return</span> self.x</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">printm</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(self.m)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">pcg = PCG()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(pcg.m)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(SIZE*<span class="number">3</span>):</span><br><span class="line">    <span class="built_in">print</span>(pcg())</span><br><span class="line"></span><br><span class="line">sys.stdout.flush()</span><br><span class="line">correct = <span class="literal">True</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(SIZE // <span class="number">2</span>):</span><br><span class="line">    guess = <span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">    <span class="keyword">if</span> guess != pcg():</span><br><span class="line">        correct = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> correct:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>).read())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;you failed&quot;</span>)</span><br><span class="line">sys.stdout.flush()</span><br></pre></td></tr></table></figure>
+<p>这是一个Polynomial Congruential Generator，他先初始化一个度为255的多项式f(x)的系数列表，然后按如下方式去迭代更新伪随机数：</p>
+<script type="math/tex; mode=display">
+x = f(x) \quad(mod\;m)</script><p>通过与靶机交互，我们能得到模数m以及连续的256*3个随机数，要求我们完全成功地预测接下来的128个随机数就可以得到flag。</p>
+<p>而由于连续的两个随机数x1,x2有如下关系：</p>
+<script type="math/tex; mode=display">
+x_2 = f(x_1)</script><p>因此他们可以看作是函数f(x)上的一个点：</p>
+<script type="math/tex; mode=display">
+(x_1,x_2)</script><p>所以其实是拉格朗日插值问题，插值完成后依次计算下一个点的函数值即可。</p>
+<p>exp：</p>
+<p>交互拿数据：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = remote(<span class="string">&quot;tamuctf.com&quot;</span>, <span class="number">443</span>, ssl=<span class="literal">True</span>, sni=<span class="string">&quot;pcg&quot;</span>)</span><br><span class="line"></span><br><span class="line">points = []</span><br><span class="line">m = <span class="built_in">int</span>(sh.recvline().strip().decode())</span><br><span class="line">T = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>*<span class="number">3</span>):</span><br><span class="line">    t = <span class="built_in">int</span>(sh.recvline().strip().decode())</span><br><span class="line">    T.append(t)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(T)-<span class="number">1</span>):</span><br><span class="line">    points.append((T[i],T[i+<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;m =&quot;</span> , m)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;points =&quot;</span> , points)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;T =&quot;</span>,T)</span><br><span class="line"></span><br><span class="line">sh.interactive()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#gigem&#123;p0lyn0m1al5_4r3_funny&#125;</span></span><br></pre></td></tr></table></figure>
+<p>得到f(x)并计算接下来128个随机数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PR = PolynomialRing(Zmod(m), <span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">f = PR.lagrange_polynomial(points)</span><br><span class="line"><span class="built_in">print</span>(f)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">    tt = f(T[-<span class="number">1</span>])</span><br><span class="line">    T.append(tt)</span><br><span class="line">    <span class="built_in">print</span>(tt)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="Jumbled"><a href="#Jumbled" class="headerlink" title="Jumbled"></a>Jumbled</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The RSA Public and Private keys are provided. However, the private key seems to be jumbled in a block size of 10 hex characters. Can you get the flag?</span><br></pre></td></tr></table></figure>
+<p>和前两个Truncated题目类似，这也是一个私钥文件的恢复，只是私钥文件变成了如下的形式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">49</span> <span class="number">45</span> 4e <span class="number">42</span> <span class="number">47</span> 2d 2d 2d 2d 2d <span class="number">20</span> <span class="number">54</span> 4b <span class="number">41</span> <span class="number">45</span> <span class="number">49</span> <span class="number">50</span> <span class="number">56</span> <span class="number">20</span> <span class="number">52</span> 0a 2d 4d 2d 0d 2d <span class="number">59</span> 2d <span class="number">45</span> 2d <span class="number">44</span> <span class="number">42</span> <span class="number">41</span> <span class="number">49</span> <span class="number">41</span> <span class="number">76</span> <span class="number">49</span> <span class="number">41</span> <span class="number">49</span> <span class="number">45</span> <span class="number">47</span> 6b <span class="number">39</span> <span class="number">68</span> <span class="number">69</span> 6b <span class="number">42</span> <span class="number">71</span> 4e <span class="number">67</span> <span class="number">41</span> <span class="number">46</span> <span class="number">53</span> <span class="number">45</span> <span class="number">41</span> <span class="number">41</span> <span class="number">30</span> <span class="number">51</span> <span class="number">77</span> <span class="number">42</span> <span class="number">69</span> <span class="number">67</span> <span class="number">41</span> <span class="number">67</span> <span class="number">53</span> <span class="number">59</span> <span class="number">42</span> <span class="number">77</span> <span class="number">43</span> 4b <span class="number">51</span> <span class="number">42</span> <span class="number">43</span> <span class="number">49</span> <span class="number">41</span> <span class="number">41</span> <span class="number">45</span> 6f <span class="number">67</span> <span class="number">41</span> <span class="number">34</span> <span class="number">50</span> <span class="number">30</span> <span class="number">68</span> <span class="number">76</span> <span class="number">69</span> 5a <span class="number">46</span> <span class="number">71</span> 4e <span class="number">38</span> <span class="number">75</span> 6f 4f <span class="number">78</span> 0d 4e 0a <span class="number">48</span> 6b <span class="number">74</span> <span class="number">75</span> <span class="number">78</span> <span class="number">32</span> <span class="number">30</span> <span class="number">72</span> 6a <span class="number">37</span> <span class="number">50</span> <span class="number">67</span> <span class="number">69</span> <span class="number">59</span> 2b <span class="number">70</span> <span class="number">64</span> <span class="number">35</span> <span class="number">74</span> <span class="number">56</span> 6b <span class="number">50</span> <span class="number">44</span> <span class="number">39</span> <span class="number">74</span> <span class="number">66</span> 2b 6e <span class="number">77</span> <span class="number">31</span> <span class="number">66</span> <span class="number">47</span> <span class="number">79</span> <span class="number">50</span> <span class="number">77</span> 6b 6f 6d <span class="number">59</span> <span class="number">58</span> 4f <span class="number">72</span> <span class="number">51</span> <span class="number">31</span> <span class="number">59</span> <span class="number">79</span> 6f <span class="number">74</span> 7a 6e <span class="number">58</span> <span class="number">32</span> <span class="number">70</span> <span class="number">48</span> 0d <span class="number">54</span> <span class="number">36</span> 4c 6b <span class="number">36</span> <span class="number">55</span> 2f <span class="number">43</span> 6b <span class="number">45</span> <span class="number">33</span> 5a <span class="number">34</span> <span class="number">53</span> <span class="number">37</span> 0a 6f <span class="number">50</span> <span class="number">66</span> <span class="number">56</span> <span class="number">43</span> <span class="number">51</span> <span class="number">63</span> 5a <span class="number">44</span> 7a 4a <span class="number">63</span> 6d <span class="number">62</span> 4a <span class="number">36</span> <span class="number">31</span> 6b <span class="number">70</span> 4d <span class="number">70</span> 6c <span class="number">76</span> <span class="number">76</span> <span class="number">64</span> <span class="number">36</span> <span class="number">78</span> <span class="number">71</span> <span class="number">44</span> <span class="number">54</span> 6c 2f 6a <span class="number">74</span> 6e <span class="number">63</span> <span class="number">68</span> <span class="number">59</span> <span class="number">69</span> 6b 4e <span class="number">44</span> <span class="number">49</span> <span class="number">59</span> <span class="number">64</span> 4c <span class="number">79</span> <span class="number">42</span> <span class="number">41</span> <span class="number">71</span> <span class="number">53</span> <span class="number">79</span> 0a 7a 0d <span class="number">38</span> <span class="number">31</span> <span class="number">55</span> <span class="number">54</span> <span class="number">34</span> 4b <span class="number">56</span> <span class="number">50</span> <span class="number">30</span> <span class="number">61</span> 6e <span class="number">43</span> <span class="number">63</span> 4c 6e <span class="number">54</span> <span class="number">69</span> <span class="number">36</span> 6e <span class="number">75</span> 6f <span class="number">77</span> 2f <span class="number">70</span> <span class="number">53</span> <span class="number">37</span> 7a 4c <span class="number">50</span> <span class="number">76</span> <span class="number">63</span> <span class="number">62</span> <span class="number">67</span> 4d <span class="number">59</span> <span class="number">34</span> <span class="number">62</span> 4d <span class="number">58</span> 4e <span class="number">69</span> <span class="number">56</span> <span class="number">69</span> 4f <span class="number">48</span> <span class="number">76</span> 4c <span class="number">36</span> <span class="number">79</span> <span class="number">56</span> 6a 6c 4f <span class="number">56</span> <span class="number">77</span> <span class="number">65</span> <span class="number">49</span> <span class="number">32</span> 4b <span class="number">56</span> <span class="number">63</span> 5a <span class="number">32</span> <span class="number">74</span> <span class="number">77</span> <span class="number">31</span> <span class="number">38</span> <span class="number">75</span> 2b 6f <span class="number">63</span> <span class="number">68</span> 0d 6a <span class="number">30</span> 0a <span class="number">61</span> <span class="number">36</span> <span class="number">74</span> <span class="number">58</span> 4e <span class="number">34</span> 5a 6e <span class="number">79</span> 6f 6b <span class="number">32</span> <span class="number">68</span> <span class="number">64</span> 6c <span class="number">30</span> <span class="number">43</span> 4f <span class="number">61</span> 2f <span class="number">73</span> <span class="number">33</span> <span class="number">71</span> 4e <span class="number">56</span> <span class="number">36</span> 4d 6a <span class="number">34</span> <span class="number">36</span> <span class="number">52</span> <span class="number">72</span> <span class="number">38</span> <span class="number">67</span> <span class="number">61</span> <span class="number">46</span> <span class="number">30</span> <span class="number">34</span> <span class="number">57</span> <span class="number">73</span> <span class="number">62</span> 4f <span class="number">35</span> 5a <span class="number">42</span> <span class="number">47</span> <span class="number">65</span> <span class="number">69</span> <span class="number">57</span> 6a 0a <span class="number">66</span> 2b <span class="number">75</span> 0d <span class="number">76</span> <span class="number">42</span> <span class="number">69</span> <span class="number">49</span> <span class="number">49</span> 6e 6f 6b <span class="number">54</span> 4a <span class="number">31</span> 4f 7a <span class="number">69</span> 6f <span class="number">75</span> <span class="number">48</span> <span class="number">45</span> <span class="number">49</span> 4a <span class="number">63</span> <span class="number">34</span> 4d <span class="number">76</span> <span class="number">71</span> <span class="number">44</span> <span class="number">62</span> <span class="number">52</span> 4b <span class="number">50</span> <span class="number">42</span> <span class="number">65</span> 4f <span class="number">62</span> <span class="number">79</span> <span class="number">51</span> <span class="number">66</span> <span class="number">57</span> <span class="number">62</span> 6d 4c <span class="number">79</span> 6b <span class="number">41</span> <span class="number">74</span> <span class="number">59</span> 2f <span class="number">63</span> <span class="number">76</span> <span class="number">78</span> <span class="number">63</span> <span class="number">61</span> 7a 2f <span class="number">58</span> <span class="number">71</span> 4a <span class="number">59</span> 4a 6b <span class="number">61</span> 4a 6c <span class="number">36</span> <span class="number">64</span> <span class="number">36</span> <span class="number">78</span> 2f 4f <span class="number">74</span> 0d <span class="number">72</span> 0a <span class="number">71</span> <span class="number">56</span> <span class="number">41</span> <span class="number">42</span> <span class="number">45</span> 4d <span class="number">41</span> <span class="number">41</span> <span class="number">75</span> <span class="number">67</span> <span class="number">36</span> <span class="number">58</span> <span class="number">67</span> <span class="number">55</span> <span class="number">43</span> <span class="number">41</span> <span class="number">38</span> <span class="number">45</span> <span class="number">67</span> <span class="number">41</span> <span class="number">43</span> <span class="number">67</span> <span class="number">57</span> 4b <span class="number">69</span> <span class="number">47</span> 2b <span class="number">55</span> <span class="number">71</span> <span class="number">77</span> 4c <span class="number">53</span> <span class="number">47</span> <span class="number">74</span> <span class="number">79</span> <span class="number">49</span> <span class="number">72</span> <span class="number">61</span> <span class="number">65</span> 6a 6f <span class="number">33</span> <span class="number">78</span> 6b <span class="number">56</span> <span class="number">73</span> <span class="number">44</span> <span class="number">37</span> <span class="number">71</span> <span class="number">65</span> <span class="number">73</span> 4d 2b 2f 0d <span class="number">52</span> <span class="number">36</span> 4d 2b <span class="number">77</span> 6a 6d <span class="number">45</span> <span class="number">77</span> <span class="number">49</span> <span class="number">35</span> 6e <span class="number">47</span> 5a <span class="number">61</span> 0a <span class="number">74</span> <span class="number">64</span> <span class="number">77</span> 5a <span class="number">39</span> <span class="number">37</span> <span class="number">59</span> <span class="number">46</span> <span class="number">70</span> 6b <span class="number">33</span> 2b 6b <span class="number">72</span> 4f <span class="number">38</span> 6b <span class="number">45</span> 6d 4f 2f <span class="number">52</span> 6e <span class="number">63</span> <span class="number">47</span> 6f <span class="number">54</span> <span class="number">53</span> 6f <span class="number">53</span> <span class="number">63</span> <span class="number">33</span> 4f <span class="number">51</span> <span class="number">75</span> <span class="number">53</span> <span class="number">42</span> 6c <span class="number">67</span> <span class="number">65</span> <span class="number">42</span> <span class="number">64</span> <span class="number">42</span> 5a <span class="number">37</span> <span class="number">33</span> <span class="number">57</span> 6e <span class="number">48</span> <span class="number">75</span> <span class="number">31</span> <span class="number">58</span> 0a <span class="number">42</span> 0d <span class="number">75</span> <span class="number">74</span> <span class="number">51</span> 6f <span class="number">78</span> <span class="number">42</span> <span class="number">33</span> <span class="number">52</span> <span class="number">59</span> <span class="number">74</span> 6a <span class="number">71</span> 2b <span class="number">69</span> 4e <span class="number">72</span> <span class="number">42</span> <span class="number">41</span> <span class="number">49</span> <span class="number">52</span> 6e 6a <span class="number">36</span> <span class="number">78</span> 4a <span class="number">56</span> <span class="number">73</span> 6f <span class="number">49</span> <span class="number">31</span> 6a <span class="number">34</span> <span class="number">57</span> <span class="number">61</span> <span class="number">30</span> <span class="number">42</span> <span class="number">70</span> 6d 4e <span class="number">68</span> <span class="number">78</span> 7a <span class="number">70</span> <span class="number">46</span> 2f <span class="number">34</span> <span class="number">78</span> <span class="number">44</span> <span class="number">42</span> 2b <span class="number">71</span> <span class="number">57</span> <span class="number">59</span> 6b <span class="number">71</span> 2f <span class="number">61</span> <span class="number">39</span> <span class="number">47</span> <span class="number">48</span> <span class="number">37</span> <span class="number">57</span> <span class="number">69</span> 4d <span class="number">70</span> 4c <span class="number">32</span> <span class="number">68</span> <span class="number">43</span> <span class="number">51</span> <span class="number">52</span> <span class="number">55</span> 0d <span class="number">63</span> <span class="number">38</span> 0a <span class="number">56</span> 2f <span class="number">38</span> 4f <span class="number">45</span> <span class="number">30</span> 4c <span class="number">39</span> <span class="number">74</span> <span class="number">50</span> <span class="number">68</span> <span class="number">43</span> <span class="number">45</span> 4e <span class="number">74</span> <span class="number">49</span> <span class="number">44</span> <span class="number">31</span> <span class="number">46</span> <span class="number">43</span> <span class="number">43</span> 6b <span class="number">73</span> <span class="number">76</span> <span class="number">57</span> <span class="number">58</span> <span class="number">52</span> <span class="number">39</span> <span class="number">30</span> <span class="number">59</span> <span class="number">68</span> <span class="number">45</span> <span class="number">78</span> <span class="number">51</span> <span class="number">74</span> 4e <span class="number">45</span> <span class="number">39</span> <span class="number">44</span> <span class="number">62</span> <span class="number">55</span> 4a 4b <span class="number">79</span> 4b <span class="number">67</span> <span class="number">38</span> <span class="number">51</span> <span class="number">71</span> 6c 0a <span class="number">71</span> <span class="number">76</span> <span class="number">34</span> 0d <span class="number">59</span> 4b 6c <span class="number">61</span> <span class="number">33</span> <span class="number">73</span> 4b <span class="number">41</span> <span class="number">50</span> <span class="number">67</span> 6a <span class="number">62</span> <span class="number">34</span> <span class="number">32</span> <span class="number">61</span> <span class="number">41</span> 4b <span class="number">59</span> <span class="number">39</span> 4a <span class="number">78</span> <span class="number">48</span> <span class="number">39</span> 4a <span class="number">74</span> <span class="number">74</span> 6b <span class="number">73</span> <span class="number">30</span> <span class="number">59</span> <span class="number">58</span> <span class="number">44</span> <span class="number">70</span> 6b <span class="number">34</span> <span class="number">75</span> <span class="number">45</span> 5a 6a <span class="number">44</span> <span class="number">54</span> 4b 4f <span class="number">57</span> <span class="number">30</span> 4a <span class="number">31</span> <span class="number">78</span> <span class="number">31</span> <span class="number">51</span> <span class="number">68</span> <span class="number">53</span> <span class="number">42</span> <span class="number">50</span> <span class="number">63</span> 7a <span class="number">47</span> 2b <span class="number">52</span> <span class="number">39</span> <span class="number">68</span> <span class="number">71</span> 5a <span class="number">69</span> <span class="number">75</span> <span class="number">65</span> <span class="number">55</span> <span class="number">45</span> <span class="number">54</span> <span class="number">34</span> 0d <span class="number">65</span> 0a <span class="number">67</span> 6f 2b <span class="number">51</span> <span class="number">39</span> <span class="number">37</span> <span class="number">33</span> <span class="number">71</span> <span class="number">50</span> 6a <span class="number">47</span> <span class="number">58</span> <span class="number">58</span> <span class="number">49</span> <span class="number">46</span> <span class="number">71</span> 4d 6a 4b <span class="number">49</span> <span class="number">64</span> <span class="number">48</span> <span class="number">43</span> <span class="number">54</span> <span class="number">58</span> 4a 2b <span class="number">46</span> <span class="number">30</span> 4b <span class="number">45</span> 2f <span class="number">42</span> <span class="number">51</span> <span class="number">67</span> <span class="number">35</span> 4b <span class="number">32</span> 5a <span class="number">33</span> 6e <span class="number">55</span> <span class="number">42</span> <span class="number">74</span> <span class="number">64</span> 2b 6a 6d <span class="number">44</span> <span class="number">63</span> <span class="number">51</span> <span class="number">46</span> <span class="number">53</span> <span class="number">63</span> 0d 2f 6a <span class="number">66</span> <span class="number">77</span> <span class="number">62</span> <span class="number">55</span> 4c <span class="number">46</span> <span class="number">64</span> 4b 6f <span class="number">30</span> <span class="number">51</span> 4d <span class="number">38</span> 0a <span class="number">33</span> <span class="number">55</span> <span class="number">64</span> 6c <span class="number">34</span> <span class="number">42</span> <span class="number">49</span> <span class="number">56</span> <span class="number">45</span> <span class="number">52</span> <span class="number">34</span> 7a <span class="number">46</span> <span class="number">55</span> <span class="number">68</span> 4c 4e <span class="number">52</span> 6a <span class="number">79</span> <span class="number">50</span> <span class="number">46</span> <span class="number">52</span> <span class="number">41</span> <span class="number">68</span> <span class="number">44</span> <span class="number">53</span> 7a <span class="number">63</span> <span class="number">76</span> <span class="number">75</span> <span class="number">66</span> 4d 2b <span class="number">37</span> <span class="number">41</span> <span class="number">55</span> <span class="number">63</span> 7a <span class="number">52</span> 4e <span class="number">39</span> <span class="number">50</span> <span class="number">70</span> 4d 2f 4d <span class="number">42</span> <span class="number">63</span> <span class="number">45</span> <span class="number">41</span> <span class="number">63</span> 0a <span class="number">58</span> 0d 4b <span class="number">79</span> 4b <span class="number">50</span> 6a <span class="number">58</span> <span class="number">42</span> <span class="number">45</span> <span class="number">68</span> 4b <span class="number">49</span> <span class="number">71</span> <span class="number">61</span> 6d <span class="number">43</span> <span class="number">53</span> <span class="number">73</span> <span class="number">42</span> <span class="number">61</span> 2f <span class="number">69</span> <span class="number">55</span> 4e <span class="number">52</span> 6a 4e <span class="number">38</span> <span class="number">42</span> <span class="number">43</span> <span class="number">78</span> <span class="number">75</span> 6f 4e 6b <span class="number">62</span> 6c 2b <span class="number">67</span> <span class="number">66</span> 6c <span class="number">58</span> <span class="number">45</span> <span class="number">73</span> <span class="number">39</span> 6f <span class="number">75</span> <span class="number">33</span> 4b <span class="number">46</span> <span class="number">63</span> <span class="number">44</span> <span class="number">70</span> 6d <span class="number">35</span> <span class="number">38</span> <span class="number">62</span> 4b <span class="number">51</span> 6d <span class="number">31</span> <span class="number">57</span> <span class="number">68</span> 6a <span class="number">38</span> 6e <span class="number">71</span> <span class="number">48</span> 4e <span class="number">56</span> <span class="number">67</span> <span class="number">64</span> 4c 0d <span class="number">74</span> <span class="number">36</span> 0a 6d <span class="number">49</span> <span class="number">49</span> <span class="number">32</span> <span class="number">67</span> 6e 6a 7a <span class="number">48</span> <span class="number">37</span> <span class="number">77</span> <span class="number">70</span> 4b <span class="number">67</span> <span class="number">67</span> <span class="number">58</span> <span class="number">32</span> <span class="number">63</span> <span class="number">61</span> <span class="number">68</span> <span class="number">45</span> 4a <span class="number">68</span> <span class="number">77</span> 6e <span class="number">44</span> <span class="number">67</span> <span class="number">63</span> <span class="number">42</span> <span class="number">51</span> <span class="number">46</span> <span class="number">49</span> <span class="number">63</span> <span class="number">37</span> <span class="number">55</span> <span class="number">72</span> <span class="number">65</span> <span class="number">69</span> <span class="number">69</span> <span class="number">71</span> <span class="number">32</span> 4b <span class="number">78</span> 7a <span class="number">36</span> <span class="number">70</span> <span class="number">66</span> 6e <span class="number">34</span> <span class="number">45</span> 0a <span class="number">79</span> <span class="number">68</span> <span class="number">31</span> 0d <span class="number">36</span> <span class="number">54</span> <span class="number">43</span> <span class="number">74</span> <span class="number">67</span> <span class="number">69</span> 4c <span class="number">53</span> <span class="number">42</span> 4b <span class="number">71</span> <span class="number">55</span> <span class="number">74</span> <span class="number">43</span> 6f 6e <span class="number">36</span> <span class="number">52</span> <span class="number">34</span> <span class="number">74</span> 5a <span class="number">45</span> <span class="number">49</span> <span class="number">65</span> 5a 2f <span class="number">37</span> <span class="number">59</span> <span class="number">59</span> <span class="number">35</span> <span class="number">42</span> <span class="number">45</span> <span class="number">78</span> <span class="number">67</span> 5a <span class="number">62</span> <span class="number">68</span> <span class="number">50</span> 4d <span class="number">50</span> <span class="number">77</span> 2b <span class="number">76</span> <span class="number">71</span> 6e <span class="number">37</span> <span class="number">45</span> <span class="number">57</span> <span class="number">47</span> <span class="number">61</span> <span class="number">48</span> <span class="number">58</span> <span class="number">52</span> <span class="number">73</span> <span class="number">37</span> <span class="number">30</span> <span class="number">72</span> <span class="number">68</span> <span class="number">64</span> <span class="number">34</span> <span class="number">59</span> <span class="number">56</span> <span class="number">39</span> <span class="number">79</span> <span class="number">63</span> <span class="number">69</span> 4e 4e <span class="number">54</span> <span class="number">54</span> 0d 4b 0a <span class="number">31</span> <span class="number">73</span> <span class="number">54</span> 6e 6c <span class="number">34</span> <span class="number">30</span> <span class="number">75</span> <span class="number">77</span> <span class="number">65</span> <span class="number">72</span> <span class="number">66</span> 5a <span class="number">69</span> <span class="number">70</span> 2f <span class="number">38</span> <span class="number">75</span> <span class="number">64</span> <span class="number">76</span> <span class="number">69</span> <span class="number">47</span> <span class="number">30</span> <span class="number">51</span> <span class="number">42</span> <span class="number">64</span> <span class="number">44</span> <span class="number">30</span> <span class="number">78</span> <span class="number">69</span> <span class="number">36</span> <span class="number">53</span> 2b <span class="number">76</span> 4a <span class="number">70</span> <span class="number">49</span> <span class="number">58</span> <span class="number">36</span> <span class="number">72</span> 4c <span class="number">58</span> <span class="number">70</span> 7a <span class="number">69</span> <span class="number">53</span> <span class="number">31</span> <span class="number">56</span> 6f 4b <span class="number">44</span> <span class="number">55</span> <span class="number">39</span> 4e 0d <span class="number">75</span> <span class="number">76</span> 4a 6f <span class="number">39</span> <span class="number">64</span> <span class="number">52</span> <span class="number">64</span> <span class="number">72</span> <span class="number">58</span> <span class="number">45</span> <span class="number">78</span> <span class="number">53</span> <span class="number">75</span> <span class="number">72</span> 0a <span class="number">50</span> <span class="number">33</span> <span class="number">41</span> <span class="number">72</span> <span class="number">78</span> <span class="number">59</span> <span class="number">67</span> 4b <span class="number">42</span> <span class="number">51</span> <span class="number">42</span> <span class="number">50</span> 6e 6b <span class="number">65</span> <span class="number">51</span> <span class="number">74</span> 6e <span class="number">56</span> <span class="number">79</span> <span class="number">70</span> <span class="number">74</span> <span class="number">63</span> <span class="number">62</span> <span class="number">47</span> <span class="number">75</span> <span class="number">31</span> 6a 6f <span class="number">74</span> 4b 4c <span class="number">71</span> 6a <span class="number">42</span> <span class="number">63</span> <span class="number">66</span> <span class="number">43</span> <span class="number">45</span> <span class="number">30</span> <span class="number">73</span> 4e <span class="number">76</span> <span class="number">53</span> <span class="number">42</span> <span class="number">65</span> 2b <span class="number">61</span> <span class="number">51</span> <span class="number">48</span> 7a <span class="number">42</span> 0a <span class="number">73</span> 0d <span class="number">34</span> <span class="number">68</span> 4e <span class="number">79</span> 6c <span class="number">74</span> <span class="number">57</span> <span class="number">35</span> <span class="number">36</span> <span class="number">74</span> <span class="number">37</span> <span class="number">51</span> <span class="number">59</span> <span class="number">38</span> <span class="number">47</span> <span class="number">61</span> 7a <span class="number">69</span> <span class="number">73</span> <span class="number">59</span> 5a <span class="number">69</span> 6b 7a 4a <span class="number">70</span> <span class="number">43</span> <span class="number">59</span> <span class="number">64</span> <span class="number">44</span> <span class="number">63</span> <span class="number">37</span> <span class="number">58</span> <span class="number">79</span> <span class="number">77</span> <span class="number">32</span> <span class="number">45</span> <span class="number">32</span> 6d <span class="number">30</span> 4d 7a <span class="number">33</span> <span class="number">32</span> 2b <span class="number">56</span> <span class="number">63</span> <span class="number">51</span> <span class="number">36</span> <span class="number">74</span> <span class="number">69</span> <span class="number">59</span> <span class="number">67</span> <span class="number">37</span> <span class="number">37</span> <span class="number">44</span> <span class="number">72</span> <span class="number">75</span> <span class="number">42</span> <span class="number">73</span> <span class="number">74</span> 4e <span class="number">78</span> <span class="number">76</span> 4d 6b 6a 4c <span class="number">64</span> <span class="number">42</span> <span class="number">41</span> <span class="number">36</span> 0d <span class="number">59</span> <span class="number">70</span> 0a <span class="number">77</span> 4e <span class="number">42</span> 6b <span class="number">36</span> <span class="number">48</span> <span class="number">50</span> <span class="number">55</span> <span class="number">50</span> <span class="number">77</span> <span class="number">76</span> <span class="number">66</span> <span class="number">47</span> <span class="number">65</span> 4e <span class="number">47</span> 4f <span class="number">50</span> <span class="number">62</span> 4f <span class="number">69</span> <span class="number">69</span> <span class="number">56</span> 2b 4c <span class="number">78</span> <span class="number">32</span> <span class="number">73</span> <span class="number">58</span> <span class="number">35</span> <span class="number">74</span> 4f <span class="number">68</span> <span class="number">53</span> 7a 6d <span class="number">70</span> <span class="number">46</span> <span class="number">61</span> <span class="number">48</span> <span class="number">31</span> 6b <span class="number">41</span> <span class="number">43</span> <span class="number">41</span> <span class="number">68</span> <span class="number">31</span> <span class="number">51</span> <span class="number">30</span> <span class="number">44</span> 0a <span class="number">31</span> <span class="number">45</span> <span class="number">62</span> 0d <span class="number">62</span> <span class="number">47</span> <span class="number">69</span> 6f <span class="number">41</span> 4a <span class="number">41</span> <span class="number">66</span> <span class="number">65</span> <span class="number">74</span> 6c 6c <span class="number">63</span> <span class="number">36</span> <span class="number">56</span> <span class="number">62</span> <span class="number">58</span> 4a 4f <span class="number">42</span> <span class="number">39</span> <span class="number">54</span> <span class="number">48</span> <span class="number">53</span> <span class="number">65</span> 4b <span class="number">71</span> <span class="number">41</span> 7a <span class="number">63</span> 4d <span class="number">30</span> <span class="number">47</span> <span class="number">66</span> 6c <span class="number">36</span> <span class="number">74</span> 6d <span class="number">64</span> <span class="number">67</span> <span class="number">55</span> <span class="number">34</span> 4a <span class="number">62</span> <span class="number">71</span> <span class="number">36</span> 4d <span class="number">57</span> <span class="number">48</span> <span class="number">76</span> <span class="number">50</span> <span class="number">31</span> 6b <span class="number">56</span> <span class="number">78</span> 5a 2f <span class="number">54</span> <span class="number">72</span> <span class="number">76</span> 6f <span class="number">32</span> <span class="number">38</span> <span class="number">67</span> <span class="number">70</span> <span class="number">49</span> <span class="number">72</span> <span class="number">54</span> <span class="number">56</span> <span class="number">65</span> 0d 7a 0a <span class="number">43</span> <span class="number">64</span> <span class="number">37</span> <span class="number">31</span> <span class="number">78</span> <span class="number">50</span> <span class="number">54</span> <span class="number">31</span> <span class="number">69</span> <span class="number">66</span> <span class="number">50</span> <span class="number">50</span> <span class="number">77</span> <span class="number">67</span> <span class="number">62</span> <span class="number">46</span> <span class="number">35</span> <span class="number">75</span> <span class="number">56</span> <span class="number">52</span> 6e 2b 2b <span class="number">56</span> 4f 5a <span class="number">65</span> <span class="number">71</span> 6d <span class="number">53</span> <span class="number">73</span> <span class="number">76</span> <span class="number">41</span> <span class="number">38</span> <span class="number">39</span> <span class="number">56</span> 6b <span class="number">79</span> <span class="number">44</span> <span class="number">35</span> <span class="number">51</span> <span class="number">38</span> <span class="number">56</span> <span class="number">52</span> <span class="number">32</span> <span class="number">39</span> <span class="number">70</span> 5a <span class="number">33</span> 6c <span class="number">32</span> <span class="number">63</span> <span class="number">71</span> <span class="number">62</span> 0d <span class="number">45</span> 7a <span class="number">67</span> 6b 6f <span class="number">54</span> <span class="number">57</span> <span class="number">70</span> <span class="number">72</span> <span class="number">56</span> <span class="number">54</span> <span class="number">35</span> <span class="number">61</span> <span class="number">65</span> <span class="number">75</span> 0a 6e <span class="number">39</span> <span class="number">57</span> <span class="number">37</span> 2b <span class="number">46</span> <span class="number">66</span> <span class="number">54</span> 6d 6a <span class="number">42</span> <span class="number">74</span> <span class="number">30</span> <span class="number">42</span> <span class="number">46</span> <span class="number">37</span> <span class="number">44</span> <span class="number">48</span> 4a <span class="number">58</span> 4b 6b <span class="number">55</span> 6b <span class="number">76</span> <span class="number">37</span> <span class="number">62</span> <span class="number">67</span> 6d 7a 4a <span class="number">62</span> <span class="number">46</span> <span class="number">42</span> 2b <span class="number">64</span> <span class="number">41</span> <span class="number">67</span> 7a <span class="number">43</span> <span class="number">59</span> <span class="number">32</span> <span class="number">50</span> 4a 4b <span class="number">74</span> 6a 5a <span class="number">39</span> <span class="number">63</span> <span class="number">45</span> 4c 0a <span class="number">37</span> 0d <span class="number">68</span> <span class="number">72</span> 4f 6c <span class="number">31</span> <span class="number">38</span> 4a <span class="number">70</span> <span class="number">53</span> <span class="number">69</span> <span class="number">31</span> <span class="number">55</span> <span class="number">36</span> <span class="number">75</span> 4a <span class="number">65</span> <span class="number">65</span> <span class="number">37</span> <span class="number">74</span> <span class="number">32</span> <span class="number">79</span> 6c 4c <span class="number">67</span> 6b <span class="number">63</span> <span class="number">77</span> 4c <span class="number">76</span> <span class="number">71</span> <span class="number">53</span> <span class="number">41</span> <span class="number">46</span> <span class="number">50</span> <span class="number">78</span> 6c 2f <span class="number">52</span> 2b <span class="number">52</span> <span class="number">36</span> <span class="number">67</span> <span class="number">47</span> <span class="number">64</span> <span class="number">35</span> <span class="number">54</span> 6b 2b 6d <span class="number">74</span> 4a <span class="number">69</span> <span class="number">54</span> 6c <span class="number">74</span> 2f <span class="number">33</span> <span class="number">35</span> <span class="number">62</span> <span class="number">49</span> <span class="number">70</span> <span class="number">41</span> <span class="number">50</span> <span class="number">62</span> <span class="number">59</span> <span class="number">54</span> <span class="number">67</span> <span class="number">77</span> <span class="number">59</span> <span class="number">62</span> 6a <span class="number">77</span> 0d <span class="number">46</span> <span class="number">44</span> 0a <span class="number">58</span> 2f <span class="number">49</span> 4c 4b 2b <span class="number">69</span> <span class="number">44</span> <span class="number">68</span> <span class="number">77</span> <span class="number">68</span> <span class="number">71</span> <span class="number">68</span> <span class="number">73</span> <span class="number">71</span> <span class="number">73</span> <span class="number">62</span> <span class="number">35</span> <span class="number">45</span> <span class="number">52</span> 4d 7a <span class="number">54</span> <span class="number">36</span> <span class="number">46</span> <span class="number">42</span> 7a 2b <span class="number">41</span> <span class="number">67</span> 2b <span class="number">79</span> <span class="number">50</span> <span class="number">74</span> <span class="number">77</span> <span class="number">79</span> <span class="number">52</span> <span class="number">50</span> 4b <span class="number">38</span> <span class="number">72</span> <span class="number">59</span> <span class="number">76</span> 6e <span class="number">56</span> <span class="number">37</span> <span class="number">36</span> <span class="number">43</span> <span class="number">43</span> <span class="number">57</span> 0a <span class="number">65</span> <span class="number">70</span> <span class="number">56</span> 0d <span class="number">33</span> <span class="number">32</span> <span class="number">65</span> 4e <span class="number">61</span> <span class="number">46</span> 6a <span class="number">61</span> 6b <span class="number">53</span> <span class="number">44</span> 6c <span class="number">54</span> <span class="number">61</span> <span class="number">49</span> 4f <span class="number">52</span> <span class="number">74</span> <span class="number">77</span> <span class="number">37</span> <span class="number">37</span> <span class="number">79</span> 6f <span class="number">64</span> 6a 2d 2d 2d 2d 2d 0d 3d 0a <span class="number">51</span> 3d <span class="number">41</span> <span class="number">49</span> <span class="number">54</span> <span class="number">52</span> <span class="number">56</span> <span class="number">20</span> 4e <span class="number">50</span> <span class="number">45</span> <span class="number">44</span> 2d 2d 2d 2d 2d <span class="number">45</span> <span class="number">20</span> <span class="number">59</span> <span class="number">45</span> 4b</span><br></pre></td></tr></table></figure>
+<p>按照题目描述，这种乱序是每10个字符一组的，因此可以先逐字符打印出来看看是什么样：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><span class="line">IENBG-----</span><br><span class="line"> TKAEIPV R</span><br><span class="line">*-M-*-Y-E-</span><br><span class="line">DBAIAvIAIE</span><br><span class="line">Gk9hikBqNg</span><br><span class="line">AFSEAA0QwB</span><br><span class="line">igAgSYBwCK</span><br><span class="line">QBCIAAEogA</span><br><span class="line">4P0hviZFqN</span><br><span class="line">8uoOx*N*Hk</span><br><span class="line">tux20rj7Pg</span><br><span class="line">iY+pd5tVkP</span><br><span class="line">D9tf+nw1fG</span><br><span class="line">yPwkomYXOr</span><br><span class="line">Q1YyotznX2</span><br><span class="line">pH*T6Lk6U/</span><br><span class="line">CkE3Z4S7*o</span><br><span class="line">PfVCQcZDzJ</span><br><span class="line">cmbJ61kpMp</span><br><span class="line">lvvd6xqDTl</span><br><span class="line">/jtnchYikN</span><br><span class="line">DIYdLyBAqS</span><br><span class="line">y*z*81UT4K</span><br><span class="line">VP0anCcLnT</span><br><span class="line">i6nuow/pS7</span><br><span class="line">zLPvcbgMY4</span><br><span class="line">bMXNiViOHv</span><br><span class="line">L6yVjlOVwe</span><br><span class="line">I2KVcZ2tw1</span><br><span class="line">8u+och*j0*</span><br><span class="line">a6tXN4Znyo</span><br><span class="line">k2hdl0COa/</span><br><span class="line">s3qNV6Mj46</span><br><span class="line">Rr8gaF04Ws</span><br><span class="line">bO5ZBGeiWj</span><br><span class="line">*f+u*vBiII</span><br><span class="line">nokTJ1Ozio</span><br><span class="line">uHEIJc4Mvq</span><br><span class="line">DbRKPBeOby</span><br><span class="line">QfWbmLykAt</span><br><span class="line">Y/cvxcaz/X</span><br><span class="line">qJYJkaJl6d</span><br><span class="line">6x/Ot*r*qV</span><br><span class="line">ABEMAAug6X</span><br><span class="line">gUCA8EgACg</span><br><span class="line">WKiG+UqwLS</span><br><span class="line">GtyIraejo3</span><br><span class="line">xkVsD7qesM</span><br><span class="line">+/*R6M+wjm</span><br><span class="line">EwI5nGZa*t</span><br><span class="line">dwZ97YFpk3</span><br><span class="line">+krO8kEmO/</span><br><span class="line">RncGoTSoSc</span><br><span class="line">3OQuSBlgeB</span><br><span class="line">dBZ73WnHu1</span><br><span class="line">X*B*utQoxB</span><br><span class="line">3RYtjq+iNr</span><br><span class="line">BAIRnj6xJV</span><br><span class="line">soI1j4Wa0B</span><br><span class="line">pmNhxzpF/<span class="number">4</span></span><br><span class="line">xDB+qWYkq/</span><br><span class="line">a9GH7WiMpL</span><br><span class="line">2hCQRU*c8*</span><br><span class="line">V/8OE0L9tP</span><br><span class="line">hCENtID1FC</span><br><span class="line">CksvWXR90Y</span><br><span class="line">hExQtNE9Db</span><br><span class="line">UJKyKg8Qql</span><br><span class="line">*qv4*YKla3</span><br><span class="line">sKAPgjb42a</span><br><span class="line">AKY9JxH9Jt</span><br><span class="line">tks0YXDpk4</span><br><span class="line">uEZjDTKOW0</span><br><span class="line">J1x1QhSBPc</span><br><span class="line">zG+R9hqZiu</span><br><span class="line">eUET4*e*go</span><br><span class="line">+Q973qPjGX</span><br><span class="line">XIFqMjKIdH</span><br><span class="line">CTXJ+F0KE/</span><br><span class="line">BQg5K2Z3nU</span><br><span class="line">Btd+jmDcQF</span><br><span class="line">Sc*/jfwbUL</span><br><span class="line">FdKo0QM8*<span class="number">3</span></span><br><span class="line">Udl4BIVER4</span><br><span class="line">zFUhLNRjyP</span><br><span class="line">FRAhDSzcvu</span><br><span class="line">fM+7AUczRN</span><br><span class="line">9PpM/MBcEA</span><br><span class="line">c*X*KyKPjX</span><br><span class="line">BEhKIqamCS</span><br><span class="line">sBa/iUNRjN</span><br><span class="line">8BCxuoNkbl</span><br><span class="line">+gflXEs9ou</span><br><span class="line">3KFcDpm58b</span><br><span class="line">KQm1Whj8nq</span><br><span class="line">HNVgdL*t6*</span><br><span class="line">mII2gnjzH7</span><br><span class="line">wpKggX2cah</span><br><span class="line">EJhwnDgcBQ</span><br><span class="line">FIc7Ureiiq</span><br><span class="line">2Kxz6pfn4E</span><br><span class="line">*yh1*6TCtg</span><br><span class="line">iLSBKqUtCo</span><br><span class="line">n6R4tZEIeZ</span><br><span class="line">/7YY5BExgZ</span><br><span class="line">bhPMPw+vqn</span><br><span class="line">7EWGaHXRs7</span><br><span class="line">0rhd4YV9yc</span><br><span class="line">iNNTT*K*1s</span><br><span class="line">Tnl40uwerf</span><br><span class="line">Zip/8udviG</span><br><span class="line">0QBdD0xi6S</span><br><span class="line">+vJpIX6rLX</span><br><span class="line">pziS1VoKDU</span><br><span class="line">9N*uvJo9dR</span><br><span class="line">drXExSur*P</span><br><span class="line">3ArxYgKBQB</span><br><span class="line">PnkeQtnVyp</span><br><span class="line">tcbGu1jotK</span><br><span class="line">LqjBcfCE0s</span><br><span class="line">NvSBe+aQHz</span><br><span class="line">B*s*4hNylt</span><br><span class="line">W56t7QY8Ga</span><br><span class="line">zisYZikzJp</span><br><span class="line">CYdDc7Xyw2</span><br><span class="line">E2m0Mz32+V</span><br><span class="line">cQ6tiYg77D</span><br><span class="line">ruBstNxvMk</span><br><span class="line">jLdBA6*Yp*</span><br><span class="line">wNBk6HPUPw</span><br><span class="line">vfGeNGOPbO</span><br><span class="line">iiV+Lx2sX5</span><br><span class="line">tOhSzmpFaH</span><br><span class="line">1kACAh1Q0D</span><br><span class="line">*1Eb*bGioA</span><br><span class="line">JAfetllc6V</span><br><span class="line">bXJOB9THSe</span><br><span class="line">KqAzcM0Gfl</span><br><span class="line">6tmdgU4Jbq</span><br><span class="line">6MWHvP1kVx</span><br><span class="line">Z/Trvo28gp</span><br><span class="line">IrTVe*z*Cd</span><br><span class="line">71xPT1ifPP</span><br><span class="line">wgbF5uVRn+</span><br><span class="line">+VOZeqmSsv</span><br><span class="line">A89VkyD5Q8</span><br><span class="line">VR29pZ3l2c</span><br><span class="line">qb*EzgkoTW</span><br><span class="line">prVT5aeu*n</span><br><span class="line">9W7+FfTmjB</span><br><span class="line">t0BF7DHJXK</span><br><span class="line">kUkv7bgmzJ</span><br><span class="line">bFB+dAgzCY</span><br><span class="line">2PJKtjZ9cE</span><br><span class="line">L*<span class="number">7</span>*hrOl18</span><br><span class="line">JpSi1U6uJe</span><br><span class="line">e7t2ylLgkc</span><br><span class="line">wLvqSAFPxl</span><br><span class="line">/R+R6gGd5T</span><br><span class="line">k+mtJiTlt/</span><br><span class="line">35bIpAPbYT</span><br><span class="line">gwYbjw*FD*</span><br><span class="line">X/ILK+iDhw</span><br><span class="line">hqhsqsb5ER</span><br><span class="line">MzT6FBz+Ag</span><br><span class="line">+yPtwyRPK8</span><br><span class="line">rYvnV76CCW</span><br><span class="line">*epV*32eNa</span><br><span class="line">FjakSDlTaI</span><br><span class="line">ORtw77yodj</span><br><span class="line">-----*=*Q=</span><br><span class="line">AITRV NPED</span><br><span class="line">-----E YEK</span><br></pre></td></tr></table></figure>
+<p>对比一下几组已知的头部：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN</span><br><span class="line">IENBG-----</span><br><span class="line"></span><br><span class="line"> PRIVATE K</span><br><span class="line"> TKAEIPV R</span><br><span class="line"></span><br><span class="line">*-M-*-Y-E-</span><br><span class="line">EY-----**M</span><br></pre></td></tr></table></figure>
+<p>可以看出这个打乱其实是一个特定的置换，因此按顺序置换回去就可以得到完整私钥文件并解密了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pri = <span class="string">&quot;49 45 4e 42 47 2d 2d 2d 2d 2d 20 54 4b 41 45 49 50 56 20 52 0a 2d 4d 2d 0d 2d 59 2d 45 2d 44 42 41 49 41 76 49 41 49 45 47 6b 39 68 69 6b 42 71 4e 67 41 46 53 45 41 41 30 51 77 42 69 67 41 67 53 59 42 77 43 4b 51 42 43 49 41 41 45 6f 67 41 34 50 30 68 76 69 5a 46 71 4e 38 75 6f 4f 78 0d 4e 0a 48 6b 74 75 78 32 30 72 6a 37 50 67 69 59 2b 70 64 35 74 56 6b 50 44 39 74 66 2b 6e 77 31 66 47 79 50 77 6b 6f 6d 59 58 4f 72 51 31 59 79 6f 74 7a 6e 58 32 70 48 0d 54 36 4c 6b 36 55 2f 43 6b 45 33 5a 34 53 37 0a 6f 50 66 56 43 51 63 5a 44 7a 4a 63 6d 62 4a 36 31 6b 70 4d 70 6c 76 76 64 36 78 71 44 54 6c 2f 6a 74 6e 63 68 59 69 6b 4e 44 49 59 64 4c 79 42 41 71 53 79 0a 7a 0d 38 31 55 54 34 4b 56 50 30 61 6e 43 63 4c 6e 54 69 36 6e 75 6f 77 2f 70 53 37 7a 4c 50 76 63 62 67 4d 59 34 62 4d 58 4e 69 56 69 4f 48 76 4c 36 79 56 6a 6c 4f 56 77 65 49 32 4b 56 63 5a 32 74 77 31 38 75 2b 6f 63 68 0d 6a 30 0a 61 36 74 58 4e 34 5a 6e 79 6f 6b 32 68 64 6c 30 43 4f 61 2f 73 33 71 4e 56 36 4d 6a 34 36 52 72 38 67 61 46 30 34 57 73 62 4f 35 5a 42 47 65 69 57 6a 0a 66 2b 75 0d 76 42 69 49 49 6e 6f 6b 54 4a 31 4f 7a 69 6f 75 48 45 49 4a 63 34 4d 76 71 44 62 52 4b 50 42 65 4f 62 79 51 66 57 62 6d 4c 79 6b 41 74 59 2f 63 76 78 63 61 7a 2f 58 71 4a 59 4a 6b 61 4a 6c 36 64 36 78 2f 4f 74 0d 72 0a 71 56 41 42 45 4d 41 41 75 67 36 58 67 55 43 41 38 45 67 41 43 67 57 4b 69 47 2b 55 71 77 4c 53 47 74 79 49 72 61 65 6a 6f 33 78 6b 56 73 44 37 71 65 73 4d 2b 2f 0d 52 36 4d 2b 77 6a 6d 45 77 49 35 6e 47 5a 61 0a 74 64 77 5a 39 37 59 46 70 6b 33 2b 6b 72 4f 38 6b 45 6d 4f 2f 52 6e 63 47 6f 54 53 6f 53 63 33 4f 51 75 53 42 6c 67 65 42 64 42 5a 37 33 57 6e 48 75 31 58 0a 42 0d 75 74 51 6f 78 42 33 52 59 74 6a 71 2b 69 4e 72 42 41 49 52 6e 6a 36 78 4a 56 73 6f 49 31 6a 34 57 61 30 42 70 6d 4e 68 78 7a 70 46 2f 34 78 44 42 2b 71 57 59 6b 71 2f 61 39 47 48 37 57 69 4d 70 4c 32 68 43 51 52 55 0d 63 38 0a 56 2f 38 4f 45 30 4c 39 74 50 68 43 45 4e 74 49 44 31 46 43 43 6b 73 76 57 58 52 39 30 59 68 45 78 51 74 4e 45 39 44 62 55 4a 4b 79 4b 67 38 51 71 6c 0a 71 76 34 0d 59 4b 6c 61 33 73 4b 41 50 67 6a 62 34 32 61 41 4b 59 39 4a 78 48 39 4a 74 74 6b 73 30 59 58 44 70 6b 34 75 45 5a 6a 44 54 4b 4f 57 30 4a 31 78 31 51 68 53 42 50 63 7a 47 2b 52 39 68 71 5a 69 75 65 55 45 54 34 0d 65 0a 67 6f 2b 51 39 37 33 71 50 6a 47 58 58 49 46 71 4d 6a 4b 49 64 48 43 54 58 4a 2b 46 30 4b 45 2f 42 51 67 35 4b 32 5a 33 6e 55 42 74 64 2b 6a 6d 44 63 51 46 53 63 0d 2f 6a 66 77 62 55 4c 46 64 4b 6f 30 51 4d 38 0a 33 55 64 6c 34 42 49 56 45 52 34 7a 46 55 68 4c 4e 52 6a 79 50 46 52 41 68 44 53 7a 63 76 75 66 4d 2b 37 41 55 63 7a 52 4e 39 50 70 4d 2f 4d 42 63 45 41 63 0a 58 0d 4b 79 4b 50 6a 58 42 45 68 4b 49 71 61 6d 43 53 73 42 61 2f 69 55 4e 52 6a 4e 38 42 43 78 75 6f 4e 6b 62 6c 2b 67 66 6c 58 45 73 39 6f 75 33 4b 46 63 44 70 6d 35 38 62 4b 51 6d 31 57 68 6a 38 6e 71 48 4e 56 67 64 4c 0d 74 36 0a 6d 49 49 32 67 6e 6a 7a 48 37 77 70 4b 67 67 58 32 63 61 68 45 4a 68 77 6e 44 67 63 42 51 46 49 63 37 55 72 65 69 69 71 32 4b 78 7a 36 70 66 6e 34 45 0a 79 68 31 0d 36 54 43 74 67 69 4c 53 42 4b 71 55 74 43 6f 6e 36 52 34 74 5a 45 49 65 5a 2f 37 59 59 35 42 45 78 67 5a 62 68 50 4d 50 77 2b 76 71 6e 37 45 57 47 61 48 58 52 73 37 30 72 68 64 34 59 56 39 79 63 69 4e 4e 54 54 0d 4b 0a 31 73 54 6e 6c 34 30 75 77 65 72 66 5a 69 70 2f 38 75 64 76 69 47 30 51 42 64 44 30 78 69 36 53 2b 76 4a 70 49 58 36 72 4c 58 70 7a 69 53 31 56 6f 4b 44 55 39 4e 0d 75 76 4a 6f 39 64 52 64 72 58 45 78 53 75 72 0a 50 33 41 72 78 59 67 4b 42 51 42 50 6e 6b 65 51 74 6e 56 79 70 74 63 62 47 75 31 6a 6f 74 4b 4c 71 6a 42 63 66 43 45 30 73 4e 76 53 42 65 2b 61 51 48 7a 42 0a 73 0d 34 68 4e 79 6c 74 57 35 36 74 37 51 59 38 47 61 7a 69 73 59 5a 69 6b 7a 4a 70 43 59 64 44 63 37 58 79 77 32 45 32 6d 30 4d 7a 33 32 2b 56 63 51 36 74 69 59 67 37 37 44 72 75 42 73 74 4e 78 76 4d 6b 6a 4c 64 42 41 36 0d 59 70 0a 77 4e 42 6b 36 48 50 55 50 77 76 66 47 65 4e 47 4f 50 62 4f 69 69 56 2b 4c 78 32 73 58 35 74 4f 68 53 7a 6d 70 46 61 48 31 6b 41 43 41 68 31 51 30 44 0a 31 45 62 0d 62 47 69 6f 41 4a 41 66 65 74 6c 6c 63 36 56 62 58 4a 4f 42 39 54 48 53 65 4b 71 41 7a 63 4d 30 47 66 6c 36 74 6d 64 67 55 34 4a 62 71 36 4d 57 48 76 50 31 6b 56 78 5a 2f 54 72 76 6f 32 38 67 70 49 72 54 56 65 0d 7a 0a 43 64 37 31 78 50 54 31 69 66 50 50 77 67 62 46 35 75 56 52 6e 2b 2b 56 4f 5a 65 71 6d 53 73 76 41 38 39 56 6b 79 44 35 51 38 56 52 32 39 70 5a 33 6c 32 63 71 62 0d 45 7a 67 6b 6f 54 57 70 72 56 54 35 61 65 75 0a 6e 39 57 37 2b 46 66 54 6d 6a 42 74 30 42 46 37 44 48 4a 58 4b 6b 55 6b 76 37 62 67 6d 7a 4a 62 46 42 2b 64 41 67 7a 43 59 32 50 4a 4b 74 6a 5a 39 63 45 4c 0a 37 0d 68 72 4f 6c 31 38 4a 70 53 69 31 55 36 75 4a 65 65 37 74 32 79 6c 4c 67 6b 63 77 4c 76 71 53 41 46 50 78 6c 2f 52 2b 52 36 67 47 64 35 54 6b 2b 6d 74 4a 69 54 6c 74 2f 33 35 62 49 70 41 50 62 59 54 67 77 59 62 6a 77 0d 46 44 0a 58 2f 49 4c 4b 2b 69 44 68 77 68 71 68 73 71 73 62 35 45 52 4d 7a 54 36 46 42 7a 2b 41 67 2b 79 50 74 77 79 52 50 4b 38 72 59 76 6e 56 37 36 43 43 57 0a 65 70 56 0d 33 32 65 4e 61 46 6a 61 6b 53 44 6c 54 61 49 4f 52 74 77 37 37 79 6f 64 6a 2d 2d 2d 2d 2d 0d 3d 0a 51 3d 41 49 54 52 56 20 4e 50 45 44 2d 2d 2d 2d 2d 45 20 59 45 4b&quot;</span></span><br><span class="line">pub = <span class="string">&quot;2d 2d 2d 2d 2d 42 45 47 49 4e 20 50 55 42 4c 49 43 20 4b 45 59 2d 2d 2d 2d 2d 0d 0a 4d 49 49 42 49 6a 41 4e 42 67 6b 71 68 6b 69 47 39 77 30 42 41 51 45 46 41 41 4f 43 41 51 38 41 4d 49 49 42 43 67 4b 43 41 51 45 41 71 6d 54 59 68 59 54 37 2b 4e 42 7a 5a 44 72 73 66 4b 44 34 0d 0a 34 4b 2b 39 72 74 4c 63 5a 4c 54 2b 56 61 57 48 59 76 6e 38 42 70 39 58 2f 66 67 37 54 6d 4b 35 6c 35 44 36 4d 73 46 38 39 72 5a 38 74 61 45 47 46 4a 50 79 2b 6b 78 2b 71 55 71 4f 4f 39 35 47 0d 0a 51 68 4d 32 53 58 41 77 6e 30 44 31 54 4a 4b 64 61 53 5a 75 6e 47 30 36 70 63 51 33 62 2b 70 62 35 47 44 59 59 70 34 33 50 37 61 67 55 73 67 48 53 43 77 32 4f 46 43 74 55 2f 4d 73 35 33 45 77 0d 0a 69 32 6a 35 31 64 45 76 2b 38 4b 62 75 71 49 70 32 49 4f 47 7a 4c 79 33 4d 7a 78 34 72 31 54 6a 54 49 6d 31 38 44 6e 70 56 56 65 6f 79 38 73 4e 74 57 62 56 64 6e 43 43 74 49 59 36 4c 6e 50 50 0d 0a 73 6d 61 4f 4a 31 2b 6a 57 72 57 67 76 39 44 6e 64 70 5a 49 65 44 4f 75 6f 7a 64 31 62 4b 6c 74 4c 42 65 49 4b 32 6b 66 46 6e 6f 78 6f 6d 54 67 57 2b 53 41 53 4c 34 72 6e 2f 6f 6a 71 4e 63 30 0d 0a 36 43 5a 35 4c 2b 4b 6e 44 43 42 79 62 68 47 33 73 67 54 69 6d 7a 77 30 51 4d 72 53 35 47 33 35 6b 46 76 32 6c 33 4d 37 2f 38 57 48 4f 69 58 57 70 53 53 5a 4b 6d 4b 71 31 54 73 62 65 76 2b 72 0d 0a 6c 77 49 44 41 51 41 42 0d 0a 2d 2d 2d 2d 2d 45 4e 44 20 50 55 42 4c 49 43 20 4b 45 59 2d 2d 2d 2d 2d&quot;</span></span><br><span class="line">pri = <span class="built_in">list</span>(pri.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line">pub = <span class="built_in">list</span>(pub.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line"></span><br><span class="line">pripem = <span class="string">&quot;&quot;</span></span><br><span class="line">BLOCK_SIZE = <span class="number">10</span></span><br><span class="line">blocks = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(pri)//<span class="number">10</span>):</span><br><span class="line">    blocks.append(pri[<span class="number">10</span>*i:<span class="number">10</span>*i+<span class="number">10</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> blocks:</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> i:</span><br><span class="line">        <span class="keyword">if</span>(j == <span class="string">&quot;0d&quot;</span> <span class="keyword">or</span> j == <span class="string">&quot;0a&quot;</span>):</span><br><span class="line">           <span class="built_in">print</span>(<span class="string">&quot;*&quot;</span> ,end=<span class="string">&quot;&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="built_in">chr</span>(<span class="built_in">int</span>(j,<span class="number">16</span>)),end=<span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">-----BEGIN</span></span><br><span class="line"><span class="string">IENBG-----</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> PRIVATE K</span></span><br><span class="line"><span class="string"> TKAEIPV R</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">*-M-*-Y-E-</span></span><br><span class="line"><span class="string">EY-----**M</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#permutation</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> blocks:</span><br><span class="line">   temp = [i[<span class="number">8</span>],i[<span class="number">6</span>],i[<span class="number">9</span>],i[<span class="number">5</span>],i[<span class="number">7</span>],i[<span class="number">3</span>],i[<span class="number">1</span>],i[<span class="number">4</span>],i[<span class="number">0</span>],i[<span class="number">2</span>]]</span><br><span class="line">   <span class="keyword">for</span> j <span class="keyword">in</span> temp:</span><br><span class="line">      <span class="built_in">print</span>(<span class="built_in">chr</span>(<span class="built_in">int</span>(j,<span class="number">16</span>)),end=<span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>()</span><br><span class="line">d = <span class="number">165256362365378633962296083771135407038026699717295555351716859079395620476165642731501900549887775497121080168180851957155268986745876979986226731585889976886837359456743753775028788280049190032572887402128718766395555960952472194713588403459107775960707064376615034000878349037951437654190347800868982293717655486543355290064798487196374748902866036013066392457458018702080850275261821212483956954132894024744768847485772347326562180294583357305409591048017004560050950841782237308140874043067649757249088082203601577081393135407431927587710161081829108984309876504298973617534523777641091443517585278194374522853</span></span><br><span class="line">n = <span class="number">21510240755391895797392251126333468065642811955059381948531217067500200157192587343981013021525313093852679704035885788909801119333395312090084093958181671132537557153359712792758811713027971732204030430334279725507975275100183059036632459180733954941681944147070942370040842822046123871981475320408243282191701896001902180703675695673251138391340023296500185391470273951722561424220840561040099780810789151859641139766606958023069344423617768698551243818313411124018247598802749326315083446422976866685184664968010286642320264785659560232284046763146464713273328278424445113308747581406364568448073987441571059968919</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;D:\题\2024\TAMUCTF 2024\jumbled\flag.txt.enc&quot;</span>,<span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = f.read()</span><br><span class="line">c = bytes_to_long(c)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">pow</span>(c,d,n)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#gigem&#123;jumbl3d_r54_pr1v473_k3y_z93kd74lx&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="Smooth-Signatures"><a href="#Smooth-Signatures" class="headerlink" title="Smooth Signatures"></a>Smooth Signatures</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">I&#x27;ve heard signatures are pretty good tools for verifying the sender. Signatures are suposed to be personalized and unique, so surely this one is impossible to forge... right?</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime,long_to_bytes,bytes_to_long</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> lcm,gcd</span><br><span class="line"><span class="keyword">from</span> secrets <span class="keyword">import</span> randbelow</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"></span><br><span class="line">NUM_BITS = <span class="number">2048</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getModulus</span>(<span class="params">bits</span>):</span><br><span class="line">    n = <span class="number">1</span></span><br><span class="line">    primes = []</span><br><span class="line">    <span class="keyword">while</span> n.bit_length() &lt; bits:</span><br><span class="line">        p = getPrime(<span class="number">24</span>)</span><br><span class="line">        <span class="keyword">if</span> p <span class="keyword">not</span> <span class="keyword">in</span> primes:</span><br><span class="line">            n *= p</span><br><span class="line">            primes.append(p)</span><br><span class="line">    <span class="keyword">return</span> n,primes</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sign</span>(<span class="params">n,msg,d</span>):</span><br><span class="line">    h = bytes_to_long(sha256(msg).digest())</span><br><span class="line">    k = randbelow(q-<span class="number">2</span>)+<span class="number">1</span></span><br><span class="line">    x = <span class="built_in">pow</span>(h,k,n)</span><br><span class="line">    r = <span class="built_in">pow</span>(x,d,n)</span><br><span class="line">    s = <span class="built_in">pow</span>(h+x,d,n)</span><br><span class="line">    <span class="keyword">return</span> r,s</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">verify</span>(<span class="params">n,msg,e,r,s</span>):</span><br><span class="line">    h = bytes_to_long(sha256(msg).digest())</span><br><span class="line">    v1 = <span class="built_in">pow</span>(r,e,n)</span><br><span class="line">    v2 = <span class="built_in">pow</span>(s,e,n)</span><br><span class="line">    <span class="keyword">return</span> v2 == (v1 + h) % n</span><br><span class="line"></span><br><span class="line">n,primes = getModulus(NUM_BITS)</span><br><span class="line">q = <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> primes:</span><br><span class="line">    q = lcm(q,p-<span class="number">1</span>)</span><br><span class="line">msgs = []</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">d = <span class="built_in">pow</span>(e,-<span class="number">1</span>,q)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;The modulus is ... a mystery left for you to unfold.&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Your verification exponent <span class="subst">&#123;e = &#125;</span>&quot;</span>)</span><br><span class="line">msg = <span class="built_in">input</span>(<span class="string">&quot;Give the oracle a message to sign: &quot;</span>).encode()</span><br><span class="line">msgs.append(msg)</span><br><span class="line">r,s = sign(n,msg,d)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Your verification signature is (<span class="subst">&#123;r&#125;</span>, <span class="subst">&#123;s&#125;</span>)&quot;</span>)</span><br><span class="line"></span><br><span class="line">msg = <span class="built_in">input</span>(<span class="string">&quot;Give the oracle another message to sign: &quot;</span>).encode()</span><br><span class="line">msgs.append(msg)</span><br><span class="line">r,s = sign(n,msg,d)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Your second verification signature is (<span class="subst">&#123;r&#125;</span>, <span class="subst">&#123;s&#125;</span>)&quot;</span>)</span><br><span class="line"></span><br><span class="line">comm = <span class="built_in">input</span>(<span class="string">&quot;Ask the oracle a question: &quot;</span>).encode()</span><br><span class="line">r,s = <span class="built_in">input</span>(<span class="string">&quot;Give the verification signature: &quot;</span>).split(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">r,s = <span class="built_in">int</span>(r),<span class="built_in">int</span>(s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> comm <span class="keyword">in</span> msgs:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Hey, no cheating&quot;</span>)</span><br><span class="line">    exit()</span><br><span class="line"><span class="keyword">if</span> verify(n,comm,e,r,s):</span><br><span class="line">    <span class="keyword">if</span> comm == <span class="string">b&quot;What is the flag?&quot;</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;The flag is: &quot;</span>,end=<span class="string">&quot;&quot;</span>)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;flag.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> flag:</span><br><span class="line">            <span class="built_in">print</span>(flag.read())</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Not the right question.&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Invalid signature&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>仍然是靶机题，连接上后，题目会先生成一些数据：</p>
+<ul>
+<li>生成一个光滑的模数n，其所有因子都是24bit的素数</li>
+<li>计算n所有因子减去1的lcm(这一步其实就当成算n的欧拉函数就行，作用没区别)</li>
+<li>取e=65537，并计算其关于lcm的逆元d</li>
+</ul>
+<p>然后题目提供了两次签名的机会，他的签名操作是：</p>
+<script type="math/tex; mode=display">
+x = h(m)^k \quad(mod\;n)</script><script type="math/tex; mode=display">
+r = x^d \quad(mod\;n)</script><script type="math/tex; mode=display">
+s = (h(m) + x)^d \quad(mod\;n)</script><p>其中k是每次签名的临时密钥，d就是最开始生成的私钥。</p>
+<p>两次签名之后，靶机要求我们提供消息”What is the flag?”以及他的签名，使得验签通过，就能拿到flag。他的验签操作是：</p>
+<script type="math/tex; mode=display">
+r^e + h(m) = s^e \quad(mod\;n)</script><p>而这个消息本身肯定是不能用在前两次签名中的，因此要想办法利用两次签名去得到私钥d，因为得到私钥d之后，我们可以用如下方式伪造签名：</p>
+<script type="math/tex; mode=display">
+r = 0 \; , \; s = h(m)^d</script><p>那么接下来就是怎么利用两次签名的机会去得到d，容易想到的是我们如果两次都发送相同的消息，那么h(m)就相同，于是就有两组：</p>
+<script type="math/tex; mode=display">
+r_1 = h^{k_1} \; , \; s_1 = (h + h^{k_1})^d</script><script type="math/tex; mode=display">
+r_2 = h^{k_2} \; , \; s_2 = (h + h^{k_2})^d</script><p>由于我们有加密指数e，所以可以得到：</p>
+<script type="math/tex; mode=display">
+s_1^e - r_1 - h = t_1n</script><script type="math/tex; mode=display">
+s_2^e - r_2 - h = t_2n</script><p>所以求GCD就可以得到n，又因为n很光滑，所以他的欧拉函数容易计算，因此就可以得到d了。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part1 get data</span></span><br><span class="line">sh = remote(<span class="string">&quot;tamuctf.com&quot;</span>, <span class="number">443</span>, ssl=<span class="literal">True</span>, sni=<span class="string">&quot;smooth-signatures&quot;</span>)</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">msg = <span class="string">b&quot;1&quot;</span></span><br><span class="line">hm = bytes_to_long(sha256(msg).digest())</span><br><span class="line"></span><br><span class="line">sh.recvuntil(<span class="string">b&quot;Give the oracle a message to sign: &quot;</span>)</span><br><span class="line">sh.sendline(msg)</span><br><span class="line">sh.recvuntil(<span class="string">b&quot;Your verification signature is &quot;</span>)</span><br><span class="line">r1,s1 = <span class="built_in">eval</span>(sh.recvline().strip().decode())</span><br><span class="line"></span><br><span class="line">sh.recvuntil(<span class="string">b&quot;Give the oracle another message to sign: &quot;</span>)</span><br><span class="line">sh.sendline(msg)</span><br><span class="line">sh.recvuntil(<span class="string">b&quot;Your second verification signature is &quot;</span>)</span><br><span class="line">r2,s2 = <span class="built_in">eval</span>(sh.recvline().strip().decode())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part2 get n</span></span><br><span class="line">k1n = s1**e - r1**e - hm</span><br><span class="line">k2n = s2**e - r2**e - hm</span><br><span class="line">n = gcd(k1n , k2n)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part3 forge</span></span><br><span class="line">primes = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">2</span>**<span class="number">23</span>,<span class="number">2</span>**<span class="number">25</span>):</span><br><span class="line">    <span class="keyword">if</span>(n % i == <span class="number">0</span>):</span><br><span class="line">        primes.append(i)</span><br><span class="line"></span><br><span class="line">phi = <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(primes)):</span><br><span class="line">    phi *= (primes[i] - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">d = inverse(e,phi)</span><br><span class="line">flag_msg = <span class="string">b&quot;What is the flag?&quot;</span></span><br><span class="line">h = bytes_to_long(sha256(flag_msg).digest())</span><br><span class="line">s = <span class="built_in">pow</span>(h,d,n)</span><br><span class="line"></span><br><span class="line">sh.recvuntil(<span class="string">b&quot;Ask the oracle a question: &quot;</span>)</span><br><span class="line">sh.sendline(flag_msg)</span><br><span class="line">sh.recvuntil(<span class="string">b&quot;Give the verification signature: &quot;</span>)</span><br><span class="line">sh.sendline(<span class="string">b&quot;0 , &quot;</span> + <span class="built_in">str</span>(s).encode())</span><br><span class="line"><span class="built_in">print</span>(sh.recvline())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#gigem&#123;sm00th_numb3rs_4r3_345y_70_f4c70r&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="QCG"><a href="#QCG" class="headerlink" title="QCG"></a>QCG</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Java uses LCG for random number generation, so I rolled my own random nunber generator, QCG. Surely it is more secure than LCD.</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> secrets <span class="keyword">import</span> randbelow</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">QCG</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.m = randbelow(<span class="built_in">pow</span>(<span class="number">2</span>,<span class="number">256</span>)-<span class="number">1</span>)</span><br><span class="line">        self.a = randbelow(self.m-<span class="number">1</span>)</span><br><span class="line">        self.b = randbelow(self.m-<span class="number">1</span>)</span><br><span class="line">        self.c = randbelow(self.m-<span class="number">1</span>)</span><br><span class="line">        self.x = randbelow(self.m-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self</span>):</span><br><span class="line">        self.x = (self.a*self.x**<span class="number">2</span>+self.b*self.x+self.c) % self.m</span><br><span class="line">        <span class="keyword">return</span> self.x</span><br><span class="line">qcg = QCG()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(qcg())</span><br><span class="line"></span><br><span class="line">correct = <span class="literal">True</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">    guess = <span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">    <span class="keyword">if</span> guess != qcg():</span><br><span class="line">        correct = <span class="literal">False</span></span><br><span class="line"><span class="keyword">if</span> correct:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>).read())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;You failed&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>这是一个Quadratic Congruential Generator(非线性二次同余生成器)，具体来说迭代过程是：</p>
+<script type="math/tex; mode=display">
+x = ax^2 + bx + c \quad(mod\;m)</script><p>任务是给定十个连续值，要求成功预测接下来的五个值得到flag。</p>
+<p>类似的题目其实见过不少了，由于给了整整十个值所以可以直接groebner解决。</p>
+<p>exp：</p>
+<p>交互拿数据：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = remote(<span class="string">&quot;tamuctf.com&quot;</span>, <span class="number">443</span>, ssl=<span class="literal">True</span>, sni=<span class="string">&quot;qcg&quot;</span>)</span><br><span class="line"></span><br><span class="line">data1 = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    t = <span class="built_in">int</span>(sh.recvline().strip().decode())</span><br><span class="line">    data1.append(t)</span><br><span class="line"><span class="built_in">print</span>(data1)</span><br><span class="line">sh.interactive()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#gigem&#123;lcg_but_h4rd3r_101&#125;</span></span><br></pre></td></tr></table></figure>
+<p>groebner：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">data = [<span class="number">1388869342232927465091370652646521560019924616064085620583507026929755390307</span>, <span class="number">2087999659170665685398483574125177157132720645465047476967504614296559456559</span>, <span class="number">2157854097300316679400726656746870123156894794355466882362743758608428634056</span>, <span class="number">1519648750735059547961642971292442920100966798658604766461009108374272079692</span>, <span class="number">1047335097724252746345909506496684938620972709494655647678190068503668987467</span>, <span class="number">2301919003777202005279819336073634365918118914799907894908094131063869959956</span>, <span class="number">101417690526672425892317262200858966425899836236332889774260719581158542116</span>, <span class="number">1841928647587882377194883211535042971827478656390546940556819757969104146439</span>, <span class="number">1928439569287268506856537297557025028455609216074565181377500363054239781926</span>, <span class="number">158993405494843561346820256023791625896139119048331722723273539634167243965</span>]</span><br><span class="line"></span><br><span class="line">F = []</span><br><span class="line">PR.&lt;a,b,c&gt; = PolynomialRing(ZZ)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):</span><br><span class="line">    f = a*data[i]^<span class="number">2</span> + b*data[i] + c - data[i+<span class="number">1</span>]</span><br><span class="line">    F.append(f)</span><br><span class="line">res = Ideal(F).groebner_basis()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line">m = ZZ(res[<span class="number">3</span>].univariate_polynomial()(<span class="number">0</span>))</span><br><span class="line">c = ZZ(-res[<span class="number">2</span>].univariate_polynomial()(<span class="number">0</span>))</span><br><span class="line">b = ZZ(-res[<span class="number">1</span>].univariate_polynomial()(<span class="number">0</span>))</span><br><span class="line">a = ZZ(-res[<span class="number">0</span>].univariate_polynomial()(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">    tt = (a*data[-<span class="number">1</span>]^<span class="number">2</span> + b*data[-<span class="number">1</span>] + c) % m</span><br><span class="line">    data.append(tt)</span><br><span class="line">    <span class="built_in">print</span>(tt)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#gigem&#123;lcg_but_h4rd3r_101&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="Emoji-Group"><a href="#Emoji-Group" class="headerlink" title="Emoji Group"></a>Emoji Group</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Emoji seem to have their own unique properties and strange combinations, so why not make a group out of them?</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> secrets <span class="keyword">import</span> multiply, g, identity, inverse, valid</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> getrandbits</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">power</span>(<span class="params">p,x</span>):</span><br><span class="line">    out = identity</span><br><span class="line">    <span class="keyword">while</span> x:</span><br><span class="line">        <span class="keyword">if</span> x &amp; <span class="number">1</span>:</span><br><span class="line">            out = multiply(out,p)</span><br><span class="line">        p = multiply(p,p)</span><br><span class="line">        x &gt;&gt;= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt</span>(<span class="params">msg,e</span>):</span><br><span class="line">    generator = power(g,e)</span><br><span class="line">    out = generator</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> msg:</span><br><span class="line">        out += power(generator,<span class="built_in">ord</span>(c))</span><br><span class="line">    <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decrypt</span>(<span class="params">ct,d</span>):</span><br><span class="line">    chars = [power(g,i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>)]</span><br><span class="line">    plaintext = <span class="string">&quot;&quot;</span></span><br><span class="line">    pt = power(ct[<span class="number">0</span>],d)</span><br><span class="line">    <span class="keyword">if</span> pt != g:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">&quot;Invalid ciphertext&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> ct[<span class="number">1</span>:]:</span><br><span class="line">        pt = power(c,d)</span><br><span class="line">        plaintext += <span class="built_in">chr</span>(chars.index(pt))</span><br><span class="line">    <span class="keyword">return</span> plaintext</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Give me a message to encrypt:&quot;</span>)</span><br><span class="line">msg = <span class="built_in">input</span>()</span><br><span class="line">e = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">not</span> valid(e):</span><br><span class="line">    e = getrandbits(<span class="number">32</span>)</span><br><span class="line">ct = encrypt(msg,e)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Your cipher text is:&quot;</span>,ct)</span><br><span class="line">d = inverse(e)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;The original message was:&quot;</span>,decrypt(ct,d))</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;flag.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> flag:</span><br><span class="line">    e = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> valid(e):</span><br><span class="line">        e = getrandbits(<span class="number">32</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;The flag is:&quot;</span>,encrypt(flag.read(),e))</span><br></pre></td></tr></table></figure>
+<p>这个题目定义了一个emoji表情的群，连接上靶机后，我们可以：</p>
+<ul>
+<li>发送一段消息给靶机，靶机返回加密结果</li>
+<li>靶机发送flag的加密结果</li>
+</ul>
+<p>而加密的流程是：</p>
+<ul>
+<li>取秘密生成元g以及一个随机数e，获得本次加密的生成元g^e</li>
+<li>对于加密消息每个字符的ascii码值，计算(g^e)^i</li>
+<li>返回本次生成元g^e与所有字符(g^e)^i的拼接</li>
+</ul>
+<p>这里需要注意的是，flag的加密与我们发送消息的加密，他们用的e是不同的，也就是生成元不同。</p>
+<p>由于秘密生成元g是静态的，所以最直接的想法就是不断地发送字符表去获得本次加密的生成元，以及这个生成元对应的所有加密字符。那么当flag的加密消息的生成元恰好在我们已有的生成元中，就可以查表得到flag值了。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">dics = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    sh = remote(<span class="string">&quot;tamuctf.com&quot;</span>, <span class="number">443</span>, ssl=<span class="literal">True</span>, sni=<span class="string">&quot;emoji-group&quot;</span>)</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;Give me a message to encrypt:&quot;</span>)</span><br><span class="line"></span><br><span class="line">    msg = <span class="string">&quot;&quot;</span>.join([<span class="built_in">chr</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">128</span>)]).encode()</span><br><span class="line">    sh.sendline(msg)</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;Your cipher text is: &quot;</span>)</span><br><span class="line">    msg_enc = <span class="built_in">list</span>(sh.recvline().strip().decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">128</span>):</span><br><span class="line">        dic[msg_enc[i-<span class="number">32</span>+<span class="number">1</span>]] = i</span><br><span class="line">    dics.append([msg_enc[<span class="number">0</span>],dic])</span><br><span class="line"></span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;The flag is:&quot;</span>)</span><br><span class="line">    flag_enc = <span class="built_in">list</span>(sh.recvline().strip().decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    g = flag_enc[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> dics:</span><br><span class="line">        <span class="keyword">if</span>(i[<span class="number">0</span>] == g):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> flag_enc[<span class="number">1</span>:]:</span><br><span class="line">                <span class="built_in">print</span>(<span class="built_in">chr</span>(i[<span class="number">1</span>][j]),end=<span class="string">&quot;&quot;</span>)</span><br><span class="line">            exit()</span><br><span class="line">    </span><br><span class="line">    sh.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#gigem&#123;h0p3_y0u_d1dn7_s0lv3_by_h4nd&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/e1a814d3.html" title="2024-TAMUCTF-wp-crypto">https://tangcuxiaojikuai.xyz/post/e1a814d3.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/94c7e291.html" rel="prev" title="2024-NSSCTF-密码工坊非官方dlc-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2024-NSSCTF-密码工坊非官方dlc-wp-crypto
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/9b3c95d4.html" rel="next" title="最近更新">
+      最近更新 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Truncated-1"><span class="nav-number">1.</span> <span class="nav-text">Truncated 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Truncated-2"><span class="nav-number">2.</span> <span class="nav-text">Truncated 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Criminal"><span class="nav-number">3.</span> <span class="nav-text">Criminal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCG"><span class="nav-number">4.</span> <span class="nav-text">PCG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jumbled"><span class="nav-number">5.</span> <span class="nav-text">Jumbled</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Smooth-Signatures"><span class="nav-number">6.</span> <span class="nav-text">Smooth Signatures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#QCG"><span class="nav-number">7.</span> <span class="nav-text">QCG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Emoji-Group"><span class="nav-number">8.</span> <span class="nav-text">Emoji Group</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
