@@ -37,8 +37,9 @@
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/97bbcbc9/image-20230926105546460.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/97bbcbc9/image-20230926105945860.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/97bbcbc9/image-20230926110200084.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/97bbcbc9/image-20240418114003579.png">
 <meta property="article:published_time" content="2023-09-29T01:55:19.000Z">
-<meta property="article:modified_time" content="2024-01-28T15:35:46.000Z">
+<meta property="article:modified_time" content="2024-04-18T03:49:28.693Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/97bbcbc9/image-20230926104953693.png">
@@ -234,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-28 23:35:46" itemprop="dateModified" datetime="2024-01-28T23:35:46+08:00">2024-01-28</time>
+                <time title="修改时间：2024-04-18 11:49:28" itemprop="dateModified" datetime="2024-04-18T11:49:28+08:00">2024-04-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -694,6 +695,136 @@ w = y_0(A_1+A_2+A_3+...+A_{15})</script><p>而我们又有w和A，因此就可�
 </ul>
 <p><br></p>
 <p><br></p>
+<h3 id="shamir-for-dummies"><a href="#shamir-for-dummies" class="headerlink" title="shamir-for-dummies"></a>shamir-for-dummies</h3><p>题目来源：b01lersCTF 2024</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, isPrime, bytes_to_long, long_to_bytes</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">polynomial_evaluation</span>(<span class="params">coefficients, x</span>):</span><br><span class="line">	at_x = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(coefficients)):</span><br><span class="line">		at_x += coefficients[i] * (x ** i)</span><br><span class="line">		at_x = at_x % p</span><br><span class="line">	<span class="keyword">return</span> at_x</span><br><span class="line"></span><br><span class="line">flag = <span class="string">b&#x27;bctf&#123;REDACTED&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Thanks for coming in. I can really use your help.\n&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Like I said, my friend can only do additions. He technically can do division but he says he can only do it once a day.&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;I need to share my secret using Shamir secret sharing. Can you craft the shares, in a way that my friend can recover it?\n&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Don&#x27;t worry, I have the polynomial and I will do all the math for you.&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">s = bytes_to_long(flag)</span><br><span class="line"></span><br><span class="line">n = getPrime(<span class="number">4</span>)</span><br><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> p % n != <span class="number">1</span>:</span><br><span class="line">    p = getPrime(<span class="number">512</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Let&#x27;s use \n&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;n =&quot;</span>, n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;k =&quot;</span>, n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;p =&quot;</span>, p)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">coefficients = [s]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n):</span><br><span class="line">	coefficients.append(random.randint(<span class="number">2</span>, p-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Okay, I have my polynomial P(X) ready. Let me know when you are ready to generate shares with me.\n&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">evaluation_points = []</span><br><span class="line">shares = []</span><br><span class="line"></span><br><span class="line">count = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> count &lt; n+<span class="number">1</span>:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;Evaluate P(X) at X_&#123;0&#125; =&quot;</span>.<span class="built_in">format</span>(count))</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;&gt; &quot;</span>, end=<span class="string">&quot;&quot;</span>)</span><br><span class="line">	eval_point = <span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">	<span class="keyword">if</span> eval_point % p == <span class="number">0</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Lol, nice try. Bye.&quot;</span>)</span><br><span class="line">		exit()</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">	<span class="keyword">elif</span> eval_point &lt; <span class="number">0</span> <span class="keyword">or</span> eval_point &gt; p:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Let&#x27;s keep things in mod p. Please choose it again.&quot;</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">if</span> eval_point <span class="keyword">not</span> <span class="keyword">in</span> evaluation_points:</span><br><span class="line">			evaluation_points.append(eval_point)</span><br><span class="line">			share = polynomial_evaluation(coefficients, eval_point)</span><br><span class="line">			shares.append(share)</span><br><span class="line">			count += <span class="number">1</span></span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;You used that already. Let&#x27;s use something else!&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Nice! Let&#x27;s make sure we have enough shares.\n&quot;</span>)</span><br><span class="line"><span class="keyword">assert</span> <span class="built_in">len</span>(shares) == n</span><br><span class="line"><span class="keyword">assert</span> <span class="built_in">len</span>(evaluation_points) == n</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;It looks like we do.\n&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;By the way, would he have to divide with anything? (Put 1 if he does not have to)&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&gt; &quot;</span>, end=<span class="string">&quot;&quot;</span>)</span><br><span class="line">some_factor = <span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Good. Let&#x27;s send those over to him.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">	time.sleep(<span class="number">1</span>)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;.&quot;</span>)</span><br><span class="line">	sys.stdout.flush()</span><br><span class="line"></span><br><span class="line">sum_of_shares = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> s_i <span class="keyword">in</span> shares:</span><br><span class="line">	sum_of_shares += s_i</span><br><span class="line">	sum_of_shares = sum_of_shares % p</span><br><span class="line"></span><br><span class="line">sum_of_shares_processed = (sum_of_shares * <span class="built_in">pow</span>(some_factor, -<span class="number">1</span>, p)) % p</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> sum_of_shares_processed == s:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;Yep, he got my secret message!\n&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;The shares P(X_i)&#x27;s were&#x27;:&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(shares)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;... Oh no. I think now you&#x27;d know the secret also... Thanks again though.&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;Sorry, it looks like that didn&#x27;t work :(&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>题目流程有点长，简单说一说：</p>
+<ul>
+<li>连接上靶机后，题目随机生成512bit的素数p，以及4bit的素数n，保证p-1是n的倍数</li>
+<li>以p为模数，生成一个度为n-1的多项式，其中常数项是secret的值，其余系数为未知随机值</li>
+<li>可以与靶机交互，输入n个互不相同的横坐标，靶机会计算输入横坐标对应的多项式值(这里注意偷鸡是不可能的，限制死了只能输入互不相同的0-p的值，并且不能是0和p)</li>
+<li>在n个点输入完毕后，靶机并不会返回给我们所有点对(否则就可以直接拉格朗日插值)，而是会计算所有纵坐标的和，记为sum of shares</li>
+<li>允许我们输入一个数字some_factor，靶机计算如下值，如果该值与secret相等则会给我们所有点对，由于可以拉格朗日插值，所以满足这个条件也就等价于给了我们flag：</li>
+</ul>
+<script type="math/tex; mode=display">
+(sum\;of\;shares)(some\;factor)^{-1} \quad(mod\;p)</script><p>那么现在问题就是：如何构造输入点的横坐标与最后的some_factor，去使得上述计算结果恰好为未知的常数项？</p>
+<p>不妨回顾一下shamir密钥分享重建多项式的本质。对于一个度为n-1的多项式，如果能有n个互不相同的点对，那么可以通过解如下矩阵方程得到所有系数ai：</p>
+<script type="math/tex; mode=display">
+\left(\begin{matrix}
+1 & x_1 & x_1^2 & \cdots & x_1^{n-1}\\
+1 & x_2 & x_2^2 & \cdots & x_2^{n-1}\\
+\vdots & \vdots &\vdots & \ddots &\vdots \\
+
+1 & x_n & x_n^2 & \cdots & x_n^{n-1}\\
+\end{matrix}\right)
+\left(\begin{matrix}
+s\\
+a_1\\
+\vdots \\
+
+a_{n-1}\\
+\end{matrix}\right)
+=
+\left(\begin{matrix}
+f(x_1)\\
+f(x_2)\\
+\vdots \\
+
+f(x_n)\\
+\end{matrix}\right)</script><p>而对于题目来说，其计算的是所有纵坐标的和，也就等价于：</p>
+<script type="math/tex; mode=display">
+sum\;of\;shares
+=
+(1 , 1 , \cdots , 1)
+\left(\begin{matrix}
+f(x_1)\\
+f(x_2)\\
+\vdots \\
+
+f(x_n)\\
+\end{matrix}\right)
+=
+(1 , 1 , \cdots , 1)
+\left(\begin{matrix}
+1 & x_1 & x_1^2 & \cdots & x_1^{n-1}\\
+1 & x_2 & x_2^2 & \cdots & x_2^{n-1}\\
+\vdots & \vdots &\vdots & \ddots &\vdots \\
+
+1 & x_n & x_n^2 & \cdots & x_n^{n-1}\\
+\end{matrix}\right)
+\left(\begin{matrix}
+s\\
+a_1\\
+\vdots \\
+
+a_{n-1}\\
+\end{matrix}\right)</script><p>也就可以写成：</p>
+<script type="math/tex; mode=display">
+sum\;of\;shares
+=
+(1 , 1 , \cdots , 1)
+\left(\begin{matrix}
+1 & x_1 & x_1^2 & \cdots & x_1^{n-1}\\
+1 & x_2 & x_2^2 & \cdots & x_2^{n-1}\\
+\vdots & \vdots &\vdots & \ddots &\vdots \\
+
+1 & x_n & x_n^2 & \cdots & x_n^{n-1}\\
+\end{matrix}\right)
+\left(\begin{matrix}
+s\\
+a_1\\
+\vdots \\
+
+a_{n-1}\\
+\end{matrix}\right)
+=
+(n , \sum{x_i}, \sum{x_i^2} ,\cdots , \sum{x_i^{n-1}})
+\left(\begin{matrix}
+s\\
+a_1\\
+\vdots \\
+
+a_{n-1}\\
+\end{matrix}\right)</script><p>最终也就等于：</p>
+<script type="math/tex; mode=display">
+sum\;of\;shares
+=
+ns + a_1\sum{x_i} + a_2\sum{x_i^2} +  ... + a_{n-1}\sum{x_i^{n-1}}</script><p>可以看出，无论我们选的n个横坐标的值究竟是多少，ns这个值永远是存在的，这也侧面说明对于some factor应该选择n才能得到s项。而要使得最终结果是ns，就要使剩余的所有和加起来模p下为0，而显然如果能使每个幂次和加起来均为0的话显然能使这一点成立。</p>
+<p>而由于费马小定理的存在，a^(p-1)在模p下总是为1，因此我考虑简单构造等比数列。比如我取：</p>
+<script type="math/tex; mode=display">
+x_i = (2^{\frac{p-1}{n}})^i</script><p>那么此时，对于所有幂次为1的和就有：</p>
+<script type="math/tex; mode=display">
+\sum{x_i} = 1 + 2^{\frac{p-1}{n}} + (2^{\frac{p-1}{n}})^2 + ... + (2^{\frac{p-1}{n}})^{n-1}</script><p>这是个公比为2^(p-1/n)的等比数列求和，其公式为：</p>
+<script type="math/tex; mode=display">
+\sum{x_i} = \frac{1(1 - (2^{\frac{p-1}{n}})^n)}{1 - 2^{\frac{p-1}{n}}} = 0</script><p>同理可以验证剩余所有幂次和也均为0，所以就达到了目的。并且返回点对后也不需要再插值了，计算其和并自己求n的逆元相乘就得到flag。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = remote(<span class="string">&quot;gold.b01le.rs&quot;</span>, <span class="number">5006</span>)</span><br><span class="line"></span><br><span class="line">sh.recvuntil(<span class="string">b&quot;n = &quot;</span>)</span><br><span class="line">n = <span class="built_in">int</span>(sh.recvline().strip().decode())</span><br><span class="line">sh.recvuntil(<span class="string">b&quot;p = &quot;</span>)</span><br><span class="line">p = <span class="built_in">int</span>(sh.recvline().strip().decode())</span><br><span class="line"></span><br><span class="line">ttt = (p - <span class="number">1</span>) // n</span><br><span class="line">tt = <span class="built_in">pow</span>(<span class="number">2</span>, ttt, p)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n): </span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;&gt; &quot;</span>)</span><br><span class="line">    sh.sendline(<span class="built_in">str</span>(<span class="built_in">pow</span>(tt, i, p)).encode())</span><br><span class="line"></span><br><span class="line">sh.recvuntil(<span class="string">b&quot;&gt; &quot;</span>)</span><br><span class="line">sh.sendline(<span class="built_in">str</span>(n).encode())</span><br><span class="line"></span><br><span class="line">sh.recvuntil(<span class="string">b&quot;The shares P(X_i)&#x27;s were&#x27;:\n&quot;</span>)</span><br><span class="line">datas = <span class="built_in">eval</span>(sh.recvline().decode())</span><br><span class="line">res = <span class="built_in">sum</span>(datas)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes((res * inverse(n, p)) % p))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#bctf&#123;P0LYN0m14l_1N_M0d_P_12_73H_P0W3Rh0u23_0F_73H_5h4M1r&#125;</span></span><br></pre></td></tr></table></figure>
+<p>不过在看了休息师傅n次单位根的思路后：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52640415/article/details/137886438?spm=1001.2014.3001.5502">b01lers CTF 2024] crypto/pwn 部分-CSDN博客</a></p>
+<p>突然意识到这题还有更有趣的数学道理在里面，下面来阐述一下。</p>
+<p>首先，对于模p下的n次单位根，sage可以用如下方式求解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res = GF(p)(<span class="number">1</span>).nth_root(n, <span class="built_in">all</span>=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>但是求解他的意义在哪里呢？这就是因为n次单位根的所有幂次和均为0，很容易就满足了我们刚才的要求，具体原因见下。</p>
+<p>将n个n次单位根分别记为xi，那么利用这些单位根可以写出如下因式分解：</p>
+<script type="math/tex; mode=display">
+x^n - 1 = (x-x_1)(x-x_2)...(x-x_n) \quad(mod\;p)</script><p>而由于等式两侧相同，因此等式两侧对应的所有多项式幂次前的系数均相同。也就是说，左侧x^1,x^2,…x^(n-1)的系数均为0，那么右侧对应幂次也应该均为0。</p>
+<p>所以把右侧展开，可以轻松得到第一个幂次和为0的事实：</p>
+<script type="math/tex; mode=display">
+\sum{x_i} = 0</script><p>但是似乎并不能直接推出其他次方的幂次和也为0：</p>
+<script type="math/tex; mode=display">
+\sum{x_i}^k = 0 \quad(2 \leq k \leq n-1)</script><p>但是可以利用牛顿恒等式间接推出这个事实。关于牛顿恒等式的相关知识我在之前TPCTF的wp中有简单讲到：</p>
+<p><a href="https://tangcuxiaojikuai.xyz/post/df537e5d.html">2023-TPCTF-wp-crypto | 糖醋小鸡块的blog (tangcuxiaojikuai.xyz)</a></p>
+<p>此处我们依然关注的是如下定理的应用：</p>
+<p><img src="/post/97bbcbc9/image-20240418114003579.png" alt="image-20240418114003579"></p>
+<p>将这些符号与本题对应起来，P(x)其实就是x^n-1，其n个根就是上面的所有n次单位根xi，而对这个式子的右侧多项式展开：</p>
+<script type="math/tex; mode=display">
+x^n - 1 = (x-x_1)(x-x_2)...(x-x_n) \quad(mod\;p)</script><p>可以发现其x^k的对应系数就是上图的ek，而由于等式两侧多项式对应幂次前系数需对应相等的缘故，所以ek(0&lt;k&lt;n)也均为0。同时由于P1我们已经知道其为0了，所以这样往上递推就可以得到n次单位根的所有幂次和都为0的事实。</p>
+<p>但是还可以进一步延申，因为有限域中的n次单位根其实构成一个循环群，并且其实显然可以发现，对于任意如下形式的t：</p>
+<script type="math/tex; mode=display">
+t = a^{\frac{p-1}{n}}</script><p>t都是n次单位根(因为显然有t^n=1)。因此当t是该循环群的生成元时，两种做法本质上是完全相同的，可以用如下示例程序简单验证：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = getPrime(<span class="number">4</span>)</span><br><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> p % n != <span class="number">1</span>:</span><br><span class="line">    p = getPrime(<span class="number">512</span>)</span><br><span class="line"></span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(p))</span><br><span class="line">f = PR.random_element(degree=n)</span><br><span class="line"></span><br><span class="line">res = <span class="built_in">set</span>(GF(p)(<span class="number">1</span>).nth_root(n, <span class="built_in">all</span>=<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line">T = []</span><br><span class="line">tt = <span class="built_in">pow</span>(<span class="number">2</span>,(p-<span class="number">1</span>)//n,p)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    T.append(<span class="built_in">pow</span>(tt,i,p))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">set</span>(T) == res)</span><br></pre></td></tr></table></figure>
+<p>有一定概率输出false，此时是因为tt恰好等于1的缘故。</p>
+<p><br></p>
+<p><br></p>
 
     </div>
 
@@ -792,7 +923,7 @@ w = y_0(A_1+A_2+A_3+...+A_{15})</script><p>而我们又有w和A，因此就可�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shamir%E9%97%A8%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">Shamir门限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sqrt"><span class="nav-number">2.</span> <span class="nav-text">sqrt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prng-%E5%8A%A0%E5%BC%BA%E7%89%88"><span class="nav-number">3.</span> <span class="nav-text">prng(加强版)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ahead"><span class="nav-number">4.</span> <span class="nav-text">ahead</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e20k"><span class="nav-number">5.</span> <span class="nav-text">e20k</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96ECC%E4%B8%8A%E7%9A%84%E7%82%B9"><span class="nav-number">5.1.</span> <span class="nav-text">获取ECC上的点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8next"><span class="nav-number">5.2.</span> <span class="nav-text">利用next</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82y"><span class="nav-number">5.3.</span> <span class="nav-text">求y</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82secret"><span class="nav-number">5.4.</span> <span class="nav-text">求secret</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shamir%E9%97%A8%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">Shamir门限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sqrt"><span class="nav-number">2.</span> <span class="nav-text">sqrt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prng-%E5%8A%A0%E5%BC%BA%E7%89%88"><span class="nav-number">3.</span> <span class="nav-text">prng(加强版)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ahead"><span class="nav-number">4.</span> <span class="nav-text">ahead</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e20k"><span class="nav-number">5.</span> <span class="nav-text">e20k</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96ECC%E4%B8%8A%E7%9A%84%E7%82%B9"><span class="nav-number">5.1.</span> <span class="nav-text">获取ECC上的点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8next"><span class="nav-number">5.2.</span> <span class="nav-text">利用next</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82y"><span class="nav-number">5.3.</span> <span class="nav-text">求y</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82secret"><span class="nav-number">5.4.</span> <span class="nav-text">求secret</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shamir-for-dummies"><span class="nav-number">6.</span> <span class="nav-text">shamir-for-dummies</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
