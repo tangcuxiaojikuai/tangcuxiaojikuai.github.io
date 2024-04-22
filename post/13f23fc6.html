@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="记录一下这次GEEKCTF做出的其中三个赛题(剩下三个我连弄清楚题目要干嘛都做不到)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024-GEEKCTF-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/13f23fc6.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="记录一下这次GEEKCTF做出的其中三个赛题(剩下三个我连弄清楚题目要干嘛都做不到)。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-22T02:02:14.000Z">
+<meta property="article:modified_time" content="2024-04-22T02:08:13.557Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/13f23fc6.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2024-GEEKCTF-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/13f23fc6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024-GEEKCTF-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-22 10:02:14 / 修改时间：10:08:13" itemprop="dateCreated datePublished" datetime="2024-04-22T10:02:14+08:00">2024-04-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/13f23fc6.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/13f23fc6.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>记录一下这次GEEKCTF做出的其中三个赛题(剩下三个我连弄清楚题目要干嘛都做不到)。</p>
+<span id="more"></span>
+<h3 id="babypairing"><a href="#babypairing" class="headerlink" title="babypairing"></a>babypairing</h3><p>题目描述：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">I believe a larger space <span class="keyword">is</span> good <span class="keyword">for</span> security. I am testing my PKE instance <span class="keyword">with</span> a short paragraph. The flag <span class="keyword">is</span> of the <span class="built_in">format</span></span><br><span class="line"></span><br><span class="line">flag&#123;a_sentence_replacing_all_spaces_with_underlines&#125;</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes,bytes_to_long</span><br><span class="line">p = <span class="number">74952228632990620596507331669961128827748980750844890766694540917154772000787</span></span><br><span class="line">a = <span class="number">7527668573755289684436690520541820188297794210531835381305219764577170135028</span></span><br><span class="line">b = <span class="number">23620438740221081546022174030845858657033205037887915215836562897142269481377</span></span><br><span class="line">F_p = GF(p)</span><br><span class="line">F_p2 = GF(p^<span class="number">2</span>)</span><br><span class="line">a,b = F_p2(a),F_p2(b)</span><br><span class="line">E=EllipticCurve(F_p2,[a,b])</span><br><span class="line">g=E.random_element()</span><br><span class="line">sk=F_p.random_element()</span><br><span class="line">pk=g*sk</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_element</span>(<span class="params">x1,x2</span>):</span><br><span class="line">    is_positive=(x1&lt;p)</span><br><span class="line">    x = F_p2([x1,x2])</span><br><span class="line">    y2 = x^<span class="number">3</span>+a*x+b</span><br><span class="line">    <span class="keyword">if</span> y2^((p^<span class="number">2</span>-<span class="number">1</span>)//<span class="number">2</span>)==F_p2(-<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        tmp = y2.square_root()</span><br><span class="line">        <span class="comment">#print((int(tmp)&gt;(p-1)//2),is_positive)</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">int</span>(tmp[<span class="number">0</span>])&gt;(p-<span class="number">1</span>)//<span class="number">2</span>) ^^ is_positive : <span class="keyword">return</span> E(x,tmp)</span><br><span class="line">        <span class="keyword">else</span>: <span class="keyword">return</span> E(x,-tmp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compress_element</span>(<span class="params">P</span>):</span><br><span class="line">    x,y=P.xy()</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">int</span>(x[<span class="number">0</span>]),<span class="built_in">int</span>(x[<span class="number">1</span>])) <span class="keyword">if</span> <span class="built_in">int</span>(y[<span class="number">0</span>])&lt;=(p-<span class="number">1</span>)//<span class="number">2</span> <span class="keyword">else</span> (<span class="built_in">int</span>(x[<span class="number">0</span>])+p,<span class="built_in">int</span>(x[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">int_to32</span>(<span class="params">x,l=<span class="number">17</span></span>):</span><br><span class="line">    b32dict=<span class="string">&quot;0123456789abcdefghijklmnopqrstuv&quot;</span></span><br><span class="line">    ret = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">while</span> x&gt;<span class="number">0</span>:</span><br><span class="line">        ret = b32dict[x%<span class="number">32</span>]+ret</span><br><span class="line">        x=x//<span class="number">32</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>*<span class="built_in">max</span>(<span class="number">0</span>,l-<span class="built_in">len</span>(ret))+ret</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">enc_element</span>(<span class="params">P</span>):</span><br><span class="line">    r = F_p.random_element()</span><br><span class="line">    c2 = g*r</span><br><span class="line">    c1 = pk*r+P</span><br><span class="line">    ce1,ce2 = compress_element(c1),compress_element(c2)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;%065x%065x%065x%065x\n&quot;</span>%(*compress_element(c1),*compress_element(c2))</span><br><span class="line">    <span class="comment">#return int_to32(ce1[0])+int_to32(ce1[1])+int_to32(ce2[0])+int_to32(ce2[1])</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">enc_str</span>(<span class="params">s</span>):</span><br><span class="line">    enc_map,ret = &#123;&#125;,<span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> s :</span><br><span class="line">        <span class="keyword">if</span> c <span class="keyword">in</span> enc_map:</span><br><span class="line">            cF_p2=enc_map[c]</span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            prefix = os.urandom(<span class="number">29</span>)+<span class="built_in">bytes</span>(c,encoding=<span class="string">&#x27;ascii&#x27;</span>)</span><br><span class="line">            x1 = <span class="built_in">int</span>(F_p.random_element())</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">                cF_p2 = load_element(x1,bytes_to_long(prefix+<span class="built_in">bytes</span>([i])))</span><br><span class="line">                <span class="keyword">if</span> cF_p2!=<span class="literal">None</span>:</span><br><span class="line">                    enc_map[c]=cF_p2</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        ret = ret+enc_element(cF_p2)</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dec_element</span>(<span class="params">ct</span>):</span><br><span class="line">    c11,c12,c21,c22=[ct[i*<span class="number">65</span>:i*<span class="number">65</span>+<span class="number">65</span>] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>)]</span><br><span class="line">    C1,C2=load_element(<span class="built_in">int</span>(<span class="string">&quot;0x&quot;</span>+c11,<span class="number">16</span>),<span class="built_in">int</span>(<span class="string">&quot;0x&quot;</span>+c12,<span class="number">16</span>)),load_element(<span class="built_in">int</span>(<span class="string">&quot;0x&quot;</span>+c21,<span class="number">16</span>),<span class="built_in">int</span>(<span class="string">&quot;0x&quot;</span>+c22,<span class="number">16</span>))</span><br><span class="line">    P=C1-C2*sk</span><br><span class="line">    <span class="keyword">return</span> (compress_element(P)[<span class="number">1</span>]&amp;<span class="number">0xffff</span>)&gt;&gt;<span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;g = load_element(*&quot;</span>+<span class="built_in">str</span>(compress_element(g))+<span class="string">&quot;)&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;pk = load_element(*&quot;</span>+<span class="built_in">str</span>(compress_element(pk))+<span class="string">&quot;)&quot;</span>)</span><br><span class="line"><span class="comment">#g = load_element(*(29278822809335293856257839032454656006652898948724335358857767737708161772420, 4396426956433009559948787995869502944693089612343852188342374458334039665950))</span></span><br><span class="line"><span class="comment">#pk = load_element(*(148673571405127568767045322546948264768210305253661849398897382818523458361167, 23902769016595610010920651447268476259469689719718232568266731055385481225779))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;test_passage.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    s = f.readline().strip()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;ciphertext&quot;</span>,<span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(enc_str(s))</span><br></pre></td></tr></table></figure>
+<p>看到题目描述知道这是个基于线性配对的题目，这里先介绍一下双线性配对。简单来说，双线性配对可以理解成一个函数，其输入为椭圆曲线上的两个点，输出为椭圆曲线所在的域上的一个值。如果把这个函数记为e，那么这个概念可以写为：</p>
+<script type="math/tex; mode=display">
+e : E_F \times E_F \rightarrow F</script><script type="math/tex; mode=display">
+P \in E_F,Q \in E_F</script><script type="math/tex; mode=display">
+e(P,Q) = a ,a\in F</script><p>其中F是椭圆曲线所在域。</p>
+<p>而对于一个配对良好的曲线来说，其双线性配对函数满足一个很重要的性质：</p>
+<script type="math/tex; mode=display">
+e(aP,bQ) = e(P,Q)^{ab}</script><p>同时有如下定义：</p>
+<script type="math/tex; mode=display">
+e(P,P) = 1</script><p>以上只是很简单的描述了一下双线性配对以及它的性质，不过对于这个题目来说已经够用了，那么接下来我们回到题目来看看究竟怎么使用。</p>
+<p>首先，题目生成一个特定的二次扩域上的特定椭圆曲线E，并取其上一个随机点g，然后题目从Fp中选取一个随机数sk当作私钥，并计算点skg作为公钥pk，并给出我们g和公钥pk的值。</p>
+<p>之后就是加密过程，具体来说他的加密方法是：</p>
+<ul>
+<li><p>对于输入的明文串，逐字符取ASCII码作为待加密的明文</p>
+</li>
+<li><p>建立一个加密字典，如果一个明文已经被加密过，则直接取字典里的值作为待加密项(也就是题目里的cFp2)；如果没有被加密过，则从曲线上随机取一个点作为cFp2</p>
+<blockquote>
+<p>注意这里还没有真正进行加密，相同字符的cF_p2相同并不代表他们的密文相同</p>
+</blockquote>
+</li>
+<li><p>记上一步取得的cFp2为P，进行如下操作：</p>
+<script type="math/tex; mode=display">
+任取r \in F_p</script><script type="math/tex; mode=display">
+c_2 = rg , c_1 = rpk + P</script></li>
+<li><p>返回c1、c2的压缩点坐标作为本次加密的密文</p>
+</li>
+</ul>
+<p>对于点压缩并不需要关心什么，他已经给出了对应的load函数，所以可以直接从压缩的点坐标还原出完整的点坐标。那么也就是说我们可以获得每次加密得到的c2、c1两个点，要想办法利用其还原明文。</p>
+<p>我们的出发点是，对于相同的字符，其每次加密的r虽然不同，但是P会相同。那么两两取密文中的点c11,c12,c21,c22，假设他们是相同字符的密文，那么就有：</p>
+<script type="math/tex; mode=display">
+c_{11} = r_1g</script><script type="math/tex; mode=display">
+c_{12} = r_1pk + P</script><script type="math/tex; mode=display">
+c_{21} = r_2g</script><script type="math/tex; mode=display">
+c_{22} = r_2pk + P</script><p>由于P点相同，所以将c12与c22进行作差可以消去P得到：</p>
+<script type="math/tex; mode=display">
+T = c_{12} - c_{22} = (r_1 - r_2)pk = (r_1-r_2)sk*g = tg</script><p>那么此时将T与g作双线性配对就有：</p>
+<script type="math/tex; mode=display">
+e(T,g) = e(tg,g) = e(g,g)^t = 1^t = 1</script><p>这其实侧面表明双线性配对的一个重要作用：判断配对良好曲线上两个点是否在同一个循环子群中。也就是说，如果我们取的两个密文作差得到的点T与g作线性配对值为1，那么这两个密文对应的明文字符就相同，因为T是g的倍点，所以T在g生成的循环子群里；而如果不是同一个密文，由于无法消去P，因此T和g不在同一个循环群中，线性配对的值自然就不是1。</p>
+<p>如此一来，我们可以两两判断出flag的明文字符分布情况，也就是确定flag的明文字符哪些是一样的。之后就是确定下flag框的位置以及flag头，然后去猜测词频就可以得到完整flag了。</p>
+<p>exp：</p>
+<p>通过线性配对对明文字符分类：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = <span class="number">74952228632990620596507331669961128827748980750844890766694540917154772000787</span></span><br><span class="line">a = <span class="number">7527668573755289684436690520541820188297794210531835381305219764577170135028</span></span><br><span class="line">b = <span class="number">23620438740221081546022174030845858657033205037887915215836562897142269481377</span></span><br><span class="line">F_p = GF(p)</span><br><span class="line">F_p2 = GF(p^<span class="number">2</span>)</span><br><span class="line">a,b = F_p2(a),F_p2(b)</span><br><span class="line">E = EllipticCurve(F_p2,[a,b])</span><br><span class="line">n = E.order()</span><br><span class="line">r = <span class="number">18738057158247655149126832917490282206937245187711222691673635229288693000197</span></span><br><span class="line">torsion = <span class="number">2</span>^<span class="number">2</span>*r</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_element</span>(<span class="params">x1,x2</span>):</span><br><span class="line">    is_positive=(x1&lt;p)</span><br><span class="line">    x = F_p2([x1,x2])</span><br><span class="line">    y2 = x^<span class="number">3</span>+a*x+b</span><br><span class="line">    <span class="keyword">if</span> y2^((p^<span class="number">2</span>-<span class="number">1</span>)//<span class="number">2</span>)==F_p2(-<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        tmp = y2.square_root()</span><br><span class="line">        <span class="comment">#print((int(tmp)&gt;(p-1)//2),is_positive)</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">int</span>(tmp[<span class="number">0</span>])&gt;(p-<span class="number">1</span>)//<span class="number">2</span>) ^^ is_positive : <span class="keyword">return</span> E(x,tmp)</span><br><span class="line">        <span class="keyword">else</span>: <span class="keyword">return</span> E(x,-tmp)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">g = load_element(<span class="number">29278822809335293856257839032454656006652898948724335358857767737708161772420</span>, <span class="number">4396426956433009559948787995869502944693089612343852188342374458334039665950</span>)</span><br><span class="line">pk = load_element(<span class="number">148673571405127568767045322546948264768210305253661849398897382818523458361167</span>, <span class="number">23902769016595610010920651447268476259469689719718232568266731055385481225779</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#################################### test</span></span><br><span class="line">C1 = E.random_element()</span><br><span class="line">C2 = E.random_element()</span><br><span class="line">C3 = F_p.random_element()*C1</span><br><span class="line"><span class="comment">#print(C1.weil_pairing(C2,torsion))</span></span><br><span class="line"><span class="comment">#print(C1.weil_pairing(C3,torsion))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#################################### attack</span></span><br><span class="line"></span><br><span class="line">cipher = </span><br><span class="line">points = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(cipher)):</span><br><span class="line">    sgx1 = <span class="built_in">int</span>(cipher[i][:<span class="number">65</span>],<span class="number">16</span>)</span><br><span class="line">    sgx2 = <span class="built_in">int</span>(cipher[i][<span class="number">65</span>:<span class="number">65</span>*<span class="number">2</span>],<span class="number">16</span>)</span><br><span class="line">    tx1 = <span class="built_in">int</span>(cipher[i][<span class="number">65</span>*<span class="number">2</span>:<span class="number">65</span>*<span class="number">3</span>],<span class="number">16</span>)</span><br><span class="line">    tx2 =<span class="built_in">int</span>(cipher[i][<span class="number">65</span>*<span class="number">3</span>:],<span class="number">16</span>)</span><br><span class="line">    sg = load_element(sgx1,sgx2)</span><br><span class="line">    t = load_element(tx1,tx2)</span><br><span class="line">    points.append([sg,t])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dic = [<span class="string">&quot;*&quot;</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(points))]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="built_in">len</span>(points)):</span><br><span class="line">    <span class="keyword">if</span>(dic[i] == <span class="string">&quot;*&quot;</span>):</span><br><span class="line">        dic[i] = i</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>,<span class="built_in">len</span>(points)):</span><br><span class="line">        t1 = points[i][<span class="number">0</span>]</span><br><span class="line">        t2 = points[j][<span class="number">0</span>]</span><br><span class="line">        C = t1 - t2</span><br><span class="line">        res = C.weil_pairing(g,torsion)</span><br><span class="line">        <span class="keyword">if</span>(res == <span class="number">1</span>):</span><br><span class="line">            dic[j] = i</span><br><span class="line">    <span class="built_in">print</span>(dic)</span><br><span class="line"><span class="built_in">print</span>(dic)</span><br></pre></td></tr></table></figure>
+<p>猜测+统计词频：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">dic = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">13</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">18</span>, <span class="number">3</span>, <span class="number">20</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">26</span>, <span class="number">0</span>, <span class="number">15</span>, <span class="number">29</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">20</span>, <span class="number">34</span>, <span class="number">35</span>, <span class="number">7</span>, <span class="number">18</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">35</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">43</span>, <span class="number">0</span>, <span class="number">43</span>, <span class="number">20</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">20</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">63</span>, <span class="number">43</span>, <span class="number">9</span>, <span class="number">15</span>, <span class="number">34</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">63</span>, <span class="number">43</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">43</span>, <span class="number">3</span>, <span class="number">18</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">63</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">18</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">15</span>, <span class="number">34</span>, <span class="number">10</span>, <span class="number">102</span>, <span class="number">3</span>, <span class="number">63</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">13</span>, <span class="number">10</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">13</span>, <span class="number">10</span>, <span class="number">102</span>, <span class="number">3</span>, <span class="number">63</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">43</span>, <span class="number">10</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">43</span>, <span class="number">10</span>, <span class="number">102</span>, <span class="number">3</span>, <span class="number">63</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">34</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">7</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">63</span>, <span class="number">15</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">29</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">4</span>, <span class="number">10</span>, <span class="number">102</span>, <span class="number">34</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">63</span>, <span class="number">43</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">29</span>, <span class="number">20</span>, <span class="number">3</span>, <span class="number">63</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">10</span>, <span class="number">34</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">26</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">13</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">35</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">15</span>, <span class="number">13</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">15</span>, <span class="number">35</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">20</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">20</span>, <span class="number">2</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">3</span>, <span class="number">102</span>, <span class="number">7</span>, <span class="number">20</span>, <span class="number">5</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">26</span>, <span class="number">20</span>, <span class="number">7</span>, <span class="number">35</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">5</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">18</span>, <span class="number">3</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">20</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">266</span>, <span class="number">7</span>, <span class="number">34</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">26</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">266</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">20</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">34</span>, <span class="number">0</span>, <span class="number">43</span>, <span class="number">20</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">26</span>, <span class="number">43</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">20</span>, <span class="number">29</span>, <span class="number">3</span>, <span class="number">20</span>, <span class="number">10</span>, <span class="number">29</span>, <span class="number">3</span>, <span class="number">63</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">18</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">63</span>, <span class="number">43</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">26</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">20</span>, <span class="number">29</span>, <span class="number">20</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">20</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">43</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">20</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">20</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">26</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">29</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">35</span>, <span class="number">3</span>, <span class="number">63</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">0</span>, <span class="number">43</span>, <span class="number">3</span>, <span class="number">35</span>, <span class="number">7</span>, <span class="number">20</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">102</span>, <span class="number">8</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">13</span>, <span class="number">63</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">18</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">102</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">34</span>, <span class="number">63</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">29</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">424</span>, <span class="number">2</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">20</span>, <span class="number">29</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">63</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">43</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">43</span>, <span class="number">15</span>, <span class="number">0</span>, <span class="number">10</span>, <span class="number">43</span>, <span class="number">15</span>, <span class="number">29</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">4</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">15</span>, <span class="number">26</span>, <span class="number">471</span>, <span class="number">34</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">475</span>, <span class="number">43</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">3</span>, <span class="number">475</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">475</span>, <span class="number">0</span>, <span class="number">43</span>, <span class="number">3</span>, <span class="number">475</span>, <span class="number">102</span>, <span class="number">1</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">475</span>, <span class="number">29</span>, <span class="number">15</span>, <span class="number">1</span>, <span class="number">20</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">26</span>, <span class="number">475</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">475</span>, <span class="number">102</span>, <span class="number">20</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">13</span>, <span class="number">475</span>, <span class="number">9</span>, <span class="number">9</span>, <span class="number">43</span>, <span class="number">475</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">29</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">531</span>]</span><br><span class="line"></span><br><span class="line">table = string.ascii_uppercase + string.digits + string.punctuation</span><br><span class="line">frequency = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(dic)):</span><br><span class="line">    frequency[dic[i]] = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(dic)):</span><br><span class="line">    frequency[dic[i]] += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(frequency)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dict1 = &#123;&#125;</span><br><span class="line"><span class="comment">########################## exactly</span></span><br><span class="line">dict1[<span class="number">471</span>] = <span class="string">&quot;&#123;&quot;</span></span><br><span class="line">dict1[<span class="number">475</span>] = <span class="string">&quot;_&quot;</span></span><br><span class="line">dict1[<span class="number">531</span>] = <span class="string">&quot;&#125;&quot;</span></span><br><span class="line">dict1[<span class="number">6</span>] = <span class="string">&quot;f&quot;</span></span><br><span class="line">dict1[<span class="number">8</span>] = <span class="string">&quot;l&quot;</span></span><br><span class="line">dict1[<span class="number">15</span>] = <span class="string">&quot;a&quot;</span></span><br><span class="line">dict1[<span class="number">26</span>] = <span class="string">&quot;g&quot;</span></span><br><span class="line">dict1[<span class="number">13</span>] = <span class="string">&quot;k&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#102, 1, 8, 1, 5, 3, 15, 20, 475, 29, 15, 1, 20, 1, 5, 26, #bilinear</span></span><br><span class="line"><span class="comment">#34, 7, 4, 475, 43, 15, 18, 3, 475, 6, 7, 4, 5, 9, #you have found</span></span><br><span class="line"><span class="comment">########################## guess</span></span><br><span class="line">dict1[<span class="number">102</span>] = <span class="string">&quot;b&quot;</span></span><br><span class="line">dict1[<span class="number">1</span>] = <span class="string">&quot;i&quot;</span></span><br><span class="line">dict1[<span class="number">8</span>] = <span class="string">&quot;l&quot;</span></span><br><span class="line">dict1[<span class="number">5</span>] = <span class="string">&quot;n&quot;</span></span><br><span class="line">dict1[<span class="number">8</span>] = <span class="string">&quot;l&quot;</span></span><br><span class="line">dict1[<span class="number">3</span>] = <span class="string">&quot;e&quot;</span></span><br><span class="line">dict1[<span class="number">20</span>] = <span class="string">&quot;r&quot;</span></span><br><span class="line">dict1[<span class="number">29</span>] = <span class="string">&quot;p&quot;</span></span><br><span class="line">dict1[<span class="number">34</span>] = <span class="string">&quot;y&quot;</span></span><br><span class="line">dict1[<span class="number">7</span>] = <span class="string">&quot;o&quot;</span></span><br><span class="line">dict1[<span class="number">4</span>] = <span class="string">&quot;u&quot;</span></span><br><span class="line">dict1[<span class="number">43</span>] = <span class="string">&quot;h&quot;</span></span><br><span class="line">dict1[<span class="number">18</span>] = <span class="string">&quot;v&quot;</span></span><br><span class="line">dict1[<span class="number">9</span>] = <span class="string">&quot;d&quot;</span></span><br><span class="line"></span><br><span class="line">cipher = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> dic:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        cipher += dict1[i]</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        cipher += <span class="string">&quot;*&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(cipher)</span><br><span class="line"></span><br><span class="line"><span class="comment">#&#123;you_have_found_the_bilinear_pairing_to_break_ddh_assumption&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="SpARse"><a href="#SpARse" class="headerlink" title="SpARse"></a>SpARse</h3><p>题目描述：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">You stole Alice<span class="string">&#x27;s RSA private key, but it is sparse, can you recover the whole key?</span></span><br><span class="line"><span class="string">flag is md5sum privkey.pem | awk &#x27;</span>&#123;<span class="built_in">print</span> <span class="string">&quot;flag&#123;&quot;</span>$<span class="number">1</span><span class="string">&quot;&#125;&quot;</span>&#125;<span class="string">&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIIEowIBAAKCAQEAz3om77jpWFrtAUZNPT29TYCIJzH8LTGyjZT4nuEUyGOpBXdR</span><br><span class="line">IaC46+jVBpkrk4vMGARJPw1j6hWM50WlI8Qq/siRU3ut2hXDeoLHugxJZEkDsRxC</span><br><span class="line">N26kHBMZNs5PQWKLHM1P4p70jVrfzrI7NluKnqiwLMXWP+93iUdx1OIuB3Rl/SCd</span><br><span class="line">/FPhy4t9dvZBYNkuHQKjY+AqandWqJLkGjJpn3K8EV036g9FchQG74cx1JXrFJu0</span><br><span class="line">LqAMo0qv8XqhMItDGnjx0cvFzqhVp3gg/xx3KT4++PkvLJiRNHVlQGECt1tdqsoP</span><br><span class="line">6wWd5RRxQlOcqkZZ8Ynpc0VVfI0xi+F7ELCk+QIDAQA?A??BA?<span class="number">3</span>?a?????<span class="number">3</span>??<span class="number">4</span>?Y</span><br><span class="line">?a??????????n????C?y???P??a?<span class="number">4</span>?rX??p?<span class="number">6</span>?????????x???rzz?c?X???????</span><br><span class="line">???????yp????c??Fs????????????????????jM??????<span class="number">5</span>?aGv?A?????tCD?L?</span><br><span class="line">??pYzs???f?li???F?????????vk?????c?????uS????????Z??E???????????</span><br><span class="line">?????GJ?????hh??/?yX??C??p???X?????s??Wv?N4?7P???????o?W?????r2?</span><br><span class="line">?s?<span class="number">6</span>?L?????Y???????????s?EXs????<span class="number">7</span>?K?????R???p????GBQ??I?u?????<span class="number">11</span></span><br><span class="line">???Y??????EA???i??aS???j??l?????????y???t?f?F?H9??i4??<span class="number">0</span>???????q?</span><br><span class="line">8e??Y?????v??????Q???????????DLUk??M????????F???????K??U??tQ?<span class="number">5</span>?r</span><br><span class="line">Cl????<span class="number">7</span>????T?????<span class="number">4</span>?7BzRd????7W??????<span class="number">0</span>???M????i?Z??w???c???E??UV?</span><br><span class="line">???????b?g??h?<span class="number">5</span>???????????????Ab?????Bo?q?I??????iMt???????Gq???</span><br><span class="line">??Vx??????????????Gk?c??????<span class="number">0</span>???c?mz?<span class="number">6</span>?????<span class="number">3</span>?4z??iXp?f??i??sbI??</span><br><span class="line">???vA2JV?J?Per??????<span class="number">0</span>???????????Q???cX??gYB??????<span class="number">2</span>?e????J?d?<span class="number">3</span>?y?</span><br><span class="line"><span class="number">9</span>?????D??????h????EmA1Y?csU???D?z?u??<span class="number">9</span>??R?S9J4eyT?????j?V1??g?t?</span><br><span class="line">Sd?????b????p????????/z??f?G?i?/V???q?D7???J?G?I?B?L?????Q????<span class="number">9</span>?</span><br><span class="line">/???e?e???7Z?<span class="number">0</span>??<span class="number">7j</span>??9Q??g????/?f??7d?????q?<span class="number">5</span>???m????????????????</span><br><span class="line">?s???b??u??Py???x??d?????r??????j?z????tB?G?7z?????yQ?ui?????t??</span><br><span class="line">??????H?BI0???mp???HO???????Z??VK??H???????W?????V?E??Z?g????M?<span class="number">1</span></span><br><span class="line">????????????????????????????????????????????????????????????????</span><br><span class="line">????????????????????????????????????????????????????????????????</span><br><span class="line">????????????????????????????????????????????????????</span><br><span class="line">-----END RSA PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+<p>相当离谱的一个私钥恢复，可以说除了前一部分的n、e以外(其实e也破损了一点)，后面的数据基本都不成人样了。而题目的任务也并不是简单对某个密文进行解密，而是用完整私钥文件的md5值当作flag提交，所以必须要把整个私钥文件完完全全恢复出来才行。</p>
+<p>那么首先就要先对私钥进行一个拆分，由Xenny师傅在NSSCTF上的一个密码工坊知道，对于一个PKCS1格式的RSA私钥pem文件，其中数据满足如下排列形式“</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">版本</span><br><span class="line">模数 - n</span><br><span class="line">加密指数 - e</span><br><span class="line">解密指数 - d</span><br><span class="line">素因子<span class="number">1</span> - p</span><br><span class="line">素因子<span class="number">2</span> - q</span><br><span class="line">指数<span class="number">1</span> - dp</span><br><span class="line">指数<span class="number">2</span> - dq</span><br><span class="line">系数 - invert(q, p)</span><br><span class="line">其他额外信息</span><br></pre></td></tr></table></figure>
+<p>简单举一个例子就是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">标识头 <span class="number">30</span></span><br><span class="line">总长度 <span class="number">82</span> 025b</span><br><span class="line">版本信息 0201 <span class="number">00</span></span><br><span class="line">n 028180 70647879fa43aee8a5d3785754b7988d12b14b98cf39be21b5d90f3e3264e316cf99c3058b89480f2b46a0eda9bee6b4d753199671ef17bab4ec257aabe45e7eb6f668146597a0c9a05d0523e7511e8852a76eaa92e81d16afac7af522423aa00983110ce2d65099d37c748cc2aea0e2a9f4b0613fd8a30a8cbd89187db47f85</span><br><span class="line">e 0203 <span class="number">0</span>10001</span><br><span class="line">d 028180 2f2e7e44f682a352970a876261f610dc6814759fd89e6ceac9e42d39f6fdd337283f6c574f9479e3a44f2a0f9b4ac09efa25b0802fa4275a01c9809256c6afc4032ffd486f9e029681a3de126f607603559c7837fc17589d91750ebd4ff791dff06f0fe02d92f26bc582145e12519c74f534e832a4960c4248e24375ee953901</span><br><span class="line">p 0241 009bfd4a17d26da30d2b7d4e920f4b488ef014babb8a2151979917bd228bb180771c028736557afd92f54d5da3837ef27fd322d9fd06c790155dbc22ff579ff51d</span><br><span class="line">q 0241 00b873912447c540c3c96a78f2f00a40898ac5ca0043aa3d914e8920822159d8fb9278920899892df7aec916c2c6002011d52a25d2cbee4d76f5a4e7531e622f89</span><br><span class="line">dp 0240 6264dbe6b8e255564a57694732847f494261210488f5c95cc1c1ba98dedae138c09f4ba0d73c9454ad8cd682fcc007c0df727d646071630e4729143e528c6075</span><br><span class="line">dq 0240 6dc8a347c3cbfcdb4b63aaef75bdb461e90e064817fe18bd06d0895fcab7ee74f5ddfb9550c51c6e02433fdfd7f7b51ec8105908d94652270ed802b32f2f6379</span><br><span class="line">inv(q,p) 0241 009951931fa0d4df28338c2b5d978ff6761a27487704a2f08558666e0aa063604c3a2066009693a2bff04808c5eb381b1d775fb88fa9f579dc474861fdab8028ba</span><br></pre></td></tr></table></figure>
+<p>其中”02”、”80”这样的信息其实代表着数据类型、数据长度等信息。所以我们按照这个格式去对私钥文件做对应拆分后，可以了解到这个私钥文件的破损情况是：</p>
+<ul>
+<li>n是完整的，是一个2048bit的由两个因子组成的大合数</li>
+<li>e缺少了最后6bit，不过其实基本可以猜测他是65537</li>
+<li>d、p、q、dp、dq均有不同形式的损坏，每个值泄露的比特数占比大概只有0.3左右</li>
+<li>invqp这个值完全缺失</li>
+</ul>
+<p>那么接下来就要想办法利用这些去还原明文。</p>
+<blockquote>
+<p>这里多说一点，对于这种破损私钥证书的拆分，我比较推荐的做法是先把base64按已知和未知，分别转成6个bit或者6个*之类的未知符号，然后再以字节(8bit)为单位去拆分他，这样拆分比较简单而且能看到直观的比特泄露情况。</p>
+<p>然后还有个坑点是dq不知道为啥前面会多出一个填充的00而dp没有:(</p>
+</blockquote>
+<p>虽然d、p、q、dp、dq每个值都有大面积的损毁，但是反过来想，每个值都有小面积的泄露，因此每个值其实都可以利用，<strong>那么这个题的核心思路其实就变成了一个非常综合的深搜</strong>。简单来说，我们需要从低位开始，反复利用如下几个等式去进行剪枝：</p>
+<script type="math/tex; mode=display">
+n = pq \quad(mod\;2^i)</script><script type="math/tex; mode=display">
+ed = 1 + k(p-1)(q-1) \quad(mod\;2^i)</script><script type="math/tex; mode=display">
+ed_p = 1 + k_p(p-1) \quad(mod\;2^i)</script><script type="math/tex; mode=display">
+ed_q = 1 + k_q(q-1) \quad(mod\;2^i)</script><p>然而一个比较严重的问题是，由于k、kp、kq都不知道，即使他们都肯定在1-e这个区间内，简单爆破的话由于还要剪枝，时间肯定太长了。所以要先想办法把k、kp、kq给求出来。而由于我们拥有d的部分高位，那么求解这三个值是容易的，具体思路如下。</p>
+<p>由于有：</p>
+<script type="math/tex; mode=display">
+ed = 1 + k\phi(n)</script><p>所以：</p>
+<script type="math/tex; mode=display">
+ed \approx kn</script><p>那么就有：</p>
+<script type="math/tex; mode=display">
+d \approx \frac{kn}{e}</script><p>因此我们在1-e爆破k，并计算右侧的值去和d的高位泄露的部分作比较，如果完全相同那么就找到了正确的k。</p>
+<p>找到k以后，要继续想办法求解kp和kq，这里我们把上面的几个等式转到模e下来看：</p>
+<script type="math/tex; mode=display">
+n = pq \quad(mod\;e)</script><script type="math/tex; mode=display">
+0 = 1 + k(p-1)(q-1) \quad(mod\;e)</script><script type="math/tex; mode=display">
+0 = 1 + k_p(p-1) \quad(mod\;e)</script><script type="math/tex; mode=display">
+0 = 1 + k_q(q-1) \quad(mod\;e)</script><p>将几个模等式联立，就可以得到在模e下其实有：</p>
+<script type="math/tex; mode=display">
+0 = 1 + k(-k_p^{-1})(-k_q^{-1}) \quad(mod\;e)</script><p>转化一下就得到：</p>
+<script type="math/tex; mode=display">
+k = -k_pk_q \quad(mod\;e)</script><p>把这个式子再代入，得到：</p>
+<script type="math/tex; mode=display">
+0 = 1 + (-k_pk_q)(p-1)(q-1)  \quad(mod\;e)</script><p>把p、q再用kp、kq分别代掉得到：</p>
+<script type="math/tex; mode=display">
+0 = k(n-1) - (k_p + k_q) +1 \quad(mod\;e)</script><p>然后利用k和kpkq的关系去化为单元方程，这里就以消掉kq为例：</p>
+<script type="math/tex; mode=display">
+k_p^2 - [k(n-1)+1]k_p - k = 0 \quad(mod\;e)</script><p>求解这个方程就能得到kp了，显然kq也是该方程的另一个根。</p>
+<p>有了kp、kq、k之后就是利用这几个量和上面的四个等式，从低位开始深搜剪枝。不过做到这一步之后还是有点小问题，就是这几个量高位泄露的似乎都比较少，所以剪到高位后深搜会显著的慢很多。不过一个事实是低位肯定是剪对了，因此我在剪到高700位之后化为p低位泄露的问题去copper解掉。</p>
+<p>exp：</p>
+<p>拆分私钥：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> *</span><br><span class="line">sys.setrecursionlimit(<span class="number">2000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">################################################### part1 read pem</span></span><br><span class="line">cipher = <span class="string">&quot;MIIEowIBAAKCAQEAz3om77jpWFrtAUZNPT29TYCIJzH8LTGyjZT4nuEUyGOpBXdRIaC46+jVBpkrk4vMGARJPw1j6hWM50WlI8Qq/siRU3ut2hXDeoLHugxJZEkDsRxCN26kHBMZNs5PQWKLHM1P4p70jVrfzrI7NluKnqiwLMXWP+93iUdx1OIuB3Rl/SCd/FPhy4t9dvZBYNkuHQKjY+AqandWqJLkGjJpn3K8EV036g9FchQG74cx1JXrFJu0LqAMo0qv8XqhMItDGnjx0cvFzqhVp3gg/xx3KT4++PkvLJiRNHVlQGECt1tdqsoP6wWd5RRxQlOcqkZZ8Ynpc0VVfI0xi+F7ELCk+QIDAQA?A??BA?3?a?????3??4?Y?a??????????n????C?y???P??a?4?rX??p?6?????????x???rzz?c?X??????????????yp????c??Fs????????????????????jM??????5?aGv?A?????tCD?L???pYzs???f?li???F?????????vk?????c?????uS????????Z??E????????????????GJ?????hh??/?yX??C??p???X?????s??Wv?N4?7P???????o?W?????r2??s?6?L?????Y???????????s?EXs????7?K?????R???p????GBQ??I?u?????11???Y??????EA???i??aS???j??l?????????y???t?f?F?H9??i4??0???????q?8e??Y?????v??????Q???????????DLUk??M????????F???????K??U??tQ?5?rCl????7????T?????4?7BzRd????7W??????0???M????i?Z??w???c???E??UV????????b?g??h?5???????????????Ab?????Bo?q?I??????iMt???????Gq?????Vx??????????????Gk?c??????0???c?mz?6?????3?4z??iXp?f??i??sbI?????vA2JV?J?Per??????0???????????Q???cX??gYB??????2?e????J?d?3?y?9?????D??????h????EmA1Y?csU???D?z?u??9??R?S9J4eyT?????j?V1??g?t?Sd?????b????p????????/z??f?G?i?/V???q?D7???J?G?I?B?L?????Q????9?/???e?e???7Z?0??7j??9Q??g????/?f??7d?????q?5???m?????????????????s???b??u??Py???x??d?????r??????j?z????tB?G?7z?????yQ?ui?????t????????H?BI0???mp???HO???????Z??VK??H???????W?????V?E??Z?g????M?1????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????&quot;</span></span><br><span class="line">table = <span class="string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#x27;</span></span><br><span class="line"></span><br><span class="line">bitstream = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> cipher:</span><br><span class="line">    <span class="keyword">if</span>(i == <span class="string">&quot;?&quot;</span>):</span><br><span class="line">        bitstream += <span class="string">&quot;******&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        bitstream += <span class="built_in">bin</span>(table.index(i))[<span class="number">2</span>:].zfill(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################### part2 split params</span></span><br><span class="line">info1 = <span class="built_in">hex</span>(<span class="built_in">int</span>(bitstream[:<span class="number">4</span>*<span class="number">8</span>],<span class="number">2</span>))[<span class="number">2</span>:]</span><br><span class="line">bitstream = bitstream[<span class="number">4</span>*<span class="number">8</span>:]</span><br><span class="line">info2 = <span class="built_in">hex</span>(<span class="built_in">int</span>(bitstream[:<span class="number">3</span>*<span class="number">8</span>],<span class="number">2</span>))[<span class="number">2</span>:]</span><br><span class="line">bitstream = bitstream[<span class="number">3</span>*<span class="number">8</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment">##### n,e</span></span><br><span class="line">infon = <span class="built_in">hex</span>(<span class="built_in">int</span>(bitstream[:<span class="number">4</span>*<span class="number">8</span>],<span class="number">2</span>))[<span class="number">2</span>:]</span><br><span class="line">bitstream = bitstream[<span class="number">4</span>*<span class="number">8</span>:]</span><br><span class="line">n = <span class="built_in">int</span>(bitstream[:<span class="number">257</span>*<span class="number">8</span>],<span class="number">2</span>)</span><br><span class="line">bitstream = bitstream[<span class="number">257</span>*<span class="number">8</span>:]</span><br><span class="line">infoe = bitstream[:<span class="number">2</span>*<span class="number">8</span>]</span><br><span class="line">bitstream = bitstream[<span class="number">2</span>*<span class="number">8</span>:]</span><br><span class="line">e = bitstream[:<span class="number">3</span>*<span class="number">8</span>] <span class="comment">#### seems like 65537</span></span><br><span class="line">bitstream = bitstream[<span class="number">3</span>*<span class="number">8</span>:]</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##### d</span></span><br><span class="line">infod = bitstream[:<span class="number">4</span>*<span class="number">8</span>]</span><br><span class="line">bitstream = bitstream[<span class="number">4</span>*<span class="number">8</span>:]</span><br><span class="line">d = bitstream[:<span class="number">256</span>*<span class="number">8</span>]</span><br><span class="line">bitstream = bitstream[<span class="number">256</span>*<span class="number">8</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment">##### p,q</span></span><br><span class="line">infop = bitstream[:<span class="number">3</span>*<span class="number">8</span>]</span><br><span class="line">bitstream = bitstream[<span class="number">3</span>*<span class="number">8</span>:]</span><br><span class="line">p = bitstream[:<span class="number">129</span>*<span class="number">8</span>][<span class="number">8</span>:]</span><br><span class="line">bitstream = bitstream[<span class="number">129</span>*<span class="number">8</span>:]</span><br><span class="line">infoq = bitstream[:<span class="number">3</span>*<span class="number">8</span>]</span><br><span class="line">bitstream = bitstream[<span class="number">3</span>*<span class="number">8</span>:]</span><br><span class="line">q = bitstream[:<span class="number">129</span>*<span class="number">8</span>]</span><br><span class="line">bitstream = bitstream[<span class="number">129</span>*<span class="number">8</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment">##### dp,dq</span></span><br><span class="line">infodp = bitstream[:<span class="number">3</span>*<span class="number">8</span>]</span><br><span class="line">bitstream = bitstream[<span class="number">3</span>*<span class="number">8</span>:]</span><br><span class="line">dp = bitstream[:<span class="number">128</span>*<span class="number">8</span>][<span class="number">8</span>:]</span><br><span class="line">bitstream = bitstream[<span class="number">128</span>*<span class="number">8</span>:]</span><br><span class="line">infodq = bitstream[:<span class="number">3</span>*<span class="number">8</span>]</span><br><span class="line">bitstream = bitstream[<span class="number">3</span>*<span class="number">8</span>:]</span><br><span class="line">dq = bitstream[:<span class="number">129</span>*<span class="number">8</span>]</span><br><span class="line">bitstream = bitstream[<span class="number">129</span>*<span class="number">8</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment">##### p_invq(no more)</span></span><br><span class="line"><span class="comment">##### maybe some additional change</span></span><br></pre></td></tr></table></figure>
+<p>求解k、kp、kq：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#dhbin = d[:1020]</span></span><br><span class="line">n = <span class="number">26191564571207865803659079386216562920365743937051163433571210679225063647091082587257715669756485899193035208469976035738059784724348440070923338255026181997563861328562376469415513279917957395542741541429134095225386135220540927874676394354088360479481955915341958270722056286102261431573282803952793459642793864316123517546752697514637037955503796798930707520651108244395501602445588782475135899939892422822256499112247770956183176429072812823174574240664993265247180146106488076712548920459190957713108289707082714400895643134613721697077267869186086353168834023098632217473990464991482806559422568127693472179449</span></span><br><span class="line">dhbin = <span class="string">&quot;****110111******011010******************************110111************111000******011000******011010************************************************************100111************************000010******110010******************001111************011010******111000******101011010111************101001******111010******************************************************110001******************101011110011110011******011100******010111************************************************************************************110010101001************************011100************000101101100************************************************************************************************************************100011001100************************************111001******011010000110101111******000000******************************101101000010000011******001011******************101001011000110011101100******************011111******100101100010******************000101******************************************************10111110&quot;</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"><span class="comment">############################################ part2 solve k and get d high</span></span><br><span class="line">k = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,e):</span><br><span class="line">    tt = <span class="built_in">bin</span>(i*n // e)[<span class="number">2</span>:].zfill(<span class="number">2048</span>)[:<span class="number">1020</span>]</span><br><span class="line"></span><br><span class="line">    FOUND = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1020</span>):</span><br><span class="line">        <span class="keyword">if</span>(dhbin[j] == <span class="string">&quot;*&quot;</span>):</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">if</span>(tt[j] != dhbin[j]):</span><br><span class="line">            FOUND = <span class="number">0</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span>(FOUND == <span class="number">1</span>):</span><br><span class="line">        k = i</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="built_in">print</span>(k)</span><br><span class="line"></span><br><span class="line"><span class="comment">############################################ part3 solve kp,kq</span></span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(e))</span><br><span class="line">f = x^<span class="number">2</span> - (k*(n-<span class="number">1</span>)+<span class="number">1</span>)*x - k</span><br><span class="line">res = f.roots()</span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line"><span class="comment">#[(64743, 1), (30590, 1)]</span></span><br></pre></td></tr></table></figure>
+<p>dfs：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">################################################### part3 get k,kp,kq(using sparse_solve_k_kp_kq)</span></span><br><span class="line">k = <span class="number">39770</span></span><br><span class="line">d = <span class="string">&quot;0111110111100111011010001001110101101100100111101101110111101001001111111000110111011000011101011010001011000110010001101000110000110011100001010110110000010011100111110010111001100101110011000010111010110010110010100011010011001111111011011110011010110100111000111010101011010111011111110011101001100010111010000001010011110000110100111110010100001111001010100010110001111101010101110011101011110011110011101110011100011110010111110001010101111100010000100110011101001110000100100010101010100100001011100101101100110010101001110100110111111011111011011100001000111100000101101100010111001111011110110001100001100001110000000101111111000101000101110010001001110001001111011001010110011001111001001010100011001100110001100010111001000110000000000011111001110011011010000110101111110000000000111001110001001000010011011010101101000010000011000011001011001000011000011011101001011000110011101100001111111101001001011111101111100101100010100110000001111110000101110001001000001101011100101111110001110110110011001110101111100100******************************011100******************************101110010010************************************************011001************000100************************************************************************************************000110001001******************************100001100001************111111******110010010111************000010************101001******************010111******************************101100************010110101111******001101111000******111011001111******************************************101000******010110******************************101011110110************101100******111010******001011******************************011000******************************************************************101100******000100010111101100************************111011******001010******************************010001******************101001************************000110000001010000************001000******101110******************************110101110101******************011000****************&quot;</span></span><br><span class="line"><span class="comment">#kp,kq = 64743,30590</span></span><br><span class="line">kq,kp = <span class="number">64743</span>,<span class="number">30590</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################### part4 dfs</span></span><br><span class="line">pbits = <span class="number">1024</span></span><br><span class="line">P,Q,DP,DQ,D = p[::-<span class="number">1</span>],q[::-<span class="number">1</span>],dp[::-<span class="number">1</span>],dq[::-<span class="number">1</span>],d[::-<span class="number">1</span>]</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">pl,ql,dl,dpl,dql,h</span>):</span><br><span class="line">    <span class="keyword">if</span>(h == <span class="number">700</span>):</span><br><span class="line">        <span class="built_in">print</span>(pl)</span><br><span class="line">    <span class="comment">######## check</span></span><br><span class="line">    <span class="keyword">if</span>(h == pbits):</span><br><span class="line">        pp = <span class="built_in">int</span>(pl,<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">if</span>(n % pp == <span class="number">0</span>):</span><br><span class="line">            <span class="built_in">print</span>(pp)</span><br><span class="line">            <span class="built_in">print</span>(n // pp)</span><br><span class="line">            exit()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">######## prune</span></span><br><span class="line">    <span class="keyword">if</span>(h &gt; <span class="number">0</span>):</span><br><span class="line">        pi = <span class="built_in">int</span>(pl,<span class="number">2</span>)</span><br><span class="line">        qi = <span class="built_in">int</span>(ql,<span class="number">2</span>)</span><br><span class="line">        di = <span class="built_in">int</span>(dl,<span class="number">2</span>)</span><br><span class="line">        dpi = <span class="built_in">int</span>(dpl,<span class="number">2</span>)</span><br><span class="line">        dqi = <span class="built_in">int</span>(dql,<span class="number">2</span>)</span><br><span class="line">        mask = <span class="number">2</span>**h</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(pi*qi % mask != n % mask):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">if</span>(e*di % mask != (k*(n - pi - qi + <span class="number">1</span>) + <span class="number">1</span>) % mask):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">if</span>(e*dpi % mask != (kp*(pi - <span class="number">1</span>) + <span class="number">1</span>) % mask):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">if</span>(e*dqi % mask != (kq*(qi - <span class="number">1</span>) + <span class="number">1</span>) % mask):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">######## search</span></span><br><span class="line">    pos_p = [<span class="string">&quot;0&quot;</span>,<span class="string">&quot;1&quot;</span>] <span class="keyword">if</span> P[h] == <span class="string">&quot;*&quot;</span> <span class="keyword">else</span> [P[h]]</span><br><span class="line">    pos_q = [<span class="string">&quot;0&quot;</span>,<span class="string">&quot;1&quot;</span>] <span class="keyword">if</span> Q[h] == <span class="string">&quot;*&quot;</span> <span class="keyword">else</span> [Q[h]]</span><br><span class="line">    pos_d = [<span class="string">&quot;0&quot;</span>,<span class="string">&quot;1&quot;</span>] <span class="keyword">if</span> D[h] == <span class="string">&quot;*&quot;</span> <span class="keyword">else</span> [D[h]]</span><br><span class="line">    pos_dp = [<span class="string">&quot;0&quot;</span>,<span class="string">&quot;1&quot;</span>] <span class="keyword">if</span> DP[h] == <span class="string">&quot;*&quot;</span> <span class="keyword">else</span> [DP[h]]</span><br><span class="line">    pos_dq = [<span class="string">&quot;0&quot;</span>,<span class="string">&quot;1&quot;</span>] <span class="keyword">if</span> DQ[h] == <span class="string">&quot;*&quot;</span> <span class="keyword">else</span> [DQ[h]]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ii <span class="keyword">in</span> pos_p:</span><br><span class="line">        <span class="keyword">for</span> jj <span class="keyword">in</span> pos_q:</span><br><span class="line">            <span class="keyword">for</span> kk <span class="keyword">in</span> pos_d:</span><br><span class="line">                <span class="keyword">for</span> mm <span class="keyword">in</span> pos_dp:</span><br><span class="line">                    <span class="keyword">for</span> nn <span class="keyword">in</span> pos_dq:</span><br><span class="line">                        find(ii+pl,jj+ql,kk+dl,mm+dpl,nn+dql,h+<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">find(<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>copper：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">n = <span class="number">26191564571207865803659079386216562920365743937051163433571210679225063647091082587257715669756485899193035208469976035738059784724348440070923338255026181997563861328562376469415513279917957395542741541429134095225386135220540927874676394354088360479481955915341958270722056286102261431573282803952793459642793864316123517546752697514637037955503796798930707520651108244395501602445588782475135899939892422822256499112247770956183176429072812823174574240664993265247180146106488076712548920459190957713108289707082714400895643134613721697077267869186086353168834023098632217473990464991482806559422568127693472179449</span></span><br><span class="line">pl = <span class="built_in">int</span>(<span class="string">&quot;0001010101110110000011111101011011010011101011001011111010111110000010110100000000001000110100001011001101001001101101001100011001011100011100001111010111111011010000110010110101001001000010111000110011001001000111010100011110100111110000001010100111100001010101110001100010100111111001100111101101000010101001111110010101001011001000001011010100000111111110011110111010110000101001011000000010011101110000011110111010010011111111101010110100110000011010010001000101100110001110001101001110110000011100110100010111010001101100010010001101011110110101100001001101100110011011001001101010001101001111000110100001100011000000111101001001011000011000100010100110011101010111111100000010011011010110000111&quot;</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">f = <span class="number">2</span>^<span class="number">700</span>*x + pl</span><br><span class="line">f = f.monic()</span><br><span class="line">res = f.small_roots(X=<span class="number">2</span>^<span class="number">324</span>,beta=<span class="number">0.4</span>)</span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line">p = <span class="number">2</span>^<span class="number">700</span>*<span class="number">27996439917383235383841028686373623677025754644523593251398561268422647849393297011015184428879646</span> + pl</span><br><span class="line">q = n // p</span><br></pre></td></tr></table></figure>
+<p>construct priv.pem：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"></span><br><span class="line">p = <span class="number">147265078724969536365832804097158908382797954720876979653011951728406956112387192598824544012306646169035006144198481048711301331247260259281889124056472140003652896595645729235440361839211945606851933815085064600602384039806104472396638159553493474999959228820209555647809413406679561108752796856362130322823</span></span><br><span class="line">q = <span class="number">177853193696537602949543516363698051482015780601784878746924982714954417325534763064519601202059344904600445475536028577444032451210441011604812638239514702264403873572939796175627691144179401358323424660942530032692235257344002043472924610196358592525530975564329781167566090856393060393104676776509528699263</span></span><br><span class="line">n = <span class="number">26191564571207865803659079386216562920365743937051163433571210679225063647091082587257715669756485899193035208469976035738059784724348440070923338255026181997563861328562376469415513279917957395542741541429134095225386135220540927874676394354088360479481955915341958270722056286102261431573282803952793459642793864316123517546752697514637037955503796798930707520651108244395501602445588782475135899939892422822256499112247770956183176429072812823174574240664993265247180146106488076712548920459190957713108289707082714400895643134613721697077267869186086353168834023098632217473990464991482806559422568127693472179449</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d = inverse(e,phi)</span><br><span class="line">dp = d % (p-<span class="number">1</span>)</span><br><span class="line">dq = d % (q-<span class="number">1</span>)</span><br><span class="line">qinvp = inverse(q,p)</span><br><span class="line"></span><br><span class="line">rsa_key = RSA.construct((n,e,d,p,q))</span><br><span class="line"><span class="built_in">print</span>(rsa_key.exportKey().decode(<span class="string">&quot;utf-8&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;D:\CTF_challs\py\crypto\2024\geekCTF 2024\privkey.pem&quot;</span>,<span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = f.read()</span><br><span class="line"></span><br><span class="line">c = c.replace(<span class="string">b&quot;\r\n&quot;</span>,<span class="string">b&quot;\n&quot;</span>)  <span class="comment">#because task&#x27;s command is linux</span></span><br><span class="line"><span class="built_in">print</span>(md5(c).hexdigest())</span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;d13b8e56805cf71cb75789dda1816587&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="HNP"><a href="#HNP" class="headerlink" title="HNP"></a>HNP</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">I am suffering from Herniated Nucleus Pulposus, please help me!</span><br><span class="line"></span><br><span class="line">nc chall.geekctf.geekcon.top 40555</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> seed, choice</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">from</span> signal <span class="keyword">import</span> signal, alarm, SIGALRM</span><br><span class="line"><span class="keyword">from</span> string <span class="keyword">import</span> ascii_letters, digits</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handler</span>(<span class="params">signum, frame</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Time out!&#x27;</span>)</span><br><span class="line">    <span class="keyword">raise</span> exit()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">proof_of_work</span>():</span><br><span class="line">    seed(getRandomRange(<span class="number">1</span>, <span class="number">2</span>**<span class="number">128</span>))</span><br><span class="line">    proof = <span class="string">&#x27;&#x27;</span>.join([choice(ascii_letters + digits) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>)])</span><br><span class="line">    digest = sha256(proof.encode(<span class="string">&#x27;latin-1&#x27;</span>)).hexdigest()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;sha256(XXXX + &#123;&#125;) == &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(proof[<span class="number">4</span>: ], digest))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Give me XXXX:&#x27;</span>)</span><br><span class="line">    x = <span class="built_in">input</span>()</span><br><span class="line">    <span class="keyword">if</span> x != proof[: <span class="number">4</span>]:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">n = <span class="number">8</span></span><br><span class="line">A = <span class="number">2048</span></span><br><span class="line">B = A // n</span><br><span class="line">MASK1 = <span class="number">0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</span></span><br><span class="line">MASK2 = <span class="number">0x1fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc0000000000000000000000000000000000000000000000000000000000000000000000000000000000001fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">challenge</span>():</span><br><span class="line">    N = getPrime(A)</span><br><span class="line">    X = getRandomRange(<span class="number">1</span>, N)</span><br><span class="line">    Y = [getRandomRange(<span class="number">1</span>, N) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">    Z = [X * Y[_] % N <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">    <span class="built_in">print</span>(N)</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        X_ = Z[_]</span><br><span class="line">        Y_ = [(Y[_] &gt;&gt; (__ * B)) &amp; MASK1 <span class="keyword">for</span> __ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        Z_ = [(X_ * Y_[__] % N) &amp; MASK2 <span class="keyword">for</span> __ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        <span class="built_in">print</span>(Z_)</span><br><span class="line">    alarm(<span class="number">5</span>)</span><br><span class="line">    G = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;X:&#x27;</span>))</span><br><span class="line">    alarm(<span class="number">30</span>)</span><br><span class="line">    <span class="keyword">if</span> G == X:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">signal(SIGALRM, handler)</span><br><span class="line">alarm(<span class="number">60</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> proof_of_work():</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> challenge():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Wrong!&#x27;</span>)</span><br><span class="line">        exit()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Good!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p>题目是一个限时challenge，在限定时间内通过三次challenge就可以得到flag，每次challenge的内容完全相同，没有难度递进。</p>
+<p>challenge本身的内容是要求解一个HNP问题，具体来说每次challenge会做如下几件事：</p>
+<ul>
+<li><p>生成2048bit的素数作为模数N，并生成待求解的1-N之间的随机数X</p>
+</li>
+<li><p>生成长度为8的1-N之间的随机数列表Y，并计算其中每个元素与X在模N下的乘积，得到长度为8的列表Z，在这之后会进入一个8轮的数据泄露，这里把题目里的下划线换成轮次对应的值i可能更便于下面说法的理解</p>
+</li>
+<li><p>每一轮中，Xi会取Z[i]作为本轮的值，也就是：</p>
+<script type="math/tex; mode=display">
+X_i = Z[i] = XY[i]</script></li>
+<li><p>将Y拆分为256bit的八个块，作为Yi列表</p>
+</li>
+<li><p>将Xi与Yi列表中每一个值在模N下相乘，并和MASK2做与操作，得到Zi列表</p>
+</li>
+<li><p>泄露Zi列表</p>
+</li>
+<li><p>8轮完全泄露之后，要求给出正确的X值，即完成本次挑战</p>
+</li>
+</ul>
+<p>光是描述challenge内容本身就已经感觉到很绕了，最好多理一理题目内容。</p>
+<blockquote>
+<p>特别是注意上面Yi和Y[i]，Zi和Z[i]的区别</p>
+</blockquote>
+<p>由于泄露的是Zi列表，我们要先弄清楚Zi里面是什么，分析MASK2的结构可以知道，Zi其实是对Xi与Yi中每个乘积分三段341位的泄露，记T=2^341，Zij为本次泄露值，那么其中每个值可以写为：</p>
+<script type="math/tex; mode=display">
+X_iY_{ij} = Z_{ij} + Ta_{ij} + T^3b_{ij} + T^5c_{ij} \quad(mod\;N)</script><p>也就是说，每次challenge中的八轮中的每一轮，会提供给我们8个这样的泄露等式，这些等式中Xi都是相等的，都等于XY[i]，那么把符号转化的好理解一些，抽象一下每一轮内的问题就是：</p>
+<blockquote>
+<p>有八组这样的等式：</p>
+<script type="math/tex; mode=display">
+xy_j = z_j + Ta_j + T^3b_j + T^5c_j \quad(mod\;N)</script><p>其中已知zj和N的值，T是常量2^341，yj是256bit的小量，a、b、c分别是341bit的小量，求解出x</p>
+</blockquote>
+<p>注意这里仅仅是求解x，对应求出的也就是Xi，即XY[i]的值，而并不是最终的X。同时要注意，这是一轮内的8个值，而不是8轮。</p>
+<p>由于等式中x并不是小量，可以看作是和N数量级相同的大数，所以当务之急是消去他。而消去他的方法和AGCD的处理手段基本一致，也就是两两取出等式：</p>
+<script type="math/tex; mode=display">
+xy_u = z_u + Ta_u + T^3b_u + T^5c_u \quad(mod\;N)</script><script type="math/tex; mode=display">
+xy_v = z_v + Ta_v + T^3b_v + T^5c_v \quad(mod\;N)</script><p>然后上下凑x的系数：</p>
+<script type="math/tex; mode=display">
+xy_uy_v = z_uy_v + Ta_uy_v + T^3b_uy_v + T^5c_uy_v \quad(mod\;N)</script><script type="math/tex; mode=display">
+xy_vy_u = z_vy_u + Ta_vy_u + T^3b_vy_u + T^5c_vy_u \quad(mod\;N)</script><p>然后作差：</p>
+<script type="math/tex; mode=display">
+z_uy_v-z_vy_u + T(a_uy_v-a_vy_u) + T^3(b_uy_v-b_vy_u) + T^5(c_uy_v-c_vy_u)= 0 \quad(mod\;N)</script><p>然后再展开成等式：</p>
+<script type="math/tex; mode=display">
+z_uy_v-z_vy_u + T(a_uy_v-a_vy_u) + T^3(b_uy_v-b_vy_u) + T^5(c_uy_v-c_vy_u) + k_{uv}N = 0</script><p>此时等式中就仅包含以下几个未知量，其对应的比特数量级大约是：</p>
+<script type="math/tex; mode=display">
+y_v,y_u : 256</script><script type="math/tex; mode=display">
+a_uy_v-a_vy_u , b_uy_v-b_vy_u , c_uy_v-c_vy_u : 256*341</script><p>在模N下都显得比较小，而一共有8组数据，就一共可以取得C(8,2)=28组等式来构造格，妥妥够了。事实上为了节省时间，分段取两次C(4,2)都完全可以，如此一来我们就可以构造格规约出所有的yi，拼接在一起也就得到了初始的Y[i]，如此进行八轮，就得到了全部的初始Y列表。</p>
+<p>然而有了Y列表并不足以让我们求解出X，我们仍然需要求解一个下面形式的HNP问题：</p>
+<blockquote>
+<p>有64组这样的等式：</p>
+<script type="math/tex; mode=display">
+XY[i]Y_{ij} = Z_{ij} + Ta_{ij} + T^3b_{ij} + T^5c_{ij} \quad(mod\;N)</script><p>求解X</p>
+</blockquote>
+<p>和上面的区别是，现在Y[i]和Yij的值我们都知道了，并且我们要规约的量变化为了每次的a、b、c。这就是一个标准的分段HNP了，有一篇很好的文章可以做参考：</p>
+<p><a target="_blank" rel="noopener" href="https://tover.xyz/p/HNP-note/#Level-4">HNP学习笔记 | Tover’s Blog</a></p>
+<p>有一个小细节需要注意，由于每八个等式乘的Y[i]都一样，所以如果仅仅用同一组的式子来求解这个HNP，那么格中会存在线性相关的量，这会导致预期的由a、b、c组成的短向量并不会出现在LLL后的向量中，取而代之的是Yij组成的短向量，这是因为Yij的数量级小于a、b、c。</p>
+<p>这也是题目给了八轮数据的意义所在，我们仅需要每轮中取一个值来进行HNP求解即可，这样就可以避免值存在线性相关带来的影响。由于泄露的位数真的很多，所以并不太需要考虑组合，就取2-8轮与第一轮进行消元的七组等式造格即可。</p>
+<p>这样处理后时间其实相当宽松，所以并不一定要flatter进行优化。不过奇怪的是我的本地测试完全没有出错过，但是打远程却是概率成功并且没找到原因，所以只能反复重连去碰三次都成功的情况，不过其实也就最多5分钟就能出来flag了。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Pwn4Sage.pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    <span class="comment">################################################# part1 proof of work</span></span><br><span class="line">    sh = remote(<span class="string">&quot;chall.geekctf.geekcon.top&quot;</span>,<span class="number">40555</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">proof_of_work</span>():</span><br><span class="line">        table = string.digits + string.ascii_letters</span><br><span class="line">        temp = sh.recvuntil(<span class="string">b&quot;sha256(XXXX + &quot;</span>)</span><br><span class="line">        temp = sh.recvline()</span><br><span class="line">        suffix = temp[:<span class="number">16</span>].decode()</span><br><span class="line">        hex1 = temp[<span class="number">20</span>:].strip().decode()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> tqdm(table):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> table:</span><br><span class="line">                <span class="keyword">for</span> k <span class="keyword">in</span> table:</span><br><span class="line">                    <span class="keyword">for</span> m <span class="keyword">in</span> table:</span><br><span class="line">                        temp1 = i+j+k+m</span><br><span class="line">                        <span class="keyword">if</span>(sha256((temp1+suffix).encode()).hexdigest() == hex1):</span><br><span class="line">                            sh.sendline(temp1.encode())</span><br><span class="line">                            <span class="keyword">return</span></span><br><span class="line">    proof_of_work()</span><br><span class="line">    sh.recvline()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">################################################# part2 get data</span></span><br><span class="line">    <span class="keyword">for</span> rounds <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>): </span><br><span class="line">        N = <span class="built_in">int</span>(sh.recvline().strip().decode())</span><br><span class="line">        Total_Z = []</span><br><span class="line">        <span class="keyword">for</span> jjjj <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">            Total_Z.append(<span class="built_in">eval</span>(sh.recvline().strip().decode()))</span><br><span class="line"></span><br><span class="line">        <span class="comment">################################################# part3 get Y</span></span><br><span class="line">        A = []</span><br><span class="line">        ZZZ = []</span><br><span class="line">        <span class="keyword">for</span> jjjj <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">            Zi = Total_Z[jjjj]</span><br><span class="line">            ZZZ.append(Zi[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">            <span class="comment">################################################## part1 get Yi[:4]</span></span><br><span class="line">            Y_ = []</span><br><span class="line">            T = <span class="number">2</span>^<span class="number">341</span></span><br><span class="line">            K = <span class="number">2</span>^<span class="number">2000</span></span><br><span class="line">            nums = <span class="number">4</span></span><br><span class="line">            groups = comb(nums,<span class="number">2</span>)</span><br><span class="line">            L = Matrix(ZZ,nums+<span class="number">4</span>*groups,nums+<span class="number">4</span>*groups)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>*groups+nums):</span><br><span class="line">                <span class="keyword">if</span>(i &lt; nums):</span><br><span class="line">                    L[i,i] = T</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    L[i,i] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(groups):</span><br><span class="line">                L[-i-<span class="number">1</span>,-i-<span class="number">1</span>] = N*K</span><br><span class="line"></span><br><span class="line">            count1 = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nums):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>,nums):</span><br><span class="line">                    L[i,<span class="number">3</span>*groups+nums+count1] = -Zi[j]*K</span><br><span class="line">                    L[j,<span class="number">3</span>*groups+nums+count1] = Zi[i]*K</span><br><span class="line">                    L[nums+<span class="number">3</span>*count1,<span class="number">3</span>*groups+nums+count1] = T*K</span><br><span class="line">                    L[nums+<span class="number">3</span>*count1+<span class="number">1</span>,<span class="number">3</span>*groups+nums+count1] = T^<span class="number">3</span>*K</span><br><span class="line">                    L[nums+<span class="number">3</span>*count1+<span class="number">2</span>,<span class="number">3</span>*groups+nums+count1] = T^<span class="number">5</span>*K</span><br><span class="line">                    count1 += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            res = L.LLL()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> res[:nums]:</span><br><span class="line">                Y_.append(<span class="built_in">abs</span>(i)//T)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">################################################## part2 get Yi[4:]</span></span><br><span class="line">            Zi = Zi[<span class="number">4</span>:]</span><br><span class="line">            nums = <span class="number">4</span></span><br><span class="line">            groups = comb(nums,<span class="number">2</span>)</span><br><span class="line">            L = Matrix(ZZ,nums+<span class="number">4</span>*groups,nums+<span class="number">4</span>*groups)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>*groups+nums):</span><br><span class="line">                <span class="keyword">if</span>(i &lt; nums):</span><br><span class="line">                    L[i,i] = T</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    L[i,i] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(groups):</span><br><span class="line">                L[-i-<span class="number">1</span>,-i-<span class="number">1</span>] = N*K</span><br><span class="line"></span><br><span class="line">            count1 = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nums):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>,nums):</span><br><span class="line">                    L[i,<span class="number">3</span>*groups+nums+count1] = -Zi[j]*K</span><br><span class="line">                    L[j,<span class="number">3</span>*groups+nums+count1] = Zi[i]*K</span><br><span class="line">                    L[nums+<span class="number">3</span>*count1,<span class="number">3</span>*groups+nums+count1] = T*K</span><br><span class="line">                    L[nums+<span class="number">3</span>*count1+<span class="number">1</span>,<span class="number">3</span>*groups+nums+count1] = T^<span class="number">3</span>*K</span><br><span class="line">                    L[nums+<span class="number">3</span>*count1+<span class="number">2</span>,<span class="number">3</span>*groups+nums+count1] = T^<span class="number">5</span>*K</span><br><span class="line">                    count1 += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            res = L.LLL()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> res[:nums]:</span><br><span class="line">                Y_.append(<span class="built_in">abs</span>(i)//T)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">################################################## part3 get Yi</span></span><br><span class="line">            Yi = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">                Yi += Y_[i] * <span class="number">2</span>^(<span class="number">256</span>*i)</span><br><span class="line">            A.append(Yi*Y_[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">################################################## part4 HNP(known Ai*X = zi + Tai + T^3bi + T^5ci)</span></span><br><span class="line">        T = <span class="number">2</span>^<span class="number">341</span></span><br><span class="line">        K = <span class="number">2</span>^<span class="number">2000</span></span><br><span class="line">        nums = <span class="number">8</span></span><br><span class="line">        L = Matrix(ZZ,<span class="number">4</span>*nums,<span class="number">4</span>*nums)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>*nums):</span><br><span class="line">            L[i,i] = <span class="number">1</span></span><br><span class="line">        L[<span class="number">3</span>*nums,<span class="number">3</span>*nums] = T</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nums-<span class="number">1</span>):</span><br><span class="line">            L[<span class="number">3</span>*nums+<span class="number">1</span>+i,<span class="number">3</span>*nums+<span class="number">1</span>+i] = N*K</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,nums):</span><br><span class="line">            L[<span class="number">0</span>,<span class="number">3</span>*nums+i] = A[i]*inverse(A[<span class="number">0</span>],N)*T*K</span><br><span class="line">            L[<span class="number">1</span>,<span class="number">3</span>*nums+i] = A[i]*inverse(A[<span class="number">0</span>],N)*T^<span class="number">3</span>*K</span><br><span class="line">            L[<span class="number">2</span>,<span class="number">3</span>*nums+i] = A[i]*inverse(A[<span class="number">0</span>],N)*T^<span class="number">5</span>*K</span><br><span class="line"></span><br><span class="line">            L[<span class="number">3</span>*i,<span class="number">3</span>*nums+i] = -T*K</span><br><span class="line">            L[<span class="number">3</span>*i+<span class="number">1</span>,<span class="number">3</span>*nums+i] = -T^<span class="number">3</span>*K</span><br><span class="line">            L[<span class="number">3</span>*i+<span class="number">2</span>,<span class="number">3</span>*nums+i] = -T^<span class="number">5</span>*K</span><br><span class="line"></span><br><span class="line">            L[<span class="number">3</span>*nums,<span class="number">3</span>*nums+i] = (A[i]*inverse(A[<span class="number">0</span>],N)*ZZZ[<span class="number">0</span>] - ZZZ[i])*K</span><br><span class="line"></span><br><span class="line">        res = L.LLL()[<span class="number">0</span>]</span><br><span class="line">        a,b,c = <span class="built_in">abs</span>(res[<span class="number">0</span>]),<span class="built_in">abs</span>(res[<span class="number">1</span>]),<span class="built_in">abs</span>(res[<span class="number">2</span>])</span><br><span class="line">        X = (ZZZ[<span class="number">0</span>]+T*a+T^<span class="number">3</span>*b+T^<span class="number">5</span>*c)*inverse(A[<span class="number">0</span>],N) % N</span><br><span class="line">        sh.recvuntil(<span class="string">b&quot;X:&quot;</span>)</span><br><span class="line">        sh.sendline(<span class="built_in">str</span>(X).encode())</span><br><span class="line">        temp = sh.recvline()</span><br><span class="line">        <span class="built_in">print</span>(temp)</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">b&quot;Wrong&quot;</span> <span class="keyword">in</span> temp):</span><br><span class="line">            sh.close()</span><br><span class="line">            sleep(<span class="number">5</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="string">b&quot;Good&quot;</span> <span class="keyword">in</span> temp):</span><br><span class="line">        <span class="built_in">print</span>(sh.recvline())</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;HNP-SUM_i$_4_pi3ce_0f_c@ke_f0r_u&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/13f23fc6.html" title="2024-GEEKCTF-wp-crypto">https://tangcuxiaojikuai.xyz/post/13f23fc6.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/e1a814d3.html" rel="prev" title="2024-TAMUCTF-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2024-TAMUCTF-wp-crypto
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/9b3c95d4.html" rel="next" title="最近更新">
+      最近更新 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#babypairing"><span class="nav-number">1.</span> <span class="nav-text">babypairing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpARse"><span class="nav-number">2.</span> <span class="nav-text">SpARse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HNP"><span class="nav-number">3.</span> <span class="nav-text">HNP</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
