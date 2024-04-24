@@ -32,12 +32,14 @@
 <meta property="og:site_name" content="糖醋小鸡块的blog">
 <meta property="og:description" content="真难。标*的是赛中没有做出来的，标$的是赛后也还没做出来的。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/7848573/image-20240424095858807.png">
 <meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/7848573/image-20240422212351394.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/7848573/image-20240424101116220.png">
 <meta property="article:published_time" content="2024-04-22T09:25:56.000Z">
-<meta property="article:modified_time" content="2024-04-22T14:37:27.515Z">
+<meta property="article:modified_time" content="2024-04-24T02:19:39.124Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/7848573/image-20240422212351394.png">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/7848573/image-20240424095858807.png">
 
 <link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/7848573.html">
 
@@ -222,10 +224,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-04-22 17:25:56 / 修改时间：22:37:27" itemprop="dateCreated datePublished" datetime="2024-04-22T17:25:56+08:00">2024-04-22</time>
+              <time title="创建时间：2024-04-22 17:25:56" itemprop="dateCreated datePublished" datetime="2024-04-22T17:25:56+08:00">2024-04-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-24 10:19:39" itemprop="dateModified" datetime="2024-04-24T10:19:39+08:00">2024-04-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -305,7 +313,7 @@ b_3 = 2^{17} + 2^{10} - 2^5 + 2^4</script><script type="math/tex; mode=display">
 b_4 = 2^{2^{17} + 2^{10} - 2^5 + 2^4-1}-1</script><script type="math/tex; mode=display">
 c_1 = 2^{2^{13}}</script><script type="math/tex; mode=display">
 c_2 = 2^{2^{2^{13}}}-1</script><p>然后接下来就是要简化的部分了。</p>
-<h4 id="d、e"><a href="#d、e" class="headerlink" title="d、e"></a>d、e</h4><p>由题意可以看出，函数i是求两数gcd的意思。那么也就有：</p>
+<h5 id="d、e"><a href="#d、e" class="headerlink" title="d、e"></a>d、e</h5><p>由题意可以看出，函数i是求两数gcd的意思。那么也就有：</p>
 <script type="math/tex; mode=display">
 d = gcd(2^{2^{17 \cdot 2^9}}-1 \;,\; 2^{2^{2^{13}}}-1)</script><script type="math/tex; mode=display">
 e = gcd(2^{2^{17}}-1 \;,\; 2^{2^{2^{13}}}-1)</script><p>可以看出，d、e其实都是在对如下形式的两个数字求gcd：</p>
@@ -322,7 +330,7 @@ gcd(2^{2^m} - 1,2^{2^n} - 1) = 2^{2^n} - 1 \quad(m>n)</script><p>所以其实d�
 17 \cdot 2^9 > 2^{13} > 17</script><p>所以有：</p>
 <script type="math/tex; mode=display">
 d = 2^{2^{2^{13}}}-1</script><script type="math/tex; mode=display">
-e = 2^{2^{17}}-1</script><h4 id="f1"><a href="#f1" class="headerlink" title="f1"></a>f1</h4><p>f1依然是求gcd：</p>
+e = 2^{2^{17}}-1</script><h5 id="f1"><a href="#f1" class="headerlink" title="f1"></a>f1</h5><p>f1依然是求gcd：</p>
 <script type="math/tex; mode=display">
 f_1 = gcd(d+2,e+2)</script><p>由上面的计算结果也就有：</p>
 <script type="math/tex; mode=display">
@@ -345,7 +353,7 @@ d \;| \; a</script><p>由整除的性质就有：</p>
 <script type="math/tex; mode=display">
 d \;|\; 2</script><p>但显然a、b都是奇数所以d一定不是2，所以d为1，所以a、b互素。</p>
 </blockquote>
-<h4 id="f2、f3、f4"><a href="#f2、f3、f4" class="headerlink" title="f2、f3、f4"></a>f2、f3、f4</h4><p>在f2、f3、f4的计算中，函数l为计算阶乘，n为取模，xt为求平方，所以f2、f3、f4可以写为：</p>
+<h5 id="f2、f3、f4"><a href="#f2、f3、f4" class="headerlink" title="f2、f3、f4"></a>f2、f3、f4</h5><p>在f2、f3、f4的计算中，函数l为计算阶乘，n为取模，xt为求平方，所以f2、f3、f4可以写为：</p>
 <script type="math/tex; mode=display">
 f_2 = [(2^{b_3-2}-1)!]^2</script><script type="math/tex; mode=display">
 f_3 = \{[(2^{b_3-2}-1)!]^2 \% (2^{b_3-1}-1)\}^2</script><script type="math/tex; mode=display">
@@ -385,12 +393,12 @@ f_4 = 2[(\frac{p-1}{2})!]^4 \quad(mod\;p)</script><p>可以看到式子内部并
 <script type="math/tex; mode=display">
 f_3 = 0</script><script type="math/tex; mode=display">
 f_4 = 0</script><p><strong>这两个0是整个题目最奇怪的地方。</strong></p>
-<h4 id="f、g"><a href="#f、g" class="headerlink" title="f、g"></a>f、g</h4><p>由于有：</p>
+<h5 id="f、g"><a href="#f、g" class="headerlink" title="f、g"></a>f、g</h5><p>由于有：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f = f4*op(a2+f1+f4)</span><br><span class="line">g = i(xp(f, a1), xs(f, c1))</span><br></pre></td></tr></table></figure>
 <p>因为f4=0，所以f=0。因此有：</p>
 <script type="math/tex; mode=display">
 g = i(1,-1) = -1</script><p>之所以这里不把i写成gcd，是因为有负数的引入，辗转相除时可能会碰到问题。所以这里直接调题目的函数i可以得到他的计算值是-1。</p>
-<h4 id="h、flag"><a href="#h、flag" class="headerlink" title="h、flag"></a>h、flag</h4><p>这一部分的代码为：</p>
+<h5 id="h、flag"><a href="#h、flag" class="headerlink" title="h、flag"></a>h、flag</h5><p>这一部分的代码为：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">h = x(x(xt(f1)*g, oh(f)*f4), b2)</span><br><span class="line">flag = hashlib.md5(<span class="built_in">str</span>(h)[<span class="number">1</span>-b1:].encode()).hexdigest()</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
 <p>代入之前的值进去计算，可以得到h=1这个事实。然而如果h=1的话，最后计算flag的这一部分就显得很奇怪：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span>(h)[<span class="number">1</span>-b1:]</span><br></pre></td></tr></table></figure>
@@ -398,6 +406,51 @@ g = i(1,-1) = -1</script><p>之所以这里不把i写成gcd，是因为有负数
 <script type="math/tex; mode=display">
 h = k^{b_2} \quad(mod\;10^{b_1-1})</script><p>所以感觉按预期来说，这里应该是想考一个模幂运算，从而使得大到b2这样数量级的幂运算能够计算。因此k应该不会是1这种简单的数字才对。</p>
 <p>然而的确没看出哪一步出了问题，如果推理没有错误的话，那么感觉最大的可能性是威尔逊定理那一步当成了素数去计算从而得到了f4=2，从而继续下一步计算。</p>
+<h4 id="4-24更新"><a href="#4-24更新" class="headerlink" title="(4.24更新)"></a>(4.24更新)</h4><p>那么接下来，我们<strong>不妨</strong>假设f4=2，从而进行下一步计算。由于f2、f3不会参与后续计算了，因此也不需要关心它们的值。</p>
+<h5 id="f、g-1"><a href="#f、g-1" class="headerlink" title="f、g"></a>f、g</h5><p>当f4=2时有：</p>
+<script type="math/tex; mode=display">
+f = 2(2^{a_2 + 1 + 2} - 1)</script><p>即：</p>
+<script type="math/tex; mode=display">
+f = 2^{a_2 + 4} - 2</script><p>这里不把a2展开，是因为展开的话实在太繁琐了，所以先把a2留在指数上进行下一步运算，此时有：</p>
+<script type="math/tex; mode=display">
+g = gcd[\quad (2^{a_2 + 4} - 2)^{2^{17 \cdot 2^9}} + 1 \;,\; (2^{a_2 + 4} - 2)^{2^{2^{13}}} - 1 \quad]</script><p>这里乍一看可能会觉得和前面求d、e的步骤有点类似，因为可以对第二个求平方差从而不断分解他。但问题在于第二个数应该是大于第一个数的，所以平方差分解后得到的项并不会包含第一个数，因此两者gcd不是第一个数。</p>
+<p>那么就要想其他办法，这里需要注意到一个事实：</p>
+<script type="math/tex; mode=display">
+2^{17 \cdot 2^9} = 2^{2^{13} + 2^9}</script><p>由于有这个关系，那么我们不妨先不把f展开写，也就是：</p>
+<script type="math/tex; mode=display">
+g = gcd( f^{2^{2^{13} + 2^9}} + 1 \;,\; f^{2^{2^{13}}} - 1 )</script><p>化简一下：</p>
+<script type="math/tex; mode=display">
+g = gcd( f^{2^{2^{13}}\cdot 2^{2^9}} + 1 \;,\; f^{2^{2^{13}}} - 1 )</script><blockquote>
+<p>由于指数运算的顺序，先运算的应该是最右上角的部分，所以这样拆下来是没有问题的。</p>
+<p>可以用一些小的，能运算的值来check：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(2^(2^(2^3+2^2)) == 2^(2^(2^3)*2^(2^2)))</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>这个时候令：</p>
+<script type="math/tex; mode=display">
+t = f^{2^{2^{13}}} , k = 2^{2^9}</script><p>就有：</p>
+<script type="math/tex; mode=display">
+g = gcd(t^k + 1 \;,\; t - 1)</script><p>由辗转相除本身得到：</p>
+<script type="math/tex; mode=display">
+gcd(t^k + 1 \;,\; t - 1) = gcd((t^k + 1) \% (t-1) \;,\; t - 1)</script><p>而又因为：</p>
+<script type="math/tex; mode=display">
+t^k + 1 = t^k {\color{red}- t^{k-1} + t^{k-1} - t^{k-2} + t^{k-2} - \cdots -t + t - 1 + 1} + 1</script><p>此时可以两两配对得到：</p>
+<script type="math/tex; mode=display">
+t^k+1 = t^{k-1}(t-1) + t^{k-2}(t-1) + ... + (t-1) + 2</script><p>所以：</p>
+<script type="math/tex; mode=display">
+(t^k + 1) \% (t-1) = 2</script><p>就得到：</p>
+<script type="math/tex; mode=display">
+g = gcd(2 \;,\; t - 1)</script><p>又因为f是偶数，所以t是偶数，因此t-1是奇数。</p>
+<p><strong>这代表着，在令f4=2以后，我们仍然得到了g=1！那么h显然又是1，又没法做了！</strong></p>
+<h5 id="h、flag-1"><a href="#h、flag-1" class="headerlink" title="h、flag"></a>h、flag</h5><p>这样吧，我们<strong>不妨</strong>再令g=2然后继续下一步，那么有：</p>
+<script type="math/tex; mode=display">
+flag = g^{fb_2} \quad(mod\;10^{b_1-1})</script><p>然而，这里的f显然和我们求的不太一样，因为只有f是奇数的时候才有可能得到g=2这个事实，然而我们的f是偶数，并且还是个很大的偶数，实在不知道怎么继续下去了。</p>
+<p>这个时候，我们<strong>不妨</strong>令f=3，那么就有：</p>
+<script type="math/tex; mode=display">
+flag = 8^{b_2} \quad(mod\;10^{b_1-1})</script><p>然后就可以得到flag了XD：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DASCTF&#123;ba4078b01d4432f7a3a73145dd31485c&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/post/7848573/image-20240424095858807.png" alt="image-20240424095858807"></p>
+<h5 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h5><p>赛后和<a target="_blank" rel="noopener" href="https://yolbby.github.io/"> @yolbby </a>一起推了好一会儿，发现的确如他所说，这段代码问题不少。这种题目本身相当容易错，不仅仅是对解题人，更是对出题人而言。</p>
+<p>题目中的几个<strong>不妨</strong>，是赛后和harukii交流了一下发现题目确实有错误，并且理顺之后发现错误还是好几个，所以才能这样不妨的。</p>
 <p><br></p>
 <p><br></p>
 <h3 id="Freedom-and-Captivity"><a href="#Freedom-and-Captivity" class="headerlink" title="$ Freedom and Captivity"></a>$ Freedom and Captivity</h3><p>题目描述：</p>
@@ -438,6 +491,21 @@ c(x) = polyhash(m)</script><p>显然z1,z2符合小系数多项式的要求，所
 <blockquote>
 <p>相比起上一个签名题目，这个签名的check虽然也是一个素性检测，但很明显他就是一个Miller_Rabin素性测试，并且也没有需要自己构造的参数，所以应该没啥能利用的地方</p>
 </blockquote>
+<h4 id="4-24更新-1"><a href="#4-24更新-1" class="headerlink" title="(4.24更新)"></a>(4.24更新)</h4><p>这题其实有一个很有意思的核心思路如下。</p>
+<p>对于通常模多项式为$x^{2n}-1$类型的RLWE，做法是分解成子环然后crt起来，所以一般来说会想着这么分解：</p>
+<script type="math/tex; mode=display">
+R_1 = \frac{Z[x]}{x^{n}+1}</script><script type="math/tex; mode=display">
+R_2 = \frac{Z[x]}{x^{n}-1}</script><p>题目延伸出这样一步，对于n不为2的幂次的时候，x^n+1和x^n-1其实在ZZ上都是继续可分的，比如对于x^120-1，可以看到他的分解是：</p>
+<p><img src="/post/7848573/image-20240424101116220.png" alt="image-20240424101116220"></p>
+<p>这是很神奇的一个事情，因为按我们的预料来说，分解后还会有个x^60+1的模多项式下的crt，也就是会有一个121维的格(为什么会是这么大可以见NSS Round18我的题解)。然而，由于x^60+1继续可分，所以最后留下来的最高次项也仅有32次，所以最大的格也只会是65维的，就方便求解多了。</p>
+<p>这样的分解就给完成题目提示了两方面：</p>
+<ul>
+<li>找到一个在ZZ上分解后次数都较小的n</li>
+<li>想办法让n通过check</li>
+</ul>
+<p>而题目奇怪的proof意义也在于此。看上去他只是要产生一个种子使其生成特定字符串，然而要注意到，proof里面会把你输入的种子设置成随机数种子，这会使之后所有的随机数部分都不再随机。也就是说我们可以利用这一点，去构造一个随机数种子，使得其能够让一个特定的数字通过check的miller rabin素性测试(这个特定的数字就要满足：由其得到的n使分解后多项式次数都较小)</p>
+<p>如此一来就可以完成整个题目。然而这样看下来，这个题目的体量对于短时赛来说过于大了，前面套的MT的伪随机数预测和伪素数实在是难以让人直接想到怎么利用。</p>
+<p>不过这个RLWE的crt思路是相当值得学习的，这也从另一个角度说明为什么通常RLWE要选择x^512+1,x^1024+1这样的模多项式，才能满足安全要求。</p>
 <p><br></p>
 <p><br></p>
 
@@ -538,7 +606,7 @@ c(x) = polyhash(m)</script><p>显然z1,z2符合小系数多项式的要求，所
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Mystery-of-Math"><span class="nav-number">1.</span> <span class="nav-text">The Mystery of Math</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sign-in-by-quantum-computer"><span class="nav-number">2.</span> <span class="nav-text">$ Sign-in by quantum computer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#d%E3%80%81e"><span class="nav-number">2.1.</span> <span class="nav-text">d、e</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#f1"><span class="nav-number">2.2.</span> <span class="nav-text">f1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#f2%E3%80%81f3%E3%80%81f4"><span class="nav-number">2.3.</span> <span class="nav-text">f2、f3、f4</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#f%E3%80%81g"><span class="nav-number">2.4.</span> <span class="nav-text">f、g</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#h%E3%80%81flag"><span class="nav-number">2.5.</span> <span class="nav-text">h、flag</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Freedom-and-Captivity"><span class="nav-number">3.</span> <span class="nav-text">$ Freedom and Captivity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Light-and-Darkness"><span class="nav-number">4.</span> <span class="nav-text">$ Light and Darkness</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Mystery-of-Math"><span class="nav-number">1.</span> <span class="nav-text">The Mystery of Math</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sign-in-by-quantum-computer"><span class="nav-number">2.</span> <span class="nav-text">$ Sign-in by quantum computer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#d%E3%80%81e"><span class="nav-number">2.0.1.</span> <span class="nav-text">d、e</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#f1"><span class="nav-number">2.0.2.</span> <span class="nav-text">f1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#f2%E3%80%81f3%E3%80%81f4"><span class="nav-number">2.0.3.</span> <span class="nav-text">f2、f3、f4</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#f%E3%80%81g"><span class="nav-number">2.0.4.</span> <span class="nav-text">f、g</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#h%E3%80%81flag"><span class="nav-number">2.0.5.</span> <span class="nav-text">h、flag</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-24%E6%9B%B4%E6%96%B0"><span class="nav-number">2.1.</span> <span class="nav-text">(4.24更新)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#f%E3%80%81g-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">f、g</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#h%E3%80%81flag-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">h、flag</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A2%8E%E7%A2%8E%E5%BF%B5"><span class="nav-number">2.1.3.</span> <span class="nav-text">碎碎念</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Freedom-and-Captivity"><span class="nav-number">3.</span> <span class="nav-text">$ Freedom and Captivity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Light-and-Darkness"><span class="nav-number">4.</span> <span class="nav-text">$ Light and Darkness</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-24%E6%9B%B4%E6%96%B0-1"><span class="nav-number">4.1.</span> <span class="nav-text">(4.24更新)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
