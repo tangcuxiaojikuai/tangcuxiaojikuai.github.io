@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="作为 @yolbby 师傅的忠实读者，上学期偶然发现他给他们学校CBCTF的招新赛出了一套躲猫猫题目，所以当然不能错过。 这一系列题目一共分为四个小题，每个题又分为三个小问题，每个小问题也很整齐，都是对flag逐bit的某种decision。难度总体来说是递增的，涉及的东西很广，在研究这几个题目的过程中接触到了相当多新奇有趣的东西，也收获了不少。有些题目上学期就开始研究了，现在再看可能会有一些新的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="躲猫猫">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/8992014.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="作为 @yolbby 师傅的忠实读者，上学期偶然发现他给他们学校CBCTF的招新赛出了一套躲猫猫题目，所以当然不能错过。 这一系列题目一共分为四个小题，每个题又分为三个小问题，每个小问题也很整齐，都是对flag逐bit的某种decision。难度总体来说是递增的，涉及的东西很广，在研究这几个题目的过程中接触到了相当多新奇有趣的东西，也收获了不少。有些题目上学期就开始研究了，现在再看可能会有一些新的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/8992014/image-20240509144923837.png">
+<meta property="article:published_time" content="2024-05-09T01:47:26.000Z">
+<meta property="article:modified_time" content="2024-05-10T09:06:21.256Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/8992014/image-20240509144923837.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/8992014.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>躲猫猫 | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/8992014.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          躲猫猫
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-09 09:47:26" itemprop="dateCreated datePublished" datetime="2024-05-09T09:47:26+08:00">2024-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-10 17:06:21" itemprop="dateModified" datetime="2024-05-10T17:06:21+08:00">2024-05-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/crypto%E8%B6%A3%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">crypto趣题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/8992014.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/8992014.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>作为<a target="_blank" rel="noopener" href="https://yolbby.github.io/"> @yolbby </a>师傅的忠实读者，上学期偶然发现他给他们学校CBCTF的招新赛出了一套躲猫猫题目，所以当然不能错过。</p>
+<p>这一系列题目一共分为四个小题，每个题又分为三个小问题，每个小问题也很整齐，都是对flag逐bit的某种decision。难度总体来说是递增的，涉及的东西很广，在研究这几个题目的过程中接触到了相当多新奇有趣的东西，也收获了不少。有些题目上学期就开始研究了，现在再看可能会有一些新的思路，我会一并写上来记录这个过程。</p>
+<p>每个题目的输出文件都较长所以不放在这里，完整的题目附件可以在这里找到：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/0RAYS/2023-CBCTF/tree/main/Crypto">2023-CBCTF/Crypto at main · 0RAYS/2023-CBCTF (github.com)</a></p>
+<span id="more"></span>
+<h3 id="躲猫猫1"><a href="#躲猫猫1" class="headerlink" title="躲猫猫1"></a>躲猫猫1</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">跨年夜当然少不了团建活动！</span><br><span class="line"></span><br><span class="line">冬天雪花飘飘正适合玩躲猫猫，为配合赛博主题，0RAYS的每个队员身上都带着一小段flag，拼起来就可以兑换过年大礼包！你毛遂自荐作为抓捕者，于是队员们悄眯眯地藏起来了。</span><br><span class="line"></span><br><span class="line">夜晚静悄悄的，你数完数踏出起点，影影绰绰看到几个人影……</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">humble_part, Ech0_part, Z3r0_part = flag[:<span class="built_in">len</span>(flag)//<span class="number">3</span>],flag[<span class="built_in">len</span>(flag)//<span class="number">3</span>:<span class="number">2</span>*<span class="built_in">len</span>(flag)//<span class="number">3</span>],flag[<span class="number">2</span>*<span class="built_in">len</span>(flag)//<span class="number">3</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment">#学活广场 humb1e似乎在旗杆背后探头探脑</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(humble_part))[<span class="number">2</span>:]</span><br><span class="line">R.&lt;humb1e&gt; = PolynomialRing(GF(getPrime(<span class="number">50</span>)))</span><br><span class="line">R = R.quo(humb1e^<span class="number">30</span>+random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">49</span>)*humb1e+<span class="number">1</span>)</span><br><span class="line">look_for_humb1e = [R(humb1e ^ (<span class="number">1500</span>*random.choice([<span class="built_in">ord</span>(<span class="string">&#x27;h&#x27;</span>),<span class="built_in">ord</span>(<span class="string">&#x27;u&#x27;</span>),<span class="built_in">ord</span>(<span class="string">&#x27;m&#x27;</span>),<span class="built_in">ord</span>(<span class="string">&#x27;b&#x27;</span>),<span class="built_in">ord</span>(<span class="string">&#x27;1&#x27;</span>),<span class="built_in">ord</span>(<span class="string">&#x27;e&#x27;</span>)]))) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> R.random_element() <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br><span class="line"></span><br><span class="line"><span class="comment">#都放假了四教还亮着灯？抓到Ech0在躲猫猫的时候偷学密码！</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(Ech0_part))[<span class="number">2</span>:]</span><br><span class="line">look_for_Ech0 = [prod([j[<span class="number">0</span>]^(j[<span class="number">1</span>]-<span class="number">1</span>)*(j[<span class="number">0</span>]-<span class="number">1</span>) <span class="keyword">for</span> j <span class="keyword">in</span> factor(random.getrandbits(<span class="number">100</span>))]) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> getPrime(<span class="number">100</span>)-<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br><span class="line"></span><br><span class="line"><span class="comment">#雪下得好大，花圃周围的亮白色身影是Z3r0吗</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(Z3r0_part))[<span class="number">2</span>:]</span><br><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line">look_for_Z3r0 = [<span class="built_in">pow</span>(<span class="number">31137</span>,<span class="number">65537</span>,p*getPrime(<span class="number">512</span>)) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="built_in">pow</span>(<span class="number">31137</span>,<span class="number">65537</span>,getPrime(<span class="number">512</span>)*getPrime(<span class="number">512</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(look_for_humb1e)</span><br><span class="line"><span class="built_in">print</span>(look_for_Ech0)</span><br><span class="line"><span class="built_in">print</span>(look_for_Z3r0)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="1-1"><a href="#1-1" class="headerlink" title="1.1"></a>1.1</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#学活广场 humb1e似乎在旗杆背后探头探脑</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(humble_part))[<span class="number">2</span>:]</span><br><span class="line">R.&lt;humb1e&gt; = PolynomialRing(GF(getPrime(<span class="number">50</span>)))</span><br><span class="line">R = R.quo(humb1e^<span class="number">30</span>+random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">49</span>)*humb1e+<span class="number">1</span>)</span><br><span class="line">look_for_humb1e = [R(humb1e ^ (<span class="number">1500</span>*random.choice([<span class="built_in">ord</span>(<span class="string">&#x27;h&#x27;</span>),<span class="built_in">ord</span>(<span class="string">&#x27;u&#x27;</span>),<span class="built_in">ord</span>(<span class="string">&#x27;m&#x27;</span>),<span class="built_in">ord</span>(<span class="string">&#x27;b&#x27;</span>),<span class="built_in">ord</span>(<span class="string">&#x27;1&#x27;</span>),<span class="built_in">ord</span>(<span class="string">&#x27;e&#x27;</span>)]))) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> R.random_element() <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br></pre></td></tr></table></figure>
+<p>对于这个小问，先定义了一个商环R，在这个商环下要做的decision是：</p>
+<blockquote>
+<p>1 : $R(x^{1500\alpha})$</p>
+<p>0 : $R(f(x))$</p>
+</blockquote>
+<p>其中，$\alpha$是”humb1e”其中一个字符的ascii码，而f(x)则是R里完全随机的多项式。可以看出flag当前bit为0是，其实是在六个多项式里随机选择，所以大概率会重复出现；而1则很难重复出现，因此可以作出判断。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#part1</span></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line">R.&lt;humb1ebar&gt; = PolynomialRing(ZZ)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao1/here humb1e is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    <span class="keyword">if</span>(c.count(c[i]) != <span class="number">1</span>):</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#CBCTF&#123;H4ppy_N3wyear</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="1-2"><a href="#1-2" class="headerlink" title="1.2"></a>1.2</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#都放假了四教还亮着灯？抓到Ech0在躲猫猫的时候偷学密码！</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(Ech0_part))[<span class="number">2</span>:]</span><br><span class="line">look_for_Ech0 = [prod([j[<span class="number">0</span>]^(j[<span class="number">1</span>]-<span class="number">1</span>)*(j[<span class="number">0</span>]-<span class="number">1</span>) <span class="keyword">for</span> j <span class="keyword">in</span> factor(random.getrandbits(<span class="number">100</span>))]) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> getPrime(<span class="number">100</span>)-<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br></pre></td></tr></table></figure>
+<p>这一小问其实是在计算一个随机数字的欧拉函数，这个随机数字为：</p>
+<blockquote>
+<p>1 : 完全随机的数字</p>
+<p>0 : 100bit的素数</p>
+</blockquote>
+<p>所以对于得到的结果，加一之后判断是不是100bit的素数就可以了。但有一点需要注意，即使flag当前bit是1也有可能随机到素数，但是概率并不大，并且由于flag有意义所以即使出现一点点误差也很容易修正。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#part2</span></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao1/here Ech0 is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    p = c[i] + <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span>(isPrime(p) <span class="keyword">and</span> p.bit_length() == <span class="number">100</span>):</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#!Hope_y0u_can_h4ve_</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="1-3"><a href="#1-3" class="headerlink" title="1.3"></a>1.3</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#雪下得好大，花圃周围的亮白色身影是Z3r0吗</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(Z3r0_part))[<span class="number">2</span>:]</span><br><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line">look_for_Z3r0 = [<span class="built_in">pow</span>(<span class="number">31137</span>,<span class="number">65537</span>,p*getPrime(<span class="number">512</span>)) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="built_in">pow</span>(<span class="number">31137</span>,<span class="number">65537</span>,getPrime(<span class="number">512</span>)*getPrime(<span class="number">512</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br></pre></td></tr></table></figure>
+<p>这一小问是：</p>
+<blockquote>
+<p>1 : $c_i = 31137^{65537} \quad(mod\;pa_i)$</p>
+<p>0 : $c_i = 31137^{65537} \quad(mod\;b_ic_i)$</p>
+</blockquote>
+<p>其中模数只有p是固定的，ai、bi、ci每次都会重新随机。</p>
+<p>可以看出，对于三个为1的比特，密文在模p下是相同的。所以不妨假设我们现在有三个均为1的比特对应的密文，他们两两做差得到的值都会是p的倍数，所以gcd得到的值也至少应该是p。</p>
+<p>所以就给出了一个实施的办法，假设我们拥有两个bit为1的位置(可以先随机选择，用结果来验证是否选择正确；也可以利用flag最后一个字符是}这一事实)，然后对剩余的每一bit，将其密文与这两bit的密文作差求gcd，如果得到的结果比较大则说明该bit为1，否则为0。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#part3</span></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao1/here Z3r0 is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"></span><br><span class="line">temp1 = c[-<span class="number">1</span>]</span><br><span class="line">temp2 = c[-<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    <span class="keyword">if</span>(GCD(c[i] - temp1 , c[i] - temp2) &gt; <span class="number">2</span>^<span class="number">511</span>):</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#fun_1n_CBCTF_Juni0r&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="躲猫猫2"><a href="#躲猫猫2" class="headerlink" title="躲猫猫2"></a>躲猫猫2</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Humb1e，Ech0，Z3r0藏得都太草率了，显然没有把游戏放在心上。你语重心长地批评了他们一顿，踏上寻找其他人的旅途。</span><br><span class="line"></span><br><span class="line">这下游戏就没有那么简单了。已经拿到一个新年大礼包的你能否再次创造奇迹呢？</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">gtg_part, beeee_part, Seg_Tree_part = flag[:<span class="built_in">len</span>(flag)//<span class="number">3</span>],flag[<span class="built_in">len</span>(flag)//<span class="number">3</span>:<span class="number">2</span>*<span class="built_in">len</span>(flag)//<span class="number">3</span>],flag[<span class="number">2</span>*<span class="built_in">len</span>(flag)//<span class="number">3</span>:]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#你惊异地发现，树丛里黑糊糊的枝叶居然有点神似gtg的辫子</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(gtg_part))[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">matrix_crt</span>(<span class="params">mp,mq,p,q</span>):</span><br><span class="line">    m = matrix(Zmod(p*q),[[crt([<span class="built_in">int</span>(mp[i,j]),<span class="built_in">int</span>(mq[i,j])],[p,q]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)])</span><br><span class="line">    <span class="keyword">return</span> m</span><br><span class="line"></span><br><span class="line">p = getPrime(<span class="number">20</span>)</span><br><span class="line">a,b = MatrixGroup(matrix(GF(<span class="number">149</span>),[[<span class="number">41</span>,<span class="number">21</span>],[<span class="number">82</span>,<span class="number">81</span>]])),MatrixGroup(matrix(GF(<span class="number">163</span>),[[<span class="number">41</span>,<span class="number">21</span>],[<span class="number">82</span>,<span class="number">81</span>]]))</span><br><span class="line">ma,mb = a.gens()[<span class="number">0</span>],b.gens()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">look_for_gtg = [<span class="built_in">list</span>(matrix_crt(matrix(ZZ,ma^random.randint(<span class="number">1</span>,p)),matrix(ZZ,mb^random.randint(<span class="number">1</span>,p)),<span class="number">149</span>,<span class="number">163</span>)) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="built_in">list</span>(matrix(Zmod(<span class="number">149</span>*<span class="number">163</span>),[[random.randint(<span class="number">1</span>,<span class="number">149</span>*<span class="number">163</span>)<span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)] <span class="keyword">for</span> __ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)])) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#前两天刚考完研，图书馆难得清静，你在9楼搜寻，只见角落闪烁着微光。好像是beeee！</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(beeee_part))[<span class="number">2</span>:]</span><br><span class="line">m,p = getPrime(<span class="number">1023</span>),getPrime(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ppallier</span>(<span class="params">m,p</span>):</span><br><span class="line">    c = <span class="built_in">pow</span>(p+<span class="number">1</span>,getPrime(<span class="number">40</span>)*m,p^<span class="number">2</span>)*<span class="built_in">pow</span>(random.randint(<span class="number">1</span>,p^<span class="number">2</span>-<span class="number">1</span>),p,p^<span class="number">2</span>)%p^<span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line">look_for_beeee = [<span class="built_in">pow</span>(ppallier(m,p),p-<span class="number">1</span>,p^<span class="number">2</span>) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> random.randint(<span class="number">1</span>,p^<span class="number">2</span>-<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#看上去有人卡视野藏在协会天台上。你走了过去，Seg_Tree正在假装自己是一颗树。</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(Seg_Tree_part))[<span class="number">2</span>:]</span><br><span class="line">look_for_Seg_Tree = [AES.new(key = os.urandom(<span class="number">16</span>),mode = AES.MODE_CFB,iv = os.urandom(<span class="number">16</span>)).decrypt((os.urandom(<span class="number">16</span>)*<span class="number">3</span>)[:<span class="number">33</span>]) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> AES.new(key = os.urandom(<span class="number">16</span>),mode = AES.MODE_CFB,iv = os.urandom(<span class="number">16</span>)).encrypt((os.urandom(<span class="number">16</span>)*<span class="number">3</span>)[:<span class="number">33</span>]) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(look_for_gtg)</span><br><span class="line"><span class="built_in">print</span>(look_for_beeee)</span><br><span class="line"><span class="built_in">print</span>(look_for_Seg_Tree)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="2-1"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#你惊异地发现，树丛里黑糊糊的枝叶居然有点神似gtg的辫子</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(gtg_part))[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">matrix_crt</span>(<span class="params">mp,mq,p,q</span>):</span><br><span class="line">    m = matrix(Zmod(p*q),[[crt([<span class="built_in">int</span>(mp[i,j]),<span class="built_in">int</span>(mq[i,j])],[p,q]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)])</span><br><span class="line">    <span class="keyword">return</span> m</span><br><span class="line"></span><br><span class="line">p = getPrime(<span class="number">20</span>)</span><br><span class="line">a,b = MatrixGroup(matrix(GF(<span class="number">149</span>),[[<span class="number">41</span>,<span class="number">21</span>],[<span class="number">82</span>,<span class="number">81</span>]])),MatrixGroup(matrix(GF(<span class="number">163</span>),[[<span class="number">41</span>,<span class="number">21</span>],[<span class="number">82</span>,<span class="number">81</span>]]))</span><br><span class="line">ma,mb = a.gens()[<span class="number">0</span>],b.gens()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">look_for_gtg = [<span class="built_in">list</span>(matrix_crt(matrix(ZZ,ma^random.randint(<span class="number">1</span>,p)),matrix(ZZ,mb^random.randint(<span class="number">1</span>,p)),<span class="number">149</span>,<span class="number">163</span>)) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="built_in">list</span>(matrix(Zmod(<span class="number">149</span>*<span class="number">163</span>),[[random.randint(<span class="number">1</span>,<span class="number">149</span>*<span class="number">163</span>)<span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)] <span class="keyword">for</span> __ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)])) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br></pre></td></tr></table></figure>
+<p>这一小问基于一般线性群，先由两个特定矩阵ma、mb作为生成元，各自生成一个循环群，然后对于flag的每一bit，decision是如下形式：</p>
+<blockquote>
+<p>1 : $crt(ma^{r_i} \;,\; mb^{s_i})$</p>
+<p>0 : Zmod(149*163)下的完全随机矩阵</p>
+</blockquote>
+<p>其中crt就是把矩阵的每个位置的元素对应crt起来，得到的新矩阵。</p>
+<h5 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h5><p>这里先说我之前的做法，由于躲猫猫1、2、3我都是上学期完成的，而当时对群的概念比较模糊，所以思路有点稚嫩。具体来说，既然矩阵成群，那么一定有群阶，直接计算a、b的order发现分别为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(a.order())</span><br><span class="line"><span class="built_in">print</span>(b.order())</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">148</span></span><br><span class="line"><span class="number">4428</span></span><br></pre></td></tr></table></figure>
+<p>可以看到数字都不是很大，而由于ma、mb是两个群的生成元，所以其实crt起来的所有可能矩阵应该只有148x4428那么多个，而在Zmod(149x163)下的2x2矩阵则应该有$(149\cdot 163)^4$种，随机取到前面那些矩阵的概率相当小。所以可以直接通过判断矩阵是否在所有可能矩阵中，来判断当前bit是否为1。</p>
+<p>然而这样做要提前将所有可能矩阵都算出来存在一个列表中，略显麻烦。</p>
+<h5 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h5><p>如果把两个群看作是子群，那么crt可以看作是两个群的组合，那么得到的新的群阶应该是两个群阶的最小公倍数，记作ord。所以一个简单的做法是，直接看当前矩阵的ord次方是否为单位阵，就可以判断当前bit是否为1了。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#part1</span></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao2/here gtg is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"></span><br><span class="line"><span class="built_in">ord</span> = LCM(<span class="number">148</span>,<span class="number">4428</span>)</span><br><span class="line">E = Matrix(Zmod(<span class="number">149</span>*<span class="number">163</span>),[[<span class="number">1</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">1</span>]])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    <span class="keyword">if</span>(Matrix(Zmod(<span class="number">149</span>*<span class="number">163</span>),c[i]) ^ <span class="built_in">ord</span> == E):</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#CBCTF&#123;W1sh_Y0ur_N3xt_Y3</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="2-2"><a href="#2-2" class="headerlink" title="2.2"></a>2.2</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#前两天刚考完研，图书馆难得清静，你在9楼搜寻，只见角落闪烁着微光。好像是beeee！</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(beeee_part))[<span class="number">2</span>:]</span><br><span class="line">m,p = getPrime(<span class="number">1023</span>),getPrime(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ppallier</span>(<span class="params">m,p</span>):</span><br><span class="line">    c = <span class="built_in">pow</span>(p+<span class="number">1</span>,getPrime(<span class="number">40</span>)*m,p^<span class="number">2</span>)*<span class="built_in">pow</span>(random.randint(<span class="number">1</span>,p^<span class="number">2</span>-<span class="number">1</span>),p,p^<span class="number">2</span>)%p^<span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line">look_for_beeee = [<span class="built_in">pow</span>(ppallier(m,p),p-<span class="number">1</span>,p^<span class="number">2</span>) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> random.randint(<span class="number">1</span>,p^<span class="number">2</span>-<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br></pre></td></tr></table></figure>
+<p>这一小问基于pallier，具体来说是：</p>
+<blockquote>
+<p>1 : $c_i = ((p+1)^{a_im}b_i^p)^{p-1} \quad(mod\;p^2)$</p>
+<p>0 : $c_i$ 为p^2内的随机数</p>
+</blockquote>
+<p>可以注意到，由于$\phi(p^2) = p(p-1)$，所以其实bi是可以消掉的，也就得到：</p>
+<script type="math/tex; mode=display">
+c_i = (p+1)^{a_im(p-1)} \quad(mod\;p^2)</script><p>二项式展开可以看到：</p>
+<script type="math/tex; mode=display">
+c_i = 1 + pa_im(p-1) \quad(mod\;p^2)</script><p>所以其实也就是：</p>
+<script type="math/tex; mode=display">
+c_i = 1 - pa_im \quad(mod\;p^2)</script><p>所以在模p下所有密文都等于1，因此可以类似1.3的做法去作差求gcd得到结果。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#part2</span></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao2/here beeee is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"></span><br><span class="line">temp1 = c[<span class="number">1</span>]</span><br><span class="line">temp2 = c[<span class="number">6</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    <span class="keyword">if</span>(GCD(c[i]-temp1 , c[i]-temp2) &gt; <span class="number">2</span>^<span class="number">1023</span>):</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#ar_fulf111ed_w1th_h4pp1</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="2-3"><a href="#2-3" class="headerlink" title="2.3"></a>2.3</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#看上去有人卡视野藏在协会天台上。你走了过去，Seg_Tree正在假装自己是一颗树。</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(Seg_Tree_part))[<span class="number">2</span>:]</span><br><span class="line">look_for_Seg_Tree = [AES.new(key = os.urandom(<span class="number">16</span>),mode = AES.MODE_CFB,iv = os.urandom(<span class="number">16</span>)).decrypt((os.urandom(<span class="number">16</span>)*<span class="number">3</span>)[:<span class="number">33</span>]) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> AES.new(key = os.urandom(<span class="number">16</span>),mode = AES.MODE_CFB,iv = os.urandom(<span class="number">16</span>)).encrypt((os.urandom(<span class="number">16</span>)*<span class="number">3</span>)[:<span class="number">33</span>]) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br></pre></td></tr></table></figure>
+<p>这一小问基于AES的CFB模式，其中，key、iv均为随机的十六字节，处理的信息都是随机16字节重复三次，区别在于：</p>
+<blockquote>
+<p>1 : 给出CFB模式解密的前33个字节</p>
+<p>0 : 给出CFB模式加密的前33个字节</p>
+</blockquote>
+<p>注意到33个字节恰好是两个分组多一个字节。先简单回忆一下CFB模式加解密的流程：</p>
+<p><img src="/post/8992014/image-20240509144923837.png" alt="image-20240509144923837"></p>
+<p>可以看出，对于解密来说，最后两个分组得到的明文应该是完全相同的，而对于加密则可以看作纯随机，只有1/256的概率误判，所以可以做出decision。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#part3</span></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao2/here Seg_Tree is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    <span class="keyword">if</span>(c[i][-<span class="number">1</span>] == c[i][-<span class="number">17</span>]):</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#ness_4nd_s4t1sfic4t10n!&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="躲猫猫3"><a href="#躲猫猫3" class="headerlink" title="躲猫猫3"></a>躲猫猫3</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">你花了点力气找到了gtg，beeee和Seg_Tree。手握两份新年礼包的你显然已经是整个协会中最富有的哥们儿，你一边畅想着未来的幸福生活和完美外设一边哼哧瘪肚在冬日里前行。</span><br><span class="line"></span><br><span class="line">剩下的人都是难找的茬子啊……</span><br><span class="line"></span><br><span class="line">不过你坚信这一切难不倒你。</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">Art0ne_part, 奶茶_part, _1manity_part = flag[:<span class="built_in">len</span>(flag)//<span class="number">3</span>],flag[<span class="built_in">len</span>(flag)//<span class="number">3</span>:<span class="number">2</span>*<span class="built_in">len</span>(flag)//<span class="number">3</span>],flag[<span class="number">2</span>*<span class="built_in">len</span>(flag)//<span class="number">3</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment">#Art0ne偷溜进体育馆，在走廊的一个拐角随时准备逃跑。你抓住他时自己已经要累得不行了。</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(Art0ne_part))[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> p,q</span><br><span class="line">n = <span class="number">7589728368000360290382663172234488251897043335410016881502715294598442607646158403453736522549655542481555536223060519309001243744487805230719883633463721</span></span><br><span class="line"><span class="keyword">assert</span> n == p * q <span class="keyword">and</span> isPrime(p) <span class="keyword">and</span> isPrime(q) <span class="keyword">and</span> <span class="built_in">len</span>(<span class="built_in">bin</span>(p)) == <span class="number">258</span> <span class="keyword">and</span> <span class="built_in">len</span>(<span class="built_in">bin</span>(q)) == <span class="number">258</span></span><br><span class="line"></span><br><span class="line">R.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">roll</span>(<span class="params">mode,i</span>):</span><br><span class="line">    <span class="keyword">if</span> mode == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> random.randint(<span class="number">1</span>,p*q-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        x,y = random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">80</span>),random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">256</span>)*p</span><br><span class="line">        <span class="keyword">return</span> R(x+x*y^<span class="number">2</span>+y*x^<span class="number">3</span>)</span><br><span class="line">    </span><br><span class="line">look_for_Art0ne = [roll(<span class="number">1</span>,i) <span class="keyword">if</span> secret[i] == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> roll(<span class="number">0</span>,i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(secret))]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#你找遍了学校，最后在弗雷德二店的古茗二楼意外找到了奶茶并宣判他犯规</span></span><br><span class="line">secret = bytes_to_long(奶茶_part)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">shuffle</span>(<span class="params">ll,lr</span>):</span><br><span class="line">    a = [<span class="string">&#x27;0&#x27;</span>]*<span class="built_in">len</span>(奶茶_part)*ll+[<span class="string">&#x27;1&#x27;</span>]*<span class="built_in">len</span>(奶茶_part)*lr</span><br><span class="line">    random.shuffle(a)</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line">look_for_奶茶 = [<span class="built_in">int</span>(<span class="string">&#x27;&#x27;</span>.join(shuffle(<span class="number">5</span>,<span class="number">3</span>)),<span class="number">2</span>)^^secret <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="built_in">int</span>(<span class="string">&#x27;&#x27;</span>.join(shuffle(<span class="number">3</span>,<span class="number">5</span>)),<span class="number">2</span>)^^secret <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">bin</span>(secret)[<span class="number">2</span>:].rjust(<span class="number">8</span>*<span class="built_in">len</span>(奶茶_part),<span class="string">&#x27;0&#x27;</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#1manity藏在师生驿站，跨年夜店里没有值班，乌漆嘛黑的还带个笨蛋智能门锁，要不是你渴了进去买杯饮料还真的找不到他</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(_1manity_part))[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line">p = <span class="number">13692367685268431611</span></span><br><span class="line">x = [matrix(GF(p),<span class="number">4</span>,<span class="number">4</span>,[random.randint(<span class="number">1</span>,p-<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>)]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">7</span>)]</span><br><span class="line"></span><br><span class="line">look_for_1manity = [<span class="built_in">list</span>(<span class="built_in">sum</span>(random.randint(<span class="number">1</span>,p-<span class="number">1</span>)*j <span class="keyword">for</span> j <span class="keyword">in</span> x)) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="built_in">list</span>(matrix(GF(p),<span class="number">4</span>,<span class="number">4</span>,[random.randint(<span class="number">1</span>,p-<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>)])) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(look_for_Art0ne)</span><br><span class="line"><span class="built_in">print</span>(look_for_奶茶)</span><br><span class="line"><span class="built_in">print</span>(look_for_1manity)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="3-1"><a href="#3-1" class="headerlink" title="3.1"></a>3.1</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Art0ne偷溜进体育馆，在走廊的一个拐角随时准备逃跑。你抓住他时自己已经要累得不行了。</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(Art0ne_part))[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> p,q</span><br><span class="line">n = <span class="number">7589728368000360290382663172234488251897043335410016881502715294598442607646158403453736522549655542481555536223060519309001243744487805230719883633463721</span></span><br><span class="line"><span class="keyword">assert</span> n == p * q <span class="keyword">and</span> isPrime(p) <span class="keyword">and</span> isPrime(q) <span class="keyword">and</span> <span class="built_in">len</span>(<span class="built_in">bin</span>(p)) == <span class="number">258</span> <span class="keyword">and</span> <span class="built_in">len</span>(<span class="built_in">bin</span>(q)) == <span class="number">258</span></span><br><span class="line"></span><br><span class="line">R.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">roll</span>(<span class="params">mode,i</span>):</span><br><span class="line">    <span class="keyword">if</span> mode == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> random.randint(<span class="number">1</span>,p*q-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        x,y = random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">80</span>),random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">256</span>)*p</span><br><span class="line">        <span class="keyword">return</span> R(x+x*y^<span class="number">2</span>+y*x^<span class="number">3</span>)</span><br><span class="line">    </span><br><span class="line">look_for_Art0ne = [roll(<span class="number">1</span>,i) <span class="keyword">if</span> secret[i] == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> roll(<span class="number">0</span>,i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(secret))]</span><br></pre></td></tr></table></figure>
+<p>这个小问的decision是：</p>
+<blockquote>
+<p>1 : $x_i + x_i(a_ip)^2 + a_ipx_i^3 \quad(mod\;n)$</p>
+<p>0 : 模n下的随机数</p>
+</blockquote>
+<p>可以看出在模p下，对于1的方程会有一个80bit的小根，所以copper会有解，而0则没有。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = <span class="number">7589728368000360290382663172234488251897043335410016881502715294598442607646158403453736522549655542481555536223060519309001243744487805230719883633463721</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#part1</span></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao3/here Art0ne is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"></span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    f = x - c[i]</span><br><span class="line">    res = f.small_roots(X=<span class="number">2</span>^<span class="number">80</span>,beta=<span class="number">0.49</span>)</span><br><span class="line">    <span class="keyword">if</span>(res != []):</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#CBCTF&#123;4nd_we_W1sh_y0u_Br1mm3</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h4 id="3-2"><a href="#3-2" class="headerlink" title="3.2"></a>3.2</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#你找遍了学校，最后在弗雷德二店的古茗二楼意外找到了奶茶并宣判他犯规</span></span><br><span class="line">secret = bytes_to_long(奶茶_part)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">shuffle</span>(<span class="params">ll,lr</span>):</span><br><span class="line">    a = [<span class="string">&#x27;0&#x27;</span>]*<span class="built_in">len</span>(奶茶_part)*ll+[<span class="string">&#x27;1&#x27;</span>]*<span class="built_in">len</span>(奶茶_part)*lr</span><br><span class="line">    random.shuffle(a)</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line">look_for_奶茶 = [<span class="built_in">int</span>(<span class="string">&#x27;&#x27;</span>.join(shuffle(<span class="number">5</span>,<span class="number">3</span>)),<span class="number">2</span>)^^secret <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="built_in">int</span>(<span class="string">&#x27;&#x27;</span>.join(shuffle(<span class="number">3</span>,<span class="number">5</span>)),<span class="number">2</span>)^^secret <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">bin</span>(secret)[<span class="number">2</span>:].rjust(<span class="number">8</span>*<span class="built_in">len</span>(奶茶_part),<span class="string">&#x27;0&#x27;</span>)]</span><br></pre></td></tr></table></figure>
+<p>这个小问比较特别，除了decision之外，flag其实也藏在了每一个密文中，具体来说是：</p>
+<blockquote>
+<p>1 : $c_i = secret \oplus a_i$，其中ai的0、1比例为5：3</p>
+<p>2 : $c_i = secret \oplus b_i$，其中bi的0、1比例为3：5</p>
+</blockquote>
+<p>首先想到的肯定是消去secret的影响，也就是flag两个bit的密文之间异或，那么可能会出现如下几种情况：</p>
+<ul>
+<li>1的密文异或1的密文</li>
+<li>0的密文异或0的密文</li>
+<li>1的密文异或0的密文</li>
+</ul>
+<p>由密文列表的长度可以推出secret为长232的比特串，那么对上面三种不同情况，可以简单算一算0、1数量期望的差别。</p>
+<ul>
+<li>1的密文异或1的密文：此时这个量等于ai异或aj，异或后得到的比特串中，1的期望数量应该如下计算：</li>
+</ul>
+<script type="math/tex; mode=display">
+232 \cdot (2 \cdot \frac{3}{8} \cdot \frac{5}{8}) = 108.75</script><ul>
+<li>0的密文异或0的密文：此时这个量等于bi异或bj，异或后得到的比特串中，1的期望数量应该如下计算(和上面其实是一样的)：</li>
+</ul>
+<script type="math/tex; mode=display">
+232 \cdot (2 \cdot \frac{3}{8} \cdot \frac{5}{8}) = 108.75</script><ul>
+<li>1的密文异或0的密文：此时这个量等于ai异或bj，异或后得到的比特串中，1的期望数量应该如下计算：</li>
+</ul>
+<script type="math/tex; mode=display">
+232 \cdot ((\frac{5}{8})^2 + (\frac{3}{8})^2) = 123.25</script><p>所以如果选定了1个为0的bit，那么可以通过该bit的密文与当前bit的密文异或后1的数量来做一个粗略的decision。然后就会发现，由于每次异或的密文依然只有232bit，样本数量并不够，这个理论期望的差别并不能很好的做出准确的decision，误差很大。</p>
+<p>然而，由于我们已知的为0的bit远远不止一个(因为所有字符都是可见字符所以MSB肯定都是0)，因此可以把多个统计结果求和取平均值，从而减小误差。这样做之后就基本上能得到一个可读的flag了，但是可以看出还是存在一些小误判：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d_ov3r_with_uisd0m_&amp;_g3t_int</span><br></pre></td></tr></table></figure>
+<p>然而这个误判的处理方式就很多，首先在比赛期间可以多提交几次试试；再来就是，中间有一些字符肯定是不会错的，所以可以把这些已经判断正确的bit也加入到统计列表中去进一步减少误差。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#part2</span></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao3/here 奶茶 is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"></span><br><span class="line">zero_bits = [c[<span class="number">8</span>*i] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)//<span class="number">8</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(c)):</span><br><span class="line">    count1 = <span class="number">0</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(zero_bits)):</span><br><span class="line">        res += <span class="built_in">bin</span>(zero_bits[j] ^^ c[i])[<span class="number">2</span>:].count(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">    res /= (<span class="built_in">len</span>(zero_bits))</span><br><span class="line">    <span class="keyword">if</span>(res &gt; <span class="number">116</span>):</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#d_ov3r_with_wisd0m_&amp;_g3t_int</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="3-3"><a href="#3-3" class="headerlink" title="3.3"></a>3.3</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1manity藏在师生驿站，跨年夜店里没有值班，乌漆嘛黑的还带个笨蛋智能门锁，要不是你渴了进去买杯饮料还真的找不到他</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(_1manity_part))[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line">p = <span class="number">13692367685268431611</span></span><br><span class="line">x = [matrix(GF(p),<span class="number">4</span>,<span class="number">4</span>,[random.randint(<span class="number">1</span>,p-<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>)]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">7</span>)]</span><br><span class="line"></span><br><span class="line">look_for_1manity = [<span class="built_in">list</span>(<span class="built_in">sum</span>(random.randint(<span class="number">1</span>,p-<span class="number">1</span>)*j <span class="keyword">for</span> j <span class="keyword">in</span> x)) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="built_in">list</span>(matrix(GF(p),<span class="number">4</span>,<span class="number">4</span>,[random.randint(<span class="number">1</span>,p-<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>)])) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br></pre></td></tr></table></figure>
+<p>这个小问先生成了一个由7个4x4矩阵组成的列表X，要做的decision是：</p>
+<blockquote>
+<p>1 : $c_i = \sum_{j=1}^{7}a_jX_j$，其中aj是随机数</p>
+<p>2 : ci为随机4x4矩阵</p>
+</blockquote>
+<p>可以看出，4x4矩阵在这里其实完全可以看作是一个1x16的向量，而在当前bit为1时，得到的向量其实是这7个1x16的向量的线性组合。</p>
+<p>把这七个向量看作一组基，这其实说明一个问题，如果我们选择8个为1的比特，由于基是相同的7个向量，所以他们拼起来形成的8x16的矩阵秩为7，反之秩大概率为8。</p>
+<p>所以第一步要先找到七个为1的bit，由于这是本题目的最后一问，所以结尾的}就提供了六个，加上第一个bit正好就有7bit。利用这7个bit与剩余bit逐个判断组成矩阵秩是否为7，就可以判断对应bit是1还是0。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#part3</span></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao3/here 1manity is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"></span><br><span class="line">p = <span class="number">13692367685268431611</span></span><br><span class="line">vecs = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    temp_vec = []</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">            temp_vec.append(c[i][j][k])</span><br><span class="line">    vecs.append(vector(GF(p),temp_vec))</span><br><span class="line"></span><br><span class="line">one_bits = [vecs[<span class="number">0</span>],vecs[-<span class="number">1</span>],vecs[-<span class="number">3</span>],vecs[-<span class="number">4</span>],vecs[-<span class="number">5</span>],vecs[-<span class="number">6</span>],vecs[-<span class="number">7</span>]]</span><br><span class="line">M = Matrix(GF(p),one_bits)</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    T = M.stack(vecs[i])</span><br><span class="line">    <span class="keyword">if</span>(T.rank() == <span class="number">7</span>):</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#3rest3d_in_fi3ld_you_w0rk_0n&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这一问有个小插曲，其实原本的题目中是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">look_for_1manity = [<span class="built_in">list</span>(<span class="built_in">sum</span>(random.randint(<span class="number">1</span>,<span class="number">65537</span>)*j <span class="keyword">for</span> j <span class="keyword">in</span> x)) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="built_in">list</span>(matrix(GF(p),<span class="number">4</span>,<span class="number">4</span>,[random.randint(<span class="number">1</span>,p-<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>)])) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br></pre></td></tr></table></figure>
+<p>也就是取1时，数字限制在了65537内。这个无心之失导致了一个用正交格的非预期解(我告诉yolbby时才知道他已经发现了)，有兴趣的师傅可以自己尝试一下。</p>
+<p>当然，非预期的思路其实现在看来其实远不如预期简单巧妙</p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<h3 id="躲猫猫4"><a href="#躲猫猫4" class="headerlink" title="躲猫猫4"></a>躲猫猫4</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">说来奇怪，在1manity，Art0ne和奶茶之后，你找遍了一整个学校都没能找到剩下的人，只能启动planB，使用你长期修炼凝结而成的密码解析技巧去把他们的参数调出来一一分析。</span><br><span class="line"></span><br><span class="line">你以为你稳操胜券，但定睛一看，JBNRZ居然开了外挂卡在墙的里面！</span><br><span class="line"></span><br><span class="line">他也把misc技巧带出了虚拟世界！</span><br><span class="line"></span><br><span class="line">这个发现震惊了你的世界观，随着你打开每个人的视角偷看他们的位置，你的下巴不知不觉掉到了地上。</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">JBNRZ_part, pankas_part, v0id_part = flag[:<span class="built_in">len</span>(flag)//<span class="number">3</span>],flag[<span class="built_in">len</span>(flag)//<span class="number">3</span>:<span class="number">2</span>*<span class="built_in">len</span>(flag)//<span class="number">3</span>],flag[<span class="number">2</span>*<span class="built_in">len</span>(flag)//<span class="number">3</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment">#JBNRZ开了修改器把自己卡在七教二楼阳台的墙壁中间。你就算知道他在哪，也没法摸到他。</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(JBNRZ_part))[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line">q = <span class="number">0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab</span></span><br><span class="line">r = <span class="number">0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001</span></span><br><span class="line">k = GF(r)(q).multiplicative_order()</span><br><span class="line">F = GF(q)</span><br><span class="line">K2.&lt;x&gt; = PolynomialRing(F)</span><br><span class="line">F2.&lt;u&gt; = F.extension(x^<span class="number">2</span>+<span class="number">1</span>)</span><br><span class="line">E2 = EllipticCurve(F2, [<span class="number">0</span>, <span class="number">4</span>+<span class="number">4</span>*u])</span><br><span class="line">o = E2.order()</span><br><span class="line"></span><br><span class="line">P = E2.random_element()*(o//r)</span><br><span class="line">Q = E2.random_element()*(o//r)</span><br><span class="line">R = E2.random_element()*(o//r)</span><br><span class="line">S = E2.random_element()*(o//r)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">random_gen_fg</span>(<span class="params">P,Q,R,S</span>):</span><br><span class="line">    P,Q,R,S = random.randint(<span class="number">1</span>,r-<span class="number">1</span>)*P,random.randint(<span class="number">1</span>,r-<span class="number">1</span>)*Q,random.randint(<span class="number">1</span>,r-<span class="number">1</span>)*R,random.randint(<span class="number">1</span>,r-<span class="number">1</span>)*S</span><br><span class="line">    f1 = (P._miller_(Q+S,r))</span><br><span class="line">    f2 = (P._miller_(S,r))</span><br><span class="line">    g1 = (Q._miller_(P+R,r))</span><br><span class="line">    g2 = (Q._miller_(R,r))</span><br><span class="line">    <span class="keyword">return</span> P.weil_pairing(Q,r)+(f1/f2*g2/g1)</span><br><span class="line"></span><br><span class="line">look_for_JBNRZ = [random_gen_fg(P,Q,R,S) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> random.randint(<span class="number">1</span>,q-<span class="number">1</span>)*u+random.randint(<span class="number">1</span>,q-<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#pankas用注释符把自己注释掉了，你必须使用一些过滤手段停止他的作弊行为。</span></span><br><span class="line">secret = bytes_to_long(pankas_part)</span><br><span class="line"></span><br><span class="line">p = <span class="number">567811</span></span><br><span class="line">F = GF(p)</span><br><span class="line">n, k, r= <span class="number">16</span>, <span class="number">10</span>, <span class="number">6</span></span><br><span class="line">t = n//<span class="number">4</span></span><br><span class="line"></span><br><span class="line">C = codes.GeneralizedReedSolomonCode([F(_+<span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)],k)</span><br><span class="line">S = matrix(F,r,r,[(<span class="number">155790</span>, <span class="number">486108</span>, <span class="number">98452</span>, <span class="number">364639</span>, <span class="number">120720</span>, <span class="number">313488</span>), (<span class="number">100323</span>, <span class="number">367952</span>, <span class="number">158314</span>, <span class="number">537951</span>, <span class="number">1368</span>, <span class="number">437409</span>), (<span class="number">24424</span>, <span class="number">3563</span>, <span class="number">165622</span>, <span class="number">226117</span>, <span class="number">268381</span>, <span class="number">281060</span>), (<span class="number">306717</span>, <span class="number">437800</span>, <span class="number">498491</span>, <span class="number">454109</span>, <span class="number">45791</span>, <span class="number">427166</span>), (<span class="number">440079</span>, <span class="number">197166</span>, <span class="number">514113</span>, <span class="number">24595</span>, <span class="number">172079</span>, <span class="number">106605</span>), (<span class="number">529695</span>, <span class="number">239369</span>, <span class="number">361569</span>, <span class="number">565415</span>, <span class="number">72455</span>, <span class="number">244407</span>)])</span><br><span class="line">H_ = S*C.parity_check_matrix()*matrix(Permutations(n).random_element())</span><br><span class="line"></span><br><span class="line">s = [<span class="built_in">sorted</span>(random.sample([_ <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)],t-<span class="number">1</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(secret))]</span><br><span class="line">look_for_pankas = [H_*vector([random.randint(<span class="number">1</span>,<span class="number">32</span>) <span class="keyword">if</span> j <span class="keyword">in</span> s[i] <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n)]) <span class="keyword">if</span> secret[i] == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> vector([random.randint(<span class="number">1</span>,p-<span class="number">1</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>)]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(secret))]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#v0id通过某些方法修改了自己的人体结构，看上去需要经历一些反混淆反编译才能重现世间。</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(v0id_part))[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line">F = GF(<span class="number">2</span> ** <span class="number">256</span>, <span class="string">&#x27;z&#x27;</span>)</span><br><span class="line">z = F.gens()[<span class="number">0</span>]</span><br><span class="line">P = PolynomialRing(F, <span class="string">&#x27;u, v&#x27;</span>)</span><br><span class="line">u, v = P.gens()</span><br><span class="line">PP.&lt;x&gt; = PolynomialRing(F)</span><br><span class="line">x = PP.gens()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">h = u^<span class="number">2</span> + u</span><br><span class="line">f = u^<span class="number">5</span> + u^<span class="number">3</span> + <span class="number">1</span></span><br><span class="line">on_curve = v^<span class="number">2</span> + h*v - f</span><br><span class="line">h,f = h(u=x),f(u=x)</span><br><span class="line"></span><br><span class="line">H = HyperellipticCurve(f, h)</span><br><span class="line">J = H.jacobian()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            plain = random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">256</span>)</span><br><span class="line">            xx = F.fetch_int(plain)</span><br><span class="line">            y, k = on_curve(u=xx, v=x).roots()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">assert</span> k == <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> - xx, y</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">look_for_v0id = [(<span class="number">3</span>*J(H(init())))[<span class="number">0</span>] <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> random.choice([(<span class="number">7</span>*J(H(init())))[<span class="number">0</span>],x^<span class="number">2</span>+F.fetch_int(random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">256</span>))*x+F.fetch_int(random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">256</span>))]) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(look_for_JBNRZ)</span><br><span class="line"><span class="built_in">print</span>(look_for_pankas)</span><br><span class="line"><span class="built_in">print</span>(look_for_v0id)</span><br></pre></td></tr></table></figure>
+<p>重量级的来了，在躲猫猫4里你会接触到：</p>
+<ul>
+<li>椭圆曲线的除子理论及双线性配对</li>
+<li><p>编码理论(Niederreiter system以及选作其中纠错码的Generalized Reed-Solomon code)</p>
+</li>
+<li><p>超椭圆曲线上的Jacobian群</p>
+</li>
+</ul>
+<p>上学期看到这一套躲猫猫题目的时候，在前三个题目虽然说也遇到了不少挫折，但是努努力多思考下还是能够做出来。然而看到躲猫猫4的几个小问的时候，才发自内心的觉得自己了解的知识真的还非常有限，然后就下了决心去啃啃论文，把每个方向都了解一些，哪怕只学到一点皮毛也好。</p>
+<p>于是就真的硬着头皮看了好些文献，同源、编码、超椭之类的东西都去学了一点点，前几天看完了yolbby给我的双线性配对书的主要章节，终于可以回头来尝试这个题目了。</p>
+<p>然后就发现，虽然现在大概能看明白题意，解题的思路还是很匮乏，并且实际实现自己的想法的时候也会遇到诸多问题。道阻且长，继续努力吧。</p>
+<h4 id="4-1"><a href="#4-1" class="headerlink" title="4.1"></a>4.1</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#JBNRZ开了修改器把自己卡在七教二楼阳台的墙壁中间。你就算知道他在哪，也没法摸到他。</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(JBNRZ_part))[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line">q = <span class="number">0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab</span></span><br><span class="line">r = <span class="number">0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001</span></span><br><span class="line">k = GF(r)(q).multiplicative_order()</span><br><span class="line">F = GF(q)</span><br><span class="line">K2.&lt;x&gt; = PolynomialRing(F)</span><br><span class="line">F2.&lt;u&gt; = F.extension(x^<span class="number">2</span>+<span class="number">1</span>)</span><br><span class="line">E2 = EllipticCurve(F2, [<span class="number">0</span>, <span class="number">4</span>+<span class="number">4</span>*u])</span><br><span class="line">o = E2.order()</span><br><span class="line"></span><br><span class="line">P = E2.random_element()*(o//r)</span><br><span class="line">Q = E2.random_element()*(o//r)</span><br><span class="line">R = E2.random_element()*(o//r)</span><br><span class="line">S = E2.random_element()*(o//r)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">random_gen_fg</span>(<span class="params">P,Q,R,S</span>):</span><br><span class="line">    P,Q,R,S = random.randint(<span class="number">1</span>,r-<span class="number">1</span>)*P,random.randint(<span class="number">1</span>,r-<span class="number">1</span>)*Q,random.randint(<span class="number">1</span>,r-<span class="number">1</span>)*R,random.randint(<span class="number">1</span>,r-<span class="number">1</span>)*S</span><br><span class="line">    f1 = (P._miller_(Q+S,r))</span><br><span class="line">    f2 = (P._miller_(S,r))</span><br><span class="line">    g1 = (Q._miller_(P+R,r))</span><br><span class="line">    g2 = (Q._miller_(R,r))</span><br><span class="line">    <span class="keyword">return</span> P.weil_pairing(Q,r)+(f1/f2*g2/g1)</span><br><span class="line"></span><br><span class="line">look_for_JBNRZ = [random_gen_fg(P,Q,R,S) <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> random.randint(<span class="number">1</span>,q-<span class="number">1</span>)*u+random.randint(<span class="number">1</span>,q-<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br></pre></td></tr></table></figure>
+<p>这一小问目前有点小问题，曲线是BLS12-381，但是由于对于指定的r-torsion曲线嵌入度为12，所以在$GF(q^2)$上的曲线E2是并不能有效作双线性配对的，因为r-torsion需要在$GF(q^{12})$下才会展现出完整的结构，所以不lift上去是不行的。</p>
+<p>等yolbby把这个题目改一改之后再更新吧。</p>
+<p><br></p>
+<h4 id="4-2"><a href="#4-2" class="headerlink" title="4.2"></a>4.2</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pankas用注释符把自己注释掉了，你必须使用一些过滤手段停止他的作弊行为。</span></span><br><span class="line">secret = bytes_to_long(pankas_part)</span><br><span class="line"></span><br><span class="line">p = <span class="number">567811</span></span><br><span class="line">F = GF(p)</span><br><span class="line">n, k, r= <span class="number">16</span>, <span class="number">10</span>, <span class="number">6</span></span><br><span class="line">t = n//<span class="number">4</span></span><br><span class="line"></span><br><span class="line">C = codes.GeneralizedReedSolomonCode([F(_+<span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)],k)</span><br><span class="line">S = matrix(F,r,r,[(<span class="number">155790</span>, <span class="number">486108</span>, <span class="number">98452</span>, <span class="number">364639</span>, <span class="number">120720</span>, <span class="number">313488</span>), (<span class="number">100323</span>, <span class="number">367952</span>, <span class="number">158314</span>, <span class="number">537951</span>, <span class="number">1368</span>, <span class="number">437409</span>), (<span class="number">24424</span>, <span class="number">3563</span>, <span class="number">165622</span>, <span class="number">226117</span>, <span class="number">268381</span>, <span class="number">281060</span>), (<span class="number">306717</span>, <span class="number">437800</span>, <span class="number">498491</span>, <span class="number">454109</span>, <span class="number">45791</span>, <span class="number">427166</span>), (<span class="number">440079</span>, <span class="number">197166</span>, <span class="number">514113</span>, <span class="number">24595</span>, <span class="number">172079</span>, <span class="number">106605</span>), (<span class="number">529695</span>, <span class="number">239369</span>, <span class="number">361569</span>, <span class="number">565415</span>, <span class="number">72455</span>, <span class="number">244407</span>)])</span><br><span class="line">H_ = S*C.parity_check_matrix()*matrix(Permutations(n).random_element())</span><br><span class="line"></span><br><span class="line">s = [<span class="built_in">sorted</span>(random.sample([_ <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)],t-<span class="number">1</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(secret))]</span><br><span class="line">look_for_pankas = [H_*vector([random.randint(<span class="number">1</span>,<span class="number">32</span>) <span class="keyword">if</span> j <span class="keyword">in</span> s[i] <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n)]) <span class="keyword">if</span> secret[i] == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> vector([random.randint(<span class="number">1</span>,p-<span class="number">1</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>)]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(secret))]</span><br></pre></td></tr></table></figure>
+<p>这个小问基于一个GF(p)下(16,10)-GRS码实现的编码系统，给的数据不少所以要先理一理。</p>
+<blockquote>
+<p>GRS是一种线性分组码，这里要先简单介绍一下广泛意义上的(n,k)-线性分组码的概念(真的是极简版的介绍，有空的话之后会单独开一篇文章来说)。</p>
+<p>纠错码主要基于以下理念：在传播消息时，由于各种可能的因素，有时难免会产生部分的传输错误，那么接收方就只能收到带有错误的消息。然而，如果将一些能够反映消息本身部分内容的冗余信息附加在传输消息中，那么就可以辅助解码从而得到准确的原始消息。</p>
+<p>线性分组码就是其中的一种，一个(n,k)-线性分组码是一个消息长为k、码字长为n的纠错码。</p>
+<p>而GRS码又是线性分组码的一种。拿题目的(16,10)-GRS码来举例，在这种编码中，原始信息位长度是10，码字长度为16，也就是说一个信息和一个码字分别可以看作是GF(p)下的10维向量和16维向量，而多出的r=16-10就是冗余位的长度。</p>
+<p>线性分组码本质上是高维空间的一个子空间。因为一个码字本身是n维向量，然而由于消息是k维向量，一个消息对应一个码字，所以码字空间其实是n维线性空间的k维子空间。</p>
+<p>那么也就是说，对于一个消息的编码过程，实质上可以看作是k维向量向n维向量的线性映射，这个映射过程就可以用一个矩阵表示，也就是生成矩阵G，与之对应的就有校验矩阵H。</p>
+<p>对于这两个矩阵、如何对带有错误的码字进行准确解码、纠错能力等问题在这里就不展开了，有兴趣的师傅可以自己查阅了解，这里只阐述了点基本概念而已。</p>
+</blockquote>
+<p>这里先继续用编码理论的思路来讲预期做法。</p>
+<p><br></p>
+<h5 id="思路1-1"><a href="#思路1-1" class="headerlink" title="思路1"></a>思路1</h5><p>总之，题目先生成了一个(16,10)-GRS码，他的校验矩阵相当于已经给出了，与此同时还给出了一个奇怪6x6的S矩阵，然后计算了一个H’矩阵如下：</p>
+<script type="math/tex; mode=display">
+H'_{6,16} = S_{6,6}H_{6,16}P_{16,16}</script><p>其中S可逆，P是一个1-16的随机置换形成的矩阵。</p>
+<p>然后，题目对flag的每一bit都生成了一个随机sample，每个sample是在1-16中随机抽取三个数字。我们要做的decision是：</p>
+<blockquote>
+<p>1 : $H’v_i$，vi是仅有3个位置不为0的16维随机向量</p>
+<p>0 : 随机的6维向量</p>
+</blockquote>
+<p>对于为1的bit，其实这就是Niederreiter system的实现。Niederreiter system是一种基于编码的密码的后量子密码体制，他的实现步骤为：</p>
+<ul>
+<li>选取一个可以纠t个错的线性分组码C当作纠错码，这里选取的是(16,10)-GRS码</li>
+<li>计算$H’ = SHP$，然后得到公钥和私钥分别为：</li>
+</ul>
+<script type="math/tex; mode=display">
+Pub : (H',t)</script><script type="math/tex; mode=display">
+Pri : (S,H,P)</script><ul>
+<li>加密：待加密消息为至多t个位置非0的n维向量，按如下方式计算密文：</li>
+</ul>
+<script type="math/tex; mode=display">
+y^T = H'x^T</script><ul>
+<li>解密：对于密文$y^T$，私钥持有者可以计算：</li>
+</ul>
+<script type="math/tex; mode=display">
+S^{-1}y^T = S^{-1}H'x^T</script><script type="math/tex; mode=display">
+\rightarrow S^{-1}H'x^T = S^{-1}(SHP)x^T = H(Px^T) = H(xP^T)^T</script><ul>
+<li>由于P是置换矩阵，所以乘P^T的操作不会改变x中非零项的数量，也就是说$xp^T$依然仅有至多t个位置非0。所以对这个消息调用syndrome decode就可以得到xP^T，然后再求逆就有原始消息x了。</li>
+</ul>
+<blockquote>
+<p>syndrome decode指的是伴随式解码，一个伴随式就是校验矩阵H右乘码字。</p>
+<p>在这里，由于$xP^T$显然也是码字，所以左乘S逆矩阵得到的就是伴随式，所以可以调syndrome解码。</p>
+</blockquote>
+<p>而由于这题本身初始化GRS码时就固定了校验矩阵H，并且还给出了私钥里的可逆矩阵S，而我们并不关心置换矩阵P，因为只要解出的码符合3个位置非0——也就是成功解码就代表着flag当前bit为1，反之为0，就可以逐bit判断了。</p>
+<p>然而，syndrome decode的基本原理是将伴随式与错误向量做对应，这在消息和错误均为二进制编码很有效，但是我怎么找都找不到GF(p)下的syndrome解码实现原理，调sage本身的api也很慢很慢，最后还是用yolbby的独家板子才得以解决。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> sage.modular.overconvergent.hecke_series <span class="keyword">import</span> ech_form</span><br><span class="line"><span class="keyword">from</span> sage.coding.decoder <span class="keyword">import</span> Decoder, DecodingError</span><br><span class="line"><span class="keyword">from</span> sage.coding.grs_code <span class="keyword">import</span> GeneralizedReedSolomonCode</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Syndrome_decode</span>(<span class="title class_ inherited__">Decoder</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, code</span>):</span><br><span class="line">        <span class="built_in">super</span>(Syndrome_decode, self).__init__(code, code.ambient_space(),</span><br><span class="line">                <span class="string">&quot;EvaluationVector&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_repr_</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Key equation decoder for %s&quot;</span> % self.code()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_partial_xgcd</span>(<span class="params">self, a, b, PolRing</span>):</span><br><span class="line">        prev_t = PolRing.zero()</span><br><span class="line">        t = PolRing.one()</span><br><span class="line"></span><br><span class="line">        prev_r = a</span><br><span class="line">        r = b</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(r.degree() &gt;= t.degree()):</span><br><span class="line">            q = prev_r.quo_rem(r)[<span class="number">0</span>]</span><br><span class="line">            prev_r, r = r, prev_r - q * r</span><br><span class="line">            prev_t, t = t, prev_t - q * t</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (r, t)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_forney_formula</span>(<span class="params">self, error_evaluator, error_locator</span>):</span><br><span class="line">        C = self.code()</span><br><span class="line">        alphas = C.evaluation_points()</span><br><span class="line">        col_mults = C.parity_column_multipliers()</span><br><span class="line">        ELPp = error_locator.derivative()</span><br><span class="line">        F = C.base_ring()</span><br><span class="line">        zero, one = F.zero(), F.one()</span><br><span class="line">        e = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(C.length()):</span><br><span class="line">            alpha_inv = one/alphas[i]</span><br><span class="line">            <span class="keyword">if</span> error_locator(alpha_inv) == zero:</span><br><span class="line">                e.append(-alphas[i]/col_mults[i] * error_evaluator(alpha_inv)/ELPp(alpha_inv))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                e.append(zero)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> vector(F, e)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">decode</span>(<span class="params">self,S</span>):</span><br><span class="line">        C = self.code()</span><br><span class="line"></span><br><span class="line">        PolRing = C.base_field()[<span class="string">&#x27;x&#x27;</span>]</span><br><span class="line">        x = PolRing.gen()</span><br><span class="line">        </span><br><span class="line">        S = PolRing([i <span class="keyword">for</span> i <span class="keyword">in</span> S])</span><br><span class="line"></span><br><span class="line">        a = x ** (C.minimum_distance() - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        (EEP, ELP) = self._partial_xgcd(a, S, PolRing)</span><br><span class="line"></span><br><span class="line">        e = self._forney_formula(EEP, ELP)</span><br><span class="line">        <span class="keyword">return</span> e</span><br><span class="line"></span><br><span class="line">p = <span class="number">567811</span></span><br><span class="line">F = GF(p)</span><br><span class="line">n, k, r= <span class="number">16</span>, <span class="number">10</span>, <span class="number">6</span></span><br><span class="line">t = n//<span class="number">4</span></span><br><span class="line"></span><br><span class="line">C = codes.GeneralizedReedSolomonCode([F(_+<span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)],k)</span><br><span class="line">S = matrix(F,r,r,[(<span class="number">155790</span>, <span class="number">486108</span>, <span class="number">98452</span>, <span class="number">364639</span>, <span class="number">120720</span>, <span class="number">313488</span>), (<span class="number">100323</span>, <span class="number">367952</span>, <span class="number">158314</span>, <span class="number">537951</span>, <span class="number">1368</span>, <span class="number">437409</span>), (<span class="number">24424</span>, <span class="number">3563</span>, <span class="number">165622</span>, <span class="number">226117</span>, <span class="number">268381</span>, <span class="number">281060</span>), (<span class="number">306717</span>, <span class="number">437800</span>, <span class="number">498491</span>, <span class="number">454109</span>, <span class="number">45791</span>, <span class="number">427166</span>), (<span class="number">440079</span>, <span class="number">197166</span>, <span class="number">514113</span>, <span class="number">24595</span>, <span class="number">172079</span>, <span class="number">106605</span>), (<span class="number">529695</span>, <span class="number">239369</span>, <span class="number">361569</span>, <span class="number">565415</span>, <span class="number">72455</span>, <span class="number">244407</span>)])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part2</span></span><br><span class="line">H = C.parity_check_matrix()</span><br><span class="line">D = Syndrome_decode(C)</span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao4/here pankas is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    res = D.decode(S^(-<span class="number">1</span>)*vector(F,c[i]))</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">not</span> <span class="built_in">all</span>(j == <span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> res)):</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#in_study_tr4v3l_4nd_a_bR1ght_fut</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h5 id="思路2-1"><a href="#思路2-1" class="headerlink" title="思路2"></a>思路2</h5><p>然而，通读完题目内容其实有一个地方非常显眼，那就是flag当前bit为1时，取的vi不仅仅只有3个位置非0这一特点，一个更重要的地方在于<strong>每个位置都是1-32的相对于p很小的小量</strong>，这就给用格求解提供了机会。</p>
+<blockquote>
+<p>其实一个很有意思的点在于，在了解了纠错码和格密码之后，我发现他们其实有相似的目的，都是消除传输过程中的一些噪声。如果把传输的信息看作GF(p)下的一个向量的话，那么他们的区别在于：</p>
+<ul>
+<li>纠错码的错误，是该向量的少数位置发生错误，但是错误值可以很大</li>
+<li>格的噪声，噪声值比较小，但是每个位置都可以产生噪声</li>
+</ul>
+</blockquote>
+<p>所以1-32这个范围的不当选取就使得这个码字同时满足了格密码纠错和纠错码纠错的要求。这里就用格密码来尝试纠错，回顾一下当flag当前bit为1时密文为：</p>
+<script type="math/tex; mode=display">
+c_i = H'v_i = (SHP)v_i</script><p>P仅仅是个置换，不会影响vi中元素的大小，我们也不需要关心这个置换究竟是什么，<strong>只需要知道vi做了置换后依然是个短向量，不妨记作ai</strong>，那么就有：</p>
+<script type="math/tex; mode=display">
+c_i = SHa_i</script><p>也就是：</p>
+<script type="math/tex; mode=display">
+a_i^T (H^TS^T) = c_i^T</script><p>而S、H都是知道的，所以对上面的式子简单进行格规约，就可以发现bit为1的密文ci，规约出的向量会从某一行开始与完全随机的ci有显著的数量级差异，就可以依据这个做出判断了。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = <span class="number">567811</span></span><br><span class="line">F = GF(p)</span><br><span class="line">n, k, r= <span class="number">16</span>, <span class="number">10</span>, <span class="number">6</span></span><br><span class="line">t = n//<span class="number">4</span></span><br><span class="line"></span><br><span class="line">C = codes.GeneralizedReedSolomonCode([F(_+<span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)],k)</span><br><span class="line">S = matrix(F,r,r,[(<span class="number">155790</span>, <span class="number">486108</span>, <span class="number">98452</span>, <span class="number">364639</span>, <span class="number">120720</span>, <span class="number">313488</span>), (<span class="number">100323</span>, <span class="number">367952</span>, <span class="number">158314</span>, <span class="number">537951</span>, <span class="number">1368</span>, <span class="number">437409</span>), (<span class="number">24424</span>, <span class="number">3563</span>, <span class="number">165622</span>, <span class="number">226117</span>, <span class="number">268381</span>, <span class="number">281060</span>), (<span class="number">306717</span>, <span class="number">437800</span>, <span class="number">498491</span>, <span class="number">454109</span>, <span class="number">45791</span>, <span class="number">427166</span>), (<span class="number">440079</span>, <span class="number">197166</span>, <span class="number">514113</span>, <span class="number">24595</span>, <span class="number">172079</span>, <span class="number">106605</span>), (<span class="number">529695</span>, <span class="number">239369</span>, <span class="number">361569</span>, <span class="number">565415</span>, <span class="number">72455</span>, <span class="number">244407</span>)])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#part2</span></span><br><span class="line">H = C.parity_check_matrix()</span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;/home/tiffany/Desktop/ctf/duomaomao/duomaomao4/here pankas is.txt&quot;</span>,<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = <span class="built_in">eval</span>(f.read())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    M = Matrix(ZZ,(H.T*S.T).stack(-vector(F,c[i])))</span><br><span class="line">    L = block_matrix([</span><br><span class="line">        [identity_matrix(n+<span class="number">1</span>),M],</span><br><span class="line">        [matrix.zero(r,n+<span class="number">1</span>),identity_matrix(r)*p]])</span><br><span class="line">    L[:,-r:] *= p</span><br><span class="line">    </span><br><span class="line">    res = L.LLL()</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">all</span>(<span class="built_in">abs</span>(j) &lt; <span class="number">32</span> <span class="keyword">for</span> j <span class="keyword">in</span> res[<span class="number">10</span>])):</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#in_study_tr4v3l_4nd_a_bR1ght_fut</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="4-3"><a href="#4-3" class="headerlink" title="4.3"></a>4.3</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#v0id通过某些方法修改了自己的人体结构，看上去需要经历一些反混淆反编译才能重现世间。</span></span><br><span class="line">secret = <span class="built_in">bin</span>(bytes_to_long(v0id_part))[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line">F = GF(<span class="number">2</span> ** <span class="number">256</span>, <span class="string">&#x27;z&#x27;</span>)</span><br><span class="line">z = F.gens()[<span class="number">0</span>]</span><br><span class="line">P = PolynomialRing(F, <span class="string">&#x27;u, v&#x27;</span>)</span><br><span class="line">u, v = P.gens()</span><br><span class="line">PP.&lt;x&gt; = PolynomialRing(F)</span><br><span class="line">x = PP.gens()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">h = u^<span class="number">2</span> + u</span><br><span class="line">f = u^<span class="number">5</span> + u^<span class="number">3</span> + <span class="number">1</span></span><br><span class="line">on_curve = v^<span class="number">2</span> + h*v - f</span><br><span class="line">h,f = h(u=x),f(u=x)</span><br><span class="line"></span><br><span class="line">H = HyperellipticCurve(f, h)</span><br><span class="line">J = H.jacobian()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            plain = random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">256</span>)</span><br><span class="line">            xx = F.fetch_int(plain)</span><br><span class="line">            y, k = on_curve(u=xx, v=x).roots()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">assert</span> k == <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> - xx, y</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">look_for_v0id = [(<span class="number">3</span>*J(H(init())))[<span class="number">0</span>] <span class="keyword">if</span> i == <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> random.choice([(<span class="number">7</span>*J(H(init())))[<span class="number">0</span>],x^<span class="number">2</span>+F.fetch_int(random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">256</span>))*x+F.fetch_int(random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">256</span>))]) <span class="keyword">for</span> i <span class="keyword">in</span> secret]</span><br></pre></td></tr></table></figure>
+<p>这个小问基于一条亏格为2的GF(2^256)下的的超椭圆曲线。</p>
+<blockquote>
+<p>这里还是简单介绍一下超椭圆曲线的几个基本概念。</p>
+<p>1、曲线方程：</p>
+<script type="math/tex; mode=display">
+y^2 + h(x)y - f(x) = 0</script><p>其中$h(x),f(x)$都是系数在域K下的多项式。</p>
+<p>2、亏格：</p>
+<p>这个概念比较复杂，他其实本质上代表着曲线上所有除子对应的度最小的等价有效除子的最大值。但是反映在曲线方程中其实就是：</p>
+<script type="math/tex; mode=display">
+deg(h(x)) \leq g</script><script type="math/tex; mode=display">
+deg(f(x)) = 2g + 1</script><p>3、除子群</p>
+<p>对于普通的椭圆曲线，他的群结构似乎很显然，因为可以直接用点来定义运算，但实质上，这是ECC上除子群恰好可以和点群作同构导致的，它的本质仍然是除子群(左边是点群的元素，右边是除子群的元素)：</p>
+<script type="math/tex; mode=display">
+P \leftrightarrow (P) - (O)</script><p>在超椭中，直观的点群结构不再存在了，因此为了利用曲线上的群结构来构造密码体制，必须使用有理函数和除子来定义除子群，而Jacobian群其实就是解决了除子运算问题的除子群。</p>
+<p>4、Jacobian群的元素</p>
+<p>Jacobian群的元素是一个多项式二元组$<u(x),v(x)>$，满足以下几点性质：</u(x),v(x)></p>
+<ul>
+<li>$u(x)$为首一多项式</li>
+<li>$u(x) \; | \; v^2(x) + h(x)v(x) - f(x)$</li>
+<li>$deg(v(x)) &lt; deg(u(x)) &lt; g$</li>
+</ul>
+</blockquote>
+<p>了解了基本概念后，再来看看这个题目的decision需要我们做什么。由于<code>J(H(init()))</code>其实是生成该超椭圆曲线上Jacobian群的一个随机元素，不妨记为Di，那么对于flag的每一bit有：</p>
+<blockquote>
+<p>1 : $c_i = 3D_i的u(x)$</p>
+<p>0 : $c_i = 7D_i的u(x)$，或度为1的随机多项式</p>
+</blockquote>
+<p>如果之前有做过NKCTF的fly to the hyper一题大概可以想到这个3、7应该是和Jacobian的元素阶判断有关的，这就需要先求出群阶。而题目中又只给了Jacobian群元素的u(x)，所以其实还需要从u(x)恢复v(x)，从而得到完整的群元素才行。所以一共需要做三件事：</p>
+<ul>
+<li>求出Jacobian的群阶</li>
+<li>对每个元素由u(x)恢复v(x)</li>
+<li>判断元素阶从而做出decision</li>
+</ul>
+<p>接下来就三个部分分开阐述。</p>
+<h5 id="求Jacobian的群阶"><a href="#求Jacobian的群阶" class="headerlink" title="求Jacobian的群阶"></a>求Jacobian的群阶</h5><p>这个考点出现过不少次了，最近一点的可以直接看NKCTF fly to the hyper的官方wp，这里直接给出solver。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#calc order</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Hyper_Jacobian_order</span>(<span class="params">n,q=<span class="number">2</span></span>):</span><br><span class="line">    F = GF(q)</span><br><span class="line">    PP.&lt;u&gt; = PolynomialRing(F)</span><br><span class="line">    h = u^<span class="number">2</span> + u</span><br><span class="line">    f = u^<span class="number">5</span> + u^<span class="number">3</span> + <span class="number">1</span></span><br><span class="line">    H = HyperellipticCurve(f, h)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#calc M1,M2</span></span><br><span class="line">    M1,M2 = H.count_points_exhaustive(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#calc a1,a2</span></span><br><span class="line">    a1 = M1 - <span class="number">1</span> - q</span><br><span class="line">    a2 = (M2 - <span class="number">1</span> - q^<span class="number">2</span> + a1^<span class="number">2</span>) // <span class="number">2</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#calc y1,y2</span></span><br><span class="line">    X = var(<span class="string">&#x27;X&#x27;</span>)</span><br><span class="line">    y1,y2 = solve([X^<span class="number">2</span> + a1*X + (a2 - <span class="number">2</span> * <span class="number">2</span>) == <span class="number">0</span>], X)</span><br><span class="line">    y1,y2 = y1.rhs(),y2.rhs()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#calc alpha1,alpha2</span></span><br><span class="line">    alpha1 = solve([X^<span class="number">2</span> - y1*X + q == <span class="number">0</span>], X)[<span class="number">0</span>].rhs()</span><br><span class="line">    alpha2 = solve([X^<span class="number">2</span> - y2*X + q == <span class="number">0</span>], X)[<span class="number">0</span>].rhs()</span><br><span class="line"></span><br><span class="line">    <span class="comment">#calc Nn</span></span><br><span class="line">    Nn = <span class="built_in">int</span>(<span class="built_in">abs</span>(<span class="number">1</span>-alpha1^n)^<span class="number">2</span>*<span class="built_in">abs</span>(<span class="number">1</span>-alpha2^n)^<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> Nn</span><br><span class="line"></span><br><span class="line">n = <span class="number">256</span></span><br><span class="line">order = Hyper_Jacobian_order(n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(order)</span><br></pre></td></tr></table></figure>
+<p>得到的阶为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">13407807929942597099574024998205846127384782207827457971403006387925941306569427075743805985793764139096494648696821820448189053384542053304334065342873600</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h5 id="由u-x-恢复v-x"><a href="#由u-x-恢复v-x" class="headerlink" title="由u(x)恢复v(x)"></a>由u(x)恢复v(x)</h5><p>这一部分其实也有出现过，其具体求解的思路是：</p>
+<ul>
+<li>由于有$u(x) \; | \; v^2(x) + h(x)v(x) - f(x)$，所以对ux的根xi，会有：</li>
+</ul>
+<script type="math/tex; mode=display">
+v^2(x_i) + h(x_i)v(x_i) - f(x_i) = 0</script><ul>
+<li>由于hx、fx已知，所以代入xi后，上述方程其实是关于v(xi)这个数值的二次方程，所以可以求这个二次方程的根得到v(xi)的值</li>
+<li>此时，又因为有$deg(v(x)) &lt; deg(u(x)) &lt; g$，所以ux的根的数量会大于vx的度，所以有足够的点对进行拉格朗日插值，从而恢复完整的vx</li>
+</ul>
+<blockquote>
+<p>需要注意的问题是，求根的过程并不是在GF(2^256)上进行的，而应该在GF(2)的代数闭包去求根，才能得到所有根</p>
+</blockquote>
+<p>一个简单的求解示例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">deg = <span class="number">256</span></span><br><span class="line">F = GF(<span class="number">2</span> ** deg)</span><br><span class="line">z = F.gens()[<span class="number">0</span>]</span><br><span class="line">P = PolynomialRing(F, <span class="string">&#x27;u, v&#x27;</span>)</span><br><span class="line">u, v = P.gens()</span><br><span class="line">PP.&lt;x&gt; = PolynomialRing(F)</span><br><span class="line">x = PP.gens()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">h = u^<span class="number">2</span> + u</span><br><span class="line">f = u^<span class="number">5</span> + u^<span class="number">3</span> + <span class="number">1</span></span><br><span class="line">on_curve = v^<span class="number">2</span> + h*v - f</span><br><span class="line">h,f = h(u=x),f(u=x)</span><br><span class="line"></span><br><span class="line">H = HyperellipticCurve(f, h)</span><br><span class="line">J = H.jacobian()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            plain = random.randint(<span class="number">1</span>,<span class="number">2</span>^deg)</span><br><span class="line">            xx = F.from_integer(plain)</span><br><span class="line">            y, k = on_curve(u=xx, v=x).roots()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">assert</span> k == <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> - xx, y</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">L = GF(<span class="number">2</span>).algebraic_closure()</span><br><span class="line">u = (<span class="number">3</span>*J(H(init())))[<span class="number">0</span>]</span><br><span class="line">x1,x2 = [r <span class="keyword">for</span> r <span class="keyword">in</span> u.change_ring(L).roots(multiplicities=<span class="literal">False</span>)]</span><br><span class="line"></span><br><span class="line">a = f(x1)</span><br><span class="line">b = h(x1)</span><br><span class="line">F = a - x*b - x^<span class="number">2</span></span><br><span class="line">v11,v12 = F.roots(multiplicities=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">a = f(x2)</span><br><span class="line">b = h(x2)</span><br><span class="line">F = a - x*b - x^<span class="number">2</span></span><br><span class="line">v21,v22 = F.roots(multiplicities=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(L)</span><br><span class="line">v = [</span><br><span class="line">    PR.lagrange_polynomial([(x1,v11),(x2,v21)]),</span><br><span class="line">    PR.lagrange_polynomial([(x1,v12),(x2,v21)]),</span><br><span class="line">    PR.lagrange_polynomial([(x1,v11),(x2,v22)]),</span><br><span class="line">    PR.lagrange_polynomial([(x1,v12),(x2,v22)])</span><br><span class="line">]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> v:</span><br><span class="line">    <span class="built_in">print</span>(J(u,i))</span><br></pre></td></tr></table></figure>
+<p>这里就会出现问题，由于GF(2^256)扩张次数有点大，所以有时候求根会很慢很慢，有的求根可能就几秒钟，有的十分钟也求不完，我的求解过程也就卡在这一步了，先继续往下。</p>
+<blockquote>
+<p>不过，特征为2的扩域应该有快速求根的方式，只是我实在没找到sage的实现，也没有找到对于快速求根原理的介绍，更别说自己想出来怎么求根了</p>
+</blockquote>
+<p><br></p>
+<h5 id="判断元素阶"><a href="#判断元素阶" class="headerlink" title="判断元素阶"></a>判断元素阶</h5><p>factor一下第一步计算得到的阶：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>^<span class="number">18</span> * <span class="number">3</span>^<span class="number">2</span> * <span class="number">5</span>^<span class="number">2</span> * <span class="number">17</span>^<span class="number">4</span> * <span class="number">113</span>^<span class="number">2</span> * <span class="number">137</span>^<span class="number">2</span> * <span class="number">769</span>^<span class="number">2</span> * <span class="number">9601</span>^<span class="number">2</span> * <span class="number">138113</span>^<span class="number">2</span> * <span class="number">5649473</span>^<span class="number">2</span> * <span class="number">170045569</span>^<span class="number">2</span> * <span class="number">2147442977</span>^<span class="number">2</span> * <span class="number">1601948502115309903982784222721</span>^<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>可以发现阶中有3这个因子而没有7这个因子，所以可以通过检查阶的方式作decision，具体实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">F = GF(<span class="number">2</span> ** <span class="number">256</span>, <span class="string">&#x27;z&#x27;</span>)</span><br><span class="line">z = F.gens()[<span class="number">0</span>]</span><br><span class="line">P = PolynomialRing(F, <span class="string">&#x27;u, v&#x27;</span>)</span><br><span class="line">u, v = P.gens()</span><br><span class="line">PP.&lt;x&gt; = PolynomialRing(F)</span><br><span class="line">x = PP.gens()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">h = u^<span class="number">2</span> + u</span><br><span class="line">f = u^<span class="number">5</span> + u^<span class="number">3</span> + <span class="number">1</span></span><br><span class="line">on_curve = v^<span class="number">2</span> + h*v - f</span><br><span class="line">h,f = h(u=x),f(u=x)</span><br><span class="line"></span><br><span class="line">H = HyperellipticCurve(f, h)</span><br><span class="line">J = H.jacobian()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            plain = random.randint(<span class="number">1</span>,<span class="number">2</span>^<span class="number">256</span>)</span><br><span class="line">            xx = F.from_integer(plain)</span><br><span class="line">            y, k = on_curve(u=xx, v=x).roots()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">assert</span> k == <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> - xx, y</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">order = <span class="number">13407807929942597099574024998205846127384782207827457971403006387925941306569427075743805985793764139096494648696821820448189053384542053304334065342873600</span></span><br><span class="line"></span><br><span class="line">A = <span class="number">3</span>*J(H(init()))</span><br><span class="line">B = <span class="number">7</span>*J(H(init()))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(order // <span class="number">3</span>^<span class="number">2</span> * A)</span><br><span class="line"><span class="built_in">print</span>(order // <span class="number">3</span>^<span class="number">2</span> * B)</span><br></pre></td></tr></table></figure>
+<p>结果为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>)</span><br><span class="line">(x^<span class="number">2</span> + x + <span class="number">1</span>, y + (z^<span class="number">128</span> + z^<span class="number">64</span> + z^<span class="number">32</span> + z^<span class="number">16</span> + z^<span class="number">8</span> + z^<span class="number">5</span> + z^<span class="number">4</span> + z^<span class="number">2</span> + <span class="number">1</span>)*x + z^<span class="number">255</span> + z^<span class="number">254</span> + z^<span class="number">253</span> + z^<span class="number">252</span> + z^<span class="number">248</span> + z^<span class="number">245</span> + z^<span class="number">242</span> + z^<span class="number">239</span> + z^<span class="number">238</span> + z^<span class="number">236</span> + z^<span class="number">234</span> + z^<span class="number">233</span> + z^<span class="number">230</span> + z^<span class="number">227</span> + z^<span class="number">225</span> + z^<span class="number">224</span> + z^<span class="number">222</span> + z^<span class="number">221</span> + z^<span class="number">220</span> + z^<span class="number">217</span> + z^<span class="number">215</span> + z^<span class="number">214</span> + z^<span class="number">210</span> + z^<span class="number">209</span> + z^<span class="number">204</span> + z^<span class="number">203</span> + z^<span class="number">202</span> + z^<span class="number">200</span> + z^<span class="number">199</span> + z^<span class="number">197</span> + z^<span class="number">196</span> + z^<span class="number">194</span> + z^<span class="number">193</span> + z^<span class="number">192</span> + z^<span class="number">191</span> + z^<span class="number">190</span> + z^<span class="number">189</span> + z^<span class="number">188</span> + z^<span class="number">183</span> + z^<span class="number">182</span> + z^<span class="number">180</span> + z^<span class="number">179</span> + z^<span class="number">177</span> + z^<span class="number">170</span> + z^<span class="number">169</span> + z^<span class="number">168</span> + z^<span class="number">167</span> + z^<span class="number">160</span> + z^<span class="number">158</span> + z^<span class="number">157</span> + z^<span class="number">156</span> + z^<span class="number">155</span> + z^<span class="number">153</span> + z^<span class="number">152</span> + z^<span class="number">149</span> + z^<span class="number">148</span> + z^<span class="number">147</span> + z^<span class="number">143</span> + z^<span class="number">141</span> + z^<span class="number">137</span> + z^<span class="number">136</span> + z^<span class="number">135</span> + z^<span class="number">133</span> + z^<span class="number">132</span> + z^<span class="number">131</span> + z^<span class="number">129</span> + z^<span class="number">127</span> + z^<span class="number">126</span> + z^<span class="number">125</span> + z^<span class="number">122</span> + z^<span class="number">120</span> + z^<span class="number">116</span> + z^<span class="number">115</span> + z^<span class="number">114</span> + z^<span class="number">113</span> + z^<span class="number">110</span> + z^<span class="number">109</span> + z^<span class="number">108</span> + z^<span class="number">107</span> + z^<span class="number">104</span> + z^<span class="number">103</span> + z^<span class="number">102</span> + z^<span class="number">98</span> + z^<span class="number">89</span> + z^<span class="number">88</span> + z^<span class="number">87</span> + z^<span class="number">85</span> + z^<span class="number">84</span> + z^<span class="number">83</span> + z^<span class="number">78</span> + z^<span class="number">74</span> + z^<span class="number">69</span> + z^<span class="number">68</span> + z^<span class="number">65</span> + z^<span class="number">64</span> + z^<span class="number">63</span> + z^<span class="number">61</span> + z^<span class="number">60</span> + z^<span class="number">59</span> + z^<span class="number">58</span> + z^<span class="number">55</span> + z^<span class="number">54</span> + z^<span class="number">53</span> + z^<span class="number">52</span> + z^<span class="number">50</span> + z^<span class="number">47</span> + z^<span class="number">46</span> + z^<span class="number">45</span> + z^<span class="number">43</span> + z^<span class="number">42</span> + z^<span class="number">35</span> + z^<span class="number">31</span> + z^<span class="number">26</span> + z^<span class="number">23</span> + z^<span class="number">22</span> + z^<span class="number">21</span> + z^<span class="number">20</span> + z^<span class="number">19</span> + z^<span class="number">18</span> + z^<span class="number">15</span> + z^<span class="number">13</span> + z^<span class="number">12</span> + z^<span class="number">11</span> + z^<span class="number">10</span> + z^<span class="number">9</span> + z^<span class="number">8</span> + z^<span class="number">5</span> + z^<span class="number">4</span> + z^<span class="number">2</span> + z + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h5 id="完整总结"><a href="#完整总结" class="headerlink" title="完整总结"></a>完整总结</h5><p>然而由于第二步中快速求根我不太会实现，所以还没完全解出来，解出来之后再更新吧。</p>
+<p><br></p>
+<p><br></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总的来说这一系列题目真的丰富又有趣，听yolbby说他在招新赛上早早就放了这四个题目出来，直到比赛结束也只有躲猫猫1有一个解，在我完整浏览完所有题目所有小问过后，我觉得这不是没有原因(坏人(๑¯ω¯๑))。</p>
+<p>但是呢，做完这些题目也是真的接触到了很多很多新奇的东西，这样一想又很符合招新赛的初衷了。</p>
+<p>也欢迎大家看他的官方题解，部分题目的思路和我并不一样：</p>
+<p><a target="_blank" rel="noopener" href="https://yolbby.github.io/">https://yolbby.github.io/</a></p>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/8992014.html" title="躲猫猫">https://tangcuxiaojikuai.xyz/post/8992014.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/146254b2.html" rel="prev" title="2024-XYCTF-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2024-XYCTF-wp-crypto
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/9b3c95d4.html" rel="next" title="最近更新">
+      最近更新 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BA%B2%E7%8C%AB%E7%8C%AB1"><span class="nav-number">1.</span> <span class="nav-text">躲猫猫1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1"><span class="nav-number">1.1.</span> <span class="nav-text">1.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2"><span class="nav-number">1.2.</span> <span class="nav-text">1.2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3"><span class="nav-number">1.3.</span> <span class="nav-text">1.3</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BA%B2%E7%8C%AB%E7%8C%AB2"><span class="nav-number">2.</span> <span class="nav-text">躲猫猫2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1"><span class="nav-number">2.1.</span> <span class="nav-text">2.1</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF1"><span class="nav-number">2.1.1.</span> <span class="nav-text">思路1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF2"><span class="nav-number">2.1.2.</span> <span class="nav-text">思路2</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2"><span class="nav-number">2.2.</span> <span class="nav-text">2.2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3"><span class="nav-number">2.3.</span> <span class="nav-text">2.3</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BA%B2%E7%8C%AB%E7%8C%AB3"><span class="nav-number">3.</span> <span class="nav-text">躲猫猫3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1"><span class="nav-number">3.1.</span> <span class="nav-text">3.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2"><span class="nav-number">3.2.</span> <span class="nav-text">3.2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3"><span class="nav-number">3.3.</span> <span class="nav-text">3.3</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BA%B2%E7%8C%AB%E7%8C%AB4"><span class="nav-number">4.</span> <span class="nav-text">躲猫猫4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1"><span class="nav-number">4.1.</span> <span class="nav-text">4.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2"><span class="nav-number">4.2.</span> <span class="nav-text">4.2</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF1-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">思路1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF2-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">思路2</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3"><span class="nav-number">4.3.</span> <span class="nav-text">4.3</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82Jacobian%E7%9A%84%E7%BE%A4%E9%98%B6"><span class="nav-number">4.3.1.</span> <span class="nav-text">求Jacobian的群阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%B1u-x-%E6%81%A2%E5%A4%8Dv-x"><span class="nav-number">4.3.2.</span> <span class="nav-text">由u(x)恢复v(x)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%85%83%E7%B4%A0%E9%98%B6"><span class="nav-number">4.3.3.</span> <span class="nav-text">判断元素阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E6%80%BB%E7%BB%93"><span class="nav-number">4.3.4.</span> <span class="nav-text">完整总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
