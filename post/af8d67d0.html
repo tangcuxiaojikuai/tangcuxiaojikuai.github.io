@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前段时间学习了一下pairings，现在觉得还是有必要自己做点记录，不然一些细节实在是容易忘记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pairings">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/af8d67d0.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="前段时间学习了一下pairings，现在觉得还是有必要自己做点记录，不然一些细节实在是容易忘记。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/af8d67d0/image-20240514171240991.png">
+<meta property="article:published_time" content="2024-05-13T06:46:12.000Z">
+<meta property="article:modified_time" content="2024-05-15T07:14:41.278Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/af8d67d0/image-20240514171240991.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/af8d67d0.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>pairings | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/af8d67d0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pairings
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-13 14:46:12" itemprop="dateCreated datePublished" datetime="2024-05-13T14:46:12+08:00">2024-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-15 15:14:41" itemprop="dateModified" datetime="2024-05-15T15:14:41+08:00">2024-05-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/crypto-learning/" itemprop="url" rel="index"><span itemprop="name">crypto-learning</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/af8d67d0.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/af8d67d0.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>前段时间学习了一下pairings，现在觉得还是有必要自己做点记录，不然一些细节实在是容易忘记。</p>
+<span id="more"></span>
+<h3 id="参考文档指路"><a href="#参考文档指路" class="headerlink" title="参考文档指路"></a>参考文档指路</h3><p>论文指路：</p>
+<p><a target="_blank" rel="noopener" href="https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf">PairingsForBeginners.pdf (squarespace.com)</a></p>
+<p>基于配对的密码学 —— 李发根、吴威峰</p>
+<p><br></p>
+<p><br></p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>仿射坐标和射影坐标、r-torsion、divisor、genus、froebius endomorphism、divisor group、有理函数(及与除子的对应)、pole和zero、Weil reciprocity、配对的计算。</p>
+<h4 id="仿射坐标和射影坐标"><a href="#仿射坐标和射影坐标" class="headerlink" title="仿射坐标和射影坐标"></a>仿射坐标和射影坐标</h4><p>椭圆曲线虽然大家已经很熟悉，但是一般来说，我们常见到的都是仿射坐标意义下的曲线方程，也就是：</p>
+<script type="math/tex; mode=display">
+E: \quad y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6  \quad over \; F</script><p>这是长Weierstrass曲线方程，其定义在域F上。</p>
+<p>当域的特征不为2、3时(一般来说曲线都是定义在大素数域或者大素数域的扩域上的)，我们可以对曲线方程连续做如下两次变换：</p>
+<script type="math/tex; mode=display">
+y \rightarrow  \frac{y − a_1x − a_3}{2}</script><script type="math/tex; mode=display">
+(x, y) \rightarrow (\frac{x-3b_2}{36} , \frac{y}{108})</script><blockquote>
+<p>这里要求特征不为2、3，是因为在这样的域上没有办法完成上面的两步变换</p>
+</blockquote>
+<p>此时曲线方程就变为了我们最常见的短Weierstrass曲线方程：</p>
+<script type="math/tex; mode=display">
+E: \quad y^2 = x^3 + ax + b \quad over \; F</script><p>正如刚才所说，这种形式的方程都是仿射坐标下的，也就是说曲线的点坐标都是二元组$(x,y)$的形式。而这样有一个弊端就是我们无法用坐标来精确的表述点群的单位元O，也就是无穷远点。所以仿射意义下的曲线点集合我们只能手动把无穷远点补上，而无法写成一个统一形式，也就是写为：</p>
+<script type="math/tex; mode=display">
+E = \{(x,y) \;|\;y^2 = x^3 + ax + b \} \cup \{O\}</script><p>可以发现这样虽然也能够表示，但是从数学的角度去想的话，很难不觉得这里“不够精准”。而射影坐标就给出了一个能够精准表示椭圆曲线点集合的方法。在射影坐标意义下，一个点的坐标从二维升到了三维，变成了三元组$(X:Y:Z)$的形式(射影坐标一般会用大写字母和冒号来表示)。而仿射坐标和射影坐标有如下对应关系：</p>
+<script type="math/tex; mode=display">
+(x,y) \leftrightarrow (\lambda x : \lambda y : \lambda) \quad , \quad \lambda \in \overline{F^*}</script><blockquote>
+<p>这里的$\overline{F^*}$是指去除零元的代数闭包，也就是说，一个仿射坐标下的点，其实对应的是一条射影坐标下经过远点、但又去除原点的线。这也说明在射影坐标意义下，下方形式的两个点坐标是等价的：</p>
+<script type="math/tex; mode=display">
+(X:Y:Z) \sim (\lambda X : \lambda Y : \lambda Z)</script></blockquote>
+<p>这一部分结合图来理解就很直观：</p>
+<p><img src="/post/af8d67d0/image-20240514171240991.png" alt="image-20240514171240991"></p>
+<p>然而，虽然一个仿射坐标下的点对应的是射影坐标下的一条线，然而我们还是希望在两种坐标体系下，能做一个点和点之间的对应，因此，我们取Z=1这个平面来截这样一些直线，平面与这些直线的交点就是射影坐标下的对应点了。也就是做如下对应：</p>
+<script type="math/tex; mode=display">
+(x,y) \rightarrow (x:y:1)</script><p>同时，也可以直观地看出，无穷远点实际上就是Y轴这条直线的对应点，因此就可以取：</p>
+<script type="math/tex; mode=display">
+O = (0:1:0)</script><p>如此就完整的用坐标定义了整个点集合。同时由上面可以看出，将仿射意义下的曲线转换到射影意义下的曲线，只需要做如下映射：</p>
+<script type="math/tex; mode=display">
+x \rightarrow \frac{X}{Z} \quad , \quad y \rightarrow \frac{Y}{Z}</script><p>此时我们就得到了射影坐标里的短Weierstrass曲线方程：</p>
+<script type="math/tex; mode=display">
+E_{\mathbb{P}}:Y^2Z = X^3 + aXZ^2 + bZ^3</script><p>以及一个完整定义的点集合：</p>
+<script type="math/tex; mode=display">
+E = \{(X:Y:Z) \;|\;Y^2Z = X^3 + aXZ^2 + bZ^3 \}</script><blockquote>
+<p>所以sage里看到的坐标都是三元组的形式，因为实际上那就是用Z=1去截直线得到的仿射坐标</p>
+<p>这是标准射影坐标，此外还有Jacobian射影坐标，他的其中一个重要意义就是可以用于加速椭圆曲线的点群运算，因为无需求逆</p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<h4 id="Torsion"><a href="#Torsion" class="headerlink" title="Torsion"></a>Torsion</h4><p>在未明确指定之前，本小节讨论的都是$F_q$下的椭圆曲线，即在模一个素数下进行的曲线运算。</p>
+<h5 id="Fq下的ECC群结构"><a href="#Fq下的ECC群结构" class="headerlink" title="Fq下的ECC群结构"></a>Fq下的ECC群结构</h5><p>在讨论torsion之前，首先需要明确一下之后要研究的椭圆曲线群结构。一个事实是，$E(F_q)$下的椭圆曲线群结构只有以下两种可能：</p>
+<ul>
+<li>本身是个循环群，有生成元</li>
+<li>同构于两个循环群的乘积$Z_{n_1} \times Z_{n_2}$，并且n1是n2的因子</li>
+</ul>
+<blockquote>
+<p>我不会证明，详细可以见参考文献里的引用</p>
+</blockquote>
+<p>由于生成是循环群的曲线并不是困难的事情，所以接下来的研究里默认我们选用的是循环群结构的曲线，由此就可以引出r-torsion的概念。</p>
+<p><br></p>
+<h5 id="Hasse-bound"><a href="#Hasse-bound" class="headerlink" title="Hasse bound"></a>Hasse bound</h5><p>其实对椭圆曲线求阶时，不少师傅应该已经发现过一个有趣的巧合——一个椭圆曲线的阶(即点的个数)似乎总是和模数q很接近。事实上这背后是有理论依据的，也就是Hasse bound，它表明一个椭圆曲线上的点的数量与模数q应该有如下关系：</p>
+<script type="math/tex; mode=display">
+q + 1 - 2\sqrt{q} \leq \#E(F_q) \leq q + 1 + 2\sqrt{q}</script><p>不妨记实际的阶为：</p>
+<script type="math/tex; mode=display">
+\#E(F_q) = q + 1 - t \quad , |t| \leq 2\sqrt{q}</script><p>这个偏移量 t 称为 trace of Frobenius，之后会用到。</p>
+<blockquote>
+<p>论文中提及到一个有趣的事实，当q是素数的时候，所有在 $[q + 1 - 2\sqrt{q} , q + 1 + 2\sqrt{q}]$ 范围内的数值N，都可以作为Fq下某一条椭圆曲线的阶</p>
+</blockquote>
+<p><br></p>
+<h5 id="Frobenius-endomorphism-π"><a href="#Frobenius-endomorphism-π" class="headerlink" title="Frobenius endomorphism π"></a>Frobenius endomorphism π</h5><p>Frobenius自同态是E到E的一个同态，记为：</p>
+<script type="math/tex; mode=display">
+π : E \rightarrow E \quad , \quad(x,y) \rightarrow (x^q,y^q)</script><p>可以看到仅对$E(F_q)$来说的话其实这是个恒等映射，也就是平凡的，要到代数闭包下</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/af8d67d0.html" title="pairings">https://tangcuxiaojikuai.xyz/post/af8d67d0.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/8992014.html" rel="prev" title="躲猫猫">
+      <i class="fa fa-chevron-left"></i> 躲猫猫
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/d35dc1e9.html" rel="next" title="2024-H&NCTF-Iso-wp-crypto">
+      2024-H&NCTF-Iso-wp-crypto <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3%E6%8C%87%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">参考文档指路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BF%E5%B0%84%E5%9D%90%E6%A0%87%E5%92%8C%E5%B0%84%E5%BD%B1%E5%9D%90%E6%A0%87"><span class="nav-number">2.1.</span> <span class="nav-text">仿射坐标和射影坐标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Torsion"><span class="nav-number">2.2.</span> <span class="nav-text">Torsion</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Fq%E4%B8%8B%E7%9A%84ECC%E7%BE%A4%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.1.</span> <span class="nav-text">Fq下的ECC群结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Hasse-bound"><span class="nav-number">2.2.2.</span> <span class="nav-text">Hasse bound</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Frobenius-endomorphism-%CF%80"><span class="nav-number">2.2.3.</span> <span class="nav-text">Frobenius endomorphism π</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
