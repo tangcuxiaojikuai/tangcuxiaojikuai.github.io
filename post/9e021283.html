@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="还是更个wp吧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024-CISCN-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/9e021283.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="还是更个wp吧。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-19T12:15:39.000Z">
+<meta property="article:modified_time" content="2024-05-20T02:45:45.417Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/9e021283.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2024-CISCN-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/9e021283.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024-CISCN-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-19 20:15:39" itemprop="dateCreated datePublished" datetime="2024-05-19T20:15:39+08:00">2024-05-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-20 10:45:45" itemprop="dateModified" datetime="2024-05-20T10:45:45+08:00">2024-05-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/9e021283.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/9e021283.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>还是更个wp吧。</p>
+<span id="more"></span>
+<h2 id="day1"><a href="#day1" class="headerlink" title="day1"></a>day1</h2><p><br></p>
+<h3 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你能仅仅通过一个Python2.7自带的hash函数的输出，计算出它的原象的sha384哈希值吗？</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python2</span></span><br><span class="line"><span class="comment"># Python 2.7 (64-bit version)</span></span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">import</span> os, binascii, hashlib</span><br><span class="line">key = os.urandom(<span class="number">7</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">hash</span>(key)</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">int</span>(hashlib.sha384(binascii.hexlify(key)).hexdigest(), <span class="number">16</span>) ^ <span class="built_in">int</span>(binascii.hexlify(flag), <span class="number">16</span>)</span><br></pre></td></tr></table></figure>
+<p>可以看到密文其实就是flag和key的sha384做异或而已，所以关键就是找到key，而题目给出了以下几个关于key的信息：</p>
+<ul>
+<li>长度为7字节</li>
+<li>hash(key)在Python 2.7 (64-bit version)下的值</li>
+</ul>
+<p>由于key仅有7字节，实在是太像mitm了，所以自然的思路是hash的过程是可以逐步逆回去的，从而构造一个3.5-3.5的mitm，复杂度就可以接受。</p>
+<p>所以是先要找到hash的具体实现，搜2.7的release发现其实有个可以在python3实现的py2.7的hash，可以比较轻松的看到源码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Compatibility methods to support Python 2.7 style hashing in Python 3.X+</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">This is designed for compatibility not performance.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hash27</span>(<span class="params">value</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Wrapper call to Hash.hash()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        value: input value</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        Python 2.7 hash</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Hash.<span class="built_in">hash</span>(value)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Hash</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Various hashing methods using Python 2.7&#x27;s algorithms</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">hash</span>(<span class="params">value</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Returns a Python 2.7 hash for a value.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            value: input value</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            Python 2.7 hash</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(value, <span class="built_in">tuple</span>):</span><br><span class="line">            <span class="keyword">return</span> Hash.thash(value)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(value, <span class="built_in">float</span>):</span><br><span class="line">            <span class="keyword">return</span> Hash.fhash(value)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(value, <span class="built_in">int</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">hash</span>(value)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(value, (<span class="string">&quot;&quot;</span>.__class__, <span class="string">u&quot;&quot;</span>.__class__, <span class="built_in">bytes</span>)) <span class="keyword">or</span> <span class="built_in">type</span>(value).__name__ == <span class="string">&quot;buffer&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> Hash.shash(value)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">raise</span> TypeError(<span class="string">&quot;unhashable type: &#x27;%s&#x27;&quot;</span> % (<span class="built_in">type</span>(value).__name__))</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">thash</span>(<span class="params">value</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Returns a Python 2.7 hash for a tuple.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Logic ported from the 2.7 Python branch: cpython/Objects/tupleobject.c</span></span><br><span class="line"><span class="string">        Method: static long tuplehash(PyTupleObject *v)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            value: input tuple</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            Python 2.7 hash</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        length = <span class="built_in">len</span>(value)</span><br><span class="line"></span><br><span class="line">        mult = <span class="number">1000003</span></span><br><span class="line"></span><br><span class="line">        x = <span class="number">0x345678</span></span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> value:</span><br><span class="line">            length -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            y = Hash.<span class="built_in">hash</span>(y)</span><br><span class="line">            x = (x ^ y) * mult</span><br><span class="line">            mult += <span class="number">82520</span> + length + length</span><br><span class="line"></span><br><span class="line">        x += <span class="number">97531</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Convert to C type</span></span><br><span class="line">        x = ctypes.c_long(x).value</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> x == -<span class="number">1</span>:</span><br><span class="line">            x = -<span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fhash</span>(<span class="params">value</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Returns a Python 2.7 hash for a float.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Logic ported from the 2.7 Python branch: cpython/Objects/object.c</span></span><br><span class="line"><span class="string">        Method: long _Py_HashDouble(double v)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            value: input float</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            Python 2.7 hash</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        fpart = math.modf(value)</span><br><span class="line">        <span class="keyword">if</span> fpart[<span class="number">0</span>] == <span class="number">0.0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">hash</span>(<span class="built_in">int</span>(fpart[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">        v, e = math.frexp(value)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2**31</span></span><br><span class="line">        v *= <span class="number">2147483648.0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Top 32 bits</span></span><br><span class="line">        hipart = <span class="built_in">int</span>(v)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Next 32 bits</span></span><br><span class="line">        v = (v - <span class="built_in">float</span>(hipart)) * <span class="number">2147483648.0</span></span><br><span class="line"></span><br><span class="line">        x = hipart + <span class="built_in">int</span>(v) + (e &lt;&lt; <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Convert to C long type</span></span><br><span class="line">        x = ctypes.c_long(x).value</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> x == -<span class="number">1</span>:</span><br><span class="line">            x = -<span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">shash</span>(<span class="params">value</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Returns a Python 2.7 hash for a string.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Logic ported from the 2.7 Python branch: cpython/Objects/stringobject.c</span></span><br><span class="line"><span class="string">        Method: static long string_hash(PyStringObject *a)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            value: input string</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            Python 2.7 hash</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        length = <span class="built_in">len</span>(value)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> length == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        mask = <span class="number">0xffffffffffffffff</span></span><br><span class="line">        x = (Hash.ordinal(value[<span class="number">0</span>]) &lt;&lt; <span class="number">7</span>) &amp; mask</span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> value:</span><br><span class="line">            x = (<span class="number">1000003</span> * x) &amp; mask ^ Hash.ordinal(c)</span><br><span class="line"></span><br><span class="line">        x ^= length &amp; mask</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Convert to C long type</span></span><br><span class="line">        x = ctypes.c_long(x).value</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> x == -<span class="number">1</span>:</span><br><span class="line">            x = -<span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">ordinal</span>(<span class="params">value</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Converts value to an ordinal or returns the input value if it&#x27;s an int.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            value: input</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            ordinal for value</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> value <span class="keyword">if</span> <span class="built_in">isinstance</span>(value, <span class="built_in">int</span>) <span class="keyword">else</span> <span class="built_in">ord</span>(value)</span><br></pre></td></tr></table></figure>
+<p>由于传入的是7个字符的字节流，所以定位到：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">shash</span>(<span class="params">value</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Returns a Python 2.7 hash for a string.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Logic ported from the 2.7 Python branch: cpython/Objects/stringobject.c</span></span><br><span class="line"><span class="string">        Method: static long string_hash(PyStringObject *a)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            value: input string</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            Python 2.7 hash</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        length = <span class="built_in">len</span>(value)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> length == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        mask = <span class="number">0xffffffffffffffff</span></span><br><span class="line">        x = (Hash.ordinal(value[<span class="number">0</span>]) &lt;&lt; <span class="number">7</span>) &amp; mask</span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> value:</span><br><span class="line">            x = (<span class="number">1000003</span> * x) &amp; mask ^ Hash.ordinal(c)</span><br><span class="line"></span><br><span class="line">        x ^= length &amp; mask</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Convert to C long type</span></span><br><span class="line">        x = ctypes.c_long(x).value</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> x == -<span class="number">1</span>:</span><br><span class="line">            x = -<span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p>可以看出这个hash函数是逐字符的，所以完全可以从密文逆这个过程，然而这样就只能拆成3+4或者4+3，因为建2^32数量级的字典不太现实，所以我选择爆第一个字符，然后用3+3去mitm，自己手动多进程，大概需要半个多小时可以出来。具体怎么实现的可以参考solver。</p>
+<blockquote>
+<p>之所以这个过程可以逆，是因为与mask做与运算其实完全等价于模2^64，所以乘1000003也就可以变成对应求逆元</p>
+</blockquote>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">c = <span class="number">7457312583301101235</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#mitm</span></span><br><span class="line">length = <span class="number">7</span></span><br><span class="line">mask = <span class="number">0xffffffffffffffff</span></span><br><span class="line">T = invert(<span class="number">1000003</span> , mask + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">256</span>):</span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> product([i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>)] , repeat=<span class="number">3</span>):</span><br><span class="line">        x = (i &lt;&lt; <span class="number">7</span>) &amp; mask</span><br><span class="line">        x = (<span class="number">1000003</span> * x) &amp; mask ^ i</span><br><span class="line">        tt = <span class="built_in">list</span>(a)</span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> tt:</span><br><span class="line">            x = (<span class="number">1000003</span> * x) &amp; mask ^ char       </span><br><span class="line">        dic[x] = tt</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> product([i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>)] , repeat=<span class="number">3</span>):</span><br><span class="line">        tt = <span class="built_in">list</span>(b)</span><br><span class="line">        cc = c ^ (length &amp; mask)</span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> tt:</span><br><span class="line">            cc = cc ^ char</span><br><span class="line">            cc = cc * T &amp; mask  </span><br><span class="line">        <span class="keyword">if</span>(cc <span class="keyword">in</span> dic.keys()):</span><br><span class="line">            <span class="built_in">print</span>(i , dic[cc] , tt)</span><br><span class="line">            exit()</span><br></pre></td></tr></table></figure>
+<p>得到结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#from py27hash.hash import hash27</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">cipher = <span class="number">13903983817893117249931704406959869971132956255130487015289848690577655239262013033618370827749581909492660806312017</span></span><br><span class="line">key = <span class="built_in">bytes</span>([<span class="number">93</span>,<span class="number">140</span>, <span class="number">240</span>, <span class="number">63</span>,<span class="number">90</span>, <span class="number">8</span>, <span class="number">82</span>])</span><br><span class="line"><span class="keyword">import</span> os, binascii, hashlib</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(hashlib.sha384(binascii.hexlify(key)).hexdigest(), <span class="number">16</span>) ^ cipher))</span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;bdb537aa-87ef-4e95-bea4-2f79259bdd07&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>还有个比较有趣的思路是使用LLL，不过不在这里展开了</p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<h3 id="what-mouth"><a href="#what-mouth" class="headerlink" title="what mouth"></a>what mouth</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Here is running a key exchange system, but there are someone who has an access to the whole process.</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> request</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> libnum <span class="keyword">import</span> n2s, s2n</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag, K_as, K_bs</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> urandom</span><br><span class="line"></span><br><span class="line"><span class="comment"># from rpc.restful_service import TodoList, Todo, Datatype_es, Datatype_byte, Datatype_classify</span></span><br><span class="line"><span class="comment"># from rpc.rpc_service import *</span></span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">flag += <span class="string">&#x27;\x00&#x27;</span> * (- <span class="built_in">len</span>(flag) % <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># from gevent.pywsgi import WSGIServer</span></span><br><span class="line">A = md5(<span class="string">b&#x27;A&#x27;</span>).hexdigest()[:<span class="number">16</span>]</span><br><span class="line">B = md5(<span class="string">b&#x27;B&#x27;</span>).hexdigest()[:<span class="number">16</span>]</span><br><span class="line">S = md5(<span class="string">b&#x27;S&#x27;</span>).hexdigest()[:<span class="number">16</span>]</span><br><span class="line">K_sc = &#123;A: K_as, B: K_bs&#125;</span><br><span class="line">name2hex = &#123;<span class="string">&quot;A&quot;</span>: A, <span class="string">&quot;B&quot;</span>: B, <span class="string">&quot;S&quot;</span>: S&#125;</span><br><span class="line"><span class="comment"># tokens = json.loads(open(&#x27;token.txt&#x27;, &#x27;r&#x27;).read())</span></span><br><span class="line">hex_chars = <span class="built_in">set</span>(<span class="built_in">list</span>(<span class="string">&#x27;0123456789abcdefg&#x27;</span>))</span><br><span class="line"></span><br><span class="line">last_time = time.time()</span><br><span class="line"></span><br><span class="line">history = &#123;&#125;</span><br><span class="line">keys = &#123;&#125;</span><br><span class="line"><span class="keyword">if</span> os.path.exists(<span class="string">&#x27;keys.txt&#x27;</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        keys = json.loads(<span class="built_in">open</span>(<span class="string">&#x27;keys.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read())</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        keys = &#123;&#125;</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> os.path.exists(<span class="string">&#x27;K_sc.txt&#x27;</span>):</span><br><span class="line">    tag = <span class="number">0</span></span><br><span class="line">    cur_sc = &#123;&#125;</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        cur_sc = json.loads(<span class="built_in">open</span>(<span class="string">&quot;K_sc.txt&quot;</span>, <span class="string">&#x27;r&#x27;</span>).read())</span><br><span class="line">        tag = <span class="number">1</span></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        tag = <span class="number">0</span></span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line">    <span class="keyword">if</span> tag:</span><br><span class="line">        K_sc.update(cur_sc)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">update_keys</span>(<span class="params">cur_token, left, right, cur_key</span>):</span><br><span class="line">    <span class="keyword">global</span> keys</span><br><span class="line">    <span class="keyword">if</span> cur_token <span class="keyword">not</span> <span class="keyword">in</span> keys:</span><br><span class="line">        keys[cur_token] = &#123;left: &#123;right: cur_key&#125;&#125;</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        cur_dict = keys[cur_token]</span><br><span class="line">        <span class="keyword">if</span> left <span class="keyword">not</span> <span class="keyword">in</span> cur_dict:</span><br><span class="line">            cur_dict[left] = &#123;right: cur_key&#125;</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cur_dict[left][right] = cur_key</span><br><span class="line">    cur_time = time.time()</span><br><span class="line">    <span class="keyword">global</span> last_time</span><br><span class="line">    <span class="keyword">if</span> cur_time - last_time &gt; <span class="number">666</span>:</span><br><span class="line">        <span class="built_in">open</span>(<span class="string">&#x27;keys.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>).write(json.dumps(keys))</span><br><span class="line">        last_time = cur_time</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_fresh</span>(<span class="params">t</span>):</span><br><span class="line">    cur = time.time()</span><br><span class="line">    <span class="comment"># if t &gt; cur:</span></span><br><span class="line">    <span class="comment">#     return False</span></span><br><span class="line">    <span class="keyword">if</span> cur - t &gt; <span class="number">24</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_token</span>(<span class="params">args</span>):</span><br><span class="line">    cur_token = args.get(<span class="string">&#x27;token&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">    <span class="keyword">if</span> cur_token <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span>, &#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Add your Token&quot;</span>&#125;</span><br><span class="line">    cur_token = cur_token.ljust(<span class="number">16</span>, <span class="string">&#x27;0&#x27;</span>)[:<span class="number">16</span>]</span><br><span class="line">    <span class="keyword">for</span> char <span class="keyword">in</span> cur_token:</span><br><span class="line">        <span class="keyword">if</span> char <span class="keyword">not</span> <span class="keyword">in</span> hex_chars:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span>, &#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Your token should be made of hex&quot;</span>&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span>, cur_token</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_to_history</span>(<span class="params">cur_log, cur_token</span>):</span><br><span class="line">    <span class="keyword">global</span> history</span><br><span class="line">    <span class="keyword">if</span> cur_token <span class="keyword">in</span> history:</span><br><span class="line">        history[cur_token].append(cur_log)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        history[cur_token] = [cur_log]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dec_and_split_message</span>(<span class="params">cli, message, need_hex=<span class="literal">False</span></span>):</span><br><span class="line">    message = binascii.unhexlify(message)</span><br><span class="line">    scheme = AES.new(binascii.unhexlify(K_sc[cli]), AES.MODE_ECB)</span><br><span class="line">    message = scheme.decrypt(message)</span><br><span class="line">    <span class="keyword">if</span> need_hex:</span><br><span class="line">        t, target, cur_key = <span class="built_in">int</span>(message[:<span class="number">16</span>].<span class="built_in">hex</span>(), <span class="number">16</span>), message[<span class="number">16</span>: <span class="number">24</span>].<span class="built_in">hex</span>(), message[<span class="number">32</span>: <span class="number">48</span>].<span class="built_in">hex</span>()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        t, target, cur_key = <span class="built_in">int</span>(message[:<span class="number">16</span>].<span class="built_in">hex</span>(), <span class="number">16</span>), message[<span class="number">16</span>: <span class="number">24</span>], message[<span class="number">32</span>: <span class="number">48</span>]</span><br><span class="line">    <span class="keyword">return</span> t, target, cur_key</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_to_client</span>(<span class="params">cur_token, target, message</span>):  <span class="comment"># all of the inputs are hex</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">len</span>(message) == <span class="number">16</span> * <span class="number">3</span> * <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Your message is not valid&quot;</span></span><br><span class="line">    cur_log = <span class="string">f&#x27;<span class="subst">&#123;time.strftime(<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>, time.localtime())&#125;</span>: S -&gt; <span class="subst">&#123;target&#125;</span>: <span class="subst">&#123;message&#125;</span>&#x27;</span></span><br><span class="line">    add_to_history(cur_log, cur_token)</span><br><span class="line">    t, friend, cur_key = dec_and_split_message(target, message, need_hex=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> check_fresh(t):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;This is an old message, get out&quot;</span></span><br><span class="line">    <span class="keyword">return</span> update_keys(cur_token, target, friend, cur_key)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_to_server</span>(<span class="params">cur_token, orig_message</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">len</span>(orig_message) == <span class="number">16</span> * <span class="number">3</span> * <span class="number">2</span> + <span class="number">16</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Your message is not valid&quot;</span></span><br><span class="line">    sender, message = orig_message[<span class="number">0</span>: <span class="number">16</span>], orig_message[<span class="number">16</span>:]</span><br><span class="line">    t, target, cur_key = dec_and_split_message(sender, message)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> check_fresh(t):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;This is an old message, get out&quot;</span></span><br><span class="line"></span><br><span class="line">    cur_log = <span class="string">f&#x27;<span class="subst">&#123;time.strftime(<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>, time.localtime())&#125;</span>: <span class="subst">&#123;sender&#125;</span> -&gt; S: <span class="subst">&#123;orig_message&#125;</span>&#x27;</span></span><br><span class="line">    add_to_history(cur_log, cur_token)</span><br><span class="line">    suffix = os.urandom(<span class="number">8</span>)</span><br><span class="line">    wait_to_send_m = n2s(<span class="built_in">int</span>(time.time())).rjust(<span class="number">16</span>, <span class="string">b&#x27;0&#x27;</span>) + binascii.unhexlify(sender) + suffix + cur_key</span><br><span class="line">    target = target.<span class="built_in">hex</span>()</span><br><span class="line">    scheme = AES.new(binascii.unhexlify(K_sc[target]), AES.MODE_ECB)</span><br><span class="line">    cipher = scheme.encrypt(wait_to_send_m).<span class="built_in">hex</span>()</span><br><span class="line">    send_to_client(cur_token, target, cipher)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_message</span>(<span class="params">cur_token, target, message</span>):</span><br><span class="line">    <span class="keyword">if</span> target == S:</span><br><span class="line">        <span class="keyword">return</span> send_to_server(cur_token, message)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> send_to_client(cur_token, target, message)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">exchange_key</span>(<span class="params">cur_token</span>):</span><br><span class="line">    k_ab = os.urandom(<span class="number">16</span>)</span><br><span class="line">    <span class="keyword">if</span> random() &gt; <span class="number">0.5</span>:</span><br><span class="line">        sender = A</span><br><span class="line">        target = B</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        sender = B</span><br><span class="line">        target = A</span><br><span class="line">    suffix = os.urandom(<span class="number">8</span>)</span><br><span class="line">    message = n2s(<span class="built_in">int</span>(time.time())).rjust(<span class="number">16</span>, <span class="string">b&#x27;0&#x27;</span>) + binascii.unhexlify(target) + suffix + k_ab</span><br><span class="line">    scheme = AES.new(binascii.unhexlify(K_sc[sender]), AES.MODE_ECB)</span><br><span class="line">    cipher = scheme.encrypt(message).<span class="built_in">hex</span>()</span><br><span class="line">    message = sender + cipher</span><br><span class="line">    ans = send_message(cur_token, S, message)</span><br><span class="line">    <span class="keyword">if</span> ans <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">return</span> ans</span><br><span class="line">    update_keys(cur_token, sender, target, k_ab.<span class="built_in">hex</span>())</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&#x27;message&#x27;</span>: <span class="string">&#x27;A and B have completed key exchange!&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/A_and_B&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="comment"># predict_impl = predict.predict(rows_limit=10000, version=0.02, debug=1)</span></span><br><span class="line">    <span class="comment"># predict_impl.get_data()</span></span><br><span class="line">    <span class="comment"># predict_impl.read_origin_table(0)</span></span><br><span class="line">    bol, message = get_token(request.args)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> bol:</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: message&#125;</span><br><span class="line">    cur_token = message</span><br><span class="line">    <span class="keyword">return</span> exchange_key(cur_token)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/register&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)  </span><span class="comment"># get token and</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">register</span>():</span><br><span class="line">    <span class="comment"># cur_token = os.urandom(16).hex()</span></span><br><span class="line">    bol, message = get_token(request.args)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> bol:</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: message&#125;</span><br><span class="line">    cur_token = message</span><br><span class="line">    <span class="keyword">if</span> cur_token <span class="keyword">in</span> K_sc:</span><br><span class="line">        cur_key = binascii.unhexlify(K_sc[cur_token])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        cur_key = os.urandom(<span class="number">16</span>)</span><br><span class="line">        K_sc[cur_token] = cur_key.<span class="built_in">hex</span>()</span><br><span class="line">    cur_time = time.time()</span><br><span class="line">    <span class="keyword">global</span> last_time</span><br><span class="line">    <span class="keyword">if</span> cur_time - last_time &gt; <span class="number">666</span>:</span><br><span class="line">        <span class="built_in">open</span>(<span class="string">&quot;K_sc.txt&quot;</span>, <span class="string">&#x27;w&#x27;</span>).write(json.dumps(K_sc))</span><br><span class="line">        last_time = cur_time</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&#x27;token&#x27;</span>: cur_token, <span class="string">&#x27;key_to_server&#x27;</span>: cur_key.<span class="built_in">hex</span>()&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/send_message&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">execute_protocol</span>():</span><br><span class="line">    bol, message = get_token(request.args)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> bol:</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: message&#125;</span><br><span class="line">    cur_token = message</span><br><span class="line">    target = request.args.get(<span class="string">&#x27;to&#x27;</span>)</span><br><span class="line">    message = request.args.get(<span class="string">&#x27;message&#x27;</span>)</span><br><span class="line">    send_message(cur_token, name2hex[target], message)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: <span class="string">f&quot;You have sent <span class="subst">&#123;message&#125;</span> to <span class="subst">&#123;target&#125;</span>&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/view_history&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">list_history</span>():</span><br><span class="line">    bol, message = get_token(request.args)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> bol:</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: message&#125;</span><br><span class="line">    cur_token = message</span><br><span class="line">    <span class="keyword">if</span> cur_token <span class="keyword">not</span> <span class="keyword">in</span> history:</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Invalid token or this token has not generated any histories.&quot;</span>&#125;</span><br><span class="line">    cur_histories = history[cur_token]</span><br><span class="line">    return_histories = cur_histories[<span class="number">0</span>:]</span><br><span class="line">    return_histories.reverse()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;history&quot;</span>: return_histories&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/send_flag&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_flag</span>():</span><br><span class="line">    bol, message = get_token(request.args)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> bol:</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: message&#125;</span><br><span class="line">    cur_token = message</span><br><span class="line">    <span class="keyword">if</span> random() &gt; <span class="number">0.5</span>:</span><br><span class="line">        sender = A</span><br><span class="line">        target = B</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        sender = B</span><br><span class="line">        target = A</span><br><span class="line">    <span class="keyword">if</span> keys[cur_token][sender][target] != keys[cur_token][target][sender]:</span><br><span class="line">        exchange_key(cur_token)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Keys between A and B are different! There must be something malicious in our system!&quot;</span>&#125;</span><br><span class="line">    cur_key = binascii.unhexlify(keys[cur_token][sender][target])</span><br><span class="line">    scheme = AES.new(cur_key, AES.MODE_ECB)</span><br><span class="line">    cipher = scheme.encrypt(flag.encode()).<span class="built_in">hex</span>()</span><br><span class="line">    cur_log = <span class="string">f&#x27;<span class="subst">&#123;time.strftime(<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>, time.localtime())&#125;</span>: <span class="subst">&#123;sender&#125;</span> -&gt; <span class="subst">&#123;target&#125;</span>: <span class="subst">&#123;cipher&#125;</span>&#x27;</span></span><br><span class="line">    add_to_history(cur_log, cur_token)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: <span class="string">f&#x27;<span class="subst">&#123;sender&#125;</span> has sent flag secretly to <span class="subst">&#123;target&#125;</span>!&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># app.run()</span></span><br><span class="line">    <span class="comment"># app.run(host=&#x27;0.0.0.0&#x27;, port=os.environ.get(&quot;PORT0&quot;))</span></span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">12138</span>, debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>题目的难度完全在于耐着性子审代码，把所有接口能用的信息看完后，可以发现在register接口里会返回一个key值，而这个key值是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cur_key = binascii.unhexlify(K_sc[cur_token])</span><br></pre></td></tr></table></figure>
+<p>也就是说，自己输入的一个token其实对应了这个key值，也就是一个token对应一个Ksc里面的一个key值。接着看这个Ksc，可以发现如果输入的token就是A或B的话，那么这个key在exchange被调用来了加密信息，并且存在了日志里面。</p>
+<p>然后就是最后发送flag密文的过程，可以发现flag对应的AES是用这个密钥加密的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cur_key = binascii.unhexlify(keys[cur_token][sender][target])</span><br></pre></td></tr></table></figure>
+<p>这其实就是共享密钥，而在exchange的过程里可以看到，共享密钥Kab其实是被附加在了消息最后面的，所以解题其实就是：</p>
+<ul>
+<li>用A/B当作token</li>
+<li>获取所有密文，用register的key去解密他们，中间对应明文的最后16字节就是Kab</li>
+<li>用Kab解密掉sender给target的消息就可以得到flag了</li>
+</ul>
+<p>调用接口虽然我并不熟悉，但是交给gpt-4o很快就好了，然后具体交互我也就直接手动来调。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment">#A : 7fc56270e7a70fa8</span></span><br><span class="line"><span class="comment">#B : 9d5ed678fe57bcca</span></span><br><span class="line"><span class="comment">#S : 5dbc98dcc983a707</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置服务器地址和端口</span></span><br><span class="line">base_url = <span class="string">&#x27;http://8.147.133.9:44180&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注册并获取token和key_to_server</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">register</span>(<span class="params">token</span>):</span><br><span class="line">    response = requests.get(<span class="string">f&#x27;<span class="subst">&#123;base_url&#125;</span>/register&#x27;</span>, params=&#123;<span class="string">&#x27;token&#x27;</span>: token&#125;)</span><br><span class="line">    <span class="keyword">return</span> response.json()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行密钥交换</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">exchange_keys</span>(<span class="params">token</span>):</span><br><span class="line">    response = requests.get(<span class="string">f&#x27;<span class="subst">&#123;base_url&#125;</span>/A_and_B&#x27;</span>, params=&#123;<span class="string">&#x27;token&#x27;</span>: token&#125;)</span><br><span class="line">    <span class="keyword">return</span> response.json()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送消息</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_message</span>(<span class="params">token, target, message</span>):</span><br><span class="line">    response = requests.get(<span class="string">f&#x27;<span class="subst">&#123;base_url&#125;</span>/send_message&#x27;</span>, params=&#123;<span class="string">&#x27;token&#x27;</span>: token, <span class="string">&#x27;to&#x27;</span>: target, <span class="string">&#x27;message&#x27;</span>: message&#125;)</span><br><span class="line">    <span class="keyword">return</span> response.json()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看历史记录</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">view_history</span>(<span class="params">token</span>):</span><br><span class="line">    response = requests.get(<span class="string">f&#x27;<span class="subst">&#123;base_url&#125;</span>/view_history&#x27;</span>, params=&#123;<span class="string">&#x27;token&#x27;</span>: token&#125;)</span><br><span class="line">    <span class="keyword">return</span> response.json()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送flag</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_flag</span>(<span class="params">token</span>):</span><br><span class="line">    response = requests.get(<span class="string">f&#x27;<span class="subst">&#123;base_url&#125;</span>/send_flag&#x27;</span>, params=&#123;<span class="string">&#x27;token&#x27;</span>: token&#125;)</span><br><span class="line">    <span class="keyword">return</span> response.json()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例脚本</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">    token = <span class="string">&quot;9d5ed678fe57bcca&quot;</span></span><br><span class="line">    <span class="comment">#token = &quot;7fc56270e7a70fa8&quot;</span></span><br><span class="line">    <span class="comment">#token = &quot;5dbc98dcc983a707&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 注册获取token和key_to_server</span></span><br><span class="line">    registration_info = register(token)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Registration Info:&#x27;</span>, registration_info)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 进行密钥交换</span></span><br><span class="line">    key_exchange_info = exchange_keys(token)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Key Exchange Info:&#x27;</span>, key_exchange_info)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 查看历史记录</span></span><br><span class="line">    history_info = view_history(token)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;History Info:&#x27;</span>, history_info)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 发送flag</span></span><br><span class="line">    flag_info = send_flag(token)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Flag Info:&#x27;</span>, flag_info)</span><br></pre></td></tr></table></figure>
+<p>对密文解密(密文不多，所以我全部爆破比较简单，不用细分究竟是谁的密文)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> libnum <span class="keyword">import</span> n2s, s2n</span><br><span class="line"></span><br><span class="line">key = <span class="string">&quot;8339eaaef837e5a463db5ad4f6fcecd1&quot;</span></span><br><span class="line">key = <span class="string">&quot;5fa11352bb62df887404c4da9a8357c9&quot;</span></span><br><span class="line"><span class="comment">#key = &quot;ae787381739c370359f7b12bc6021cf1&quot;</span></span><br><span class="line"></span><br><span class="line">C = [<span class="string">&quot;e8c3f1a327b5e67b8fc73eeb3a5d5d3f0267ce7f5b00633bebb1b1327b873afb690cbc9bfd1f862f1805772df16f05eb&quot;</span>,</span><br><span class="line"><span class="string">&quot;c9be89b28aa4da445fbe8690e199d428257eb4f5be7b2835108087e8ef6d5f0c4dbc4118920a055f87e76abcfbf902f2&quot;</span>,</span><br><span class="line"><span class="string">&quot;3deb6a1fe50b3ba49b7ce08e5ce33c7b2d22d0cee4d188a8b7fa9a997cd353409c71b7c7fa49ebe3fdf144119721b2a7&quot;</span>,</span><br><span class="line"><span class="string">&quot;5e43646a84945c72233a5f7a51fcf8cf6a9f74e17f4c899d666d0c27f55f930913637ecbfa69cd97b5774c470c50e058&quot;</span>,</span><br><span class="line"><span class="string">&quot;3b9d8cf65eeec7956660f9bac04e710fbef82065120926bae37041ad3460b11d4f81579434273ac9e49c308f5df991d9&quot;</span>,</span><br><span class="line"><span class="string">&quot;5f2b46a3aa41433dc88de139f3a32eb462d15dfa750f7e5dfc7ae8e2d67966c18a783ff0ed3e241e6ccb4b37bdd38d29&quot;</span>,</span><br><span class="line"><span class="string">&quot;09f03deb81a541443a5fb66e4b1c4ca24c673603217cc9eb2ad2d5307696694668a77fc9cab1ddf3d73053aec4185801&quot;</span>,</span><br><span class="line"><span class="string">&quot;99261428bb61ed97550d73927d717ec109942925568aac53863173e4e53c9674f13bca553dad82392a3dd2c64490faca&quot;</span>,</span><br><span class="line"><span class="string">&quot;61e22e0b5b4d2aab7eee244f6e8aa470b4210abcd841c01f0aea9bd0ec0b21897543fa61533606b3b4ea28d86f9eab1a&quot;</span>,</span><br><span class="line"><span class="string">&quot;d93759236bbba7c5efa7b5fad686a5f6ba93f33e5ebb0324d909e0b3d8c7749fd117228e25e42d35d3941915d009e4d9&quot;</span>,</span><br><span class="line"><span class="string">&quot;ce408bf6cc20856037caa1b451f6f978ef5169a428882628079d96452cf2534018a80d80c1324a59e5c8e5724fc00c19&quot;</span>,</span><br><span class="line"><span class="string">&quot;70b49692ac62ec96b59beb0b8b4edba250c3577aa6269e61682d60618e5c543f0e93a10599d55218a2c18308207ddbfc&quot;</span>,</span><br><span class="line"><span class="string">&quot;b3ce206d8a044792ad617ece3e9aea6d1a30904bfa7c2e93a5a9f11b94b3abc3cf8901decde3b94a3bf0be30a923549e&quot;</span>,</span><br><span class="line"><span class="string">&quot;b3aa85658b5e5c45a1e81dde4694586c178dc8abe97ed43a74d979aa708a5185cb477278ab453d9b5731de6617365576&quot;</span>,</span><br><span class="line"><span class="string">&quot;03d35cf155db4e3b0abb1983e36c0463ca466874f3bbe213066f3681754617dc6f62d0be3e14b5fb3a1eb8933b130999&quot;</span>]</span><br><span class="line"></span><br><span class="line">scheme = AES.new(binascii.unhexlify(key), AES.MODE_ECB)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> C:</span><br><span class="line">    tt = scheme.decrypt(long_to_bytes(<span class="built_in">int</span>(c,<span class="number">16</span>)))</span><br><span class="line">    keytt = tt[-<span class="number">16</span>:]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> cc <span class="keyword">in</span> C:</span><br><span class="line">        schemett = AES.new(keytt, AES.MODE_ECB)</span><br><span class="line">        flag = schemett.decrypt(long_to_bytes(<span class="built_in">int</span>(cc,<span class="number">16</span>)))</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">b&quot;flag&quot;</span> <span class="keyword">in</span> flag):</span><br><span class="line">            <span class="built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;7aeeb90b-7cf3-4ade-9600-07a9a5f9ad0b&#125;</span></span><br></pre></td></tr></table></figure>
+<p>其实这个题目还有个很奇怪的地方在于他的hexchar多了个g，不过没啥用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hex_chars = <span class="built_in">set</span>(<span class="built_in">list</span>(<span class="string">&#x27;0123456789abcdefg&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个题目其实是一个A、B、Server三方的密钥交换，初看是个Diffie-Hellman，实际上仔细看这个过程可以发现问题就在于A、B太信任Server了，交换密钥的过程其实是双方把私钥都给Server，然后Server用发送者的私钥解密后，再用接收者的私钥加密发给接收者。</p>
+<p>这也就对应了题目描述，因为有个完全可信的第三方在密钥交换中间作用，所以一旦第三方出了什么问题整个系统就完了XD</p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<h2 id="day2"><a href="#day2" class="headerlink" title="day2"></a>day2</h2><p><br></p>
+<h3 id="古典密码"><a href="#古典密码" class="headerlink" title="古典密码"></a>古典密码</h3><p>题目：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AnU7NnR4NassOGp3BDJgAGonMaJayTwrBqZ3ODMoMWxgMnFdNqtdMTM9</span><br></pre></td></tr></table></figure>
+<p>题目一眼看上去就应该是基于base64编码做了某些加密，之所以会这样说是因为一个很重要的事实：密文长度为56，base64解码刚好长度为42，符合flag{uuid}的形式，所以一个比较自然的思路就是这可能是base64换表过后的结果。</p>
+<p>然而转成bit流过后可以发现，他并不符合uuid的如下形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;********-****-****-****-************&#125;</span><br></pre></td></tr></table></figure>
+<p>“不符合”的意思是，”-“没有出现在这几个固定的位置，也就表明这要么不是简单单表代换的码表，要么经过了置换。</p>
+<p>但是无论如何肯定是要经过base64解码的，所以先考虑对密文进行一些凯撒之类的代换，然后发现用Atbash可以解出一个经历了某种置换后的flag，然后尝试栅栏就解掉了。</p>
+<p>flag：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;b2bb0873-8cae-<span class="number">4977</span>-a6de-0e298f0744c3&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="OvO"><a href="#OvO" class="headerlink" title="OvO"></a>OvO</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">I can only give you my partial e.</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">nbits = <span class="number">512</span></span><br><span class="line">p = getPrime(nbits)</span><br><span class="line">q = getPrime(nbits)</span><br><span class="line">n = p * q</span><br><span class="line">phi = (p-<span class="number">1</span>) * (q-<span class="number">1</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    kk = getPrime(<span class="number">128</span>)</span><br><span class="line">    rr = kk + <span class="number">2</span></span><br><span class="line">    e = <span class="number">65537</span> + kk * p + rr * ((p+<span class="number">1</span>) * (q+<span class="number">1</span>)) + <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> gcd(e, phi) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line">c = <span class="built_in">pow</span>(m, e, n)</span><br><span class="line"></span><br><span class="line">e = e &gt;&gt; <span class="number">200</span> &lt;&lt; <span class="number">200</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;n = <span class="subst">&#123;n&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;e = <span class="subst">&#123;e&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;c = <span class="subst">&#123;c&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">n = 111922722351752356094117957341697336848130397712588425954225300832977768690114834703654895285440684751636198779555891692340301590396539921700125219784729325979197290342352480495970455903120265334661588516182848933843212275742914269686197484648288073599387074325226321407600351615258973610780463417788580083967</span></span><br><span class="line"><span class="string">e = 37059679294843322451875129178470872595128216054082068877693632035071251762179299783152435312052608685562859680569924924133175684413544051218945466380415013172416093939670064185752780945383069447693745538721548393982857225386614608359109463927663728739248286686902750649766277564516226052064304547032760477638585302695605907950461140971727150383104</span></span><br><span class="line"><span class="string">c = 14999622534973796113769052025256345914577762432817016713135991450161695032250733213228587506601968633155119211807176051329626895125610484405486794783282214597165875393081405999090879096563311452831794796859427268724737377560053552626220191435015101496941337770496898383092414492348672126813183368337602023823</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>题目e的生成过程是：</p>
+<script type="math/tex; mode=display">
+e = 65537 + ap + (a+2)(n+p+q+1) + 1</script><p>其中a就是题目的kk，这里方便看写成这样。</p>
+<p>题目隐藏了e的低200位，然而从上面式子可以看出，e的主要大小来自于an，所以有：</p>
+<script type="math/tex; mode=display">
+e_h \approx (a+2)n</script><p>所以做个整除就可以得到a+2的值也就是rr，然后也就自然有了kk的值，然后代回e的式子有：</p>
+<script type="math/tex; mode=display">
+e_hq \approx 65537q + an + (a+2)(nq+n+q^2+q) + q</script><p>然后就可以在实数域上解出q的高位，之后copper就行。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = <span class="number">111922722351752356094117957341697336848130397712588425954225300832977768690114834703654895285440684751636198779555891692340301590396539921700125219784729325979197290342352480495970455903120265334661588516182848933843212275742914269686197484648288073599387074325226321407600351615258973610780463417788580083967</span></span><br><span class="line">e = <span class="number">37059679294843322451875129178470872595128216054082068877693632035071251762179299783152435312052608685562859680569924924133175684413544051218945466380415013172416093939670064185752780945383069447693745538721548393982857225386614608359109463927663728739248286686902750649766277564516226052064304547032760477638585302695605907950461140971727150383104</span></span><br><span class="line">c = <span class="number">14999622534973796113769052025256345914577762432817016713135991450161695032250733213228587506601968633155119211807176051329626895125610484405486794783282214597165875393081405999090879096563311452831794796859427268724737377560053552626220191435015101496941337770496898383092414492348672126813183368337602023823</span></span><br><span class="line">e1 = e</span><br><span class="line"></span><br><span class="line">kk = e//n - <span class="number">2</span></span><br><span class="line">rr = kk + <span class="number">2</span></span><br><span class="line"></span><br><span class="line">PR.&lt;q&gt; = PolynomialRing(RealField(<span class="number">1000</span>))</span><br><span class="line">f = <span class="number">65537</span>*q + kk * n + rr*(n*q+q^<span class="number">2</span>+n+q) + <span class="number">1</span>*q - e*q</span><br><span class="line">res = f.roots()</span><br><span class="line"></span><br><span class="line">qh = <span class="built_in">int</span>(res[<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">f = qh + x</span><br><span class="line">res = f.small_roots(X=<span class="number">2</span>^<span class="number">210</span>,beta=<span class="number">0.499</span>,epsilon = <span class="number">0.03</span>)</span><br><span class="line"></span><br><span class="line">q = GCD(qh+<span class="built_in">int</span>(res[<span class="number">0</span>]),n)</span><br><span class="line">p = n // q</span><br><span class="line"></span><br><span class="line">kk = e1//n - <span class="number">2</span></span><br><span class="line">rr = kk + <span class="number">2</span></span><br><span class="line">e = <span class="number">65537</span> + kk * p + rr * ((p+<span class="number">1</span>) * (q+<span class="number">1</span>)) + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(<span class="built_in">pow</span>(c,inverse(e,(p-<span class="number">1</span>)*(q-<span class="number">1</span>)),n))))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;b5f771c6-18df-49a9-9d6d-ee7804f5416c&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="ezrsa"><a href="#ezrsa" class="headerlink" title="ezrsa"></a>ezrsa</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这又是考了一万遍的RSA部分私钥泄露攻击，但这次可不太一样哦。</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line">key = RSA.generate(<span class="number">1024</span>)</span><br><span class="line">passphrase = <span class="built_in">str</span>(random.randint(<span class="number">0</span>,<span class="number">999999</span>)).zfill(<span class="number">6</span>).encode()</span><br><span class="line">output = key.export_key(passphrase=passphrase).split(<span class="string">b&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">7</span>, <span class="number">15</span>):</span><br><span class="line">    output[i] = <span class="string">b&#x27;*&#x27;</span> * <span class="number">64</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;priv.pem&quot;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> output:</span><br><span class="line">        f.write(line + <span class="string">b&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;enc.txt&quot;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(<span class="built_in">str</span>(key._encrypt(m)))</span><br></pre></td></tr></table></figure>
+<p>pem：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">Proc-<span class="type">Type</span>: <span class="number">4</span>,ENCRYPTED</span><br><span class="line">DEK-Info: DES-EDE3-CBC,435BF84C562FE793</span><br><span class="line"></span><br><span class="line">9phAgeyjnJYZ6lgLYflgduBQjdX+V/Ph/fO8QB2ZubhBVOFJMHbwHbtgBaN3eGlh</span><br><span class="line">WiEFEdQWoOFvpip0whr4r7aGOhavWhIfRjiqfQVcKZx4/f02W4pcWVYo9/p3otdD</span><br><span class="line">ig+kofIR9Ky8o9vQk7H1eESNMdq3PPmvd7KTE98ZPqtIIrjbSsJ9XRL+gr5a91gH</span><br><span class="line">****************************************************************</span><br><span class="line">****************************************************************</span><br><span class="line">****************************************************************</span><br><span class="line">****************************************************************</span><br><span class="line">****************************************************************</span><br><span class="line">****************************************************************</span><br><span class="line">****************************************************************</span><br><span class="line">****************************************************************</span><br><span class="line">hQds7ZdA9yv+yKUYv2e4de8RxX356wYq7r8paBHPXisOkGIVEBYNviMSIbgelkSI</span><br><span class="line">jLQka+ZmC2YOgY/DgGJ82JmFG8mmYCcSooGL4ytVUY9dZa1khfhceg==</span><br><span class="line">-----END RSA PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+<p>题目泄露了RSA部分私钥信息，对私钥文件熟悉一点的应该知道泄露的部分应该含有：</p>
+<ul>
+<li>n</li>
+<li>e</li>
+<li>qinvp</li>
+</ul>
+<p>然而私钥文件是用3DES加密过的，不过密钥的范围很小，所以可以用私钥文件的标记符、长度类型等作为判断依据去解密，从而把密钥爆破出来是483584，这一部分细节用gpt就好了。</p>
+<p>由于这个加密是CBC的，所以依次解密出来后，可以发现正确的值不仅有n、e、qinvp，还有dq的部分LSB，一个分组是8字节，去掉后面的长度标识0240后还剩48bit，所以相当于是要利用这些信息把n分解出来。</p>
+<p>由于有：</p>
+<script type="math/tex; mode=display">
+ed_q = 1 + k_1(q-1)</script><p>把qinvp记为y，那么又有：</p>
+<script type="math/tex; mode=display">
+yq = 1 + k_2p</script><p>所以有：</p>
+<script type="math/tex; mode=display">
+yq^2 - q = k_2n</script><p>也就是：</p>
+<script type="math/tex; mode=display">
+yq^2 - q = 0 \quad(mod\;n)</script><p>然后把两个式子按如下推导过程联立起来</p>
+<script type="math/tex; mode=display">
+(ed_q - 1+ k_1)  = k_1q</script><script type="math/tex; mode=display">
+yk_1^2q^2 - k_1^2q = 0 \quad(mod\;n)</script><script type="math/tex; mode=display">
+y(ed_q - 1+ k_1)^2 - k_1(ed_q - 1+ k_1) = 0 \quad(mod\;n)</script><p>然后把dq拆成低位和高位表示就可以copper出dq了，由于是模n下的二次方程，所以beta取1，epsilon自己测一测发现0.09就可以出，比较宽松。</p>
+<p>然后就开始爆破，得到n的分解后直接把加密的encrypt改成decrypt就行。</p>
+<p>提数据：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> DES3</span><br><span class="line"><span class="keyword">from</span> Crypto.Protocol.KDF <span class="keyword">import</span> PBKDF1</span><br><span class="line"><span class="keyword">from</span> Crypto.Hash <span class="keyword">import</span> MD5</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取被部分遮盖的私钥文件内容</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&quot;D:\CTF_challs\py\crypto\test\pri.txt&quot;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    encrypted_key_data = f.read()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从文件内容中提取加密信息部分</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">extract_encryption_info</span>(<span class="params">encrypted_key_data</span>):</span><br><span class="line">    lines = encrypted_key_data.split(<span class="string">b&#x27;\n&#x27;</span>)</span><br><span class="line">    proc_type = lines[<span class="number">1</span>].decode()</span><br><span class="line">    dek_info = lines[<span class="number">2</span>].decode()</span><br><span class="line">    iv_hex = dek_info.split(<span class="string">&#x27;,&#x27;</span>)[<span class="number">1</span>]</span><br><span class="line">    iv = <span class="built_in">bytes</span>.fromhex(iv_hex)</span><br><span class="line">    encrypted_data = <span class="string">b&#x27;\n&#x27;</span>.join(lines[<span class="number">4</span>:-<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">return</span> iv, encrypted_data</span><br><span class="line"></span><br><span class="line">iv, encrypted_data_base64 = extract_encryption_info(encrypted_key_data)</span><br><span class="line">encrypted_data = base64.b64decode(encrypted_data_base64)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解密已知部分</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decrypt_known_part</span>(<span class="params">encrypted_key_data, passphrase</span>):</span><br><span class="line">    salt = <span class="built_in">bytes</span>.fromhex(<span class="string">&quot;435BF84C562FE793&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 派生密钥</span></span><br><span class="line">    key = PBKDF1(passphrase, salt, <span class="number">16</span>, <span class="number">1</span>, MD5)</span><br><span class="line">    key += PBKDF1(key + passphrase, salt, <span class="number">8</span>, <span class="number">1</span>, MD5)</span><br><span class="line">    objenc = DES3.new(key, DES3.MODE_CBC, salt)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 解密数据</span></span><br><span class="line">    decrypted_data = objenc.decrypt(encrypted_data)</span><br><span class="line">    <span class="keyword">return</span> decrypted_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 爆破出的密码</span></span><br><span class="line"><span class="comment">#i = 483584</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">1000000</span>):</span><br><span class="line">    passphrase = <span class="built_in">str</span>(i).zfill(<span class="number">6</span>).encode()</span><br><span class="line"></span><br><span class="line">    decrypted_data = decrypt_known_part(encrypted_key_data, passphrase)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出解密后的数据</span></span><br><span class="line">    tt = decrypted_data.<span class="built_in">hex</span>()</span><br><span class="line">    <span class="keyword">if</span>(tt[:<span class="number">4</span>] == <span class="string">&quot;3082&quot;</span> <span class="keyword">and</span> tt[<span class="number">8</span>:<span class="number">12</span>] == <span class="string">&quot;0201&quot;</span>):</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">        <span class="built_in">print</span>(tt)</span><br></pre></td></tr></table></figure>
+<p>爆破得到p、q、d：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> PKCS1_OAEP</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = <span class="number">0x00a18f011bebacceda1c6812730b9e62720d3cbd6857af2cf8431860f5dc83c5520f242f3be7c9e96d7f96b41898ff000fdb7e43ef6f1e717b2b7900f35660a21d1b16b51849be97a0b0f7cbcf5cfe0f00370cce6193fefa1fed97b37bd367a673565162ce17b0225708c032961d175bbc2c829bf2e16eabc7e0881feca0975c81</span></span><br><span class="line">e = <span class="number">0x010001</span></span><br><span class="line">dqlow = <span class="number">0x8f2363b340e5</span></span><br><span class="line">y = <span class="number">0x5f152c429871a7acdd28be1b643b4652800b88a3d23cc57477d75dd5555b635167616ef5c609d69ce3c2aedcb03b62f929bbcd891cadc0ba031ae6fec8a2116d</span></span><br><span class="line">c = <span class="number">55149764057291700808946379593274733093556529902852874590948688362865310469901900909075397929997623185589518643636792828743516623112272635512151466304164301360740002369759704802706396320622342771513106879732891498365431042081036698760861996177532930798842690295051476263556258192509634233232717503575429327989</span></span><br><span class="line">T = <span class="number">48</span></span><br><span class="line"></span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">dq = (<span class="number">2</span>^T * x) + dqlow</span><br><span class="line"></span><br><span class="line"><span class="comment">#k = 47793</span></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> trange(<span class="number">1</span>,e):</span><br><span class="line">    f = y * (e*(<span class="number">2</span>^T*x+dqlow) - <span class="number">1</span> + k)^<span class="number">2</span> - k * (e*(<span class="number">2</span>^T*x+dqlow) - <span class="number">1</span> + k)</span><br><span class="line">    f = f.monic()</span><br><span class="line">    root = f.small_roots(X=<span class="number">2</span>^(<span class="number">512</span>-T) , beta=<span class="number">1</span> , epsilon = <span class="number">0.09</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(root) &gt; <span class="number">0</span>:</span><br><span class="line">        dq = <span class="built_in">int</span>(root[<span class="number">0</span>]) * <span class="number">2</span> ** T + dqlow</span><br><span class="line">        q = <span class="built_in">int</span>((e * dq - <span class="number">1</span>) // k + <span class="number">1</span>)</span><br><span class="line">        p = n // q</span><br><span class="line">        phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">        d = inverse(e,phi)</span><br><span class="line">        <span class="built_in">print</span>(p)</span><br><span class="line">        <span class="built_in">print</span>(q)</span><br><span class="line">        <span class="built_in">print</span>(d)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>解密：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = <span class="number">0x00a18f011bebacceda1c6812730b9e62720d3cbd6857af2cf8431860f5dc83c5520f242f3be7c9e96d7f96b41898ff000fdb7e43ef6f1e717b2b7900f35660a21d1b16b51849be97a0b0f7cbcf5cfe0f00370cce6193fefa1fed97b37bd367a673565162ce17b0225708c032961d175bbc2c829bf2e16eabc7e0881feca0975c81</span></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line">c = <span class="number">55149764057291700808946379593274733093556529902852874590948688362865310469901900909075397929997623185589518643636792828743516623112272635512151466304164301360740002369759704802706396320622342771513106879732891498365431042081036698760861996177532930798842690295051476263556258192509634233232717503575429327989</span></span><br><span class="line"></span><br><span class="line">p = <span class="number">10213829782024783545003297323361767013228142222661257002530956057551073950125450516695912589649595025698368560123447098557641941486430202994513499791955563</span></span><br><span class="line">q = <span class="number">11107519606798680785942597947927519480577762449720497374074609255590791207245332471170853195963310484826166823128414767323512303499706409040252972314205123</span></span><br><span class="line">d = <span class="number">32568689720517858814151927924698911469201163379749439724046356179518636186738524911873950449535627591530406776789440933434109620957137686406555998252715892086026220190607953957244199087250288903156876788032090718571241138221031510167062533558325992673659974554410983740088712469431483844336784080065875265881</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">key = RSA.construct((n,e,d,p,q))</span><br><span class="line">flag = key._decrypt(c)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(flag))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;df4a4054-23eb-4ba4-be5e-15b247d7b819&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/9e021283.html" title="2024-CISCN-wp-crypto">https://tangcuxiaojikuai.xyz/post/9e021283.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/d35dc1e9.html" rel="prev" title="2024-H&NCTF-Iso-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2024-H&NCTF-Iso-wp-crypto
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/9b3c95d4.html" rel="next" title="最近更新">
+      最近更新 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#day1"><span class="nav-number">1.</span> <span class="nav-text">day1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hash"><span class="nav-number">1.1.</span> <span class="nav-text">hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#what-mouth"><span class="nav-number">1.2.</span> <span class="nav-text">what mouth</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#day2"><span class="nav-number">2.</span> <span class="nav-text">day2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%A4%E5%85%B8%E5%AF%86%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">古典密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OvO"><span class="nav-number">2.2.</span> <span class="nav-text">OvO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ezrsa"><span class="nav-number">2.3.</span> <span class="nav-text">ezrsa</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
