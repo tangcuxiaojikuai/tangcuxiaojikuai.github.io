@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="XD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024-ByteCTF-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/c2c51200.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="XD">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/c2c51200/image-20240921232506724.png">
+<meta property="article:published_time" content="2024-09-23T03:05:52.000Z">
+<meta property="article:modified_time" content="2024-09-23T04:43:41.419Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/c2c51200/image-20240921232506724.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/c2c51200.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2024-ByteCTF-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/c2c51200.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024-ByteCTF-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-09-23 11:05:52 / 修改时间：12:43:41" itemprop="dateCreated datePublished" datetime="2024-09-23T11:05:52+08:00">2024-09-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/c2c51200.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/c2c51200.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>XD</p>
+<span id="more"></span>
+<h3 id="magic-lfsr"><a href="#magic-lfsr" class="headerlink" title="magic_lfsr"></a>magic_lfsr</h3><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.Padding <span class="keyword">import</span> pad</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha512</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">mask1 = <span class="number">211151158277430590850506190902325379931</span></span><br><span class="line">mask2 = <span class="number">314024231732616562506949148198103849397</span></span><br><span class="line">mask3 = <span class="number">175840838278158851471916948124781906887</span></span><br><span class="line">mask4 = <span class="number">270726596087586267913580004170375666103</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">lfsr</span>(<span class="params">R, mask</span>):</span><br><span class="line">    R_bin = [<span class="built_in">int</span>(b) <span class="keyword">for</span> b <span class="keyword">in</span> <span class="built_in">bin</span>(R)[<span class="number">2</span>:].zfill(<span class="number">128</span>)]</span><br><span class="line">    mask_bin = [<span class="built_in">int</span>(b) <span class="keyword">for</span> b <span class="keyword">in</span> <span class="built_in">bin</span>(mask)[<span class="number">2</span>:].zfill(<span class="number">128</span>)]</span><br><span class="line">    s = <span class="built_in">sum</span>([R_bin[i] * mask_bin[i] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>)]) &amp; <span class="number">1</span></span><br><span class="line">    R_bin = [s] + R_bin[:-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">int</span>(<span class="string">&quot;&quot;</span>.join(<span class="built_in">map</span>(<span class="built_in">str</span>, R_bin)), <span class="number">2</span>), s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ff</span>(<span class="params">x0, x1, x2, x3</span>):</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">int</span>(sha512(long_to_bytes(x0 * x2 + x0 + x1**<span class="number">4</span> + x3**<span class="number">5</span> + x0 * x1 * x2 * x3 + (x1 * x3) ** <span class="number">4</span>)).hexdigest(), <span class="number">16</span>) &amp; <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">round</span>(<span class="params">R, R1_mask, R2_mask, R3_mask, R4_mask</span>):</span><br><span class="line">    out = <span class="number">0</span></span><br><span class="line">    R1_NEW, _ = lfsr(R, R1_mask)</span><br><span class="line">    R2_NEW, _ = lfsr(R, R2_mask)</span><br><span class="line">    R3_NEW, _ = lfsr(R, R3_mask)</span><br><span class="line">    R4_NEW, _ = lfsr(R, R4_mask)</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">270</span>):</span><br><span class="line">        R1_NEW, x1 = lfsr(R1_NEW, R1_mask)</span><br><span class="line">        R2_NEW, x2 = lfsr(R2_NEW, R2_mask)</span><br><span class="line">        R3_NEW, x3 = lfsr(R3_NEW, R3_mask)</span><br><span class="line">        R4_NEW, x4 = lfsr(R4_NEW, R4_mask)</span><br><span class="line">        out = (out &lt;&lt; <span class="number">1</span>) + ff(x1, x2, x3, x4)</span><br><span class="line">    <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">key = getRandomNBitInteger(<span class="number">128</span>)</span><br><span class="line">out = <span class="built_in">round</span>(key, mask1, mask2, mask3, mask4)</span><br><span class="line">cipher = AES.new(long_to_bytes(key), mode=AES.MODE_ECB)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;out = <span class="subst">&#123;out&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;enc = <span class="subst">&#123;cipher.encrypt(pad(flag, <span class="number">16</span>))&#125;</span>&quot;</span>)</span><br><span class="line"><span class="comment"># out = 1024311481407054984168503188572082106228007820628496173132204098971130766468510095</span></span><br><span class="line"><span class="comment"># enc = b&#x27;\r\x9du\xa15q\xd2\x81\x0b\xceq2\x8d)*\xe9\xf0;a\xad\xbe?\xa2\xb2\x1f\x88O\x8c\xa2[\xcb\x9a\xa9\x8d\xac\x0b\x85\xb4j@]\x0e&#125;EF&#123;\xb1\x91&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>题目基于LFSR，随机生成128bit的key作为初始state，并用相同的key和四个不同的mask共同初始化四个不同的lfsr，之后给出270组combine过的lfsr，要求还原key来解AES，其中combine过程是这样的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">ff</span>(<span class="params">x0, x1, x2, x3</span>):</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">int</span>(sha512(long_to_bytes(x0 * x2 + x0 + x1**<span class="number">4</span> + x3**<span class="number">5</span> + x0 * x1 * x2 * x3 + (x1 * x3) ** <span class="number">4</span>)).hexdigest(), <span class="number">16</span>) &amp; <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>这种combine的LFSR肯定首先需要测一下相关性，测试发现输出和四个lfsr的相关性分别是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">7</span>/<span class="number">16</span></span><br><span class="line"><span class="number">9</span>/<span class="number">16</span></span><br><span class="line"><span class="number">7</span>/<span class="number">16</span></span><br><span class="line"><span class="number">9</span>/<span class="number">16</span></span><br></pre></td></tr></table></figure>
+<p>既然有相关性，比较自然的会想到correlation attack，然而由于key有128bit，所以直接用correlation attack需要爆2^128，显然不太可能，所以要用也得用fast correlation attack可能才行。</p>
+<p>这个时候觉得完了，因为fast correlation attack我真的还没有学会，也从来没有真正意义上的自己调用过，所以想着多半是打不出了。</p>
+<p>然而细看一下发现了一个盲点：给出的数据只有270组，怎么想都调fast correlation attack估计都是不够用的，所以应该是其他方法。这个时候想到了前不久HitconCTF学到的一个零化子的思路，可以参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.tanglee.top/2024/07/15/HITCON-CTF-2024-Qual-Crypto-Writeup.html#hyper512">HITCON CTF 2024 Qual Crypto Writeup - Tanglee’s Blog</a></p>
+<p>首先用sage求整个combine过程的真值表，并转化为一个简单一些的布尔函数看看形式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sage.crypto.boolean_function <span class="keyword">import</span> BooleanFunction</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha512</span><br><span class="line"></span><br><span class="line">F = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> product([<span class="number">0</span>,<span class="number">1</span>],repeat=<span class="number">4</span>):</span><br><span class="line">    x0,x1,x2,x3 = i</span><br><span class="line">    bit = (<span class="built_in">int</span>(sha512(long_to_bytes(x0 * x2 + x0 + x1**<span class="number">4</span> + x3**<span class="number">5</span> + x0 * x1 * x2 * x3 + (x1 * x3) ** <span class="number">4</span>)).hexdigest(), <span class="number">16</span>) &amp; <span class="number">1</span>)</span><br><span class="line">    F.append(bit)</span><br><span class="line"></span><br><span class="line">f = BooleanFunction(F).algebraic_normal_form()</span><br><span class="line"><span class="built_in">print</span>(f)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x0*x1*x2*x3 + x0*x1*x3 + x0 + x1*x2*x3 + x1*x3 + x2 + x3</span><br></pre></td></tr></table></figure>
+<p>如果我们能找到另一个布尔函数g使得下式恒成立：</p>
+<script type="math/tex; mode=display">
+fg = 0</script><p>称这样的g为annihilator，那么我们就可以得到一个事实：当f为1的时候g一定为0。而这样的g可以用如下的方式找到：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g = BooleanFunction(F).algebraic_immunity(annihilator = <span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(g)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>, x0 + x2 + x3 + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>其中第二个返回值就是g，第一个返回值是g的degree。既然g的degree是1，这也就是说对于output中为1的地方，我们都可以拥有一个不含x1的线性等式是：</p>
+<script type="math/tex; mode=display">
+x_0 \oplus x_2 \oplus x_3 = 1</script><blockquote>
+<p>实际上测出来上面的多项式似乎应该反过来才对，也就是：</p>
+<script type="math/tex; mode=display">
+x_0 \oplus x_1 \oplus x_3 = 1</script></blockquote>
+<p>而由于四个LFSR的每个状态其实都是初始key的线性组合，比如对于LFSR1，其迭代过程可以写成一个线性等式：</p>
+<script type="math/tex; mode=display">
+\left(
+ \begin{matrix}
+M&A&S&K&1\\
+1&0&0&\cdots&0\\
+0&1&0&\cdots&0\\
+0&0&1&\cdots&0\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&1\\
+  \end{matrix}
+\right)
+
+\left(
+ \begin{matrix}
+s_0\\
+s_1\\
+s_2\\
+\vdots\\
+s_{127}
+  \end{matrix}
+\right)
+=
+\left(
+ \begin{matrix}
+s_{128}\\
+s_{0}\\
+s_1\\
+\vdots\\
+s_{126}
+  \end{matrix}
+\right)</script><p>那么记初始状态R和递推矩阵Li如下：</p>
+<script type="math/tex; mode=display">
+R = (key_0,key_1,...,key_{127})</script><script type="math/tex; mode=display">
+L_i = 
+\left(
+ \begin{matrix}
+M&A&S&K&i\\
+1&0&0&\cdots&0\\
+0&1&0&\cdots&0\\
+0&0&1&\cdots&0\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&1\\
+  \end{matrix}
+\right)</script><p>那假如output的第i个bit是1的话，其实就代表着如下线性等式成立：</p>
+<script type="math/tex; mode=display">
+(L_1^iR + L_2^iR + L_4^iR)_{0} = 1</script><blockquote>
+<p>下标0指得到向量的第一个值</p>
+</blockquote>
+<p>因此output每有一个bit，我们就可以搜集到关于初始状态R的128个bit的线性等式。而实际上output共有127个bit，所以可以搜集到127组等式，虽然还是不满秩，但是小爆一下kernel就可以找到key了。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sage.crypto.boolean_function <span class="keyword">import</span> BooleanFunction</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha512</span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################### part1 find annihilator g</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    F = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> product([<span class="number">0</span>,<span class="number">1</span>],repeat=<span class="number">4</span>):</span><br><span class="line">        x0,x1,x2,x3 = i</span><br><span class="line">        bit = (<span class="built_in">int</span>(sha512(long_to_bytes(x0 * x2 + x0 + x1**<span class="number">4</span> + x3**<span class="number">5</span> + x0 * x1 * x2 * x3 + (x1 * x3) ** <span class="number">4</span>)).hexdigest(), <span class="number">16</span>) &amp; <span class="number">1</span>)</span><br><span class="line">        F.append(bit)</span><br><span class="line"></span><br><span class="line">    f = BooleanFunction(F).algebraic_normal_form()</span><br><span class="line">    <span class="built_in">print</span>(f)</span><br><span class="line">    g = BooleanFunction(F).algebraic_immunity(annihilator = <span class="literal">True</span>)</span><br><span class="line">    <span class="built_in">print</span>(g)</span><br><span class="line">    <span class="comment">#we have:</span></span><br><span class="line">    <span class="comment">#if(ff(x0, x1, x2, x3) == 1):</span></span><br><span class="line">    <span class="comment">#    assert (x0 + x1 + x3 + 1) &amp; 1 == 0</span></span><br><span class="line">    <span class="comment">#that is: x0 + x1 + x3 == 1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################### part2 convert lfsr to matrix</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">LFSR_to_MAT</span>(<span class="params">mask</span>):</span><br><span class="line">    temp = <span class="built_in">bin</span>(mask)[<span class="number">2</span>:].zfill(<span class="number">128</span>)</span><br><span class="line">    MAT = Matrix(Zmod(<span class="number">2</span>), <span class="number">128</span>, <span class="number">128</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">127</span>):</span><br><span class="line">        MAT[i+<span class="number">1</span>,i] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">        MAT[<span class="number">0</span>,i] = <span class="built_in">int</span>(temp[i])</span><br><span class="line">    <span class="keyword">return</span> MAT</span><br><span class="line">mask1 = <span class="number">211151158277430590850506190902325379931</span></span><br><span class="line">mask2 = <span class="number">314024231732616562506949148198103849397</span></span><br><span class="line">mask3 = <span class="number">175840838278158851471916948124781906887</span></span><br><span class="line">mask4 = <span class="number">270726596087586267913580004170375666103</span></span><br><span class="line">LFSR1, LFSR2, LFSR3, LFSR4 = LFSR_to_MAT(mask1), LFSR_to_MAT(mask2), LFSR_to_MAT(mask3), LFSR_to_MAT(mask4)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################### part3 solve linear equation</span></span><br><span class="line">out = <span class="number">1024311481407054984168503188572082106228007820628496173132204098971130766468510095</span></span><br><span class="line">enc = <span class="string">b&#x27;\r\x9du\xa15q\xd2\x81\x0b\xceq2\x8d)*\xe9\xf0;a\xad\xbe?\xa2\xb2\x1f\x88O\x8c\xa2[\xcb\x9a\xa9\x8d\xac\x0b\x85\xb4j@]\x0e&#125;EF&#123;\xb1\x91&#x27;</span></span><br><span class="line">out = <span class="built_in">bin</span>(out)[<span class="number">2</span>:].zfill(<span class="number">270</span>)</span><br><span class="line"></span><br><span class="line">L = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(out)):</span><br><span class="line">    <span class="keyword">if</span>(out[i] == <span class="string">&quot;1&quot;</span>):</span><br><span class="line">        L.append((LFSR1^(i+<span class="number">2</span>) + LFSR2^(i+<span class="number">2</span>) + LFSR4^(i+<span class="number">2</span>))[<span class="number">0</span>])</span><br><span class="line">L = Matrix(Zmod(<span class="number">2</span>), L)</span><br><span class="line">M = L.solve_right(vector(Zmod(<span class="number">2</span>), [<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(out.count(<span class="string">&quot;1&quot;</span>))]))</span><br><span class="line"></span><br><span class="line">key = M + L.right_kernel().basis()[<span class="number">0</span>]</span><br><span class="line">key = <span class="built_in">int</span>(<span class="string">&quot;&quot;</span>.join(<span class="built_in">map</span>(<span class="built_in">str</span>,key)),<span class="number">2</span>)</span><br><span class="line">cipher = AES.new(long_to_bytes(key), mode=AES.MODE_ECB)</span><br><span class="line">flag = cipher.decrypt(enc)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#ByteCTF&#123;8a58eccb-a3b0-4064-bd26-15d475ebe2d1&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="decipher-Diffie-Hellman"><a href="#decipher-Diffie-Hellman" class="headerlink" title="*decipher Diffie-Hellman"></a>*decipher Diffie-Hellman</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">程序加密过程中忘记了键盘输入的内容，请根据已知的信息破译出flag</span><br></pre></td></tr></table></figure>
+<p>hint：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有限空间爆破</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, long_to_bytes</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.Padding <span class="keyword">import</span> pad</span><br><span class="line"><span class="keyword">from</span> libnum <span class="keyword">import</span> s2n</span><br><span class="line"></span><br><span class="line">flag = <span class="string">r&quot;ByteCTF&#123;******&#125;&quot;</span></span><br><span class="line">g = <span class="number">5</span></span><br><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line">a = random.randrange(<span class="number">2</span>, p - <span class="number">1</span>)</span><br><span class="line">A = <span class="built_in">pow</span>(g, a, p)</span><br><span class="line"></span><br><span class="line">al = getPrime(<span class="number">512</span>)</span><br><span class="line">m = getPrime(<span class="number">512</span>)</span><br><span class="line">s = getPrime(<span class="number">512</span>)</span><br><span class="line"></span><br><span class="line">outputs = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    s = (al * s + p) % m</span><br><span class="line">    outputs.append(s)</span><br><span class="line"></span><br><span class="line">key_int = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;Input my public key?\n&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">not</span> <span class="number">1</span> &lt; key_int &lt; (p - <span class="number">1</span>):</span><br><span class="line">    key_int = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;Input correct format public key again between 2 to p-1\n&quot;</span>))</span><br><span class="line">dh_key = <span class="built_in">pow</span>(key_int, a, p)</span><br><span class="line">key = hashlib.md5(long_to_bytes(dh_key)).digest()</span><br><span class="line">cipher = AES.new(key, AES.MODE_ECB)</span><br><span class="line">enc = cipher.encrypt(pad(flag.encode(), <span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;al = &quot;</span>, al)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;m = &quot;</span>, m)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ouputs[4] = &quot;</span>, outputs[<span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ouputs[5] = &quot;</span>, outputs[<span class="number">5</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;encrypted flag: <span class="subst">&#123;s2n(enc)&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">al =  6987418709836280122539809582453286069061059342934250273196952239100173470340380619195424571025033102643293098735246498899499230393741046775729762352856927</span></span><br><span class="line"><span class="string">m =  12710688490958956530748900564817776351569320915377221868023985388799130768128470437062609956810086256451091702161476567347660442541036645863742363823898071</span></span><br><span class="line"><span class="string">ouputs[4] =  2728757049131678605235016854422985829565908585923048338298110282069173390888632945247368807787912947016658675182897909709569230885213734719022623969520979</span></span><br><span class="line"><span class="string">ouputs[5] =  3753895881656195471988191329401971327506920732845692422476480236229772053653896503280676494663976886598118940522017209044648665134625067341824484655112146</span></span><br><span class="line"><span class="string">encrypted flag: 4421203891267550791983036920779652137711362976404304304369030116210000459547739643046609216016679658345753605804218976790719901924890550963123070032471900</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/post/c2c51200/image-20240921232506724.png" alt="image-20240921232506724"></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/c2c51200.html" title="2024-ByteCTF-wp-crypto">https://tangcuxiaojikuai.xyz/post/c2c51200.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/6d3f5803.html" rel="prev" title="2024-江西省第三届天使杯网络安全技能大赛线上预选赛-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2024-江西省第三届天使杯网络安全技能大赛线上预选赛-wp-crypto
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/9b3c95d4.html" rel="next" title="最近更新">
+      最近更新 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#magic-lfsr"><span class="nav-number">1.</span> <span class="nav-text">magic_lfsr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#decipher-Diffie-Hellman"><span class="nav-number">2.</span> <span class="nav-text">*decipher Diffie-Hellman</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">93</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
