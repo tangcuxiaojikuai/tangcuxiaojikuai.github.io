@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="不太清楚这个比赛是多久办的，不过赛后有师傅给我看了看三个基于Cubic Pell Curve的小题目，虽然难度都不高，但是这条曲线确实不算很常见，所以正好借此机会水一篇博客。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024-vyctf-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/9163155b.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="不太清楚这个比赛是多久办的，不过赛后有师傅给我看了看三个基于Cubic Pell Curve的小题目，虽然难度都不高，但是这条曲线确实不算很常见，所以正好借此机会水一篇博客。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/9163155b/image-20241106234421292.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/9163155b/image-20241106235721533.png">
+<meta property="article:published_time" content="2024-11-06T12:56:35.000Z">
+<meta property="article:modified_time" content="2024-11-06T16:09:11.825Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/9163155b/image-20241106234421292.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/9163155b.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2024-vyctf-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/9163155b.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024-vyctf-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-11-06 20:56:35" itemprop="dateCreated datePublished" datetime="2024-11-06T20:56:35+08:00">2024-11-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-07 00:09:11" itemprop="dateModified" datetime="2024-11-07T00:09:11+08:00">2024-11-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/9163155b.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/9163155b.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>不太清楚这个比赛是多久办的，不过赛后有师傅给我看了看三个基于Cubic Pell Curve的小题目，虽然难度都不高，但是这条曲线确实不算很常见，所以正好借此机会水一篇博客。</p>
+<span id="more"></span>
+<h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><p>Cubic Pell Curve方程形式如下：</p>
+<script type="math/tex; mode=display">
+x^3 + ay^3 + a^2z^3 - 3axyz - 1 = 0 \quad(mod\;N)</script><p>这条曲线登场次数不多，不过近几个月倒是见过好几回了，分别是在DASCTFxHDCTF和CryptoCTF，总之关于他的加解密可以参考：</p>
+<p><a target="_blank" rel="noopener" href="https://eprint.iacr.org/2024/385.pdf">eprint.iacr.org/2024/385.pdf</a></p>
+<p>三个题目都是一些比较常见的问题搬到了这条曲线上做实现。</p>
+<h3 id="Pell-Company’s-A-level-products"><a href="#Pell-Company’s-A-level-products" class="headerlink" title="Pell Company’s A-level products"></a>Pell Company’s A-level products</h3><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> choice</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> p, a, flag</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PellCurve</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, a, N</span>):</span><br><span class="line">        self.a = a</span><br><span class="line">        self.N = N</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, P, Q</span>):</span><br><span class="line">        <span class="keyword">if</span> P <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> Q</span><br><span class="line">        <span class="keyword">if</span> Q <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> P</span><br><span class="line">        x1, y1, z1 = P</span><br><span class="line">        x2, y2, z2 = Q</span><br><span class="line">        x3 = (x1 * x2 + self.a * (y2 * z1 + y1 * z2)) % self.N</span><br><span class="line">        y3 = (x2 * y1 + x1 * y2 + self.a * z1 * z2) % self.N</span><br><span class="line">        z3 = (y1 * y2 + x2 * z1 + x1 * z2) % self.N</span><br><span class="line">        <span class="keyword">return</span> (x3, y3, z3)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">mul</span>(<span class="params">self, P, x</span>):</span><br><span class="line">        Q = (<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">while</span> x &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> x &amp; <span class="number">1</span>:</span><br><span class="line">                Q = self.add(Q, P)</span><br><span class="line">            P = self.add(P, P)</span><br><span class="line">            x &gt;&gt;= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> Q</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">random_point</span>(<span class="params">self</span>):</span><br><span class="line">        G = ???</span><br><span class="line">        k = getRandomRange(<span class="number">1</span>, self.N)</span><br><span class="line">        <span class="keyword">return</span> self.mul(G,k)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sum</span>(<span class="params">M, curve</span>):</span><br><span class="line">    C = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> M:</span><br><span class="line">        C = curve.add(C, i)</span><br><span class="line">    <span class="keyword">return</span> C</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">E = PellCurve(a, p)</span><br><span class="line">M = [E.random_point() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>)]</span><br><span class="line">key = [choice((<span class="number">0</span>, <span class="number">1</span>)) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>)]</span><br><span class="line">c = <span class="built_in">sum</span>([E.mul(M[i], key[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>)], E)</span><br><span class="line"><span class="keyword">assert</span> flag == <span class="string">&quot;vyctf&#123;&quot;</span> + <span class="string">&quot;&quot;</span>.join(<span class="built_in">map</span>(<span class="built_in">str</span>, key)) + <span class="string">&quot;&#125;&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;M = &quot;</span>, <span class="string">f&quot;<span class="subst">&#123;M&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;c = &quot;</span>, <span class="string">f&quot;<span class="subst">&#123;c&#125;</span>&quot;</span>)</span><br><span class="line"><span class="comment"># M = [(1883517185424539320299837178282579401305938, 1229577549497465129374106153811601618552460, 2716673030362160267094735492757010227449299), (830032769678953263817386447091551727643245, 3122926093223163409007558196604022177688990, 5183507371978181226450441847254503540317696), (5425375409378014489528442925615648897738048, 5512776024931240922421849561546414305546198, 1989067703415507300306002915138935503367455), (565608994718233538569271826741929054273060, 4794771478795989838620562960237748296971765, 1094872379539573554823667505178624047033544), (4295645279315859136251000281207423856534707, 1137213853687810976454084971930331240226605, 5194105804282717231408802134970025672173519), (5002458281755986935972538524526968579330595, 1043320653358572419392693422551095404483725, 2410618104237812675284724078620827675292760), (5680304162427919657409266400275300792287945, 5409660226293604580723929354042196085709115, 5415075696625436996620126948043151726144444), (3313599527951997167196934225917767017237487, 5602085242558249324241838953979742566675049, 4577474923292493930809986162386067589788059), (2692035631782401134340951908583681363408340, 5323964889049669251814034563318488795199426, 1106906126959088308781666793569176703773519), (3195824268765202581670496580234484865276114, 541763085237474271848053866100595999937877, 6045678080274608949155708689438342303479570), (5098489958285669909618681341018009764231996, 567034184839864565296003248778574690458400, 605055075119120694583765492541266901614985), (2251482744097716376297322632987586240523579, 114184119715564412304213604850376772793551, 4456966389887242734936326288577022637469041), (2054221094423292669779015588072740246608598, 3892632738984948725535901098258157459980528, 6357005820623186627706460955279554765402165), (80110024193347778029820187633747322323398, 4648387082443987950738199662711450469706201, 3148040804470338994680520153991452725682723), (4082573729491839112867189532922635683167913, 4441124248818229713738033320126097681704036, 3396715673600612758402075301330211026958707), (3808909828889259152313552663842269993850543, 461457031589252797944507246233500479660154, 1493839442625571088404914177241595880816149), (224097468429487611116768098401758165343256, 2709136382556236720319739295968843724122805, 2659123166018517860499156226026503227290502), (4354709018406160042847643167809952850712909, 4574261325013667118560455098312021411071965, 5047075839531863146031964697090095505876591), (4186097304543875538338984376210367562929193, 3798727289507206001487250381152630247653747, 4825512562974469236444605493132118539780015), (5777063124569517486487818390439182853960573, 4661462137826823012395397607035741841182358, 2051865274158085094707210625304982572692107), (3613257770568471646486537972218125008190406, 2276179058747097484062795252569182122736697, 1732202552206982123861968799451810898425637), (4350295458903644423639049573704688724538783, 4986460189754412229454976450001740650527332, 2226186980868494288727061773697745101575014), (858771134228218804947848202094814930078715, 3473948072222638693999737352085899968537367, 3833930179936483434252976604253458241077574), (2890783623559572009048395110970217379891655, 1919665845030726680667421627365784024227508, 3957891423869707241275544529731955268900956), (809525232448824018135896714520455927218315, 4624738220440373023882725152813477454781486, 6300874740957559603489235864987957405516779), (2869863968390729263509622610814152159218254, 3890182464640848778409153220928728771001360, 2209215203719220624298610842248691121356188), (2191798171824611492700989310992980607355513, 16879945382768949985472107179718217809678, 6273331369412504259544999531930340561272020), (2766240531403386408481640389068419061375968, 4680802687081513993833416295286333159316078, 72902241392256266859448986156337561772298), (6052180269476650935320350878566794019475436, 1663834548063474145833160058973485693567096, 5475733377602703457024030039020819022922035), (2332557163127486951911402887726743018281639, 5727196730743872023509854086466570707762766, 2388009196274221518469639440927533973736277), (5089555749005696256160101894478268581908237, 5551876720096370124626837018294261280620053, 1567795905380036348927747789868601576215284), (1000453743445189668794334871667341159399312, 5673854601168185113517738348690616174054272, 3239875776253020614671920236491764972624381), (5931929575952179338954644277779580742169802, 4883784410238328032432385712724292534462724, 955301433963659161892167345618279462977442), (917799349955771410253730719448659373789441, 4247312265114108821500341578655429615020870, 5455224894675950765679923021429530718817597), (5639994845382362521347775596276796468108436, 2136345421307438479074190690584601073758684, 6430811344060961731057625590061852900091613), (291597227336835903114592168676011490095503, 5020788616963282390025622172055992884810595, 2276940530599280771506887373949731735813575), (5614884058380341562911544918527687105771918, 1927206937412374898644967908800188682540558, 6228617886948743334729884401911716290834386), (4031851102812510766323694927311911581357741, 6058491888561415862009803352466652620252303, 5793062644915287992299094125267529551763696), (3605009353259681367678848088476757538904993, 4206627646650091542412626184890256108282562, 4625570488656442871634601595104272816689688), (5218729471648314744182172798271293974378080, 685648274084635696499865165330122635580863, 295555820051694261986772842980046056521633), (6314079529795851493636073215529668051766538, 2575958562338308180445077756869928692312978, 3133508551231525218911278957788646999215242), (4574225077061178302272374619038170309329971, 2057584280858948245979252420677925686077222, 3798282354449084725421938572469491223528375), (4141654469919855627807335893360494696498391, 5207716618602228072644450970710924606254789, 2633391257385812171825124741715055629938919), (4014571950751237283416579207441179504016455, 2762336118623645152964464736682078505599575, 3817777571266262752210340193954194217266027), (1037326565531390156092239751558541772812495, 3364738613790404555923950519876405892690950, 5651699809366474433269992877448881328740813), (4983534686704707507198527462467424152415425, 1263254254476195778530901196161013414037417, 5295416094361380894215698586519116782269870), (4683611659075802288793483787787637685158148, 4543739745937733025728584758912139204015581, 3632844823998253436362352573379355251792396), (1912336962084176279862520250444473725586542, 6027325499497080929886741311952486560132563, 3388726103854589344630853900437458609847001), (1873591336833730674423737397585031919267239, 740129179597842850235936677482985595979969, 1785449262084867159091291953677661336975633), (4707184354428768971690260257142047345516452, 2254967183828912440014418026499100647854790, 264953876610356175552023604098714634846989), (3151521553668228404361866269503404884753700, 5160898393586095677195648012581807889764636, 413065431335386831463801386152279112744554), (6201334628105087076606552323457152743563314, 680122108230817477272864116101461598698480, 4048598157012425562058715033831068345092761), (940744339988965651864545629867270163509227, 4328268505481624266652903158565596905529505, 5038682162436684418398161125843942256265310), (2596862058424273256608276342351850715889848, 259388985054017615140742190722007899675774, 5046311293959175213164259736329657344118957), (2788731160970150983548781095793940789103280, 5981326728975341975113960844232716312813149, 5584030233802957448189061397052470753141861), (53563762438719940678457598455149576185475, 3551182599969285945430632748092869917492310, 4204665138025426917894742983706055632839847), (2558492684681780832281403555566099988667373, 1864638907209560779375289768746282459680486, 2876758333691795549335905309664366418224371), (2779377179428013229793463492748327138820089, 4383216409307704275729342638826813433149711, 3368643742006747116375473323683244453376971), (2139092887431861131814132701901752971875682, 919985898434834041196530705751218862856108, 1545292006423948929446018296069706911210482), (1151380688419800148593068398007689855417659, 5697670806029951779704191764956200604784722, 2395474318127434229064391754308815532069646), (1735852090832018873501069837336831947614559, 382036314419130772479100002645655071429107, 2836454455597501904245331244157604925330357), (2144076590264405882681241757855528263142970, 4117431024443775758228936987426464726614502, 1771722392696942120923490392199204091951683), (769581749535418139080737224266215882022830, 2214437166073033862147096408726593958868079, 48833877532457880081614693586092781278635), (4442650680868952149116238059964382373793221, 2433474197346746613356843499953833108142599, 5688412316628291870719234032448805647519545)]</span></span><br><span class="line"><span class="comment"># c = (5861392358276466039029270753631165865219027, 806771596873403559505046548063497647159419, 1715786609924291881692236299575902356731902)</span></span><br></pre></td></tr></table></figure>
+<p>题目随机生成64个曲线上的点$M_i$，并生成长64的01列表作为key，之后计算如下点当作密文：</p>
+<script type="math/tex; mode=display">
+C = \sum_{i=1}^{64}k_iMi</script><p>仅给出$M_i$和$C$，要求解出列表key得到明文。</p>
+<p>第一个地方在于题目没有给出曲线的参数a和p，但是由于我们有曲线方程形式以及多个曲线上的点，因此用几个点做groebner_basis就可以得到曲线参数了。</p>
+<p>之后的问题在于如何恢复key，这个部分和我今年在NKCTF出的<a target="_blank" rel="noopener" href="https://www.nssctf.cn/problem/5711">fly to the hyper</a>一题很像，核心思路在于，我们拥有的式子其实很类似于一个01背包：</p>
+<script type="math/tex; mode=display">
+C = \sum_{i=1}^{64}k_iMi</script><p>只是这里的背包元素不是数字而是点，没有办法直接做背包格规约，因此要想办法做点到数域的转换，转换的思路就是dlp。具体来说，如果我们找到曲线的生成元$G$，那么将所有点对$G$做DLP之后将会得到：</p>
+<script type="math/tex; mode=display">
+(cG) = \sum_{i=1}^{64}k_i(m_iG)</script><p>因此我们有：</p>
+<script type="math/tex; mode=display">
+c = \sum_{i=1}^{64}k_im_i \quad(mod\;order)</script><p>此时就变成了我们熟悉的背包形式，不过这又引出了几个新问题：</p>
+<ul>
+<li>Cubic Pell Curve的阶是多少？</li>
+<li>如何找到Cubic Pell Curve的生成元？</li>
+<li>如何做DLP？</li>
+</ul>
+<p>首先是求阶，直接factor一下p-1的话会发现非常的光滑，所以曲线的阶大概率是p-1的某个倍数了，用mul函数测一测就会发现正好是p-1。</p>
+<blockquote>
+<p>要找理论依据的话可以看论文section3的Lemma2:</p>
+<p><img src="/post/9163155b/image-20241106234421292.png" alt="image-20241106234421292"></p>
+<p>由于p的确是模3余1的，并且a也是三次剩余，所以曲线上阶应该是$(p-1)^2$，点阶是曲线阶的因子，所以阶是$p-1$很合理</p>
+</blockquote>
+<p>接下来是找生成元，这里有个简单办法可以跳过这一步，注意到他的random_point是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">random_point</span>(<span class="params">self</span>):</span><br><span class="line">    G = ???</span><br><span class="line">    k = getRandomRange(<span class="number">1</span>, self.N)</span><br><span class="line">    <span class="keyword">return</span> self.mul(G,k)</span><br></pre></td></tr></table></figure>
+<p>也就是说所有点都来自同一个$G$生成的点群内，那么当这次的k与点阶互素时，得到的新点也是$G$生成的循环群的生成元，所以从M中随便选一个当作$G$做就有一定概率成功。</p>
+<p>最后是DLP，因为阶是光滑的，所以手写一个Pohlig-Hellman就行，这里偷了一点懒，其实可以在Pohlig-Hellman中间把点的重复倍乘换成逐次点加，并且用bsgs去加速，但是这个题求的并不算慢所以没啥必要优化。</p>
+<p>之后就是做背包格规约，这里用优化的背包格+BKZ效果会好一些。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PellCurve</span>:</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, a, N</span>):</span><br><span class="line">            self.a = a</span><br><span class="line">            self.N = N</span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, P, Q</span>):</span><br><span class="line">            <span class="keyword">if</span> P <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> Q</span><br><span class="line">            <span class="keyword">if</span> Q <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> P</span><br><span class="line">            x1, y1, z1 = P</span><br><span class="line">            x2, y2, z2 = Q</span><br><span class="line">            x3 = (x1 * x2 + self.a * (y2 * z1 + y1 * z2)) % self.N</span><br><span class="line">            y3 = (x2 * y1 + x1 * y2 + self.a * z1 * z2) % self.N</span><br><span class="line">            z3 = (y1 * y2 + x2 * z1 + x1 * z2) % self.N</span><br><span class="line">            <span class="keyword">return</span> (x3, y3, z3)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">mul</span>(<span class="params">self, P, x</span>):</span><br><span class="line">            Q = (<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">while</span> x &gt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">if</span> x &amp; <span class="number">1</span>:</span><br><span class="line">                    Q = self.add(Q, P)</span><br><span class="line">                P = self.add(P, P)</span><br><span class="line">                x &gt;&gt;= <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> Q</span><br><span class="line">        </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cubic_pell_dlp</span>(<span class="params">a, p, P, kP</span>):</span><br><span class="line">    PCa = PellCurve(a,p)</span><br><span class="line">    <span class="comment">#https://eprint.iacr.org/2024/385.pdf</span></span><br><span class="line">    order = (p-<span class="number">1</span>)^<span class="number">2</span></span><br><span class="line">    order = p-<span class="number">1</span> <span class="comment"># actually</span></span><br><span class="line">    primes = [<span class="number">2</span> , <span class="number">3</span> , <span class="number">13463</span> , <span class="number">22993</span> , <span class="number">36299</span> , <span class="number">37087</span> , <span class="number">46279</span> , <span class="number">74903</span> , <span class="number">75431</span> , <span class="number">99109</span> , <span class="number">99497</span>]</span><br><span class="line"></span><br><span class="line">    c = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> primes:</span><br><span class="line">        r = order // i</span><br><span class="line">        rP = PCa.mul(P, r)</span><br><span class="line">        rkP = PCa.mul(kP, r)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i):</span><br><span class="line">            <span class="keyword">if</span>(PCa.mul(rP, j) == rkP):</span><br><span class="line">                c.append(j)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    </span><br><span class="line">    k = <span class="built_in">int</span>(crt(c, primes))</span><br><span class="line">    <span class="keyword">assert</span> PCa.mul(P, k) == kP</span><br><span class="line">    <span class="keyword">return</span> k</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">M = </span><br><span class="line">c = </span><br><span class="line"></span><br><span class="line"><span class="comment">#################################################### get params</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    F = []</span><br><span class="line">    PR.&lt;a, b&gt; = PolynomialRing(ZZ)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">        x, y, z = M[i]</span><br><span class="line">        f = x^<span class="number">3</span> + a*y^<span class="number">3</span> + a^<span class="number">2</span>*z^<span class="number">3</span> - <span class="number">3</span>*a*x*y*z - <span class="number">1</span></span><br><span class="line">        F.append(f)</span><br><span class="line">    res = Ideal(F).groebner_basis()</span><br><span class="line">    <span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line">p = <span class="number">6447052766212423581405069725091189142664263</span></span><br><span class="line">a = p - <span class="number">6447052766212423581405052027737004347006630</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#################################################### dlp</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    Bag = [<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">1</span>,<span class="number">64</span>):</span><br><span class="line">        Bag.append(cubic_pell_dlp(a, p, M[<span class="number">0</span>], M[i]))</span><br><span class="line"></span><br><span class="line"><span class="comment">#################################################### knapsack</span></span><br><span class="line">C = cubic_pell_dlp(a, p, M[<span class="number">0</span>], c)</span><br><span class="line"></span><br><span class="line">L = Matrix(ZZ, <span class="built_in">len</span>(Bag)+<span class="number">2</span>, <span class="built_in">len</span>(Bag)+<span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>):</span><br><span class="line">    L[i,i] = <span class="number">2</span></span><br><span class="line">    L[i,-<span class="number">1</span>] = Bag[i]</span><br><span class="line">    L[-<span class="number">2</span>,i] = -<span class="number">1</span></span><br><span class="line">L[-<span class="number">2</span>,-<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">L[-<span class="number">2</span>,-<span class="number">1</span>] = -C</span><br><span class="line">L[-<span class="number">1</span>,-<span class="number">1</span>] = p-<span class="number">1</span></span><br><span class="line"></span><br><span class="line">L[:, -<span class="number">1</span>:] *= <span class="number">2</span>^<span class="number">20</span></span><br><span class="line">res = L.BKZ()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">key = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(Bag)):</span><br><span class="line">    key.append((res[i] + <span class="number">1</span>) // <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(key)</span><br><span class="line"></span><br><span class="line"><span class="comment">#################################################### check</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sum</span>(<span class="params">M, curve</span>):</span><br><span class="line">    C = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> M:</span><br><span class="line">        C = curve.add(C, i)</span><br><span class="line">    <span class="keyword">return</span> C</span><br><span class="line"></span><br><span class="line">E = PellCurve(a, p)</span><br><span class="line">cc = <span class="built_in">sum</span>([E.mul(M[i], key[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>)], E)</span><br><span class="line"><span class="keyword">assert</span> cc == c</span><br><span class="line"></span><br><span class="line"><span class="comment">#################################################### get flag</span></span><br><span class="line">flag = <span class="string">&quot;vyctf&#123;&quot;</span> + <span class="string">&quot;&quot;</span>.join(<span class="built_in">map</span>(<span class="built_in">str</span>, key)) + <span class="string">&quot;&#125;&quot;</span></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#vyctf&#123;0010011100000101010011100001101111110101011001000101011111101001&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="Pell-Company’s-B-level-products"><a href="#Pell-Company’s-B-level-products" class="headerlink" title="Pell Company’s B-level products"></a>Pell Company’s B-level products</h3><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Pell_Curve</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, a, N</span>):</span><br><span class="line">        self.a = a</span><br><span class="line">        self.N = N</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">is_on_curve</span>(<span class="params">self, point</span>):</span><br><span class="line">        <span class="keyword">if</span> point <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        x, y, z = point</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            x**<span class="number">3</span> + self.a * y**<span class="number">3</span> + self.a**<span class="number">2</span> * z**<span class="number">3</span> - <span class="number">3</span> * self.a * x * y * z</span><br><span class="line">        ) % self.N == <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, P, Q</span>):</span><br><span class="line">        x1, y1, z1 = P</span><br><span class="line">        x2, y2, z2 = Q</span><br><span class="line">        x3 = (x1 * x2 + self.a * (y2 * z1 + y1 * z2)) % self.N</span><br><span class="line">        y3 = (x2 * y1 + x1 * y2 + self.a * z1 * z2) % self.N</span><br><span class="line">        z3 = (y1 * y2 + x2 * z1 + x1 * z2) % self.N</span><br><span class="line">        <span class="keyword">return</span> (x3, y3, z3)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">mul</span>(<span class="params">self, P, x</span>):</span><br><span class="line">        Q = (<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">while</span> x &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> x &amp; <span class="number">1</span>:</span><br><span class="line">                Q = self.add(Q, P)</span><br><span class="line">            P = self.add(P, P)</span><br><span class="line">            x &gt;&gt;= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> Q</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cubic_residue</span>(<span class="params">a, p</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">pow</span>(a, (p - <span class="number">1</span>) // GCD(<span class="number">3</span>, p - <span class="number">1</span>), p) == <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">flag1 = flag[: <span class="built_in">len</span>(flag) // <span class="number">2</span>]</span><br><span class="line">flag2 = flag[<span class="built_in">len</span>(flag) // <span class="number">2</span> :]</span><br><span class="line">m1 = bytes_to_long(flag1)</span><br><span class="line">m2 = bytes_to_long(flag2)</span><br><span class="line">p = getPrime(<span class="number">512</span>)</span><br><span class="line">q = getPrime(<span class="number">512</span>)</span><br><span class="line"><span class="keyword">assert</span> p % <span class="number">3</span> == <span class="number">1</span> <span class="keyword">and</span> q % <span class="number">3</span> == <span class="number">1</span></span><br><span class="line">n = p * q</span><br><span class="line">a = (<span class="number">1</span> - m1**<span class="number">3</span>) * inverse(m2**<span class="number">3</span>, n) % n</span><br><span class="line">d = getPrime(<span class="number">400</span>)</span><br><span class="line">cr_p = cubic_residue(a, p)</span><br><span class="line">cr_q = cubic_residue(a, q)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> cr_p <span class="keyword">and</span> <span class="keyword">not</span> cr_q:</span><br><span class="line">    e = inverse(d, (p**<span class="number">2</span> + p + <span class="number">1</span>) * (q**<span class="number">2</span> + q + <span class="number">1</span>))</span><br><span class="line"><span class="keyword">elif</span> cr_p <span class="keyword">and</span> cr_q:</span><br><span class="line">    e = inverse(d, (p - <span class="number">1</span>) ** <span class="number">2</span> * (q - <span class="number">1</span>) ** <span class="number">2</span>)</span><br><span class="line"><span class="keyword">elif</span> <span class="keyword">not</span> cr_p <span class="keyword">and</span> cr_q:</span><br><span class="line">    e = inverse(d, (p**<span class="number">2</span> + p + <span class="number">1</span>) * (q - <span class="number">1</span>) ** <span class="number">2</span>)</span><br><span class="line"><span class="keyword">else</span>:  <span class="comment"># cr_p and not cr_q</span></span><br><span class="line">    e = inverse(d, (p - <span class="number">1</span>) ** <span class="number">2</span> * (q**<span class="number">2</span> + q + <span class="number">1</span>))</span><br><span class="line">M = (m1, m2, <span class="number">0</span>)</span><br><span class="line">curve = Pell_Curve(a, n)</span><br><span class="line"><span class="built_in">print</span>(curve.mul(M, e))</span><br><span class="line"><span class="built_in">print</span>(n)</span><br><span class="line"><span class="built_in">print</span>(e)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">(18651704911965069518581195835755344628286583043192331182401551490551283590671122550950109003529689245482633928900782246334607547422529359499998839876687476725231164317679561857025380505688235655619764511588181243877410281250100062973738672030667299593220892000278088427665293099732579737599006177322470079851, 31397861767983140122135497121128707712857449359263658425393642945254333193137444951325946933651959173827092248926195011350857699448599461019379099126907985606111213659857419379796034341293508242987940486496880505960649198981029282894781003694587273709945051808377327563310602734180828485458002806035588030111, 24762374784771416543482851014109269295665013774959725373829410358586752863456858191168335644211597913386246106593314466283725901250259609411472578034994619674523120410812349794790706535257025439301157867633857139922315976439344451881103246997673492221390726863135081391105193481452040198383055622567036687732)</span></span><br><span class="line"><span class="string">92699162439172361238547194222128583102549260809218150978451619617020664107111087298362330972163961391665418991909607896401110418428822348346671272088118965489377171070258369042978232802249784654414422343694235412266385283165413087795774064174777617970417912426116068452289533263498959824500926331062264413439</span></span><br><span class="line"><span class="string">920376747567452004463098313440304015094485778772331075496295784862804013780976739198378305426974272857514093193785593896542650666019167140681428366222911876817443794283171266459230549559249675014309804610408623685733222811934244329240154181235166886019948084131423333322065867963625522980839981025912991506555552428812587401284025562097820189735421665429319677335684777440645280955412582049649891053473128069471090454197223798220753970108135518003459495692182779290757258324286961690103842874258835647821047285511405965298927971362379614387218364285702984420139271278660910048109581493977426710571991415006717061087</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>注意到题目中一个明显的点在于私钥d只有400bit，肯定算个小量，而曲线的阶也把四种可能性都给出了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> cr_p <span class="keyword">and</span> <span class="keyword">not</span> cr_q:</span><br><span class="line">    e = inverse(d, (p**<span class="number">2</span> + p + <span class="number">1</span>) * (q**<span class="number">2</span> + q + <span class="number">1</span>))</span><br><span class="line"><span class="keyword">elif</span> cr_p <span class="keyword">and</span> cr_q:</span><br><span class="line">    e = inverse(d, (p - <span class="number">1</span>) ** <span class="number">2</span> * (q - <span class="number">1</span>) ** <span class="number">2</span>)</span><br><span class="line"><span class="keyword">elif</span> <span class="keyword">not</span> cr_p <span class="keyword">and</span> cr_q:</span><br><span class="line">    e = inverse(d, (p**<span class="number">2</span> + p + <span class="number">1</span>) * (q - <span class="number">1</span>) ** <span class="number">2</span>)</span><br><span class="line"><span class="keyword">else</span>:  <span class="comment"># cr_p and not cr_q</span></span><br><span class="line">    e = inverse(d, (p - <span class="number">1</span>) ** <span class="number">2</span> * (q**<span class="number">2</span> + q + <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>没给出的话可以参考论文的section3的Corollary4：</p>
+<p><img src="/post/9163155b/image-20241106235721533.png" alt="image-20241106235721533"></p>
+</blockquote>
+<p>所以其实本质上是个低解密指数攻击，只需要逐个尝试阶是哪种情况去做copper就好， 会发现可以在第二种情况求解出题目的p、q和d来。</p>
+<p>之后是要求明文，按加密方式来讲也就是要求出M，而为了求出M我们还需要求出a，才能对M的e倍点在曲线上做d倍的倍乘从而恢复M。而a的求解很简单，我们只需要代入$eM$的坐标$(x,y,z)$，然后分别在p、q下求解如下方程的根：</p>
+<script type="math/tex; mode=display">
+x^3 + ay^3 + a^2z^3 - 3axyz - 1 = 0 \quad(mod\;p)</script><script type="math/tex; mode=display">
+x^3 + ay^3 + a^2z^3 - 3axyz - 1 = 0 \quad(mod\;q)</script><p>之后crt起来就行。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Pell_Curve</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, a, N</span>):</span><br><span class="line">        self.a = a</span><br><span class="line">        self.N = N</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">is_on_curve</span>(<span class="params">self, point</span>):</span><br><span class="line">        <span class="keyword">if</span> point <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        x, y, z = point</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            x**<span class="number">3</span> + self.a * y**<span class="number">3</span> + self.a**<span class="number">2</span> * z**<span class="number">3</span> - <span class="number">3</span> * self.a * x * y * z</span><br><span class="line">        ) % self.N == <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, P, Q</span>):</span><br><span class="line">        x1, y1, z1 = P</span><br><span class="line">        x2, y2, z2 = Q</span><br><span class="line">        x3 = (x1 * x2 + self.a * (y2 * z1 + y1 * z2)) % self.N</span><br><span class="line">        y3 = (x2 * y1 + x1 * y2 + self.a * z1 * z2) % self.N</span><br><span class="line">        z3 = (y1 * y2 + x2 * z1 + x1 * z2) % self.N</span><br><span class="line">        <span class="keyword">return</span> (x3, y3, z3)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">mul</span>(<span class="params">self, P, x</span>):</span><br><span class="line">        Q = (<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">while</span> x &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> x &amp; <span class="number">1</span>:</span><br><span class="line">                Q = self.add(Q, P)</span><br><span class="line">            P = self.add(P, P)</span><br><span class="line">            x &gt;&gt;= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> Q</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">pplusq = <span class="built_in">int</span>(res[<span class="number">0</span>][<span class="number">1</span>])</span><br><span class="line">pminusq = iroot(pplusq^<span class="number">2</span>-<span class="number">4</span>*n,<span class="number">2</span>)[<span class="number">0</span>]</span><br><span class="line">p = (pplusq + pminusq) // <span class="number">2</span></span><br><span class="line">q = n // p</span><br><span class="line">d = inverse(e, (p-<span class="number">1</span>)^<span class="number">2</span>*(q-<span class="number">1</span>)^<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x, y, z = eP</span><br><span class="line">PR.&lt;a&gt; = PolynomialRing(Zmod(p))</span><br><span class="line">fp = x**<span class="number">3</span> + a * y**<span class="number">3</span> + a**<span class="number">2</span> * z**<span class="number">3</span> - <span class="number">3</span> * a * x * y * z - <span class="number">1</span></span><br><span class="line">resp = fp.roots()</span><br><span class="line"></span><br><span class="line">PR.&lt;a&gt; = PolynomialRing(Zmod(q))</span><br><span class="line">fq = x**<span class="number">3</span> + a * y**<span class="number">3</span> + a**<span class="number">2</span> * z**<span class="number">3</span> - <span class="number">3</span> * a * x * y * z - <span class="number">1</span></span><br><span class="line">resq = fq.roots()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> resp:</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> resq:</span><br><span class="line">        nlist = [p, q]</span><br><span class="line">        clist = [<span class="built_in">int</span>(i[<span class="number">0</span>]),<span class="built_in">int</span>(j[<span class="number">0</span>])]</span><br><span class="line">        A = <span class="built_in">int</span>(crt(clist,nlist))</span><br><span class="line">        curve = Pell_Curve(A, n)</span><br><span class="line">        P = curve.mul(eP, d)</span><br><span class="line">        <span class="keyword">if</span>(P[-<span class="number">1</span>] == <span class="number">0</span>):</span><br><span class="line">            <span class="built_in">print</span>(long_to_bytes(P[<span class="number">0</span>]) + long_to_bytes(P[<span class="number">1</span>]))</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#vyctf&#123;ffefc2b4c1482c8beef04fbdd0e38e7a931d4f41c2e63f7aa13b2e1d1ef7f970&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="Pell-Company’s-C-level-products"><a href="#Pell-Company’s-C-level-products" class="headerlink" title="Pell Company’s C-level products"></a>Pell Company’s C-level products</h3><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sage.<span class="built_in">all</span> <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PellCurve</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, a</span>):</span><br><span class="line">        self.a = a</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">is_on_curve</span>(<span class="params">self, point</span>):</span><br><span class="line">        <span class="keyword">if</span> point <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        x, y, z = point</span><br><span class="line">        <span class="keyword">return</span> x**<span class="number">3</span> + self.a * y**<span class="number">3</span> + self.a**<span class="number">2</span> * z**<span class="number">3</span> - <span class="number">3</span> * self.a * x * y * z == <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, P, Q</span>):</span><br><span class="line">        <span class="keyword">if</span> P <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> Q</span><br><span class="line">        <span class="keyword">if</span> Q <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> P</span><br><span class="line">        x1, y1, z1 = P</span><br><span class="line">        x2, y2, z2 = Q</span><br><span class="line">        x3 = x1 * x2 + self.a * (y2 * z1 + y1 * z2)</span><br><span class="line">        y3 = x2 * y1 + x1 * y2 + self.a * z1 * z2</span><br><span class="line">        z3 = y1 * y2 + x2 * z1 + x1 * z2</span><br><span class="line">        <span class="keyword">return</span> (x3, y3, z3)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">mul</span>(<span class="params">self, P, x</span>):</span><br><span class="line">        Q = (<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">while</span> x &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> x &amp; <span class="number">1</span>:</span><br><span class="line">                Q = self.add(Q, P)</span><br><span class="line">            P = self.add(P, P)</span><br><span class="line">            x &gt;&gt;= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> Q</span><br><span class="line">    </span><br><span class="line">p = <span class="number">7736463902201159740118932754011620145975008450384170845336675440861463026232568288223917198358124838723791482203770314299407932769813520037488990861475959</span></span><br><span class="line">F.&lt;i&gt; = GF(p^<span class="number">2</span>, modulus = x^<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line">a = <span class="number">130871745725209969614611893778594556915917233718507537270216668557136798272256283626165318253326763675138867993923391676212211045756677402353944883581233</span>*i + <span class="number">5463457605278021750020034082584583115139797651958508111949555067802962790173669690412609317078294589296489273547950180647147876900894834443846190572571696</span></span><br><span class="line">E = PellCurve(a)</span><br><span class="line">m1 = F.random_element()</span><br><span class="line">m2 = F.random_element()</span><br><span class="line">m3 = F.random_element()</span><br><span class="line">M = (m1, m2, m3)</span><br><span class="line"><span class="keyword">assert</span> E.is_on_curve(M)</span><br><span class="line"><span class="keyword">assert</span> flag == <span class="string">b&#x27;vyctf&#123;&#x27;</span> + md5(<span class="built_in">str</span>(M).encode()).hexdigest() + <span class="string">b&#x27;&#125;&#x27;</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"><span class="built_in">print</span>(E.mul(M, e))</span><br><span class="line"><span class="comment"># (2823882525778414914237398444108151393981113566541635183419622340039938672184328753758298548918787428250116134068382389334242105084692173414429956902849843*i + 501164702491749333682765358946697947688573177272098751657325300437649872050414128812118537575250147254280402586079012846286096796869401052168743886107534, 4837862363807903068128257976189130805733302116355328166297724960707625322363141989215336919343579452694002337840915182469494036549146117604660339020586849*i + 5855454475841727264607070318284344764898062377628596605227993533284577537898511837503348698520691620933858945624294084052067465791776401535155921640195193, 1609275482227124565984917792847227243210616298250428043294264717677853880558271216887565178289497667137239621710313302332913077497191916722279615976512906*i + 3892604125227602536136942214234553550698298099202459739427237115820941172342061217458683184695896406467762300558873832431907789989774953944404027390892931)</span></span><br></pre></td></tr></table></figure>
+<p>这个题最容易，仅仅是把Cubic Pell Curve放到了模p下的二次扩域上来，我们唯一需要求解的就是曲线的阶从而求逆得到原点。</p>
+<p>而由第二题中的曲线阶可以观察到，这种曲线的阶是分圆多项式或者$(p-1)^k$，而分圆多项式又是$p^k-1$的因子，所以我们只需要在小范围内把：</p>
+<script type="math/tex; mode=display">
+(p-1)^k</script><script type="math/tex; mode=display">
+p^k-1</script><p>这样形式的阶都试一试就好了，就会发现$p^6-1$就是阶的一个倍数。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PellCurve</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, a</span>):</span><br><span class="line">        self.a = a</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">is_on_curve</span>(<span class="params">self, point</span>):</span><br><span class="line">        <span class="keyword">if</span> point <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        x, y, z = point</span><br><span class="line">        <span class="keyword">return</span> x**<span class="number">3</span> + self.a * y**<span class="number">3</span> + self.a**<span class="number">2</span> * z**<span class="number">3</span> - <span class="number">3</span> * self.a * x * y * z == <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, P, Q</span>):</span><br><span class="line">        <span class="keyword">if</span> P <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> Q</span><br><span class="line">        <span class="keyword">if</span> Q <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> P</span><br><span class="line">        x1, y1, z1 = P</span><br><span class="line">        x2, y2, z2 = Q</span><br><span class="line">        x3 = x1 * x2 + self.a * (y2 * z1 + y1 * z2)</span><br><span class="line">        y3 = x2 * y1 + x1 * y2 + self.a * z1 * z2</span><br><span class="line">        z3 = y1 * y2 + x2 * z1 + x1 * z2</span><br><span class="line">        <span class="keyword">return</span> (x3, y3, z3)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">mul</span>(<span class="params">self, P, x</span>):</span><br><span class="line">        Q = (<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">while</span> x &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> x &amp; <span class="number">1</span>:</span><br><span class="line">                Q = self.add(Q, P)</span><br><span class="line">            P = self.add(P, P)</span><br><span class="line">            x &gt;&gt;= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> Q</span><br><span class="line">    </span><br><span class="line">p = <span class="number">7736463902201159740118932754011620145975008450384170845336675440861463026232568288223917198358124838723791482203770314299407932769813520037488990861475959</span></span><br><span class="line">F.&lt;i&gt; = GF(p^<span class="number">2</span>, modulus = x^<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line">a = <span class="number">130871745725209969614611893778594556915917233718507537270216668557136798272256283626165318253326763675138867993923391676212211045756677402353944883581233</span>*i + <span class="number">5463457605278021750020034082584583115139797651958508111949555067802962790173669690412609317078294589296489273547950180647147876900894834443846190572571696</span></span><br><span class="line">E = PellCurve(a)</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">eM = (<span class="number">2823882525778414914237398444108151393981113566541635183419622340039938672184328753758298548918787428250116134068382389334242105084692173414429956902849843</span>*i + <span class="number">501164702491749333682765358946697947688573177272098751657325300437649872050414128812118537575250147254280402586079012846286096796869401052168743886107534</span>, <span class="number">4837862363807903068128257976189130805733302116355328166297724960707625322363141989215336919343579452694002337840915182469494036549146117604660339020586849</span>*i + <span class="number">5855454475841727264607070318284344764898062377628596605227993533284577537898511837503348698520691620933858945624294084052067465791776401535155921640195193</span>, <span class="number">1609275482227124565984917792847227243210616298250428043294264717677853880558271216887565178289497667137239621710313302332913077497191916722279615976512906</span>*i + <span class="number">3892604125227602536136942214234553550698298099202459739427237115820941172342061217458683184695896406467762300558873832431907789989774953944404027390892931</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):</span><br><span class="line">        <span class="built_in">print</span>(t)</span><br><span class="line">        order = p^t - <span class="number">1</span></span><br><span class="line">        M = E.mul(eM, order)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> M:</span><br><span class="line">            <span class="built_in">print</span>(i)</span><br><span class="line">        <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line">order = p^<span class="number">6</span> - <span class="number">1</span></span><br><span class="line">M = E.mul(eM, inverse(e, order))</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> E.mul(M, e) == eM</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;vyctf&#123;&#x27;</span> + md5(<span class="built_in">str</span>(M).encode()).hexdigest() + <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#vyctf&#123;19636b9eb26a0f0701691f84a643b081&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/9163155b.html" title="2024-vyctf-wp-crypto">https://tangcuxiaojikuai.xyz/post/9163155b.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/76af431b.html" rel="prev" title="2024-网鼎杯-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2024-网鼎杯-wp-crypto
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/9b3c95d4.html" rel="next" title="最近更新">
+      最近更新 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pell-Company%E2%80%99s-A-level-products"><span class="nav-number">2.</span> <span class="nav-text">Pell Company’s A-level products</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pell-Company%E2%80%99s-B-level-products"><span class="nav-number">3.</span> <span class="nav-text">Pell Company’s B-level products</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pell-Company%E2%80%99s-C-level-products"><span class="nav-number">4.</span> <span class="nav-text">Pell Company’s C-level products</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
