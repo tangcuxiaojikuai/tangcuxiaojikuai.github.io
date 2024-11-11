@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="质量很高的题目，记录一下做法，确实不太会对称所以暂时没有做twist这道。赛中完全没有注意到MT所以没有搞定M4sTeriX，有点可惜，还是差了一招。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024-N1CTF-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/cd7e8e10.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="质量很高的题目，记录一下做法，确实不太会对称所以暂时没有做twist这道。赛中完全没有注意到MT所以没有搞定M4sTeriX，有点可惜，还是差了一招。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-11T07:22:27.000Z">
+<meta property="article:modified_time" content="2024-11-11T15:20:27.450Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/cd7e8e10.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2024-N1CTF-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/cd7e8e10.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024-N1CTF-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-11-11 15:22:27 / 修改时间：23:20:27" itemprop="dateCreated datePublished" datetime="2024-11-11T15:22:27+08:00">2024-11-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/cd7e8e10.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/cd7e8e10.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>质量很高的题目，记录一下做法，确实不太会对称所以暂时没有做twist这道。赛中完全没有注意到MT所以没有搞定M4sTeriX，有点可惜，还是差了一招。</p>
+<span id="more"></span>
+<h3 id="n0tr5a"><a href="#n0tr5a" class="headerlink" title="n0tr5a"></a>n0tr5a</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">It&#x27;s not RSA!</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gen</span>(<span class="params">nbit, m</span>):</span><br><span class="line">    kbit = <span class="built_in">int</span>(nbit * <span class="number">0.4512</span>)</span><br><span class="line">    key = getPrime(kbit)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        p = getPrime(nbit // <span class="number">2</span> - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> isPrime(p * <span class="number">2</span> + <span class="number">1</span>):</span><br><span class="line">            p = p * <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        q = getPrime(nbit // <span class="number">2</span> - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> isPrime(q * <span class="number">2</span> + <span class="number">1</span>):</span><br><span class="line">            q = q * <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span>   </span><br><span class="line">    n = p * q</span><br><span class="line">    phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    e, k = [], []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">        dd = key + <span class="number">2</span> * i + <span class="number">2</span></span><br><span class="line">        ee = inverse(dd, phi)</span><br><span class="line">        kk = (ee * dd - <span class="number">1</span>) // phi</span><br><span class="line">        e.append(ee % <span class="number">2</span> ** (nbit - kbit))</span><br><span class="line">        k.append(kk)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> n, e, k</span><br><span class="line"></span><br><span class="line">n, e, k = gen(<span class="number">1024</span>, <span class="number">12</span>)</span><br><span class="line">enc = <span class="built_in">pow</span>(bytes_to_long(flag), <span class="number">65537</span>, n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;data.txt&quot;</span>,<span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(<span class="string">f&quot;<span class="subst">&#123;n = &#125;</span>\n<span class="subst">&#123;enc = &#125;</span>\n<span class="subst">&#123;e = &#125;</span>\n<span class="subst">&#123;k = &#125;</span>\n&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>data.txt：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">82699881935193109791472212259236125591789180928354081401868164018417228277481034922264132029171387301840769422435233519725339633533151517379984801310897094212731380971539763520078187279519479595450340858225632773423726273875857681742976022998251134553236897670416440247498103588885527592983304472279634643957</span></span><br><span class="line">enc = <span class="number">36794479248642872612364238056628323098776595394584051168003253681308381469543148020365981382945118247106425767548419728448043683874348775891060829403456974633618540620271474325940287199561651410530249693150249056719801828452373946254944967790634308791835260415588851915975925342336816758487259438650490430459</span></span><br><span class="line">e = [<span class="number">8888429835496095643535631191491505388277997809079089914782728064936463291203724475916011147975968533541243766266627762336328575049254500085648004975612619037464278832991</span>, <span class="number">10520875896679093312405671804517920324087646023792222747154447628464758710245963882871820387158134686949159913616463457692301596583039366392879522319633770989600617793993</span>, <span class="number">10601203527211713579180750988795815135916059018550710650265113080975290409723984434909955571406050178911560767494058644740527759576770265488136304573804742084915697171019</span>, <span class="number">14622236712746402638071905642098139610445903171562565245220543995502178907758821801160631615531163735803555926497329822620058537286662778517871290983128596096302228266209</span>, <span class="number">13754445300340270191221556210805776985685382903218031894668871565239317628261744219992643635369635181508144912605084390638097003753479943161757716583483371428111258641999</span>, <span class="number">12460010632813615553769774340135585477760327095310449594534663078794374775415503111884611193451554799744919010772785354797945533347796386998533715641130155450020923742093</span>, <span class="number">13453716597070478297648899092689370236302303280643930607214496697603184305419894290940911668951264509281914356651376372996746606791176528956862446530034762390956440975743</span>, <span class="number">9094611196190891372488960864378207737592838879869747718773801183985658899847575852673983345117604950170885723017205969782710348697632364573814601979741607809886580452089</span>, <span class="number">6208536025163051261514520489326917558898635960331271412905419257732637120279699170648486672913828237574848376496958272367037120192950777084064981617441543021966571267615</span>, <span class="number">12222783896133215551045666761401890068457062194802465729916062142356007806837055121210344156062210736292529151537109874603945090163748106129066462428445187619153477674477</span>, <span class="number">12614188721315363674299785508736495244859114088280924894674179341352352570584522323159835229814636248801721832488735354744616443270824945572498647598651837749451947061719</span>, <span class="number">1152998684313785798360794952776294245536465631931933802028441841686020994002404128005468864877622660410537371162754781745360983347732927142593427077571775783417497297097</span>]</span><br><span class="line">k = [<span class="number">1420437810145904840211095643676412643944076218177458138046274525430773202929328250820697290122977318065170030510975153884301846687954934017</span>, <span class="number">3940861961324077864997765290105972644424759701256821322813075596188909751606433001282290039081974406373664979502491212469917425748074824949</span>, <span class="number">9413004926123376989637174399517514326721338378609741980303584526041973145706068370477394363722601798762946415087687748257511626645382494821</span>, <span class="number">7428184730507734867291435325705251542125906508735340171046981085055137680467341685699246562820294813340827360115146667698628846494205603434</span>, <span class="number">5807754291508765665701362465833864063188458758878871682965086597196662689504909848658274758620320439529911831751168255058459646445501084679</span>, <span class="number">4757450447044159731910445277826227301213629775871240625040932054281107227037248484860063739616068171487636025286033326826668030840136004650</span>, <span class="number">5996697334509086666652114545471399499880715834871318018958944856630439665570432872031097645146070471243016581178433327374429447296670643144</span>, <span class="number">34948977643936917247938455046939890895031986466384330025838204273490152867215005144463212975331851051065343323158463423475270019458998722</span>, <span class="number">2108517589993394132588916598627794212409854321151001283809351367884838987309441276260578523735992656738890197115589763805165681991611220869</span>, <span class="number">7529989400759036686155222444072464272422956186987614547747593414852898515920566835606491795646900457120392171067632339816915038614860409008</span>, <span class="number">5919516150531691402185931957988063032510639008912552676259537229103356758278878266990953285696298526725065525943655778090084815308411600528</span>, <span class="number">6143553530848821997030657441615076975797083210691917101599644261591827822351051233391184584862183963084085114519636359680935327311007033284</span>]</span><br></pre></td></tr></table></figure>
+<p>题目先生成一个462bit的素数当作key，之后生成两个512bit的安全素数p、q，然后给出12轮hint，每一轮中：</p>
+<script type="math/tex; mode=display">
+dd_i = key + 2i + 2</script><script type="math/tex; mode=display">
+ee_i\cdot dd_i = 1 + kk_iphi(n)</script><p>给出每一轮的ee的低562位以及kk，要求分解n来解最后的RSA密文。</p>
+<p>把hint代进等式就有：</p>
+<script type="math/tex; mode=display">
+(2^{562}ee_{i,h} + ee_{i,l})\cdot (key + 2i + 2) = 1 + kk_i(n+1-(p+q))</script><p>可以看出在模$2^{562}$下满足：</p>
+<script type="math/tex; mode=display">
+ee_{i,l}\cdot (key + 2i + 2) = 1 + kk_i(n+1-(p+q)) \quad(mod\;2^{562})</script><p>记：</p>
+<script type="math/tex; mode=display">
+C_i = ee_{i,l}\cdot (2i + 2) - 1 - kk_i(n+1)</script><p>那么有：</p>
+<script type="math/tex; mode=display">
+ee_{i,l}\cdot key + kk_i \cdot (p+q) + C_i = 0 \quad(mod\;2^{562})</script><p>这是个线性等式，且$p+q$和$key$在模$2^{562}$下都不大，所以可以LLL得到，之后解方程就可以分解n。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">kbit = <span class="built_in">int</span>(<span class="number">1024</span> * <span class="number">0.4512</span>)</span><br><span class="line">n = <span class="number">82699881935193109791472212259236125591789180928354081401868164018417228277481034922264132029171387301840769422435233519725339633533151517379984801310897094212731380971539763520078187279519479595450340858225632773423726273875857681742976022998251134553236897670416440247498103588885527592983304472279634643957</span></span><br><span class="line">enc = <span class="number">36794479248642872612364238056628323098776595394584051168003253681308381469543148020365981382945118247106425767548419728448043683874348775891060829403456974633618540620271474325940287199561651410530249693150249056719801828452373946254944967790634308791835260415588851915975925342336816758487259438650490430459</span></span><br><span class="line">e = [<span class="number">8888429835496095643535631191491505388277997809079089914782728064936463291203724475916011147975968533541243766266627762336328575049254500085648004975612619037464278832991</span>, <span class="number">10520875896679093312405671804517920324087646023792222747154447628464758710245963882871820387158134686949159913616463457692301596583039366392879522319633770989600617793993</span>, <span class="number">10601203527211713579180750988795815135916059018550710650265113080975290409723984434909955571406050178911560767494058644740527759576770265488136304573804742084915697171019</span>, <span class="number">14622236712746402638071905642098139610445903171562565245220543995502178907758821801160631615531163735803555926497329822620058537286662778517871290983128596096302228266209</span>, <span class="number">13754445300340270191221556210805776985685382903218031894668871565239317628261744219992643635369635181508144912605084390638097003753479943161757716583483371428111258641999</span>, <span class="number">12460010632813615553769774340135585477760327095310449594534663078794374775415503111884611193451554799744919010772785354797945533347796386998533715641130155450020923742093</span>, <span class="number">13453716597070478297648899092689370236302303280643930607214496697603184305419894290940911668951264509281914356651376372996746606791176528956862446530034762390956440975743</span>, <span class="number">9094611196190891372488960864378207737592838879869747718773801183985658899847575852673983345117604950170885723017205969782710348697632364573814601979741607809886580452089</span>, <span class="number">6208536025163051261514520489326917558898635960331271412905419257732637120279699170648486672913828237574848376496958272367037120192950777084064981617441543021966571267615</span>, <span class="number">12222783896133215551045666761401890068457062194802465729916062142356007806837055121210344156062210736292529151537109874603945090163748106129066462428445187619153477674477</span>, <span class="number">12614188721315363674299785508736495244859114088280924894674179341352352570584522323159835229814636248801721832488735354744616443270824945572498647598651837749451947061719</span>, <span class="number">1152998684313785798360794952776294245536465631931933802028441841686020994002404128005468864877622660410537371162754781745360983347732927142593427077571775783417497297097</span>]</span><br><span class="line">k = [<span class="number">1420437810145904840211095643676412643944076218177458138046274525430773202929328250820697290122977318065170030510975153884301846687954934017</span>, <span class="number">3940861961324077864997765290105972644424759701256821322813075596188909751606433001282290039081974406373664979502491212469917425748074824949</span>, <span class="number">9413004926123376989637174399517514326721338378609741980303584526041973145706068370477394363722601798762946415087687748257511626645382494821</span>, <span class="number">7428184730507734867291435325705251542125906508735340171046981085055137680467341685699246562820294813340827360115146667698628846494205603434</span>, <span class="number">5807754291508765665701362465833864063188458758878871682965086597196662689504909848658274758620320439529911831751168255058459646445501084679</span>, <span class="number">4757450447044159731910445277826227301213629775871240625040932054281107227037248484860063739616068171487636025286033326826668030840136004650</span>, <span class="number">5996697334509086666652114545471399499880715834871318018958944856630439665570432872031097645146070471243016581178433327374429447296670643144</span>, <span class="number">34948977643936917247938455046939890895031986466384330025838204273490152867215005144463212975331851051065343323158463423475270019458998722</span>, <span class="number">2108517589993394132588916598627794212409854321151001283809351367884838987309441276260578523735992656738890197115589763805165681991611220869</span>, <span class="number">7529989400759036686155222444072464272422956186987614547747593414852898515920566835606491795646900457120392171067632339816915038614860409008</span>, <span class="number">5919516150531691402185931957988063032510639008912552676259537229103356758278878266990953285696298526725065525943655778090084815308411600528</span>, <span class="number">6143553530848821997030657441615076975797083210691917101599644261591827822351051233391184584862183963084085114519636359680935327311007033284</span>]</span><br><span class="line"></span><br><span class="line">L = Matrix(ZZ, <span class="number">3</span>+<span class="built_in">len</span>(e), <span class="number">3</span>+<span class="built_in">len</span>(e))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    L[i,i] = <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(e)):</span><br><span class="line">    Ci = e[i]*(<span class="number">2</span>*i+<span class="number">2</span>) - <span class="number">1</span> - k[i]*(n+<span class="number">1</span>)</span><br><span class="line">    L[<span class="number">0</span>, <span class="number">3</span>+i] = e[i]</span><br><span class="line">    L[<span class="number">1</span>, <span class="number">3</span>+i] = k[i]</span><br><span class="line">    L[<span class="number">2</span>, <span class="number">3</span>+i] = Ci</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(e)):</span><br><span class="line">    L[-i-<span class="number">1</span>,-i-<span class="number">1</span>] = <span class="number">2</span>^(<span class="number">1024</span> - kbit)</span><br><span class="line">L[<span class="number">0</span>,<span class="number">0</span>] = <span class="number">2</span>^(<span class="number">513</span>-kbit)</span><br><span class="line">L[<span class="number">2</span>,<span class="number">2</span>] = <span class="number">2</span>^<span class="number">513</span></span><br><span class="line">L[:,<span class="number">3</span>:] *= n</span><br><span class="line"></span><br><span class="line">res = L.LLL()[<span class="number">0</span>]</span><br><span class="line">key = <span class="built_in">abs</span>(res[<span class="number">0</span>])</span><br><span class="line">pplusq = <span class="built_in">abs</span>(res[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">pminusq = iroot(pplusq^<span class="number">2</span>-<span class="number">4</span>*n,<span class="number">2</span>)[<span class="number">0</span>]</span><br><span class="line">p = (pplusq + pminusq) // <span class="number">2</span></span><br><span class="line">q = n // p</span><br><span class="line">d = inverse(<span class="number">65537</span>,(p-<span class="number">1</span>)*(q-<span class="number">1</span>))</span><br><span class="line"><span class="keyword">assert</span> p*q == n</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(<span class="built_in">pow</span>(enc,d,n))))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#n1ctf&#123;7hE_Br1l1!4nCe_0f_D5tErm1Nan7_4Nd_C0PP5R4m|Th!&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="seashells"><a href="#seashells" class="headerlink" title="seashells"></a>seashells</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Searching for  Seashells🐚 by the seaside🏝️ : )</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">FLAG = <span class="string">&quot;n1ctf&#123;REDACTED&#125;&quot;</span></span><br><span class="line">ells = [*primes(<span class="number">3</span>, <span class="number">250</span>), <span class="number">661</span>]</span><br><span class="line">p = <span class="number">4</span> * prod(ells) - <span class="number">1</span></span><br><span class="line">F = GF(p**<span class="number">2</span>, <span class="string">&#x27;i&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Seaside</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.pearls = getrandbits(<span class="built_in">len</span>(ells))</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wave</span>(<span class="params">self, A, Q=<span class="number">0</span>, signal=<span class="literal">False</span></span>):</span><br><span class="line">        E = EllipticCurve(F, [<span class="number">0</span>, A, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]); Q = E(Q)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> signal: priv = [randint(<span class="number">0</span>, <span class="number">3</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ells))]</span><br><span class="line">        <span class="keyword">else</span>: priv = [<span class="built_in">int</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">bin</span>(self.pearls)[<span class="number">2</span>:].zfill(<span class="built_in">len</span>(ells))]</span><br><span class="line">        <span class="keyword">for</span> e, ell <span class="keyword">in</span> <span class="built_in">zip</span>(priv, ells):</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(e):</span><br><span class="line">                E.set_order((p+<span class="number">1</span>)**<span class="number">2</span>)</span><br><span class="line">                P = self.pebble(E, ell); P.set_order(ell)</span><br><span class="line">                phi = E.isogeny(P)</span><br><span class="line">                E, Q = phi.codomain(), phi(Q)</span><br><span class="line">        Em = E.montgomery_model(); phi = E.isomorphism_to(Em)</span><br><span class="line">        <span class="keyword">return</span> (Em.a2(), phi(Q))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">pebble</span>(<span class="params">self, E, ell</span>):</span><br><span class="line">        set_random_seed(<span class="number">1337</span>)</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> (P := (p + <span class="number">1</span>) // ell * E.random_element()): <span class="keyword">pass</span></span><br><span class="line">        set_random_seed(randint(<span class="number">0</span>,p))</span><br><span class="line">        <span class="keyword">return</span> P</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">tide</span>(<span class="params">self</span>):</span><br><span class="line">        shore = self.wave(<span class="number">0</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Shore&quot;</span>, shore)</span><br><span class="line">        <span class="keyword">return</span> self.wave(shore, <span class="built_in">input</span>(<span class="string">&quot;Seashells &gt; &quot;</span>).split(<span class="string">&#x27;,&#x27;</span>), <span class="literal">True</span>)[<span class="number">1</span>].xy()</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">chall</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;Pearls &gt; &quot;</span>)) == self.pearls:</span><br><span class="line">            <span class="built_in">print</span>(FLAG)</span><br><span class="line"></span><br><span class="line">alarm(<span class="number">1200</span>)</span><br><span class="line">sys = Seaside()</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>):</span><br><span class="line">    <span class="built_in">print</span>(sys.tide())</span><br><span class="line"></span><br><span class="line">sys.chall()</span><br></pre></td></tr></table></figure>
+<p>题目基于CSIDH，连接上靶机后，靶机会生成一个随机数pearls，我们的目的就是求出pearls来。</p>
+<p>为了达到这个目的，题目给了我们30轮交互机会（必须要用完），每次交互过程为：</p>
+<ul>
+<li>靶机随机生成私钥列表，该私钥列表由0-3的元素组成，用这个私钥进行同源得到一条曲线并给出，记为E1</li>
+<li>我们拿到E1后，可以选择E1上的一个点$Q$发送给靶机</li>
+<li>靶机之后会将parls的比特串当作私钥列表进行同源，并将我们选择的点经过同源映射后的$\phi(Q)$返回给我们</li>
+</ul>
+<p>与一般的CSIDH过程相比，题目不同的点在于工作域放在了二次扩域而不是一次域，这直接影响了CSIDH的工作机理，因为在一次域上，对于一个小素因子来说，其邻居是确定的，而二次扩域上则会有不同的邻居（参考SIDH）。</p>
+<p>此外还有一个奇怪的地方就是每次同源靶机选择torsion points的方式，也就是下面的这个pebble函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">pebble</span>(<span class="params">self, E, ell</span>):</span><br><span class="line">    set_random_seed(<span class="number">1337</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> (P := (p + <span class="number">1</span>) // ell * E.random_element()): <span class="keyword">pass</span></span><br><span class="line">    set_random_seed(randint(<span class="number">0</span>,p))</span><br><span class="line">    <span class="keyword">return</span> P</span><br></pre></td></tr></table></figure>
+<p>可以看出，对于一条确定的曲线来说，由于种子固定，选择的torsion points也就是固定的。</p>
+<p>接下来进入解题，首先，由于我们可以自己构造点$Q$并获得同源后的$\phi(Q)$，这就很类似于imaginaryCTF的coast一题。在coast中，由于同源工作在一次域上，每个素因子q只有q-torsion里独特的一个分支，所以我们发送的点在经历q-isogeny之后，这个点阶的因子q一定会消失，所以可以通过判断返回的点的阶来得到私钥列表。</p>
+<p>而这个题不一样，由于torsion在二次域上有多个分支，所以当且仅当我们发送的Q与本次同源的kernel在同一个群中的时候，Q的阶在经历q-isogeny之后，其阶的因子q才会消失。</p>
+<p>而由于我们有E1，并且pebble函数生成kernel的时候会固定种子为1337，所以一个很自然的思路就产生了：</p>
+<ul>
+<li><p>从素因子3开始，我们假设其对应的私钥是1，那么由于我们有E1，因此我们同样可以设置种子为1337，并通过pebble求出本次同源的kernel</p>
+</li>
+<li><p>我们就选这个kernel当作$Q$发送给靶机，那么当靶机返回$\phi(Q)=O$的时候，就说明3对应的私钥的确是1，否则就是0</p>
+</li>
+<li><p>此时我们就知道了私钥列表中3这个素因子对应的值，这代表着我们能够知道下一次我们拿到的E1经过这个值后到达的曲线，记为$E1_{3}$</p>
+</li>
+<li><p>那么继续这个过程，我们假设素因子5对应的私钥是1，我们同样可以通过pebble获得这个5-isogeny的kernel，记这个kernel为$Q_5$。而现在我们只要让发送的$Q$满足：</p>
+<ul>
+<li>$\phi_3(Q) = Q_5$</li>
+</ul>
+<p>为此我们令$Q = \hat{\phi_3}(Q_5)$，那么当5对应的私钥的确为1时，我们最后就会收到$O$，否则就说明5对应的私钥为0。此时我们就又得到了$E1_{3,5}$</p>
+</li>
+<li><p>以此类推</p>
+</li>
+</ul>
+<p>这个过程可以反复进行下去，一直到30轮结束的时候，我们总共可以获得前三十个素因子对应的私钥。这引出了一个严峻的问题，素因子列表总共长53，还有23个素因子获得不了，而这23bit靠爆的话，似乎复杂度还是挺高了。</p>
+<p>所以这个方法可能可以优化一下，但是我确实没有想到啥优化的好思路。</p>
+<blockquote>
+<p>一个想法是发送的点不直接用kernel，而是取用在乘$\frac{p+1}{q}$之后等于kernel的p+1阶点，这样在最后检查阶的变化时可能会获得其他torsion的自然泄露</p>
+<p>此时也许可以加上一些爆破来获得完整的私钥列表</p>
+</blockquote>
+<p>而突破点依然在于pebble，再仔细看看这个函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">pebble</span>(<span class="params">self, E, ell</span>):</span><br><span class="line">    set_random_seed(<span class="number">1337</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> (P := (p + <span class="number">1</span>) // ell * E.random_element()): <span class="keyword">pass</span></span><br><span class="line">    set_random_seed(randint(<span class="number">0</span>,p))</span><br><span class="line">    <span class="keyword">return</span> P</span><br></pre></td></tr></table></figure>
+<p>要注意到，最后返回P之前有一个<code>set_random_seed(randint(0,p))</code>的过程，这似乎是为了解除<code>set_random_seed(1337)</code>而设计的，但是由于<code>randint(0,p)</code>也和种子有关，所以这实际上压根没有解除。这代表着在除了第一次pebble之前的随机私钥以外，<strong>剩下的一切都是在一个确定的状态下走的！</strong></p>
+<p>这甚至会影响wave中的这一行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> signal: priv = [randint(<span class="number">0</span>, <span class="number">3</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ells))]</span><br></pre></td></tr></table></figure>
+<p>这代表着一旦某两次进入pebble的曲线一样，那么这两次同源将会完全一样，并且这两次同源之后的包括生成0-3的priv列表在内的所有步骤都会完全一样，这就会产生一个循环节。</p>
+<p>实际测试一下会发现这种循环节太容易产生了，因此我们很轻松的就可以在30轮交互中收到两次一模一样的曲线E1，之后我们就取E1上的两个阶为p+1且在两个不同分支中的点$Q_1,Q_2$，那么比如对于3-isogeny来说，我们计算：</p>
+<script type="math/tex; mode=display">
+Q_{1,3} = \frac{p+1}{3}\cdot Q_1</script><script type="math/tex; mode=display">
+Q_{2,3} = \frac{p+1}{3}\cdot Q_2</script><p>那么如下点会生成3-torsion的所有分支：</p>
+<script type="math/tex; mode=display">
+Q_{1,3} + iQ_{2,3} \quad,\quad i < 3</script><blockquote>
+<p>为什么会有这个结果，用配对的角度去想会比较简单，记：</p>
+<script type="math/tex; mode=display">
+t = e(Q_{1,3}, Q_{1,3} + iQ_{2,3})</script><p>那么显然有：</p>
+<script type="math/tex; mode=display">
+t = e(Q_{1,3}, Q_{2,3})^i</script><p>由weil pairing的性质可以知道几个事实：</p>
+<ul>
+<li>weil pairing的函数值是个3次单位根，因此$e(Q_{1,3}, Q_{2,3})$是个生成元，所以对于不同的i结果不同</li>
+<li>weil pairing本质是对torsion不同分支的配对，因此不同函数值对应torsion的不同分支</li>
+</ul>
+</blockquote>
+<p>所以如果3对应的私钥是1的话，由于$\phi(Q_{1,3}) + i\phi(Q_{2,3})$一定会遍历到所有的3-$torsion$，所以如果经历了3-isogeny，一定有一个分支是对应的kernel，那么就存在一个结果的因子3会消失；这也就是说遍历0-2的值，这个结果一定会有一个是单位元。否则说明3对应的私钥是0。</p>
+<p>这种方法就很简单，我们只需要找到两次一模一样的曲线，然后发送两个对任何q-torsion都不在同一个分支的Q1、Q2即可，然后就可以一次性计算出全部的私钥列表了。</p>
+<p>而实际脚本编写的角度倒完全不用这样，因为对于后面素因子来说实际上很难在同一个torsion里，主要是前面的3、5、7这种小素因子比较容易出偏差，所以不用全部检查一遍。</p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">ells = [*primes(<span class="number">3</span>, <span class="number">250</span>), <span class="number">661</span>]</span><br><span class="line">p = <span class="number">4</span> * prod(ells) - <span class="number">1</span></span><br><span class="line">F = GF(p**<span class="number">2</span>, <span class="string">&#x27;i&#x27;</span>)</span><br><span class="line"></span><br><span class="line">sh = process([<span class="string">&quot;sage&quot;</span>, <span class="string">&quot;seashells.sage&quot;</span>])</span><br><span class="line"><span class="comment">#sh = remote(&quot;120.26.69.200&quot;, 50979)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check</span>(<span class="params">G1,G2</span>):</span><br><span class="line">    <span class="keyword">for</span> q <span class="keyword">in</span> ells[:<span class="number">4</span>]:</span><br><span class="line">        qG1 = ((p+<span class="number">1</span>)//q) * G1</span><br><span class="line">        qG2 = ((p+<span class="number">1</span>)//q) * G2</span><br><span class="line">        <span class="keyword">if</span>(qG1.weil_pairing(qG2, q) == <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">Gs = []</span><br><span class="line">Qs = []</span><br><span class="line">As = []</span><br><span class="line">Es = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">30</span>):</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;Shore &quot;</span>)</span><br><span class="line">    A = sh.recvline().strip().decode()</span><br><span class="line">    E = EllipticCurve(F, [<span class="number">0</span>, A, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>])</span><br><span class="line">    E.set_order((p+<span class="number">1</span>)^<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(A <span class="keyword">in</span> As):</span><br><span class="line">        G1 = Gs[As.index(A)]</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">            G = E.random_element()</span><br><span class="line">            <span class="keyword">if</span>(G.order() == (p+<span class="number">1</span>) <span class="keyword">and</span> check(G,G1)):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">            G = E.random_element()</span><br><span class="line">            <span class="keyword">if</span>(G.order() == (p+<span class="number">1</span>)):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    Seashells = <span class="built_in">str</span>(G.xy())[<span class="number">1</span>:-<span class="number">1</span>]</span><br><span class="line">    sh.sendline(Seashells.encode())</span><br><span class="line"></span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;Seashells &gt; &quot;</span>)</span><br><span class="line">    Q = sh.recvline().strip().decode()[<span class="number">1</span>:-<span class="number">1</span>].split(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    x1, y1 = F(Q[<span class="number">0</span>]), F(Q[<span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    PR.&lt;AA&gt; = PolynomialRing(F)</span><br><span class="line">    f = y1^<span class="number">2</span> - (x1^<span class="number">3</span> + AA*x1^<span class="number">2</span> + x1)</span><br><span class="line">    A1 = f.roots(multiplicities=<span class="literal">False</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    E1 = EllipticCurve(F, [<span class="number">0</span>, A1, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>])</span><br><span class="line">    E1.set_order((p+<span class="number">1</span>)^<span class="number">2</span>)</span><br><span class="line">    Q = E1((x1,y1))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(A <span class="keyword">in</span> As):</span><br><span class="line">        Qs = [Qs[As.index(A)], Q]</span><br><span class="line">        Es = E1</span><br><span class="line">        times = i + <span class="number">1</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    Gs.append(G)</span><br><span class="line">    Qs.append(Q)</span><br><span class="line">    As.append(A)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">30</span> - times):</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;Shore &quot;</span>)</span><br><span class="line">    A = sh.recvline().strip().decode()</span><br><span class="line">    E = EllipticCurve(F, [<span class="number">0</span>, A, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>])</span><br><span class="line">    Q = E.random_element()</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;Seashells &gt; &quot;</span>)</span><br><span class="line">    Seashells = <span class="built_in">str</span>(Q.xy())[<span class="number">1</span>:-<span class="number">1</span>]</span><br><span class="line">    sh.sendline(Seashells.encode())</span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################################### check</span></span><br><span class="line">priv = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(ells):</span><br><span class="line">    Found = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i):</span><br><span class="line">        temp = Qs[<span class="number">0</span>] + j*Qs[<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span>(temp*((p+<span class="number">1</span>)//i) == Es(<span class="number">0</span>)):</span><br><span class="line">            Found = <span class="number">1</span></span><br><span class="line">            priv.append(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span>(Found == <span class="number">0</span>):</span><br><span class="line">        priv.append(<span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(priv)</span><br><span class="line"></span><br><span class="line">pearls = <span class="built_in">int</span>(<span class="string">&quot;&quot;</span>.join(<span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">str</span>,priv))), <span class="number">2</span>)</span><br><span class="line">sh.recvuntil(<span class="string">b&quot;Pearls &gt; &quot;</span>)</span><br><span class="line">sh.sendline(<span class="built_in">str</span>(pearls).encode())</span><br><span class="line"><span class="built_in">print</span>(sh.recvline())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#n1ctf&#123;t0r5ion_po1nt_l3aked_my_tre@sure_G_G&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="M4sTeriX"><a href="#M4sTeriX" class="headerlink" title="*M4sTeriX"></a>*M4sTeriX</h3><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">I know that the matrix master is always performing tedious and error-prone matrix operations day after day : (</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.Padding <span class="keyword">import</span> pad</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">FLAG = <span class="string">b&quot;n1ctf&#123;REDACTED&#125;&quot;</span></span><br><span class="line">N, n, q = <span class="number">1024</span>, <span class="number">60</span>, <span class="number">2</span>**<span class="number">521</span>-<span class="number">1</span></span><br><span class="line">F, Fq = Zmod(<span class="number">256</span>), GF(q)</span><br><span class="line">s = [random_vector(F, N//<span class="number">2</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">error_work</span>(<span class="params">s, w</span>):</span><br><span class="line">    a = random_matrix(F, N//<span class="number">2</span>, N); mat.append(a)</span><br><span class="line">    e = <span class="built_in">list</span>(random_vector(w, x=<span class="number">1</span>, y=<span class="number">256</span>))+[<span class="number">0</span>]*(N-w)</span><br><span class="line">    P = Permutations(N).random_element().to_matrix()</span><br><span class="line">    <span class="keyword">return</span> matrix(Fq, <span class="number">4</span>, N//<span class="number">4</span>, s*a+P*vector(e))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">tedious_work</span>(<span class="params">A</span>):</span><br><span class="line">    α = random_matrix(Fq, n, N//<span class="number">4</span>)</span><br><span class="line">    ε = matrix(n, N//<span class="number">4</span>, [i*randrange(<span class="number">0</span>, q) <span class="keyword">for</span> i <span class="keyword">in</span> α])</span><br><span class="line">    σ = matrix(Fq, [[randrange(<span class="number">1</span>, q) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n)])</span><br><span class="line">    <span class="built_in">open</span>(<span class="string">&quot;tedious&quot;</span>, <span class="string">&quot;w&quot;</span>).write(<span class="built_in">str</span>(&#123;<span class="string">&quot;π&quot;</span>: <span class="built_in">list</span>(σ*A+ε), <span class="string">&quot;α&quot;</span>: <span class="built_in">list</span>(α)&#125;))</span><br><span class="line"></span><br><span class="line">mat = []</span><br><span class="line">A = matrix(Fq, <span class="number">80</span>, N//<span class="number">4</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):</span><br><span class="line">    A[<span class="number">4</span>*i:<span class="number">4</span>*i+<span class="number">4</span>,:] = error_work(s[i], <span class="number">22</span>)</span><br><span class="line"></span><br><span class="line">save(mat, <span class="string">&quot;mat&quot;</span>)</span><br><span class="line">tedious_work(A)</span><br><span class="line">cipher = AES.new(md5(<span class="built_in">str</span>(<span class="built_in">sum</span>(s)).encode()).digest(), AES.MODE_ECB)</span><br><span class="line"><span class="built_in">print</span>(cipher.encrypt(pad(FLAG, <span class="number">16</span>)).<span class="built_in">hex</span>())</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">af3010a3de0fa968c38f421f2857d6c60caf9a6ae1023e9d04f253e1d5fb8038fddf26f7cc976fadbb2df12ef549d1fd</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>题目先生成了一个长20的列表s，其中每个元素是$Z_{256}$下的512维向量，这是我们需要求解出的会作为AES密钥的内容。</p>
+<p>而对于s的内容，题目给了这样一些信息：</p>
+<ul>
+<li><p>error_work部分，题目对于s中的每一个向量$\textbf{s}_i$，计算：</p>
+<script type="math/tex; mode=display">
+t_i = \textbf{s}_ia_i + P_ie_i</script><p>其中$a_i$是$512\times1024$的矩阵，$P_i$是一个随机置换，$e_i$是误差数量为22的error。在这之后把长1024的向量$t_i$拆成一个$4\times 256$的矩阵放入矩阵$A$中，最终会得到一个$80 \times 256$的矩阵$A$</p>
+</li>
+<li><p>tedious_work部分，题目在$F_q$计算了一个：</p>
+<script type="math/tex; mode=display">
+π = σA+εα</script><p>并给出$π,α$</p>
+</li>
+</ul>
+<p>接下来就分三个部分来进入解题。</p>
+<h4 id="tedious-work"><a href="#tedious-work" class="headerlink" title="tedious_work"></a>tedious_work</h4><p>对于这个部分，我们有$π,α$，以及如下关系式：</p>
+<script type="math/tex; mode=display">
+π = σA+εα</script><p>注意到在$F_q$下，全为256以内值的$A$显然算小量，因此这其实是个正交格的问题，具体来说，我们用格找到满足如下条件的小值矩阵$M$：</p>
+<script type="math/tex; mode=display">
+πM = αM = 0</script><p>那么代入上式有：</p>
+<script type="math/tex; mode=display">
+σAM = 0</script><p>所以对$M$的左核进行规约就可以找到LLL-reduce过的$A$了，记为$kA$</p>
+<blockquote>
+<p>实际上可以更进一步，用测试数据观察一下，会发现$kA$中的向量基本只涉及原始A中的至多两个向量的约减，并且系数是1或者-1。所以用贪心的思路去搜其实可以找到一个$A$的行向量置换后的结果，也就是可以找到一个$PA$，这是一个更强的条件</p>
+</blockquote>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> re <span class="keyword">import</span> findall</span><br><span class="line"><span class="keyword">from</span> subprocess <span class="keyword">import</span> check_output</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">flatter</span>(<span class="params">M</span>):</span><br><span class="line">    <span class="comment"># compile https://github.com/keeganryan/flatter and put it in $PATH</span></span><br><span class="line">    z = <span class="string">&quot;[[&quot;</span> + <span class="string">&quot;]\n[&quot;</span>.join(<span class="string">&quot; &quot;</span>.join(<span class="built_in">map</span>(<span class="built_in">str</span>, row)) <span class="keyword">for</span> row <span class="keyword">in</span> M) + <span class="string">&quot;]]&quot;</span></span><br><span class="line">    ret = check_output([<span class="string">&quot;flatter&quot;</span>], <span class="built_in">input</span>=z.encode())</span><br><span class="line">    <span class="keyword">return</span> matrix(M.nrows(), M.ncols(), <span class="built_in">map</span>(<span class="built_in">int</span>, findall(<span class="string">b&quot;-?\\d+&quot;</span>, ret)))</span><br><span class="line"></span><br><span class="line">N, n, q = <span class="number">1024</span>, <span class="number">60</span>, <span class="number">2</span>**<span class="number">521</span>-<span class="number">1</span></span><br><span class="line">F, Fq = Zmod(<span class="number">256</span>), GF(q)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;tedious&quot;</span>, <span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    tedious = <span class="built_in">eval</span>(f.read())</span><br><span class="line">α = Matrix(Fq, tedious[<span class="string">&quot;α&quot;</span>])</span><br><span class="line">π = Matrix(Fq, tedious[<span class="string">&quot;π&quot;</span>])</span><br><span class="line">mat = load(<span class="string">&quot;mat.sobj&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># σ*A+kα = π</span></span><br><span class="line"><span class="comment"># find αr = πr = 0</span></span><br><span class="line"></span><br><span class="line">NN = α.stack(π).T</span><br><span class="line">T1 = block_matrix(ZZ,[</span><br><span class="line">    [<span class="number">1</span>, NN],</span><br><span class="line">    [<span class="number">0</span>, q]</span><br><span class="line">])</span><br><span class="line">T1[:,-<span class="number">120</span>:] *= q</span><br><span class="line">T1 = flatter(T1)</span><br><span class="line"></span><br><span class="line">Ker = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">136</span>):</span><br><span class="line">    Ker.append(<span class="built_in">list</span>(T1[i][:<span class="number">256</span>]))</span><br><span class="line">Ker = Matrix(Zmod(q), Ker).T</span><br><span class="line"></span><br><span class="line">NNN = Matrix(ZZ, Ker)</span><br><span class="line"></span><br><span class="line">L = block_matrix(ZZ,[</span><br><span class="line">    [NNN,<span class="number">1</span>],</span><br><span class="line">    [q,<span class="number">0</span>]</span><br><span class="line">])</span><br><span class="line">L[:,:<span class="number">136</span>] *= q</span><br><span class="line">L = flatter(L)</span><br><span class="line"></span><br><span class="line">A = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> L[:<span class="number">80</span>]:</span><br><span class="line">    A.append(i[-<span class="number">256</span>:])</span><br><span class="line">A = Matrix(ZZ,A)</span><br><span class="line"></span><br><span class="line"><span class="comment">#search for all A(using greedy)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check</span>(<span class="params">v</span>):</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">all</span>(i &gt;= <span class="number">0</span> <span class="keyword">and</span> i &lt;= <span class="number">256</span>  <span class="keyword">for</span> i <span class="keyword">in</span> v)):</span><br><span class="line">        <span class="keyword">return</span> v</span><br><span class="line">    <span class="keyword">elif</span>(<span class="built_in">all</span>(i &lt;= <span class="number">0</span> <span class="keyword">and</span> i &gt;= -<span class="number">256</span> <span class="keyword">for</span> i <span class="keyword">in</span> v)):</span><br><span class="line">        <span class="keyword">return</span> -v</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">Ker,x</span>):</span><br><span class="line">    x = [i <span class="keyword">for</span> i <span class="keyword">in</span> ini]</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> vi <span class="keyword">in</span> x:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> Ker:</span><br><span class="line">                xi1 = check(i + vi)</span><br><span class="line">                xi2 = check(i - vi)</span><br><span class="line">                <span class="keyword">if</span> xi1 <span class="keyword">and</span> xi1 <span class="keyword">not</span> <span class="keyword">in</span> x:</span><br><span class="line">                    x.append(xi1)</span><br><span class="line">                    <span class="keyword">if</span>(<span class="built_in">len</span>(x) == <span class="number">80</span>):</span><br><span class="line">                        <span class="keyword">return</span> Matrix(ZZ,x)</span><br><span class="line">                <span class="keyword">if</span> xi2 <span class="keyword">and</span> xi2 <span class="keyword">not</span> <span class="keyword">in</span> x:</span><br><span class="line">                    x.append(xi2)</span><br><span class="line">                    <span class="keyword">if</span>(<span class="built_in">len</span>(x) == <span class="number">80</span>):</span><br><span class="line">                        <span class="keyword">return</span> Matrix(ZZ,x)</span><br><span class="line"></span><br><span class="line">ini = [check(vi) <span class="keyword">for</span> vi <span class="keyword">in</span> A <span class="keyword">if</span> check(vi)]</span><br><span class="line">AA = find(A,ini)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(AA))</span><br></pre></td></tr></table></figure>
+<h4 id="MT"><a href="#MT" class="headerlink" title="*MT"></a>*MT</h4><p>这一步比赛中我完全没有注意到，直接导致了不知道该怎么恢复$A$的顺序，并且由于最后一步是需要求解s中向量的和而不是顺序的s，所以直接导致了我认为也许可以在A顺序错乱的情况下解决error_work部分，因此整个思路就跑偏了。</p>
+<blockquote>
+<p> 而现在看来，其实连题目名字都对这个做了暗示，只能说这波考虑的不是很周到TT</p>
+</blockquote>
+<p>而之所以能用MT主要在于tedious_work部分里其实大范围使用了randrange函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">tedious_work</span>(<span class="params">A</span>):</span><br><span class="line">    α = random_matrix(Fq, n, N//<span class="number">4</span>)</span><br><span class="line">    ε = matrix(n, N//<span class="number">4</span>, [i*randrange(<span class="number">0</span>, q) <span class="keyword">for</span> i <span class="keyword">in</span> α])</span><br><span class="line">    σ = matrix(Fq, [[randrange(<span class="number">1</span>, q) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n)])</span><br><span class="line">    <span class="built_in">open</span>(<span class="string">&quot;tedious&quot;</span>, <span class="string">&quot;w&quot;</span>).write(<span class="built_in">str</span>(&#123;<span class="string">&quot;π&quot;</span>: <span class="built_in">list</span>(σ*A+ε), <span class="string">&quot;α&quot;</span>: <span class="built_in">list</span>(α)&#125;))</span><br></pre></td></tr></table></figure>
+<p>而对于$q=2^{521}-1$这种数字来讲，这样的<code>randrange(0, q)</code>基本完全等价于<code>getrandbits(521)</code>，因此如果我们能求出$ε$，就有60个521bit的数字，就可以利用MT通过预测随机数的方式得到$σ$了。</p>
+<p>而求解$ε$并不麻烦，回顾等式：</p>
+<script type="math/tex; mode=display">
+π = σA+εα</script><p>我们现在有了$kA$，那么我们求$kA$的右核$M$，代入就得到：</p>
+<script type="math/tex; mode=display">
+πM = εαM</script><p>然后解矩阵方程就有$ε$，之后就可以通过MT预测随机数得到$σ$。</p>
+<blockquote>
+<p>这里预测随机数的话，我用朴素的建矩阵方法会发现由于比特之间线性相关性很强，至少要用30000多bit的输出才能使矩阵的秩达到预期的19937，而这样内存会直接不够用</p>
+<p>问了下hashhash师傅，又得到了一个有力的新工具：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/icemonster/symbolic_mersenne_cracker">https://github.com/icemonster/symbolic_mersenne_cracker</a></p>
+</blockquote>
+<p>而现在我们有了$σ$，就可以恢复顺序正确的$A$了，粗暴一点直接对下式逐列做LLL即可：</p>
+<script type="math/tex; mode=display">
+π = σA+εα</script><p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">PA = load(<span class="string">&quot;PA.sobj&quot;</span>)</span><br><span class="line"></span><br><span class="line">PA = Matrix(Fq, PA)</span><br><span class="line">PA_Ker = Matrix(Fq, PA.right_kernel().basis()).T</span><br><span class="line">X = π*PA_Ker</span><br><span class="line">Y = α*PA_Ker</span><br><span class="line">K = Y.solve_left(X)</span><br><span class="line">k = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    k.append(K[i,i])</span><br><span class="line"><span class="built_in">print</span>(k)</span><br><span class="line"></span><br><span class="line"><span class="comment">############################################################### MT predict</span></span><br><span class="line">go to python <span class="keyword">and</span> predict MT :)</span><br><span class="line"><span class="comment">############################################################### MT predict</span></span><br><span class="line"></span><br><span class="line">states = [<span class="number">113704197</span>, <span class="number">3405842530</span>, <span class="number">1738689478</span>, <span class="number">703229539</span>, <span class="number">2907259502</span>, <span class="number">1773213255</span>, <span class="number">4259193140</span>, <span class="number">2328997110</span>, <span class="number">2326382620</span>, <span class="number">3539943450</span>, <span class="number">3943473704</span>, <span class="number">1640519491</span>, <span class="number">1875870865</span>, <span class="number">2731501447</span>, <span class="number">4209819181</span>, <span class="number">3449883535</span>, <span class="number">3523992081</span>, <span class="number">3280171865</span>, <span class="number">2416845087</span>, <span class="number">2151403870</span>, <span class="number">693081970</span>, <span class="number">1747115758</span>, <span class="number">4015945850</span>, <span class="number">3686334481</span>, <span class="number">898499801</span>, <span class="number">4190457978</span>, <span class="number">3787813964</span>, <span class="number">3258218099</span>, <span class="number">3437965753</span>, <span class="number">1878250724</span>, <span class="number">3189476074</span>, <span class="number">1152476894</span>, <span class="number">147834339</span>, <span class="number">2769430677</span>, <span class="number">3511032479</span>, <span class="number">3567924279</span>, <span class="number">2161471426</span>, <span class="number">563308943</span>, <span class="number">3446408078</span>, <span class="number">1949971313</span>, <span class="number">1895962308</span>, <span class="number">3707951421</span>, <span class="number">968721904</span>, <span class="number">252441955</span>, <span class="number">2533651660</span>, <span class="number">2889128006</span>, <span class="number">1721763532</span>, <span class="number">2505823299</span>, <span class="number">458331240</span>, <span class="number">2059589053</span>, <span class="number">64385284</span>, <span class="number">4029357042</span>, <span class="number">695109338</span>, <span class="number">744440358</span>, <span class="number">3519688222</span>, <span class="number">2361161993</span>, <span class="number">3223663686</span>, <span class="number">2010594546</span>, <span class="number">3958688671</span>, <span class="number">2291905952</span>, <span class="number">3926524336</span>, <span class="number">2011139757</span>, <span class="number">461769836</span>, <span class="number">3114896752</span>, <span class="number">2282936557</span>, <span class="number">1927285746</span>, <span class="number">2582255350</span>, <span class="number">504168956</span>, <span class="number">4113181790</span>, <span class="number">848941762</span>, <span class="number">383163494</span>, <span class="number">1372255865</span>, <span class="number">3496580772</span>, <span class="number">2692443861</span>, <span class="number">3389749948</span>, <span class="number">498352369</span>, <span class="number">748459956</span>, <span class="number">3389041382</span>, <span class="number">141074870</span>, <span class="number">1632758136</span>, <span class="number">3219470486</span>, <span class="number">126558810</span>, <span class="number">1031061639</span>, <span class="number">2672864696</span>, <span class="number">48240402</span>, <span class="number">2704206234</span>, <span class="number">1425068775</span>, <span class="number">3265363748</span>, <span class="number">630960765</span>, <span class="number">3819353836</span>, <span class="number">1858506649</span>, <span class="number">485318072</span>, <span class="number">4128742296</span>, <span class="number">3376811318</span>, <span class="number">4204655629</span>, <span class="number">1286398000</span>, <span class="number">2303971794</span>, <span class="number">4274435326</span>, <span class="number">4044081550</span>, <span class="number">1715823135</span>, <span class="number">132631825</span>, <span class="number">3152223805</span>, <span class="number">2583497918</span>, <span class="number">1635027483</span>, <span class="number">3339956668</span>, <span class="number">707057445</span>, <span class="number">3980699204</span>, <span class="number">614764316</span>, <span class="number">1346718391</span>, <span class="number">1135939959</span>, <span class="number">2997914131</span>, <span class="number">4051263902</span>, <span class="number">1963572188</span>, <span class="number">770507588</span>, <span class="number">3909567052</span>, <span class="number">2091058219</span>, <span class="number">2543156465</span>, <span class="number">3842371252</span>, <span class="number">3443677424</span>, <span class="number">759282030</span>, <span class="number">2889909779</span>, <span class="number">1368851309</span>, <span class="number">305191756</span>, <span class="number">1858852750</span>, <span class="number">554329976</span>, <span class="number">3904036123</span>, <span class="number">2901653875</span>, <span class="number">2741469407</span>, <span class="number">2572249766</span>, <span class="number">1246238357</span>, <span class="number">659145741</span>, <span class="number">190685166</span>, <span class="number">3612959518</span>, <span class="number">640691503</span>, <span class="number">1185217803</span>, <span class="number">1009848496</span>, <span class="number">3206611783</span>, <span class="number">2894535678</span>, <span class="number">3453033501</span>, <span class="number">289230470</span>, <span class="number">1372089846</span>, <span class="number">1049152746</span>, <span class="number">2850741310</span>, <span class="number">984661882</span>, <span class="number">611884565</span>, <span class="number">1236657355</span>, <span class="number">3343527827</span>, <span class="number">2548951125</span>, <span class="number">562791145</span>, <span class="number">2252848045</span>, <span class="number">3105367880</span>, <span class="number">2712522865</span>, <span class="number">2479258764</span>, <span class="number">2986877450</span>, <span class="number">3601398564</span>, <span class="number">3662538540</span>, <span class="number">3275126554</span>, <span class="number">2940194474</span>, <span class="number">1356516733</span>, <span class="number">4044042721</span>, <span class="number">1494897675</span>, <span class="number">1989984303</span>, <span class="number">1097151926</span>, <span class="number">4221219684</span>, <span class="number">1212544909</span>, <span class="number">3340394958</span>, <span class="number">1390514300</span>, <span class="number">1549503887</span>, <span class="number">2581775858</span>, <span class="number">2545827540</span>, <span class="number">2645302457</span>, <span class="number">230521227</span>, <span class="number">3196138321</span>, <span class="number">2625674622</span>, <span class="number">79454347</span>, <span class="number">187896698</span>, <span class="number">2008836319</span>, <span class="number">1045267458</span>, <span class="number">1829322640</span>, <span class="number">4025973981</span>, <span class="number">3790962910</span>, <span class="number">283254001</span>, <span class="number">2623533575</span>, <span class="number">122212170</span>, <span class="number">1759345544</span>, <span class="number">869521827</span>, <span class="number">825919923</span>, <span class="number">486969567</span>, <span class="number">78939622</span>, <span class="number">2861038139</span>, <span class="number">1135095820</span>, <span class="number">2180896951</span>, <span class="number">900573089</span>, <span class="number">2804379345</span>, <span class="number">3626010865</span>, <span class="number">1053464390</span>, <span class="number">3427238220</span>, <span class="number">2692890127</span>, <span class="number">949965100</span>, <span class="number">2587630194</span>, <span class="number">2356494570</span>, <span class="number">1622890994</span>, <span class="number">986294457</span>, <span class="number">4244918160</span>, <span class="number">617700961</span>, <span class="number">1624977147</span>, <span class="number">2716699722</span>, <span class="number">2078770881</span>, <span class="number">1002097877</span>, <span class="number">244885836</span>, <span class="number">2443012853</span>, <span class="number">2039552484</span>, <span class="number">4171906420</span>, <span class="number">2427771544</span>, <span class="number">1305324504</span>, <span class="number">2724020235</span>, <span class="number">1036098721</span>, <span class="number">3919115037</span>, <span class="number">993285859</span>, <span class="number">386235749</span>, <span class="number">1258147194</span>, <span class="number">610050676</span>, <span class="number">3012646137</span>, <span class="number">2305189066</span>, <span class="number">1178414969</span>, <span class="number">3302542440</span>, <span class="number">1462463223</span>, <span class="number">1437498692</span>, <span class="number">3668103437</span>, <span class="number">1084808916</span>, <span class="number">309279283</span>, <span class="number">4017505061</span>, <span class="number">1558248353</span>, <span class="number">423359063</span>, <span class="number">4244733362</span>, <span class="number">616039082</span>, <span class="number">2102560308</span>, <span class="number">1060727767</span>, <span class="number">1920662732</span>, <span class="number">358907463</span>, <span class="number">3396088680</span>, <span class="number">903551662</span>, <span class="number">868558723</span>, <span class="number">3212315449</span>, <span class="number">2519349944</span>, <span class="number">1503499107</span>, <span class="number">2102219311</span>, <span class="number">3449942920</span>, <span class="number">669316525</span>, <span class="number">2108323918</span>, <span class="number">2708665195</span>, <span class="number">1941048760</span>, <span class="number">583680212</span>, <span class="number">3424787423</span>, <span class="number">2232015555</span>, <span class="number">2054145795</span>, <span class="number">242750178</span>, <span class="number">3896737257</span>, <span class="number">1467962784</span>, <span class="number">970382615</span>, <span class="number">1392558681</span>, <span class="number">3881466100</span>, <span class="number">2903195184</span>, <span class="number">3585586116</span>, <span class="number">1914526073</span>, <span class="number">2106370747</span>, <span class="number">1008444182</span>, <span class="number">2107010937</span>, <span class="number">2822188700</span>, <span class="number">1218447381</span>, <span class="number">2308375528</span>, <span class="number">3369742794</span>, <span class="number">2975504770</span>, <span class="number">4176851601</span>, <span class="number">67514816</span>, <span class="number">4246377398</span>, <span class="number">1734425751</span>, <span class="number">1993987051</span>, <span class="number">1145805899</span>, <span class="number">3244559845</span>, <span class="number">2521286868</span>, <span class="number">541117045</span>, <span class="number">721746299</span>, <span class="number">3298483091</span>, <span class="number">491071222</span>, <span class="number">1354933102</span>, <span class="number">2956619599</span>, <span class="number">1199597464</span>, <span class="number">3193364044</span>, <span class="number">3668585273</span>, <span class="number">200554677</span>, <span class="number">972726751</span>, <span class="number">2203882536</span>, <span class="number">3485522382</span>, <span class="number">2761802839</span>, <span class="number">3754978098</span>, <span class="number">165615557</span>, <span class="number">322534410</span>, <span class="number">3524217767</span>, <span class="number">4138073568</span>, <span class="number">2261377656</span>, <span class="number">4006747923</span>, <span class="number">109290994</span>, <span class="number">2456757773</span>, <span class="number">2374256574</span>, <span class="number">3232001613</span>, <span class="number">3564455680</span>, <span class="number">1701870507</span>, <span class="number">2377668333</span>, <span class="number">1216762358</span>, <span class="number">553166470</span>, <span class="number">4133793648</span>, <span class="number">2938687008</span>, <span class="number">3815389598</span>, <span class="number">2231853860</span>, <span class="number">3308357816</span>, <span class="number">515681335</span>, <span class="number">2826361049</span>, <span class="number">288633911</span>, <span class="number">110468545</span>, <span class="number">3265849311</span>, <span class="number">3852434959</span>, <span class="number">1231187782</span>, <span class="number">361481132</span>, <span class="number">584104453</span>, <span class="number">1935867088</span>, <span class="number">4149367251</span>, <span class="number">3831702086</span>, <span class="number">1203733277</span>, <span class="number">2899033791</span>, <span class="number">146772292</span>, <span class="number">2887208072</span>, <span class="number">3963017011</span>, <span class="number">3233095710</span>, <span class="number">3600173778</span>, <span class="number">1306987150</span>, <span class="number">390355547</span>, <span class="number">862238214</span>, <span class="number">3220269886</span>, <span class="number">2826165734</span>, <span class="number">689420894</span>, <span class="number">138511293</span>, <span class="number">1327820607</span>, <span class="number">265976988</span>, <span class="number">3864481874</span>, <span class="number">1774854365</span>, <span class="number">276867882</span>, <span class="number">2298473905</span>, <span class="number">698421415</span>, <span class="number">388689242</span>, <span class="number">1038955726</span>, <span class="number">3712967142</span>, <span class="number">2661024048</span>, <span class="number">4236026832</span>, <span class="number">1237739677</span>, <span class="number">4055165262</span>, <span class="number">534625863</span>, <span class="number">1489376830</span>, <span class="number">1800306875</span>, <span class="number">3698762430</span>, <span class="number">3777224699</span>, <span class="number">3234261312</span>, <span class="number">322143627</span>, <span class="number">1816432874</span>, <span class="number">1274393877</span>, <span class="number">812128958</span>, <span class="number">3249283852</span>, <span class="number">3740153121</span>, <span class="number">99828532</span>, <span class="number">678084661</span>, <span class="number">766588687</span>, <span class="number">387426792</span>, <span class="number">987971056</span>, <span class="number">2080859085</span>, <span class="number">850637292</span>, <span class="number">1277972870</span>, <span class="number">188018627</span>, <span class="number">2394503743</span>, <span class="number">2315476470</span>, <span class="number">1565011923</span>, <span class="number">1941074311</span>, <span class="number">1179787099</span>, <span class="number">482261965</span>, <span class="number">835090610</span>, <span class="number">1026182337</span>, <span class="number">530973140</span>, <span class="number">3201248099</span>, <span class="number">288945328</span>, <span class="number">2552958881</span>, <span class="number">2737411289</span>, <span class="number">617540214</span>, <span class="number">1987197723</span>, <span class="number">2597866739</span>, <span class="number">1229316798</span>, <span class="number">636632825</span>, <span class="number">3759065119</span>, <span class="number">2051062165</span>, <span class="number">1090249666</span>, <span class="number">4012867151</span>, <span class="number">3997281726</span>, <span class="number">1891614046</span>, <span class="number">1950467577</span>, <span class="number">1896564800</span>, <span class="number">2803835300</span>, <span class="number">3606368644</span>, <span class="number">257560555</span>, <span class="number">3883205059</span>, <span class="number">664635385</span>, <span class="number">4102706448</span>, <span class="number">622545284</span>, <span class="number">3280864106</span>, <span class="number">293013878</span>, <span class="number">1127325978</span>, <span class="number">3215983960</span>, <span class="number">1146222004</span>, <span class="number">3326539387</span>, <span class="number">808949477</span>, <span class="number">3970628609</span>, <span class="number">4007212270</span>, <span class="number">2711477502</span>, <span class="number">557726083</span>, <span class="number">766381908</span>, <span class="number">33900284</span>, <span class="number">932748148</span>, <span class="number">1121083738</span>, <span class="number">4272167901</span>, <span class="number">466227150</span>, <span class="number">1505452928</span>, <span class="number">1528845019</span>, <span class="number">2263605533</span>, <span class="number">1016244607</span>, <span class="number">3237061456</span>, <span class="number">3137273984</span>, <span class="number">4211330922</span>, <span class="number">1155964522</span>, <span class="number">1608938084</span>, <span class="number">2887620568</span>, <span class="number">2662588350</span>, <span class="number">1201565218</span>, <span class="number">568530275</span>, <span class="number">2678380208</span>, <span class="number">3359503459</span>, <span class="number">3144725110</span>, <span class="number">814896638</span>, <span class="number">1064850116</span>, <span class="number">1483772157</span>, <span class="number">2568601930</span>, <span class="number">541715956</span>, <span class="number">2063836765</span>, <span class="number">2016359752</span>, <span class="number">3728066075</span>, <span class="number">2254054776</span>, <span class="number">722016621</span>, <span class="number">741878938</span>, <span class="number">2558272354</span>, <span class="number">2808723788</span>, <span class="number">4234530153</span>, <span class="number">2125747501</span>, <span class="number">2704729045</span>, <span class="number">2113451904</span>, <span class="number">3332283037</span>, <span class="number">1208922003</span>, <span class="number">1310310684</span>, <span class="number">557110487</span>, <span class="number">1171236916</span>, <span class="number">1135441796</span>, <span class="number">3086182596</span>, <span class="number">181993156</span>, <span class="number">904442790</span>, <span class="number">2096301594</span>, <span class="number">3148947917</span>, <span class="number">547059118</span>, <span class="number">2676365459</span>, <span class="number">551054518</span>, <span class="number">1402555326</span>, <span class="number">1266743827</span>, <span class="number">966157584</span>, <span class="number">1462709454</span>, <span class="number">1044422747</span>, <span class="number">1816623887</span>, <span class="number">1723907402</span>, <span class="number">3680143765</span>, <span class="number">3729225582</span>, <span class="number">4137182800</span>, <span class="number">1540646791</span>, <span class="number">1904561630</span>, <span class="number">4070808312</span>, <span class="number">2453054379</span>, <span class="number">2140927760</span>, <span class="number">1460445742</span>, <span class="number">16529247</span>, <span class="number">311847522</span>, <span class="number">3767018970</span>, <span class="number">660938106</span>, <span class="number">1235032574</span>, <span class="number">2993757301</span>, <span class="number">1334679238</span>, <span class="number">1421661735</span>, <span class="number">3365436073</span>, <span class="number">4096075739</span>, <span class="number">1013195725</span>, <span class="number">755997768</span>, <span class="number">666263898</span>, <span class="number">1909896304</span>, <span class="number">3251310335</span>, <span class="number">3999215317</span>, <span class="number">3302976019</span>, <span class="number">3547292488</span>, <span class="number">3966102960</span>, <span class="number">1860144301</span>, <span class="number">2420524501</span>, <span class="number">4198383718</span>, <span class="number">364183848</span>, <span class="number">813072812</span>, <span class="number">165238552</span>, <span class="number">1286095762</span>, <span class="number">2406680229</span>, <span class="number">4139882913</span>, <span class="number">2593781524</span>, <span class="number">2461772957</span>, <span class="number">3516662592</span>, <span class="number">1468160566</span>, <span class="number">1468596495</span>, <span class="number">1290505617</span>, <span class="number">680659494</span>, <span class="number">1082427874</span>, <span class="number">3220637159</span>, <span class="number">599428397</span>, <span class="number">2343433113</span>, <span class="number">2528532716</span>, <span class="number">3311188194</span>, <span class="number">488997170</span>, <span class="number">3504561095</span>, <span class="number">97864554</span>, <span class="number">2912302105</span>, <span class="number">4221852521</span>, <span class="number">2908477548</span>, <span class="number">940703408</span>, <span class="number">439839216</span>, <span class="number">896505182</span>, <span class="number">1252814322</span>, <span class="number">1901262143</span>, <span class="number">604086101</span>, <span class="number">159852464</span>, <span class="number">3568973474</span>, <span class="number">3821487860</span>, <span class="number">623098514</span>, <span class="number">202248458</span>, <span class="number">2977078642</span>, <span class="number">4036934666</span>, <span class="number">1549547455</span>, <span class="number">3422386820</span>, <span class="number">2938814110</span>, <span class="number">2640881906</span>, <span class="number">2271464353</span>, <span class="number">3641908765</span>, <span class="number">3373579173</span>, <span class="number">2759933980</span>, <span class="number">2957563388</span>, <span class="number">1862384250</span>, <span class="number">3833642986</span>, <span class="number">714120541</span>, <span class="number">38008176</span>, <span class="number">823996869</span>, <span class="number">3512767789</span>, <span class="number">245085003</span>, <span class="number">3871751583</span>, <span class="number">816496606</span>, <span class="number">997537973</span>, <span class="number">597244106</span>, <span class="number">1948340722</span>, <span class="number">1142655576</span>, <span class="number">3213975398</span>, <span class="number">3177419168</span>, <span class="number">1277075442</span>, <span class="number">2836191462</span>, <span class="number">1836238758</span>, <span class="number">2631533053</span>, <span class="number">2398455289</span>, <span class="number">589980987</span>, <span class="number">102662424</span>, <span class="number">4050080940</span>, <span class="number">2606072212</span>, <span class="number">638082255</span>, <span class="number">3821379936</span>, <span class="number">1855702237</span>, <span class="number">141488036</span>, <span class="number">790011767</span>, <span class="number">2814221285</span>, <span class="number">423059338</span>, <span class="number">1324669488</span>, <span class="number">1772067999</span>, <span class="number">929474842</span>, <span class="number">3439201681</span>, <span class="number">1472574624</span>, <span class="number">2524204217</span>, <span class="number">991362400</span>, <span class="number">60046905</span>, <span class="number">897384794</span>, <span class="number">4064258414</span>, <span class="number">1628707668</span>, <span class="number">644418391</span>, <span class="number">3844473927</span>, <span class="number">802859186</span>, <span class="number">2748442866</span>, <span class="number">2501688702</span>, <span class="number">693109486</span>, <span class="number">1060328162</span>, <span class="number">674456370</span>, <span class="number">2161128289</span>, <span class="number">1739588708</span>, <span class="number">1790254588</span>, <span class="number">3158300972</span>, <span class="number">3677273706</span>, <span class="number">4036870155</span>, <span class="number">1785921241</span>, <span class="number">1010936739</span>, <span class="number">1815361842</span>, <span class="number">2442375985</span>, <span class="number">278516160</span>, <span class="number">4182906499</span>, <span class="number">2505615705</span>, <span class="number">2501155191</span>, <span class="number">2687203272</span>]</span><br><span class="line">states = [<span class="built_in">int</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> states]</span><br><span class="line">RNG = Random()</span><br><span class="line">RNG.setstate((<span class="number">3</span>,<span class="built_in">tuple</span>(states+[<span class="number">396</span>]),<span class="literal">None</span>))</span><br><span class="line">σ = matrix(Fq, [[RNG.randrange(<span class="number">1</span>, q) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n)])</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">NN = π-K*α</span><br><span class="line"></span><br><span class="line">A = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">256</span>):</span><br><span class="line">    L = block_matrix(ZZ,[</span><br><span class="line">        [<span class="number">1</span>, <span class="number">0</span>, σ.T],</span><br><span class="line">        [<span class="number">0</span>, <span class="number">1</span>, Matrix(ZZ,NN[:,i:i+<span class="number">1</span>]).T],</span><br><span class="line">        [<span class="number">0</span>, <span class="number">0</span>, q]</span><br><span class="line">    ])</span><br><span class="line">    L[:,-<span class="number">60</span>:] *= q</span><br><span class="line">    res = <span class="built_in">list</span>(flatter(L)[<span class="number">0</span>])</span><br><span class="line">    res = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">abs</span>, res))</span><br><span class="line">    A.append(<span class="built_in">list</span>(res[:<span class="number">80</span>]))</span><br><span class="line">    </span><br><span class="line">A = Matrix(F, A).T</span><br><span class="line">save(A, <span class="string">&quot;A&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="error-work"><a href="#error-work" class="headerlink" title="error_work"></a>error_work</h4><p>现在我们有了顺序的$A$，我们也就拥有了20个下面的实例中的$t_i,a_i$：</p>
+<script type="math/tex; mode=display">
+t_i = \textbf{s}_ia_i + P_ie_i</script><p>e的误差数量少，但是误差值是$F_{256}$下的随机值，这显然是一个将$a_i$作为生成矩阵的线性码解码问题。</p>
+<p>我对编码了解的并不多，不过很容易注意到两个事实：</p>
+<ul>
+<li><p>1024个方程中只有22个是错误的，所以随机选520个去解方程得到s，这概率也并不低，几百万次就可以</p>
+<blockquote>
+<p>可以这样简单测一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = comb((<span class="number">1024</span>-<span class="number">22</span>),<span class="number">520</span>) / comb(<span class="number">1024</span>,<span class="number">520</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(<span class="number">1</span>/t))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">7523285</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>$Z_{256}$完全可以转到$Z_2$下做decode，计算量减小的同时，偶数的误差还会消失，相当于误差数量会变小</p>
+<blockquote>
+<p>同样可以测一下，既然一共有22个error，那么预期中放到模2后会减小11个error，所以我们能定位11个error的位置，从而减小选到error的概率，此时期望为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = comb(<span class="number">1024</span>-<span class="number">22</span>,<span class="number">520</span>) / comb(<span class="number">1024</span>-<span class="number">11</span>,<span class="number">520</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(<span class="number">1</span>/t))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2920</span><br></pre></td></tr></table></figure>
+<p>可以看出需要的次数就少很多了</p>
+</blockquote>
+</li>
+</ul>
+<p>所以一个很自然的思路就是：</p>
+<ul>
+<li>先对每个码字在模2下decode，这样可以把奇数的误差定位，然后从备选列中剔除掉</li>
+<li>之后在$Z_{256}$下剩余的列中随机选择520列去解方程（这样做是为了增加约束），有解的时候就得到了s</li>
+</ul>
+<p>在模2下decode可以直接抄maple在<a target="_blank" rel="noopener" href="https://blog.maple3142.net/2024/04/21/grey-cat-the-flag-2024-quals-writeups/?highlight=isd#coding">Grey Cat The Flag 2024 Qualifiers</a>中的调用，由于模2下期望会有一半的奇数误差会消失，所以可以把error weight设置的低一些提高解码速度，之后就一直从剩余的方程组里抽一直到找到解就好。</p>
+<p>不过实际上手会发现，解512x520规模的$F_{256}$下矩阵方程也要好几秒一次，所以要加点多进程才行。</p>
+<blockquote>
+<p>其实还是相当慢，所以还是按预期解从$Z_2$下decode往上lift最好，但是我真的不太会</p>
+<p>应该都不能说相当慢，实际上是巨慢，尤其有一个$F_2$下error只有6个的，预期要roll 20万次，所以我实际上偷懒没跑这组而是直接用了hashhash的数据XD</p>
+</blockquote>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">A = load(<span class="string">&quot;A.sobj&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">############################################################### collect codewords</span></span><br><span class="line">C = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):</span><br><span class="line">    C.append(vector(F, A[<span class="number">4</span>*i:<span class="number">4</span>*i+<span class="number">4</span>].<span class="built_in">list</span>()))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sage.coding.linear_code <span class="keyword">import</span> LinearCode</span><br><span class="line"><span class="keyword">from</span> sage.coding.information_set_decoder <span class="keyword">import</span> LeeBrickellISDAlgorithm</span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">My_decode</span>(<span class="params">Generator_Matrix, Codeword</span>):</span><br><span class="line">    <span class="comment">######################## ISD decode in F2</span></span><br><span class="line">    G = Generator_Matrix.change_ring(F2)</span><br><span class="line">    CODE = LinearCode(G)</span><br><span class="line">    D = LeeBrickellISDAlgorithm(CODE, decoding_interval=(<span class="number">5</span>, <span class="number">15</span>))</span><br><span class="line"></span><br><span class="line">    s = Codeword.change_ring(F2)</span><br><span class="line">    res = (D.decode(s))</span><br><span class="line">    e = (res-s).<span class="built_in">list</span>()</span><br><span class="line">    </span><br><span class="line">    error_ind = []</span><br><span class="line">    <span class="keyword">for</span> i, ei <span class="keyword">in</span> <span class="built_in">enumerate</span>(e):</span><br><span class="line">        <span class="keyword">if</span>(ei == <span class="number">1</span>):</span><br><span class="line">            error_ind.append(i)</span><br><span class="line">    <span class="keyword">return</span> error_ind</span><br><span class="line">    </span><br><span class="line">error_inds = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):</span><br><span class="line">    error_ind = My_decode(mat[i], C[i])</span><br><span class="line">    error_inds.append(error_ind)</span><br><span class="line">    <span class="built_in">print</span>(error_ind)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">######################## roll</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">roll</span>(<span class="params">_</span>):</span><br><span class="line">    ind = sample(<span class="built_in">list</span>(<span class="built_in">set</span>(<span class="built_in">range</span>(<span class="number">0</span>, <span class="number">1024</span>)) - <span class="built_in">set</span>(error_ind)), <span class="number">520</span>)</span><br><span class="line">    temp_a = mat[i][<span class="built_in">range</span>(<span class="number">0</span>,<span class="number">512</span>), ind]</span><br><span class="line">    temp_c = Matrix(F, C[i])[[<span class="number">0</span>], ind]</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s = temp_a.solve_left(temp_c)</span><br><span class="line">        <span class="built_in">print</span>(s)</span><br><span class="line">        <span class="keyword">return</span> s</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):</span><br><span class="line">    error_ind = error_inds[i]</span><br><span class="line">    <span class="keyword">with</span> Pool(processes=<span class="number">32</span>) <span class="keyword">as</span> pool:</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> tqdm(pool.imap(roll, <span class="built_in">range</span>(<span class="number">10000</span>)), total=<span class="built_in">int</span>(<span class="number">10000</span>)):</span><br><span class="line">            <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cipher = AES.new(md5(<span class="built_in">str</span>(<span class="built_in">sum</span>(s)).encode()).digest(), AES.MODE_ECB)</span><br><span class="line">enc = <span class="string">&quot;af3010a3de0fa968c38f421f2857d6c60caf9a6ae1023e9d04f253e1d5fb8038fddf26f7cc976fadbb2df12ef549d1fd&quot;</span></span><br><span class="line"><span class="built_in">print</span>(cipher.decrypt(<span class="built_in">bytes</span>.fromhex(enc)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#n1ctf&#123;ISD&amp;LLL_4re_bo7h_v3ry_pow3rfu1_t00ls&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/cd7e8e10.html" title="2024-N1CTF-wp-crypto">https://tangcuxiaojikuai.xyz/post/cd7e8e10.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/860541dc.html" rel="prev" title="2024-数信杯决赛-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2024-数信杯决赛-wp-crypto
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#n0tr5a"><span class="nav-number">1.</span> <span class="nav-text">n0tr5a</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#seashells"><span class="nav-number">2.</span> <span class="nav-text">seashells</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#M4sTeriX"><span class="nav-number">3.</span> <span class="nav-text">*M4sTeriX</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tedious-work"><span class="nav-number">3.1.</span> <span class="nav-text">tedious_work</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MT"><span class="nav-number">3.2.</span> <span class="nav-text">*MT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#error-work"><span class="nav-number">3.3.</span> <span class="nav-text">error_work</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
