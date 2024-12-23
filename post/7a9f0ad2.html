@@ -33,7 +33,7 @@
 <meta property="og:description" content="参与了Round18的出题工作，出了三道Ring，在这里记录一下这三个题目的做法。 出题的本意也是想详细介绍一下RLWE的攻击原理。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-02-14T09:51:49.000Z">
-<meta property="article:modified_time" content="2024-02-14T15:53:31.310Z">
+<meta property="article:modified_time" content="2024-12-23T15:36:36.849Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 
@@ -220,10 +220,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-02-14 17:51:49 / 修改时间：23:53:31" itemprop="dateCreated datePublished" datetime="2024-02-14T17:51:49+08:00">2024-02-14</time>
+              <time title="创建时间：2024-02-14 17:51:49" itemprop="dateCreated datePublished" datetime="2024-02-14T17:51:49+08:00">2024-02-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-12-23 23:36:36" itemprop="dateModified" datetime="2024-12-23T23:36:36+08:00">2024-12-23</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -564,6 +570,30 @@ L
 <p>而这样的通解自然对前面的两题也适用。</p>
 <p><br></p>
 <p><br></p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>(ﾟ∀。)你居然发现这里更新了！</p>
+<p>实际上，就在比赛之后不久，我理解了一下maple博客里对商环转矩阵的处理，发现其实很简单。上述的推导虽然正确，但是略显麻烦了。然而因为懒，当时没有记录，今天总算想起来就来更新一下。（2024.12.23）</p>
+<p>先说结论，实际上商环上的多项式乘法转矩阵一行代码就可以搞定：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mat = Matrix(ZZ, [(mult*x^i % mod).<span class="built_in">list</span>() <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(mod.degree())])</span><br></pre></td></tr></table></figure>
+<p>为什么呢？我们记一个一般的商环$R_q = \frac{Z_p[x]}{f}$，这里的模多项式$f$可以是任何度为$d$的多项式，我们依然假设我们要把$R_q$下的多项式乘法$t = a \cdot s$转化成向量-矩阵乘法的形式：</p>
+<script type="math/tex; mode=display">
+\textbf{t}_{1\times n} = \textbf{s}_{1\times n} \cdot A_{n\times n}</script><p>首先，多项式$s$到向量的转换依然是很简单的，就是将他的所有系数当作向量即可，比如向量$\textbf{s} = (s_0,s_1,s_2,…s_{d-1})$对应的多项式就是$s = s_0 + s_1x + s_2x^2 + … + s_{d-1}x^{d-1}$，这个上面也有提到。</p>
+<p>关键就在这里，$t = a \cdot s$这个多项式乘法本质上来说是什么呢？他可以按$x$的不同次数拆成：</p>
+<script type="math/tex; mode=display">
+t = a \cdot(s_0 + s_1x + s_2x^2 + ... + s_{d-1}x^{d-1})</script><p>这等价于：</p>
+<script type="math/tex; mode=display">
+t = s_0a + s_1(ax) + s_2(ax^2) + ... + s_{d-1}(ax^{d-1})</script><p>很自然的，这对应到了一个向量-矩阵乘法：</p>
+<script type="math/tex; mode=display">
+\textbf{t} = 
+(s_0,s_1,s_2,\cdots, s_{d-1})
+\left(\begin{matrix}
+a \\
+ax \\
+ax^2 \\ 
+\vdots \\
+ax^{d-1}\\
+\end{matrix}\right)</script><p>而右边的矩阵就是我们需要的$A$，只需要在$R_q$下计算他并展开成向量就好了，这也就是上面那一行代码的含义。这样的推导显然会好理解很多。</p>
+<p><br></p>
+<p><br></p>
 
     </div>
 
@@ -662,7 +692,7 @@ L
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#New-Year-Ring1"><span class="nav-number">1.</span> <span class="nav-text">New Year Ring1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E4%B9%98%E6%B3%95%E7%9A%84%E7%9F%A9%E9%98%B5%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.1.</span> <span class="nav-text">多项式乘法的矩阵表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%BC%E6%94%BB%E5%87%BB"><span class="nav-number">1.2.</span> <span class="nav-text">格攻击</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#New-Year-Ring2"><span class="nav-number">2.</span> <span class="nav-text">New Year Ring2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#New-Year-Ring3"><span class="nav-number">3.</span> <span class="nav-text">New Year Ring3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a%E5%92%8Cb%E7%9B%B8%E4%B9%98%EF%BC%8C%E5%BE%97%E5%88%B0%E5%A4%9A%E9%A1%B9%E5%BC%8Fd"><span class="nav-number">3.1.</span> <span class="nav-text">a和b相乘，得到多项式d</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d%E6%A8%A1v%EF%BC%8C%E5%BE%97%E5%88%B0c"><span class="nav-number">3.2.</span> <span class="nav-text">d模v，得到c</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E8%A1%A8%E7%A4%BA"><span class="nav-number">3.3.</span> <span class="nav-text">综合表示</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#New-Year-Ring1"><span class="nav-number">1.</span> <span class="nav-text">New Year Ring1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E4%B9%98%E6%B3%95%E7%9A%84%E7%9F%A9%E9%98%B5%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.1.</span> <span class="nav-text">多项式乘法的矩阵表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%BC%E6%94%BB%E5%87%BB"><span class="nav-number">1.2.</span> <span class="nav-text">格攻击</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#New-Year-Ring2"><span class="nav-number">2.</span> <span class="nav-text">New Year Ring2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#New-Year-Ring3"><span class="nav-number">3.</span> <span class="nav-text">New Year Ring3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a%E5%92%8Cb%E7%9B%B8%E4%B9%98%EF%BC%8C%E5%BE%97%E5%88%B0%E5%A4%9A%E9%A1%B9%E5%BC%8Fd"><span class="nav-number">3.1.</span> <span class="nav-text">a和b相乘，得到多项式d</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d%E6%A8%A1v%EF%BC%8C%E5%BE%97%E5%88%B0c"><span class="nav-number">3.2.</span> <span class="nav-text">d模v，得到c</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E8%A1%A8%E7%A4%BA"><span class="nav-number">3.3.</span> <span class="nav-text">综合表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">4.</span> <span class="nav-text">后记</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
