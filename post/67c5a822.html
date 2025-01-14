@@ -33,7 +33,7 @@
 <meta property="og:description" content="支援了@Zima一道SU_Poly，并且帮忙验了验题+做docker所以没有参赛，不过还是把题目都做了一遍来学习学习。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-13T07:16:26.000Z">
-<meta property="article:modified_time" content="2025-01-14T01:13:27.936Z">
+<meta property="article:modified_time" content="2025-01-14T03:52:47.839Z">
 <meta property="article:author" content="糖醋小鸡块">
 <meta name="twitter:card" content="summary">
 
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-14 09:13:27" itemprop="dateModified" datetime="2025-01-14T09:13:27+08:00">2025-01-14</time>
+                <time title="修改时间：2025-01-14 11:52:47" itemprop="dateModified" datetime="2025-01-14T11:52:47+08:00">2025-01-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,7 +289,7 @@ aP_1 + bG_2</script><p>由于flag做过padding，所以第一bit的点$K$一定�
 <script type="math/tex; mode=display">
 n_2K = n_2(aG_1 + bP_2) = n_2a \cdot G_1</script><p>所以$n_2K$实际上是$G_1$的倍点，这代表他和$P_1$在$n_1$-torsion的同一分支，所以将它与上面两种点分别做配对会得到：</p>
 <script type="math/tex; mode=display">
-fe(n_2K, aG_1 + bP_2) = e(n_2K, P_2)^a = e(K, P_2)^{an_2} = e(K, \frac{o}{n_2} \cdot G_2)^{an_2} = e(K, G_2)^{oa} = 1</script><script type="math/tex; mode=display">
+e(n_2K, aG_1 + bP_2) = e(n_2K, P_2)^a = e(K, P_2)^{an_2} = e(K, \frac{o}{n_2} \cdot G_2)^{an_2} = e(K, G_2)^{oa} = 1</script><script type="math/tex; mode=display">
 e(n_2K, aP_1 + bG_2) = e(n_2K, G_2)^{a} = e(K, G_2)^{an_2}</script><p>也就是说由于$P_2$是$n_2$阶点，所以$e(K, P_2)$应该是$n_2$次单位根，在乘了$n_2$次之后就会得到1，而第二个则不会，因此可以做出decision。</p>
 <p>exp：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = <span class="number">0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab</span></span><br><span class="line">K = GF(p)</span><br><span class="line">E = EllipticCurve(K, (<span class="number">0</span>, <span class="number">4</span>))</span><br><span class="line">o = <span class="number">793479390729215512516507951283169066088130679960393952059283337873017453583023682367384822284289</span></span><br><span class="line">n1, n2 = <span class="number">859267</span>, <span class="number">52437899</span></span><br><span class="line"></span><br><span class="line">points = []</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&quot;0&quot;</span></span><br><span class="line">K = E(points[<span class="number">0</span>])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> points[<span class="number">1</span>:]:</span><br><span class="line">    <span class="keyword">if</span>((n2*K).weil_pairing(E(i), o) == <span class="number">1</span>):</span><br><span class="line">        flag += <span class="string">&quot;0&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag += <span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(flag, <span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#SUCTF&#123;We1come__T0__SUCTF__2025&#125;</span></span><br></pre></td></tr></table></figure>
