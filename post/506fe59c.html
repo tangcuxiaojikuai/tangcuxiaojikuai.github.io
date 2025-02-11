@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="N1 junior，启动！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-N1CTF-junior-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/506fe59c.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="N1 junior，启动！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.xyz/post/506fe59c/image-20250211155503945.png">
+<meta property="article:published_time" content="2025-02-11T02:27:19.000Z">
+<meta property="article:modified_time" content="2025-02-11T08:42:34.874Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.xyz/post/506fe59c/image-20250211155503945.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/506fe59c.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2025-N1CTF-junior-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/506fe59c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2025-N1CTF-junior-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-02-11 10:27:19 / 修改时间：16:42:34" itemprop="dateCreated datePublished" datetime="2025-02-11T10:27:19+08:00">2025-02-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/506fe59c.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/506fe59c.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>N1 junior，启动！</p>
+<span id="more"></span>
+<h3 id="CheckIn"><a href="#CheckIn" class="headerlink" title="CheckIn"></a>CheckIn</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> FLAG</span><br><span class="line"></span><br><span class="line">p, q = getPrime(<span class="number">512</span>), getPrime(<span class="number">512</span>)</span><br><span class="line">n = p * q</span><br><span class="line">phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line">r = bytes_to_long(<span class="string">b&#x27;n1junior2025&#x27;</span>)</span><br><span class="line">gift = ((<span class="number">2025</span> * p + r * r) * p % phi) &gt;&gt; <span class="number">750</span></span><br><span class="line"></span><br><span class="line">msg = bytes_to_long(FLAG)</span><br><span class="line">ct = <span class="built_in">pow</span>(msg, e, n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;n = <span class="subst">&#123;n&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;e = <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;ct = <span class="subst">&#123;ct&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;gift = <span class="subst">&#123;gift&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">n = 127060392619341060272126983366487069092712215979664340339428955285201267724168574813227106020122399594060458777939446978632526348867806863618885370221957087197582864380885199290793062293120324984868138488667017882272415668310242448870352699380394381756621677031459335310964085476227148301120850021800822495119</span></span><br><span class="line"><span class="string">e = 65537</span></span><br><span class="line"><span class="string">ct = 18305235107479382231970252522433686185039231184629854177334609960907102735540326234277108553640185845164498239822263821349544015918443334769445559622730315115384134147808359107914969010678607157349844717217781801237935737980608575612421610972048739840839726108493286994232100086338529591086935374295281642738</span></span><br><span class="line"><span class="string">gift = 8312456126096895497368692810699639462746223116345115761188530231045483000989605820</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>题目在给出RSA公钥的基础上，额外给出了一个gift：</p>
+<script type="math/tex; mode=display">
+gift = ((2025p + r^2)p\;\%\;\phi) >> 750</script><p>其中<code>r = bytes_to_long(b&#39;n1junior2025&#39;)</code>。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>由于$r$并不大，所以$(2025p + r^2)p$的数量级主要是由$2025p^2$决定的，可以看出这一项也只是比$\phi$略大，所以在小范围内爆破$k$，那么在$k$正确的情况下有：</p>
+<script type="math/tex; mode=display">
+(gift << 750) \approx (2025p + r^2)p + k\phi</script><p>把$\phi$写开：</p>
+<script type="math/tex; mode=display">
+(gift << 750) \approx (2025p + r^2)p + k(p-1)(q-1)</script><p>这个时候两边同时乘$p$，就可以得到一个关于$p$的单变量方程：</p>
+<script type="math/tex; mode=display">
+(gift << 750)p \approx (2025p + r^2)p^2 + k(p-1)(n-p)</script><p>在RealField下可以解出$p$的高位，然后就可以copper了。</p>
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n = <span class="number">127060392619341060272126983366487069092712215979664340339428955285201267724168574813227106020122399594060458777939446978632526348867806863618885370221957087197582864380885199290793062293120324984868138488667017882272415668310242448870352699380394381756621677031459335310964085476227148301120850021800822495119</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">ct = <span class="number">18305235107479382231970252522433686185039231184629854177334609960907102735540326234277108553640185845164498239822263821349544015918443334769445559622730315115384134147808359107914969010678607157349844717217781801237935737980608575612421610972048739840839726108493286994232100086338529591086935374295281642738</span></span><br><span class="line">gift = <span class="number">8312456126096895497368692810699639462746223116345115761188530231045483000989605820</span></span><br><span class="line"></span><br><span class="line">r = bytes_to_long(<span class="string">b&#x27;n1junior2025&#x27;</span>)</span><br><span class="line">G = gift &lt;&lt; <span class="number">750</span></span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(RealField(<span class="number">1000</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">2200</span>, <span class="number">5000</span>):</span><br><span class="line">    f = (<span class="number">2025</span>*x + r*r)*x^<span class="number">2</span> - i*(x-<span class="number">1</span>)*(n-x) - x*G</span><br><span class="line">    res = f.roots()</span><br><span class="line">    res = <span class="built_in">int</span>(res[-<span class="number">1</span>][<span class="number">0</span>]) &gt;&gt; <span class="number">230</span> &lt;&lt; <span class="number">230</span></span><br><span class="line">    P.&lt;y&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">    g = res + y</span><br><span class="line">    ress = g.small_roots(X=<span class="number">2</span>^<span class="number">230</span>, beta=<span class="number">0.499</span>, epsilon=<span class="number">0.04</span>)</span><br><span class="line">    <span class="keyword">if</span>(ress != []):</span><br><span class="line">        <span class="built_in">print</span>(i, ress)</span><br><span class="line">        p = <span class="built_in">int</span>(<span class="built_in">int</span>(ress[<span class="number">0</span>]) + res)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">q = n // p</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(<span class="built_in">pow</span>(ct, inverse(e, (p-<span class="number">1</span>)*(q-<span class="number">1</span>)), n))))</span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;ec6f23afd0b7453bb8224146b6aad196&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="BabyAES"><a href="#BabyAES" class="headerlink" title="BabyAES"></a>BabyAES</h3><h4 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randbytes</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">FLAG = <span class="string">&quot;flag&#123;REDACTED&#125;&quot;</span></span><br><span class="line">pad = <span class="keyword">lambda</span> x: x+randbytes(<span class="number">16</span>-<span class="built_in">len</span>(x)%<span class="number">16</span>)</span><br><span class="line">cipher = AES.new(os.urandom(<span class="number">16</span>), AES.MODE_CBC, iv=randbytes(<span class="number">16</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ROUND <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">    msg = pad(<span class="built_in">bytes</span>.fromhex(<span class="built_in">input</span>(<span class="string">&quot;msg: &quot;</span>)))</span><br><span class="line">    cts = [cipher.encrypt(msg), randbytes(<span class="built_in">len</span>(msg))]</span><br><span class="line">    decision = os.urandom(<span class="number">1</span>)[<span class="number">0</span>]&amp;<span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;ct:&quot;</span>, cts[decision].<span class="built_in">hex</span>())</span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">input</span>(<span class="string">&quot;[+] &quot;</span>) == <span class="built_in">str</span>(decision)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Congrats! 🚩 <span class="subst">&#123;FLAG&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>题目一共128轮挑战，每一轮挑战可以输入一段msg，然后靶机会返回一个密文，需要判断出这个密文是未知密钥的AES加密msg得到的，还是randbytes得到的。连续通过128轮就可以得到flag。</p>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p>前些天接触mt接触的有点多，所以这题看到randbytes的一瞬间就知道这题的做法了。首先第一轮发一段足够长的msg过去(长度大于19968bits)，然后盲猜第一轮发回来的是randbytes，这个时候就可以实现随机数预测了。一个小细节是pad里也会调用randbytes，所以之后每轮的预测要把这个也算上。</p>
+<h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> extend_mt19937_predictor <span class="keyword">import</span> ExtendMT19937Predictor</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> trange</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> urandom</span><br><span class="line"></span><br><span class="line">context.log_level = <span class="string">&quot;critical&quot;</span></span><br><span class="line">sh = remote(<span class="string">&quot;39.106.16.204&quot;</span>, <span class="number">46046</span>)</span><br><span class="line"></span><br><span class="line">sh.recvuntil(<span class="string">b&quot;msg: &quot;</span>)</span><br><span class="line">sh.sendline(urandom(<span class="number">19968</span>//<span class="number">8</span>-<span class="number">16</span>).<span class="built_in">hex</span>().encode())</span><br><span class="line">sh.recvuntil(<span class="string">b&quot;ct:&quot;</span>)</span><br><span class="line">res = bytes_to_long(<span class="built_in">bytes</span>.fromhex(sh.recvline().strip().decode())[::-<span class="number">1</span>])</span><br><span class="line">sh.recvuntil(<span class="string">b&quot;[+] &quot;</span>)</span><br><span class="line">sh.sendline(<span class="string">b&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">predictor = ExtendMT19937Predictor()</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">624</span>):</span><br><span class="line">    x = res &amp; <span class="number">0xffffffff</span></span><br><span class="line">    res &gt;&gt;= <span class="number">32</span></span><br><span class="line">    predictor.setrandbits(x, <span class="number">32</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">127</span>):</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;msg: &quot;</span>)</span><br><span class="line">    predictor.predict_getrandbits(<span class="number">16</span>*<span class="number">8</span>)</span><br><span class="line">    temp = predictor.predict_getrandbits(<span class="number">19968</span>)</span><br><span class="line">    sh.sendline(urandom(<span class="number">19968</span>//<span class="number">8</span>-<span class="number">16</span>).<span class="built_in">hex</span>().encode())</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;ct:&quot;</span>)</span><br><span class="line">    res = bytes_to_long(<span class="built_in">bytes</span>.fromhex(sh.recvline().strip().decode())[::-<span class="number">1</span>])</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;[+] &quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(res == temp):</span><br><span class="line">        sh.sendline(<span class="string">b&quot;1&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        sh.sendline(<span class="string">b&quot;0&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(sh.recvline())</span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;AES_15_S4f3_3n0ugh_but_MT19937_n07&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="▪️"><a href="#▪️" class="headerlink" title="▪️"></a>▪️</h3><h4 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gen_pubkey</span>(<span class="params">n, k, l</span>):</span><br><span class="line">    L = (matrix(Permutations(n).random_element())*vector([i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)])).<span class="built_in">list</span>()[:<span class="number">3</span>*l]</span><br><span class="line">    gen_col1 = <span class="keyword">lambda</span> x: [x^(i+<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l)]+[<span class="number">0</span>]*(k-l)</span><br><span class="line">    gen_col2 = <span class="keyword">lambda</span> x: [x^(i+<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k)]</span><br><span class="line">    </span><br><span class="line">    G = matrix(F,[gen_col1(Integer(randint(<span class="number">1</span>,p-<span class="number">1</span>))) <span class="keyword">if</span> i <span class="keyword">in</span> L <span class="keyword">else</span> gen_col2(Integer(randint(<span class="number">1</span>,p-<span class="number">1</span>))) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)]).T</span><br><span class="line">    S = random_matrix(F,k,k)</span><br><span class="line">    </span><br><span class="line">    pubkey = S*G</span><br><span class="line">    privkey = L,G</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (pubkey,privkey)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt</span>(<span class="params">pubkey, L, message</span>):</span><br><span class="line">    x = random_matrix(F,<span class="number">1</span>,k)</span><br><span class="line">    e = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):</span><br><span class="line">        s = randint(<span class="number">0</span>,n-<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> s <span class="keyword">not</span> <span class="keyword">in</span> L:</span><br><span class="line">            e[s] = randint(<span class="number">1</span>,p-<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    c = x*pubkey+message*matrix(F,[<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)])+matrix(F,e)</span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line">    </span><br><span class="line">p = <span class="number">8605605879820394929871171704526267558076275882769290613301265383544615884789835912139373711919931926389028123698181386695814578808144200282148287377501923</span></span><br><span class="line">F = GF(p)</span><br><span class="line"></span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line">n, k, l = <span class="number">128</span>, <span class="number">84</span>, <span class="number">12</span></span><br><span class="line"></span><br><span class="line">pubkey, privkey = gen_pubkey(n,k,l)</span><br><span class="line">c = encrypt(pubkey,privkey[<span class="number">0</span>],m)</span><br><span class="line">    </span><br><span class="line">save(pubkey.<span class="built_in">list</span>(),<span class="string">&#x27;P.sobj&#x27;</span>)</span><br><span class="line">save(c.<span class="built_in">list</span>(),<span class="string">&#x27;c.sobj&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>题目基于编码，首先生成了一组如下的公私钥：</p>
+<script type="math/tex; mode=display">
+pk:\quad SG</script><script type="math/tex; mode=display">
+sk:\quad L, G</script><p>其中：</p>
+<ul>
+<li>$L$是一个长36的向量，元素由0-127的其中36个组成，并且打乱了顺序</li>
+<li>$G$是84x128的矩阵，有点类似GRS码的生成矩阵，但是区别在于他是从一次幂开始的，而且其中有36列只到12次幂，这36列的位置由$L$决定</li>
+<li>$S$是84x84的随机矩阵</li>
+</ul>
+<p>之后对flag进行加密，加密方式为：</p>
+<ul>
+<li><p>生成一个长$k$的随机向量$x$</p>
+</li>
+<li><p>生成一个长$n$的向量$e$，其中error数量大约为14个左右</p>
+</li>
+<li><p>按如下方式计算密文：</p>
+<script type="math/tex; mode=display">
+c = xSG + mt + e</script><p>其中<code>t=matrix(F,[1 for i in range(n)])</code></p>
+</li>
+</ul>
+<p>给出$pk$和$c$，要求出$m$。</p>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>从编码的角度我没有想出什么思路，所以我是从公钥$pk=SG$入手的，为了表示方便，后面我把$pk$这个矩阵乘积看作一个整体，记为$A$。</p>
+<p>那么整个加密过程就是：</p>
+<script type="math/tex; mode=display">
+c = xA_{k,n} + mt + e</script><p>$A$是我们知道的，所以我们也当然可以求出他的右核，而对于$A$右核中的任意一条向量$y$来说，都有：</p>
+<script type="math/tex; mode=display">
+Ay = 0</script><p>而$A$的右核理论上有$n-k$条向量，将这些向量$y_i$都代入加密的式子中就会得到44个新的方程：</p>
+<script type="math/tex; mode=display">
+cy_i = mty_i + ey_i \quad,\quad i \in \{1,2,\cdots,44\}</script><p>如果把$m$看作一个变量，$e$看作$n$个变量的话，我们相当于可以获得关于$n+1$个变量的$n-k$个方程，对于题目数据来说，也就是44个方程，129个变量。这相当于是要解一个下面形式的矩阵方程：</p>
+<script type="math/tex; mode=display">
+L_{44, 129}x_{129, 1} = R_{44, 1}</script><p>这当然是求不出唯一解的，但是要注意到，对于$e$来说，他不是单纯的128个变量，他仅仅只有14个左右非零的位置，而为零的那些位置对于方程的结果是不影响的，所以从这个角度来说我们可以：</p>
+<ul>
+<li><p>从上面的$L$中先取第一列（对应$m$），之后再从1-128随机抽取43列</p>
+</li>
+<li><p>如果这43列中恰好包含了$e$中所有非零项，就可以解矩阵方程得到$m$的值了</p>
+</li>
+<li><p>假设非零项就是14个，那么这样抽取的成功概率为：</p>
+<script type="math/tex; mode=display">
+p = \frac{C(128-14,43-14)}{C(128,43)}</script><p>这个概率本身也还比较可观，大约是25bit的复杂度，并且实际上概率远高于这个理论概率，因为$L$并不算个随机矩阵，他的系数比较稀疏</p>
+</li>
+</ul>
+<p>然后实际上发现似乎根本就不用抽，直接解这个理论上无穷多组解的矩阵方程都能把$m$解出来，这可能和$G,e$的结构有某种关系。</p>
+<h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">c = load(<span class="string">&quot;c.sobj&quot;</span>)</span><br><span class="line">pk = load(<span class="string">&quot;P.sobj&quot;</span>)</span><br><span class="line"></span><br><span class="line">p = <span class="number">8605605879820394929871171704526267558076275882769290613301265383544615884789835912139373711919931926389028123698181386695814578808144200282148287377501923</span></span><br><span class="line">F = GF(p)</span><br><span class="line">n, k, l = <span class="number">128</span>, <span class="number">84</span>, <span class="number">12</span></span><br><span class="line"></span><br><span class="line">pk = Matrix(F, k, n, pk)</span><br><span class="line">c = vector(F, c)</span><br><span class="line"></span><br><span class="line">RKer = pk.right_kernel().basis()</span><br><span class="line">M = vector(F, [<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)])</span><br><span class="line"></span><br><span class="line">L = Matrix(F, n+<span class="number">1</span>, n+<span class="number">1</span>)</span><br><span class="line">R = vector(F, n+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(RKer)):</span><br><span class="line">    L[i, <span class="number">0</span>] = M*RKer[i]</span><br><span class="line">    L[i, <span class="number">1</span>:] = RKer[i]</span><br><span class="line">    R[i] = c*RKer[i]</span><br><span class="line">L = L[<span class="number">1</span>:<span class="built_in">len</span>(RKer), :]</span><br><span class="line">R = R[<span class="number">1</span>:<span class="built_in">len</span>(RKer)]</span><br><span class="line"><span class="built_in">print</span>(L.dimensions())</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(L.solve_right(R))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(<span class="number">198974677777462684626999345470421547778964861711348410486818775486703757252837980982397</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;Us3_sQu@r3_coD3_4nD_h4ck_Th3_L&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+<h3 id="QuantumVM"><a href="#QuantumVM" class="headerlink" title="QuantumVM"></a>QuantumVM</h3><h4 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> qiskit <span class="keyword">import</span> QuantumCircuit</span><br><span class="line"><span class="keyword">from</span> qiskit_aer <span class="keyword">import</span> AerSimulator</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> os, random</span><br><span class="line">FLAG = <span class="string">&quot;flag&#123;REDACTED&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">SIM = AerSimulator()</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">QuantumVM</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.qc = QuantumCircuit(<span class="number">256</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">            self.qc.h(i)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">exec</span>(<span class="params">self, code</span>):</span><br><span class="line">        ip = <span class="number">0</span></span><br><span class="line">        param = random.sample(<span class="built_in">range</span>(<span class="number">128</span>,<span class="number">256</span>), <span class="number">128</span>)</span><br><span class="line">        <span class="keyword">while</span> ip&lt;<span class="built_in">len</span>(code):</span><br><span class="line">            op = code[ip]; ip += <span class="number">1</span></span><br><span class="line">            num = code[ip]; ip += <span class="number">1</span></span><br><span class="line">            <span class="keyword">match</span> op:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span>: self.qc.x(num)</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>: self.qc.y(num)</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span>: self.qc.z(num)</span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span>: self.qc.cx(num, param[num])</span><br><span class="line">                <span class="keyword">case</span> _: ValueError(<span class="string">&quot;Invalid Operation :(&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>): </span><br><span class="line">            <span class="keyword">if</span> random.randint(<span class="number">0</span>,<span class="number">1</span>): self.qc.x(i)</span><br><span class="line">            <span class="keyword">else</span>: self.qc.x(param[i])</span><br><span class="line">        self.qc.measure_all()</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">int</span>(SIM.run(self.qc,shots=<span class="number">1</span>,memory=<span class="literal">True</span>).result().get_memory()[<span class="number">0</span>],<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">key = os.urandom(<span class="number">32</span>)</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>):</span><br><span class="line">    qvm = QuantumVM()</span><br><span class="line">    code = <span class="built_in">bytes</span>.fromhex(<span class="built_in">input</span>(<span class="string">&quot;Quantum Code &gt; &quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;⚙️&quot;</span>, bytes_to_long(key)^qvm.<span class="built_in">exec</span>(code))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;🚩&quot;</span>, AES.new(key, AES.MODE_ECB).encrypt(FLAG.encode()).<span class="built_in">hex</span>())</span><br></pre></td></tr></table></figure>
+<p>题目基于量子计算，交互过程是：</p>
+<ul>
+<li>连接上靶机后，靶机生成一个长32的随机字节串，用作AES的key</li>
+<li>之后进行150轮交互，每一次交互都可以输入一段code交给QuantumVM执行，靶机会将执行的结果与key异或并发送回来</li>
+<li>150轮交互结束之后，靶机发送AES加密的flag</li>
+</ul>
+<p>QuantumVM实际上是模拟了量子电路对于量子比特的操作，他的全流程有：</p>
+<ul>
+<li><p>生成有256个量子比特的量子电路</p>
+</li>
+<li><p>将前128个量子比特通过$H$门</p>
+</li>
+<li><p>之后进入可以自己操作的部分，可以选择$X,Y,Z,CNOT$门用</p>
+</li>
+<li><p>在自己能操作的部分结束后，靶机会按如下方式将其中128个量子比特通过$X$门：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>): </span><br><span class="line">    <span class="keyword">if</span> random.randint(<span class="number">0</span>,<span class="number">1</span>): self.qc.x(i)</span><br><span class="line">    <span class="keyword">else</span>: self.qc.x(param[i])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后对这个量子电路进行一次测量，即得到一次256个量子比特的观测值并返回</p>
+</li>
+</ul>
+<h4 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h4><p>在这之前我对量子计算一点也不了解，所以正好趁此机会学了一点点，这个题主要会用到量子计算的下面一些基础知识。</p>
+<h5 id="量子比特-qubit"><a href="#量子比特-qubit" class="headerlink" title="量子比特(qubit)"></a>量子比特(qubit)</h5><p>量子比特是量子计算的基本单位，他有如下两个计算基本状态：</p>
+<script type="math/tex; mode=display">
+\left|{0}\right\rangle</script><script type="math/tex; mode=display">
+\left|{1}\right\rangle</script><p>而在量子比特没有被观测的时候，他的状态可以用如下形式表示：</p>
+<script type="math/tex; mode=display">
+\left|\psi\right\rangle = \alpha\left|{0}\right\rangle + \beta\left|{1}\right\rangle</script><p>这个状态的含义是：</p>
+<ul>
+<li>$\alpha,\beta$都是复数，并且满足$|\alpha|^2+|\beta|^2=1$</li>
+<li>如果对这个量子比特进行观测，那么他有$|\alpha|^2$的概率是0，$|\beta|^2$的概率是1</li>
+<li>在对这个量子比特进行观测之后，这个量子比特会改变自己的状态</li>
+<li>$\alpha,\beta$的具体值是没有办法知道的</li>
+</ul>
+<p>而实际上，这个表示形式也代表着，量子比特可以表示为一个三维单位球上的一个特定点，这个三维单位球也叫做布洛赫球，如图：</p>
+<p><img src="/post/506fe59c/image-20250211155503945.png" alt="image-20250211155503945"></p>
+<blockquote>
+<p>为什么是这样可以参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/58055451">1.1 量子计算历史及量子比特 - 知乎</a></p>
+</blockquote>
+<h5 id="量子门"><a href="#量子门" class="headerlink" title="量子门"></a>量子门</h5><p>题目涉及到五种量子门：$H,X,Y,Z,CNOT$，其中前四个是单qubit量子门，$CNOT$是复qubit量子门。</p>
+<p>为了清楚表示出每种门的作用，不妨把量子比特写成一个向量：</p>
+<script type="math/tex; mode=display">
+\left|\psi\right\rangle = \left(\matrix{
+\alpha\\
+\beta
+}\right)</script><p>那么几个门的作用分别就相当于左乘如下矩阵：</p>
+<script type="math/tex; mode=display">
+X = 
+\left(\matrix{
+0&1\\
+1&0
+}\right)</script><script type="math/tex; mode=display">
+Y = \left(\matrix{
+0&-i\\
+i&0
+}\right)</script><script type="math/tex; mode=display">
+Z = \left(\matrix{
+1&0\\
+0&-1
+}\right)</script><script type="math/tex; mode=display">
+H = \frac{1}{\sqrt{2}}
+\left(\matrix{
+1&1\\
+1&-1
+}\right)</script><p>而直白点解释的话，几个门的主要作用是：</p>
+<ul>
+<li>$X$：量子非门，就是翻转该量子比特</li>
+<li>$Y$：进行相位转移和比特翻转</li>
+<li>$Z$：转变相位</li>
+<li>$H$：制造叠加态，并且满足$H^2 = I$</li>
+</ul>
+<p>而对于$CNOT$门，它的作用可以描述为由第一个量子比特来控制第二个量子比特的翻转。如果第一量子比特是$\left|{0}\right\rangle$，第二量子比特就不翻转，否则翻转。也就是：</p>
+<script type="math/tex; mode=display">
+\left|{00}\right\rangle \rightarrow \left|{00}\right\rangle</script><script type="math/tex; mode=display">
+\left|{01}\right\rangle \rightarrow \left|{01}\right\rangle</script><script type="math/tex; mode=display">
+\left|{10}\right\rangle \rightarrow \left|{11}\right\rangle</script><script type="math/tex; mode=display">
+\left|{11}\right\rangle \rightarrow \left|{10}\right\rangle</script><h5 id="简易量子电路"><a href="#简易量子电路" class="headerlink" title="简易量子电路"></a>简易量子电路</h5><p>这里主要需要介绍一下Bell states，由一个$H$门和一个$CNOT$门组成的电路，其输出就是种Bell states，这表现为两个量子比特一定相同，这也代表着这两个量子比特通过这个电路发生了纠缠。</p>
+<h4 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h4><p>首先我们知道，题目将前128qubit通过$H$门制备了叠加态，也就是前128qubit是如下形式：</p>
+<script type="math/tex; mode=display">
+\left|\psi\right\rangle = \alpha\left|{0}\right\rangle + \beta\left|{1}\right\rangle</script><p>而后128qubit通过程序测试可以发现他们是$\left|{0}\right\rangle$，所以我们要在这样的基础上，想办法利用这个QuantumVM得到我们需要的结果。</p>
+<p>我们需要注意到的是在执行完code后一定会发生的翻转：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>): </span><br><span class="line">    <span class="keyword">if</span> random.randint(<span class="number">0</span>,<span class="number">1</span>): self.qc.x(i)</span><br><span class="line">    <span class="keyword">else</span>: self.qc.x(param[i])</span><br></pre></td></tr></table></figure>
+<p>param是后128qubit索引的一个随机置换，因此这个翻转其实细看之下很不随机：</p>
+<ul>
+<li>他一定会翻转正好128次</li>
+<li><code>i</code>和<code>param[i]</code>其中有且仅有一个会翻转</li>
+</ul>
+<p>第一点会让人联想到之前SEETF与汉明重量有关的一道Neutrality：</p>
+<p><a href="https://tangcuxiaojikuai.xyz/post/523698ad.html">Crypto趣题-流密码 | 糖醋小鸡块的blog</a></p>
+<p>具体来说，如果我们能够想办法控制量子电路输出比特串的汉明重量，那么我们可以用类似的思路去做BKZ从而找到key。</p>
+<p>而第二点则是提供了一个信息——这些量子比特之间存在成对的绑定关系，这也就提供了一个控制汉明重量的方法。由于前128个qubit是通过了$H$门的，所以我们利用刚才提到的会输出Bell states的简易量子电路，就可以让后128个qubit完全复制前128个qubit的状态，具体来说我们的code就选择为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">code = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">    code.append(<span class="number">3</span>)</span><br><span class="line">    code.append(i)</span><br><span class="line">code = <span class="built_in">bytes</span>(code).<span class="built_in">hex</span>().encode()</span><br></pre></td></tr></table></figure>
+<p>这样，在发生最后的翻转之前，量子电路的256个qubit可以看成是128对，因为<code>i</code>的状态复制给了<code>param[i]</code>。而最后的翻转则使得这128对状态恰好相反了，也就是每一对都一定是下面状态的其中一种：</p>
+<script type="math/tex; mode=display">
+\left|{10}\right\rangle , \left|{01}\right\rangle</script><p>因此最终的输出汉明重量一定是128，之后就用SEETF的做法去做同态映射，然后BKZ就可以找到key了。</p>
+<h4 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">code = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">    code.append(<span class="number">3</span>)</span><br><span class="line">    code.append(i)</span><br><span class="line">code = <span class="built_in">bytes</span>(code).<span class="built_in">hex</span>().encode()</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = remote(<span class="string">&quot;39.106.16.204&quot;</span>, <span class="number">20010</span>)</span><br><span class="line"></span><br><span class="line">c = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> trange(<span class="number">150</span>):</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;Quantum Code &gt; &quot;</span>)</span><br><span class="line">    sh.sendline(code)</span><br><span class="line">    sh.recvuntil(<span class="string">b&quot;\xe2\x9a\x99\xef\xb8\x8f &quot;</span>)</span><br><span class="line">    c.append(<span class="built_in">int</span>(sh.recvline()))</span><br><span class="line"></span><br><span class="line">sh.recvuntil(<span class="string">b&quot;\xf0\x9f\x9a\xa9 &quot;</span>)</span><br><span class="line">enc = <span class="built_in">bytes</span>.fromhex(sh.recvline().strip().decode())</span><br><span class="line"></span><br><span class="line">C = []</span><br><span class="line">m, n = <span class="number">32</span>*<span class="number">8</span>, <span class="number">150</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">    temp = <span class="built_in">bin</span>(c[i])[<span class="number">2</span>:].zfill(m)</span><br><span class="line">    vec = []</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> temp:</span><br><span class="line">        <span class="keyword">if</span>(j == <span class="string">&quot;0&quot;</span>):</span><br><span class="line">            vec.append(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            vec.append(-<span class="number">1</span>)</span><br><span class="line">    C.append(vec)</span><br><span class="line"></span><br><span class="line">C = Matrix(ZZ,C).T</span><br><span class="line">L = block_matrix(</span><br><span class="line">    [</span><br><span class="line">        [C,identity_matrix(m)]</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line">L[:,:n] *= <span class="number">2</span>^<span class="number">20</span></span><br><span class="line"></span><br><span class="line">res = L.BKZ(block_size=<span class="number">14</span>)[<span class="number">0</span>]</span><br><span class="line">m = res[n:]</span><br><span class="line">flag1 = <span class="string">&quot;&quot;</span></span><br><span class="line">flag2 = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> m:</span><br><span class="line">    <span class="keyword">if</span>(i == <span class="number">1</span>):</span><br><span class="line">        flag1 += <span class="string">&quot;0&quot;</span></span><br><span class="line">        flag2 += <span class="string">&quot;1&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag1 += <span class="string">&quot;1&quot;</span></span><br><span class="line">        flag2 += <span class="string">&quot;0&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">key1 = long_to_bytes(<span class="built_in">int</span>(flag1,<span class="number">2</span>))</span><br><span class="line">key2 = long_to_bytes(<span class="built_in">int</span>(flag2,<span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(AES.new(key1, AES.MODE_ECB).decrypt(enc))</span><br><span class="line"><span class="built_in">print</span>(AES.new(key2, AES.MODE_ECB).decrypt(enc))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#flag&#123;Ent4ngled_5tat3_Leak_M5ggg&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/506fe59c.html" title="2025-N1CTF-junior-wp-crypto">https://tangcuxiaojikuai.xyz/post/506fe59c.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/b73949e0.html" rel="prev" title="2025-西湖论剑-New-Year-Ring4-wp">
+      <i class="fa fa-chevron-left"></i> 2025-西湖论剑-New-Year-Ring4-wp
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CheckIn"><span class="nav-number">1.</span> <span class="nav-text">CheckIn</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exp"><span class="nav-number">1.3.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BabyAES"><span class="nav-number">2.</span> <span class="nav-text">BabyAES</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-1"><span class="nav-number">2.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="nav-number">2.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exp-1"><span class="nav-number">2.3.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%96%AA%EF%B8%8F"><span class="nav-number">3.</span> <span class="nav-text">▪️</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-2"><span class="nav-number">3.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="nav-number">3.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exp-2"><span class="nav-number">3.3.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#QuantumVM"><span class="nav-number">4.</span> <span class="nav-text">QuantumVM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-3"><span class="nav-number">4.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="nav-number">4.2.</span> <span class="nav-text">预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8F%E5%AD%90%E6%AF%94%E7%89%B9-qubit"><span class="nav-number">4.2.1.</span> <span class="nav-text">量子比特(qubit)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8F%E5%AD%90%E9%97%A8"><span class="nav-number">4.2.2.</span> <span class="nav-text">量子门</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E6%98%93%E9%87%8F%E5%AD%90%E7%94%B5%E8%B7%AF"><span class="nav-number">4.2.3.</span> <span class="nav-text">简易量子电路</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="nav-number">4.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exp-3"><span class="nav-number">4.4.</span> <span class="nav-text">exp</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/tangcuxiaojikuai" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tangcuxiaojikuai" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
