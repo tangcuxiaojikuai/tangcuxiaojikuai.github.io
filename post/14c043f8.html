@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="最近过得相当摸，正好这次R3CTF出了一道r3tauq来玩，写篇wp顺便水水博客(｡・ω・｡)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-R3CTF-r3tauq-wp-crypto">
+<meta property="og:url" content="https://tangcuxiaojikuai.xyz/post/14c043f8.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="最近过得相当摸，正好这次R3CTF出了一道r3tauq来玩，写篇wp顺便水水博客(｡・ω・｡)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-11T04:55:27.000Z">
+<meta property="article:modified_time" content="2025-07-11T05:00:18.026Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.xyz/post/14c043f8.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2025-R3CTF-r3tauq-wp-crypto | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.xyz/post/14c043f8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2025-R3CTF-r3tauq-wp-crypto
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-07-11 12:55:27 / 修改时间：13:00:18" itemprop="dateCreated datePublished" datetime="2025-07-11T12:55:27+08:00">2025-07-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wp-crypto/" itemprop="url" rel="index"><span itemprop="name">wp-crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/14c043f8.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/14c043f8.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近过得相当摸，正好这次R3CTF出了一道r3tauq来玩，写篇wp顺便水水博客(｡・ω・｡)</p>
+<span id="more"></span>
+<h3 id="r3tauq"><a href="#r3tauq" class="headerlink" title="r3tauq"></a>r3tauq</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">As r3girl ventures deeper into the Crypto Block, she discovers an area operating under bewilderingly complex rules. The very essence of this space feels… different, almost alien. The familiar tools and understandings of the cyber-metropolis seem inadequate here.</span><br><span class="line"></span><br><span class="line">&quot;Too quat 4 me,&quot; she hears someone whisper, sobbing softly.</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">p, q, r, x, y = [getPrime(<span class="number">256</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>)] + [getPrime(<span class="number">256</span>) &lt;&lt; <span class="number">128</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)]</span><br><span class="line">secret = <span class="string">&quot;&quot;</span>.join([choice(string.ascii_letters) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">77</span>)])</span><br><span class="line">PR.&lt;i, j, k&gt; = QuaternionAlgebra(Zmod(p*q), -x, -y)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;🎁 :&quot;</span>, [p*q] + <span class="built_in">list</span>(PR([x+y, p+x, q+y, r])^bytes_to_long(<span class="number">777</span>*secret.encode())) + [AES.new(key=md5(secret.encode()).digest(), nonce=<span class="string">b&quot;Tiffany&quot;</span>, mode=AES.MODE_CTR).encrypt(flag).<span class="built_in">hex</span>()])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">🎁 : [<span class="number">9179146701312781699176828536776206089522408831979885137804817119605132824670673896777591947510882312771183820299882701673215709151977703193903616420702637</span>, <span class="number">188706257709485662889897107268939642280152413424908152855562194130538159229344166143895172825675717408926036013540426973122050052311570664470631060866326</span>, <span class="number">2682712522093551545327045002884555242296600010649692520986985330242254238488174707977608269114146421801908861117953931511928486194314901772151783668459458</span>, <span class="number">3450486865638869884029607240891787866556930082379406388731244160308196118526545881858756124529382085993846169512275853780392762817972043910244447967967496</span>, <span class="number">3978613946907291563196945341686358146709099241100401211979238259502207240204268447607153317575767659025152104242438128290935255838611081957683034411586841</span>, <span class="string">&#x27;fb459084099c44b75f2a1c256b604b187ab4877e78ea2b9fc5320471c319f9063428c72002310df82e1a424425189d0dabebe601031a&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<p>这是一个很直白的四元数题目，其流程为：</p>
+<ul>
+<li>生成五个256bit的随机素数$p,q,r,x,y$，并将$x,y$左移128bit，记$n=pq$</li>
+<li>生成一个长度为77并由大小写字母组成的字符串作为secret，</li>
+<li>生成$Z_{n}$下的四元代数，满足$\mathbf{i}^2=-x,\mathbf{j}^2=-y$</li>
+<li>记$\mathbf{g} = (x+y) + (p+x)\mathbf{i} + (q+y)\mathbf{j} + r\mathbf{k}$，计算$\mathbf{g}’ = \mathbf{g}^{s}$，其中$s$为secret串重复777次对应的大整数</li>
+</ul>
+<p>给出$n,\mathbf{g}’$，需要求解出secret从而解密AES得到flag。</p>
+<p><br></p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><h5 id="part-1-恢复-mathbf-g"><a href="#part-1-恢复-mathbf-g" class="headerlink" title="part 1 : 恢复$\mathbf{g}$"></a>part 1 : 恢复$\mathbf{g}$</h5><p>求解$s$似乎是一个四元数的dlp问题，然而对于dlp来说，题目缺少了初态$\mathbf{g}$，因此需要先想办法恢复$\mathbf{g}$。参考<a target="_blank" rel="noopener" href="https://blog.wm-team.cn/index.php/archives/80/#RSA">这个题目</a>得知四元数的幂递推存在性质如下：</p>
+<script type="math/tex; mode=display">
+\begin{cases} a_n = \displaystyle\sum_{i = 0}^{\lfloor\frac{n}{2}\rfloor} {n \choose n - 2i} \cdot a^{n - 2i} S^i \\ b_n = b X \\ c_n = c X \\ d_n = d X \end{cases} \quad , \quad \begin{cases} S = -(b^2 + c^2 + d^2) \\ X = \sum_{i = 0}^{\lfloor\frac{n - 1}{2}\rfloor} {n \choose n - 2i - 1} \cdot a^{n - 2i - 1} S^i \end{cases}</script><p>这里主要利用$b_n,c_n,d_n$的递推，可以看出其递推均为初态乘同一个系数$X$，因此可以构造出等式：</p>
+<script type="math/tex; mode=display">
+\frac{b}{b_n} = \frac{c}{c_n} = \frac{d}{d_n}</script><p>由于模数$n$为512bit，初态系数$b=p+x,c=q+y,d=r$均较小，因此可以LLL恢复，界稍微有点紧，可以爆破几bit解决，此时相当于恢复了初态$\mathbf{g}$的后三项$p+x,q+y,r$。</p>
+<p><br></p>
+<h5 id="part-2-恢复-p-q-x-y"><a href="#part-2-恢复-p-q-x-y" class="headerlink" title="part 2 : 恢复$p,q,x,y$"></a>part 2 : 恢复$p,q,x,y$</h5><p>在拥有$p+x,q+y$以及$n=pq$的情况下，这个问题是很经典的$p$低位泄露问题，由于$x,y$均左移了128bit，所以恰好泄露一半，所以依然需要爆破几bit，此时可分解模数$n$得到$p,q$，也自然得到了$x,y$。</p>
+<p><br></p>
+<h5 id="part-3-恢复-s"><a href="#part-3-恢复-s" class="headerlink" title="part 3 : 恢复$s$"></a>part 3 : 恢复$s$</h5><p>得到$\mathbf{g}$之后问题完全转化到了一个四元数的dlp问题，而对于该题四元代数下的四元数$a + b\mathbf{i} + c\mathbf{j} + d\mathbf{k}$来说，其可以映射到如下矩阵：</p>
+<script type="math/tex; mode=display">
+M = 
+\left(\begin{matrix}
+a & -bx & -cy & -dxy \\
+b & a & -dy & cy \\
+c & dx & a & -bx \\
+d & -c & b & a \\
+\end{matrix}\right)</script><p>因此可以将$\mathbf{g}$与$\mathbf{g}’$分别映射到矩阵$L$与矩阵$L^s$，此时四元数的dlp问题变成了矩阵dlp问题。</p>
+<p>由于本题选用的数据恰好没有一次域$GF(p),GF(q)$下的特征值，因此无法利用jordan化将问题转化为求解方程组，一个简单的思路是直接利用矩阵行列式将问题转化为$GF(p),GF(q)$下乘法群的dlp问题，由于$p,q$均为256bit，因此需要利用cado-nfs求解出$s\%(p-1), s\%(q-1)$并CRT起来，大约可以获得有500bit出头的信息。</p>
+<blockquote>
+<p>也可以利用扩域上的部分光滑因子扩大能获得信息的bit数量。</p>
+</blockquote>
+<p><br></p>
+<h5 id="part-4-恢复secret"><a href="#part-4-恢复secret" class="headerlink" title="part 4 : 恢复secret"></a>part 4 : 恢复secret</h5><p>由于secret是由大小写字母组成的串，因此可以线性处理一下将所有字符均值减小，最后使用格规约出secret。</p>
+<p><br></p>
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><p>exp和英文wp可以在<a target="_blank" rel="noopener" href="https://github.com/tangcuxiaojikuai/My-CTF-Challenges/tree/main/2025 R3CTF/r3tauq">这里</a>找到。</p>
+<p><br></p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>题目名字看上去很奇怪，是因为为了跟上队形把”quater”倒了过来，就正好变成带”r3”的”r3tauq”了:3</p>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.xyz/post/14c043f8.html" title="2025-R3CTF-r3tauq-wp-crypto">https://tangcuxiaojikuai.xyz/post/14c043f8.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/d21bb624.html" rel="prev" title="2025-ACTF-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2025-ACTF-wp-crypto
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#r3tauq"><span class="nav-number">1.</span> <span class="nav-text">r3tauq</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">思路</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#part-1-%E6%81%A2%E5%A4%8D-mathbf-g"><span class="nav-number">1.2.1.</span> <span class="nav-text">part 1 : 恢复$\mathbf{g}$</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#part-2-%E6%81%A2%E5%A4%8D-p-q-x-y"><span class="nav-number">1.2.2.</span> <span class="nav-text">part 2 : 恢复$p,q,x,y$</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#part-3-%E6%81%A2%E5%A4%8D-s"><span class="nav-number">1.2.3.</span> <span class="nav-text">part 3 : 恢复$s$</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#part-4-%E6%81%A2%E5%A4%8Dsecret"><span class="nav-number">1.2.4.</span> <span class="nav-text">part 4 : 恢复secret</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exp"><span class="nav-number">1.3.</span> <span class="nav-text">exp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.4.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/tangcuxiaojikuai" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tangcuxiaojikuai" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
