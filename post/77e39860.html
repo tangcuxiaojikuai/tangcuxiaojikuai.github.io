@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="在CNSS 2023的夏令营线上题中找到的一道misc题，看到标题有Crypto，感兴趣就去试了一试，发现确实是道比较有意思的题目，就在此记录一下，同时也开启 misc趣题 这一分类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="misc趣题(一)">
+<meta property="og:url" content="https://tangcuxiaojikuai.github.io/post/77e39860.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="在CNSS 2023的夏令营线上题中找到的一道misc题，看到标题有Crypto，感兴趣就去试了一试，发现确实是道比较有意思的题目，就在此记录一下，同时也开启 misc趣题 这一分类。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-07T08:15:57.000Z">
+<meta property="article:modified_time" content="2023-09-11T07:43:50.000Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.github.io/post/77e39860.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>misc趣题(一) | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.github.io/post/77e39860.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          misc趣题(一)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-07 16:15:57" itemprop="dateCreated datePublished" datetime="2023-09-07T16:15:57+08:00">2023-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-11 15:43:50" itemprop="dateModified" datetime="2023-09-11T15:43:50+08:00">2023-09-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/misc%E8%B6%A3%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">misc趣题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/77e39860.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/77e39860.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在CNSS 2023的夏令营线上题中找到的一道misc题，看到标题有Crypto，感兴趣就去试了一试，发现确实是道比较有意思的题目，就在此记录一下，同时也开启 <strong>misc趣题</strong> 这一分类。</p>
+<span id="more"></span>
+<h2 id="🔑-Shino-的-Crypto-梦想"><a href="#🔑-Shino-的-Crypto-梦想" class="headerlink" title="🔑 Shino 的 Crypto 梦想"></a>🔑 Shino 的 Crypto 梦想</h2><p>题目来源：2023-CNSS-Summer</p>
+<p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">刚刚接触网络安全不久的 Shino 有一个成为 Crypto 方向专家的梦想，所以他写了一个很安全的加密算法，你可以帮他看看吗？</span><br></pre></td></tr></table></figure>
+<p>端口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc 47.108.140.140 11037</span><br></pre></td></tr></table></figure>
+<p>Hint：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、你可能需要pwntools</span><br><span class="line">2、cnss&#123;a-zA-Z0-9_&#125;</span><br><span class="line">   保证&#125;只在 flag 结尾出现一次</span><br><span class="line">   flag 长度不大于 50</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> cipher, key</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Encoder</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.stream = self.randomBox(self._init_box(key))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do_encrypt</span>(<span class="params">self, c</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">ord</span>(c) ^ <span class="built_in">next</span>(self.stream)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_init_box</span>(<span class="params">self, crypt_key</span>):</span><br><span class="line">        Box = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">256</span>))</span><br><span class="line">        key_length = <span class="built_in">len</span>(crypt_key)</span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">            index = <span class="built_in">ord</span>(crypt_key[(i % key_length)])</span><br><span class="line">            j = (j + Box[i] + index) % <span class="number">256</span></span><br><span class="line">            Box[i], Box[j] = Box[j], Box[i]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Box</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">randomBox</span>(<span class="params">self, S</span>):</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            i = i + <span class="number">1</span> &amp; <span class="number">255</span></span><br><span class="line">            j = j + S[i] &amp; <span class="number">255</span></span><br><span class="line">            S[i], S[j] = S[j], S[i]</span><br><span class="line">            <span class="keyword">yield</span> S[(S[i] + S[j] &amp; <span class="number">255</span>)]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">encoder = Encoder()</span><br><span class="line">flag = <span class="built_in">input</span>(<span class="string">&quot;input flag&gt;&gt; &quot;</span>)</span><br><span class="line">table = string.digits + string.ascii_letters + <span class="string">&quot;&#123;&#125;_&quot;</span></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line">correct = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> i &lt; <span class="built_in">len</span>(flag):</span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(flag) <span class="keyword">and</span> flag[i] <span class="keyword">not</span> <span class="keyword">in</span> table:</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> i &gt;= <span class="built_in">len</span>(flag):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> cipher[i] != encoder.do_encrypt(flag[i]):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Wrong flag!&quot;</span>)</span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        correct += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> correct == <span class="built_in">len</span>(cipher):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Correct flag!&quot;</span>)</span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Wrong flag!&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>首先，题目的加密算法是RC4，可以先检查一下有无变种，方法是自己随便使用一组明文和密钥，分别用该程序与在线网站加密，检查结果是否相同。这样操作之后可以发现，结果是完全一样的，这说明本题并没有对RC4进行魔改，也因此解题的思路也就很自然的从开始的解密码转变成了找漏洞。</p>
+<p>而要找漏洞的程序段如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">encoder = Encoder()</span><br><span class="line">flag = <span class="built_in">input</span>(<span class="string">&quot;input flag&gt;&gt; &quot;</span>)</span><br><span class="line">table = string.digits + string.ascii_letters + <span class="string">&quot;&#123;&#125;_&quot;</span></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line">correct = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> i &lt; <span class="built_in">len</span>(flag):</span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(flag) <span class="keyword">and</span> flag[i] <span class="keyword">not</span> <span class="keyword">in</span> table:</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> i &gt;= <span class="built_in">len</span>(flag):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> cipher[i] != encoder.do_encrypt(flag[i]):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Wrong flag!&quot;</span>)</span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        correct += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> correct == <span class="built_in">len</span>(cipher):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Correct flag!&quot;</span>)</span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Wrong flag!&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>先大致理解程序内容：程序需要你输入一串flag值，并将flag值逐个进行RC4加密并检查是否与密文相等，当输入的flag串加密值与密文完全相等时，便通过了检查，程序输出”Correct flag!”。</p>
+<p>所以，这么一大段其实就只实现了一个内容：检查你输入的flag和你实际要提交的flag是否相等！可以说，整个程序都是一个障眼法，其实不要这个RC4，直接用以下的代码检查也是一样的：(假设实际flag串名为secret)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="built_in">input</span>(<span class="string">&quot;input flag&gt;&gt; &quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(flag == secret):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;Correct flag!&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;Wrong flag!&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>这样就行了！所以用这么一大段来核查flag一定有问题。</p>
+<p>仔细核查，果然，下面这段代码大有玄机：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> i &lt; <span class="built_in">len</span>(flag):</span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(flag) <span class="keyword">and</span> flag[i] <span class="keyword">not</span> <span class="keyword">in</span> table:</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> i &gt;= <span class="built_in">len</span>(flag):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> cipher[i] != encoder.do_encrypt(flag[i]):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Wrong flag!&quot;</span>)</span><br><span class="line">        exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>这段代码存在以下几个问题：</p>
+<ul>
+<li>输入的flag串中含有不在table中的项时，会一直跳过直至读到table中的字符为止，但是指数 i 会一直增加。</li>
+<li>判断指数 i 过大，依靠的是输入的字符串长度，而不是实际的flag串。</li>
+<li>将cipher[i]与encrypt(flag[i])进行比对时，并没有对cipher的指数进行检查。</li>
+</ul>
+<p>这体现了一个很重要的信息：</p>
+<ul>
+<li>如果你的输入是正常的错误flag串，他会打印的内容是”Wrong flag!”</li>
+<li>如果你的输入是不正常的构造的字符串导致cipher[i]越界了，程序不会正常打印内容，而会报错！</li>
+</ul>
+<p>举个例子，构造如下两个串：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flag = &quot;cnss&#123;1234567890abcdefgh&#125;&quot;</span><br><span class="line">flag = chr(0) * 50 + &quot;c&quot;</span><br></pre></td></tr></table></figure>
+<p>那么，程序对第两个字符串的处理分别是：</p>
+<p>由于第一个串字符均在table中，因此程序仅仅会将每个字符与正确flag进行比对，直到某个字符比对失败时，打印出”Wrong flag!”</p>
+<p>而第二个串前五十个字符均是ASCII码为0的字符，是不在table中的，因此程序会先反复执行以下语句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> i &lt; <span class="built_in">len</span>(flag) <span class="keyword">and</span> flag[i] <span class="keyword">not</span> <span class="keyword">in</span> table:</span><br><span class="line">    i += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>直至第51个字符”c”，由于”c”在table中，因此会进行比对。此时i=51，而由题目知道，flag长度不大于50，因此这时执行这条语句进行比对时：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> cipher[i] != encoder.do_encrypt(flag[i]):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Wrong flag!&quot;</span>)</span><br><span class="line">    exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>cipher[i]是必定越界的！那么程序就会抛出一个异常，而不再是打印”Wrong flag!”了。</p>
+<p>这有什么用呢？用处很大。首先我们就可以反复构造如下字符串，发送给靶机端来确定真实flag的正确长度：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="built_in">chr</span>(<span class="number">0</span>) * <span class="number">49</span> + <span class="string">&quot;c&quot;</span></span><br><span class="line">flag = <span class="built_in">chr</span>(<span class="number">0</span>) * <span class="number">48</span> + <span class="string">&quot;c&quot;</span></span><br><span class="line">flag = <span class="built_in">chr</span>(<span class="number">0</span>) * <span class="number">47</span> + <span class="string">&quot;c&quot;</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>为什么这样就可以确定长度呢？我们假设flag的正确长度是30，那么发送下面字符串给靶机，靶机的回应都是“异常”而非错误，这是因为cipher数组的下标最多只能取到29，一旦涉及到cipher[30]甚至更多就会产生越界异常：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="built_in">chr</span>(<span class="number">0</span>) * <span class="number">49</span> + <span class="string">&quot;c&quot;</span></span><br><span class="line">flag = <span class="built_in">chr</span>(<span class="number">0</span>) * <span class="number">48</span> + <span class="string">&quot;c&quot;</span></span><br><span class="line">flag = <span class="built_in">chr</span>(<span class="number">0</span>) * <span class="number">47</span> + <span class="string">&quot;c&quot;</span></span><br><span class="line">......</span><br><span class="line">flag = <span class="built_in">chr</span>(<span class="number">0</span>) * <span class="number">30</span> + <span class="string">&quot;c&quot;</span></span><br></pre></td></tr></table></figure>
+<p>然而发送下一个flag串，也就是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="built_in">chr</span>(<span class="number">0</span>) * <span class="number">29</span> + <span class="string">&quot;c&quot;</span></span><br></pre></td></tr></table></figure>
+<p>这时，由于没有越界，程序会回应”Wrong flag!”，而不再抛出异常了。</p>
+<p>所以，由上述方式，我们就可以最终确定flag的真实长度是24，之后则可以反复构造下列字符串，并发送给靶机端来逐个核查字符是否正确：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> table:</span><br><span class="line">	flag = <span class="string">&quot;cnss&#123;&quot;</span> + i + <span class="built_in">chr</span>(<span class="number">0</span>)*<span class="number">100</span> + <span class="string">&quot;a&quot;</span></span><br></pre></td></tr></table></figure>
+<p>道理也是相同的，如果i是错误字符，那么核查不通过，程序直接回应”Wrong flag!”，而如果是正确字符，程序则会继续向后读，一直到读到越界的”a”后，抛出越界异常。</p>
+<p>得到这个字符为 “1” 后，将他加入”cnss{“串后，继续构造下面字符串：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> table:</span><br><span class="line">	flag = <span class="string">&quot;cnss&#123;1&quot;</span> + i + <span class="built_in">chr</span>(<span class="number">0</span>)*<span class="number">100</span> + <span class="string">&quot;a&quot;</span></span><br></pre></td></tr></table></figure>
+<p>如此反复发送直至flag串已知的部分长度为24即可。</p>
+<p>构造字符串并发送给靶机端需要用到pwntools，同时还有一些小细节需要注意，比如需要发送的是字节流而非字符串流。但是这些慢慢调试程序就好了。</p>
+<p>exp.py：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">table = string.digits + string.ascii_letters + <span class="string">&quot;&#123;&#125;_&quot;</span></span><br><span class="line"></span><br><span class="line">init = <span class="string">b&#x27;cnss&#123;&#x27;</span></span><br><span class="line">has_find = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span>(has_find == <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(table)):</span><br><span class="line">        r=remote(<span class="string">&quot;47.108.140.140&quot;</span>,<span class="number">11037</span>)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            r.sendline(init + long_to_bytes(<span class="built_in">ord</span>(table[i])) + <span class="string">b&#x27;\x00&#x27;</span>*<span class="number">100</span> + <span class="string">b&quot;a&quot;</span>)</span><br><span class="line">            temp = r.recvline()</span><br><span class="line">            <span class="keyword">if</span>(<span class="string">b&quot;Correct&quot;</span> <span class="keyword">in</span> temp):</span><br><span class="line">                exit(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">len</span>(init) == <span class="number">23</span>):</span><br><span class="line">                has_find = <span class="number">1</span></span><br><span class="line">                r.close()</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            init += long_to_bytes(<span class="built_in">ord</span>(table[i]))</span><br><span class="line">            <span class="built_in">print</span>(init)</span><br><span class="line">            r.close()</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        r.close()</span><br><span class="line"><span class="built_in">print</span>(init + <span class="string">b&quot;&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>得到flag：</p>
+<p><strong>cnss{1nd3X_0Ut_oF_r4nge}</strong></p>
+<p><br></p>
+<p>确实很有意思！</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.github.io/post/77e39860.html" title="misc趣题(一)">https://tangcuxiaojikuai.github.io/post/77e39860.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/47440.html" rel="prev" title="2023-羊城杯-wp-crypto">
+      <i class="fa fa-chevron-left"></i> 2023-羊城杯-wp-crypto
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/ccf22797.html" rel="next" title="2023-SICTF-#Round2-wp-misc">
+      2023-SICTF-#Round2-wp-misc <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%91-Shino-%E7%9A%84-Crypto-%E6%A2%A6%E6%83%B3"><span class="nav-number">1.</span> <span class="nav-text">🔑 Shino 的 Crypto 梦想</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/tangcuxiaojikuai" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tangcuxiaojikuai" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>

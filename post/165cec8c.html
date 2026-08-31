@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_small.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="RnN18ZogmZl_dLVpxZ6y8kjKL73Mu9VLVEkw9d3qrq0" />
+  <meta name="msvalidate.01" content="DC3050AD55F30DDF75AAB78517714910" />
+  <meta name="baidu-site-verification" content="codeva-PPofu3dNxe" />
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tangcuxiaojikuai.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="该文章主要记录一些古典密码相关的趣题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Crypto趣题-古典密码">
+<meta property="og:url" content="https://tangcuxiaojikuai.github.io/post/165cec8c.html">
+<meta property="og:site_name" content="糖醋小鸡块的blog">
+<meta property="og:description" content="该文章主要记录一些古典密码相关的趣题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/165cec8c/image-20230929101431427.png">
+<meta property="og:image" content="https://tangcuxiaojikuai.github.io/post/165cec8c/image-20230930103629784.png">
+<meta property="article:published_time" content="2023-09-29T01:54:48.000Z">
+<meta property="article:modified_time" content="2023-10-31T00:40:04.000Z">
+<meta property="article:author" content="糖醋小鸡块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tangcuxiaojikuai.github.io/post/165cec8c/image-20230929101431427.png">
+
+<link rel="canonical" href="https://tangcuxiaojikuai.github.io/post/165cec8c.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Crypto趣题-古典密码 | 糖醋小鸡块的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糖醋小鸡块的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tangcuxiaojikuai.github.io/post/165cec8c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image.png">
+      <meta itemprop="name" content="糖醋小鸡块">
+      <meta itemprop="description" content=""追风赶月莫停留，平芜尽处是春山"">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糖醋小鸡块的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Crypto趣题-古典密码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-29 09:54:48" itemprop="dateCreated datePublished" datetime="2023-09-29T09:54:48+08:00">2023-09-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-31 08:40:04" itemprop="dateModified" datetime="2023-10-31T08:40:04+08:00">2023-10-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/crypto%E8%B6%A3%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">crypto趣题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/165cec8c.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/165cec8c.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>该文章主要记录一些古典密码相关的趣题</p>
+<span id="more"></span>
+<h3 id="Ex-Viginere"><a href="#Ex-Viginere" class="headerlink" title="Ex Viginere?"></a>Ex Viginere?</h3><p>题目来源：MoeCTF 2021</p>
+<h4 id="加密流程解读"><a href="#加密流程解读" class="headerlink" title="加密流程解读"></a>加密流程解读</h4><p>题目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">这难道是维吉尼亚吗？</span><br><span class="line">text is a plain English text which only consists of lowercase letters (without any symbol)</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> a, b, text, key, flag</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span>*</span><br><span class="line"></span><br><span class="line">table = <span class="string">&#x27;abcdefghijklmnopqrstuvwxyz&#x27;</span></span><br><span class="line"><span class="keyword">assert</span> key <span class="keyword">in</span> text</span><br><span class="line"><span class="keyword">assert</span> a * b &lt; <span class="number">100</span></span><br><span class="line"><span class="keyword">assert</span> flag == <span class="string">b&#x27;moectf&#123;&#x27;</span> + key.encode() + <span class="string">b&#x27;&#125;&#x27;</span></span><br><span class="line"><span class="keyword">assert</span> md5(key.encode()+<span class="string">b&#x27;How_Interesting_the_Cryptography_Is&#x27;</span>).hexdigest() == <span class="string">&#x27;196cf7098c7ea6e3e4d03691fb9d4f58&#x27;</span></span><br><span class="line"></span><br><span class="line">k1 = []</span><br><span class="line">k2 = []</span><br><span class="line"></span><br><span class="line">sequence = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">n = randint(<span class="number">114514</span>,<span class="number">1919810</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">65536</span>):<span class="comment">#2**16</span></span><br><span class="line">    sequence.append((sequence[-<span class="number">1</span>] + sequence[-<span class="number">2</span>]) % n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(a):</span><br><span class="line">    k1.append(sequence[randint(<span class="number">0</span>, <span class="number">65536</span>)] % <span class="number">26</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(b):</span><br><span class="line">    k2.append(sequence[randint(<span class="number">0</span>, <span class="number">65536</span>)] % <span class="number">26</span>)</span><br><span class="line"></span><br><span class="line">c = <span class="string">&#x27;&#x27;</span>.join(table[((<span class="built_in">ord</span>(x) - <span class="number">97</span>) * (k1[i % a]) + k2[i % b]) % <span class="number">26</span>] <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(text))</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">r&#x27;./cipher&#x27;</span>,<span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">f.write(c)</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<p>并且给定cipher文件，其中内容为长度为108361的字母文本：</p>
+<p><img src="/post/165cec8c/image-20230929101431427.png" alt="image-20230929101431427"></p>
+<p>把加密程序一点一点读完，可以提取出以下信息：</p>
+<ul>
+<li>最终 flag 由 key 组成，其中 key 是被加密的原文中的某个字符串</li>
+<li>key 在原文中的位置未知，且长度未知</li>
+<li>生成一个随机数 n，作为之后生成 sequence 序列的模数</li>
+<li>sequence 序列其实就是模 n 意义下的斐波那契数列，共生成 65536 项</li>
+<li>从 sequence 序列中随机选择 a 项并模 26，作为加密所需的 k1 序列</li>
+<li>从 sequence 序列中随机选择 b 项并模 26，作为加密所需的 k2 序列</li>
+<li>对原文中的每一个字符 m 进行仿射加密得到密文，其中仿射加密的 A 为 k1[i % a]，B 为 k2[i % b]</li>
+</ul>
+<p>此外还有一些额外信息：</p>
+<ul>
+<li>一段有关 key 的md5值</li>
+<li>a*b &lt; 100</li>
+</ul>
+<h4 id="引入重合指数"><a href="#引入重合指数" class="headerlink" title="引入重合指数"></a>引入重合指数</h4><p>因为密文很长，所以可以用统计方面的思想来解决题目，因此引入<strong>重合指数</strong>的概念：<strong>重合指数是指字符串中两个随机元素相同的概率。</strong>因此，假如我们仅考虑完全由英文字符组成的文本，那么一个文本的重合指数就按如下方式计算：(重合指数以 In 表示,p(a)表示 a 在文本中出现的频率)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In = p(a)*p(a) + p(b)*p(b) + p(c)*p(c) + ... + p(z)*p(z)</span><br></pre></td></tr></table></figure>
+<p>代码实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">table = ascii_lowercase</span><br><span class="line"></span><br><span class="line"><span class="comment">#obj:待分割字符串  #sec:分割长度</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cut</span>(<span class="params">obj, sec</span>):</span><br><span class="line">    <span class="keyword">return</span> [obj[i:i+sec] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(obj),sec)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#计算重合指数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">In</span>(<span class="params">c</span>):</span><br><span class="line">    freq = &#123;i:<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> table&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(table)):</span><br><span class="line">        freq[table[i]] = c.count(table[i]) / <span class="built_in">len</span>(c)</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> table:</span><br><span class="line">        index += freq[i] * freq[i]</span><br><span class="line">    <span class="keyword">return</span> index</span><br></pre></td></tr></table></figure>
+<p>那么对于下列两种文本分别计算重合指数，就能看出它们的区别：(文本字符均足够多，符合统计概念)</p>
+<p>1、完全随机的英文文本(26个字母均随机生成，因此出现频率相当，均为 1/26)</p>
+<p>2、正常的英文文本(26个字符有使用频率上的差别)，一般来说如下：</p>
+<p><img src="/post/165cec8c/image-20230930103629784.png" alt="image-20230930103629784"></p>
+<p>1、</p>
+<script type="math/tex; mode=display">
+In = \sum_{i=1}^{26}{(\frac{1}{26})^2} = \frac{1}{26} \approx 0.038</script><p>2、</p>
+<script type="math/tex; mode=display">
+In = \sum_{i=1}^{26}{p(i)^2}  \approx 0.065</script><p>由此，我们就有了一个区分随机文本与英文文本的重要依据。</p>
+<h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><h5 id="part1：找出密钥长度"><a href="#part1：找出密钥长度" class="headerlink" title="part1：找出密钥长度"></a>part1：找出密钥长度</h5><p>重合指数如何应用到题目里呢？首先想明白一点：被同一个密钥(a、b均相同)加密的明文，一定会变成同一个密文。因此我们如果能够找到所有被同一个密钥加密的密文组，那么该密文组的重合指数是符合正常英文文本的(可以仔细想想)</p>
+<p>所以我们就需要先由重合指数找到哪些密文是被同一个密钥加密的，实际上这就是在求 gcd(a,b) ,而由题目条件 a*b &lt; 100，因此我们可以很快爆破出来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#part1 依据重合指数找出a*b=77</span></span><br><span class="line">t = c</span><br><span class="line"><span class="keyword">if</span>(<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">100</span>):</span><br><span class="line">        temp = cut(t,i)</span><br><span class="line">        temp1 = [<span class="string">&quot;&quot;</span> <span class="keyword">for</span> m <span class="keyword">in</span> <span class="built_in">range</span>(i)]</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(temp)-<span class="number">1</span>):</span><br><span class="line">            temp1[<span class="number">0</span>] += temp[k][<span class="number">0</span>]</span><br><span class="line">        index = In(<span class="string">&quot;&quot;</span>.join(temp1[<span class="number">0</span>]))</span><br><span class="line">        <span class="keyword">if</span>(index &gt; <span class="number">0.060</span>):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;lenkey = &quot;</span>,i,<span class="string">&quot;   In = &quot;</span>,index)</span><br></pre></td></tr></table></figure>
+<p>爆破得到a*b = 77，因此a=7，b=11或a=11，b=7</p>
+<h5 id="part2：确定密钥内容"><a href="#part2：确定密钥内容" class="headerlink" title="part2：确定密钥内容"></a>part2：确定密钥内容</h5><p>确定了密钥长度后，现在就需要确定密钥的内容具体是什么，也就是 k1、k2里究竟是什么数字。</p>
+<p>首先会发现一个 trick，那就是 sequence 序列的生成根本没什么用，由于最终是在mod 26 下进行计算，因此直接把sequence 当成一个由 0-25 组成的随机序列就可以。那么怎么确定呢，依然是利用重合指数，只是要换一种用法。</p>
+<p>先引入一个结论：</p>
+<p>假设 $ p1, p2 , p3…, pn$为递减的概率分布( $ p1\geq p2 \geq p3…\geq pn$ )，令$ q1’, q2’ , q3’…, qn’$为 $ q1, q2 , q3…, qn$的任意置换，则当 $ q1’, q2’ , q3’…, qn’$ 恰好也为递减的概率分布时，下式取得最大值：</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{26}{pi*qi'}</script><p>这个结论的证明并不复杂，可以自行尝试。</p>
+<p>这个结论有什么用呢？我们现在先把密文按长度为 77 分组，并取出每组的第一个字母组成一个新的密文串，那么这个新的密文串的所有字符，都是被k1[0]、k2[0]这个密钥加密的。那么我们爆破的密钥空间大小一共就只有12*26 = 312(参考仿射密码)。</p>
+<p>爆破的依据是什么？仍然是重合指数，对于现在被加密的密文，它自身的重合指数是符合0.065的，因为是单表代换；但是加密过后，各个字符的频率发生了错位。比如正常英文文本中频率最高的是 e，而加密后可能变成了 z。那么把正常英文文本的概率分布当作p，把加密文本的概率分布当作q，就能发现可以利用刚才引入的结论来进行爆破了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#part2 依据与英语字频吻合指数找出具体的k1、k2</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">11</span>):</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">            <span class="keyword">if</span> GCD(a,<span class="number">26</span>)!= <span class="number">1</span> :</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">for</span> b <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">                temp = cut(t,<span class="number">77</span>)</span><br><span class="line">                temp1 = [<span class="string">&quot;&quot;</span> <span class="keyword">for</span> m <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">77</span>)]</span><br><span class="line">                <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(temp)-<span class="number">1</span>):</span><br><span class="line">                    temp1[i] += temp[k][i]</span><br><span class="line">                m = <span class="string">&#x27;&#x27;</span></span><br><span class="line">                <span class="keyword">for</span> x <span class="keyword">in</span> temp1[i]:</span><br><span class="line">                    m += table[((table.index(x)-b)*inverse(a,<span class="number">26</span>))%<span class="number">26</span>]</span><br><span class="line">                index = In_m(<span class="string">&quot;&quot;</span>.join(m))</span><br><span class="line">                <span class="comment">#print(index)</span></span><br><span class="line">                <span class="keyword">if</span>(index &gt; <span class="number">0.060</span>):</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;a = &quot;</span>,a,<span class="string">&quot;   b = &quot;</span>,b,<span class="string">&quot;,index = &quot;</span>,index)</span><br></pre></td></tr></table></figure>
+<p>之所以只爆破11个而不爆破全部77个，道理也很简单，爆破11个已经能够找出全部的k1、k2了。</p>
+<h5 id="part3：爆破md5"><a href="#part3：爆破md5" class="headerlink" title="part3：爆破md5"></a>part3：爆破md5</h5><p>知道了密钥后就很轻松，就是个纯粹的爆破问题了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#part3 爆破密钥md5</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">1</span>):</span><br><span class="line">    m = <span class="string">&quot;&quot;</span></span><br><span class="line">    k1 = [<span class="number">9</span>,<span class="number">7</span>,<span class="number">25</span>,<span class="number">11</span>,<span class="number">11</span>,<span class="number">19</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">25</span>,<span class="number">9</span>,<span class="number">7</span>]</span><br><span class="line">    k2 = [<span class="number">25</span>,<span class="number">19</span>,<span class="number">18</span>,<span class="number">19</span>,<span class="number">25</span>,<span class="number">20</span>,<span class="number">8</span>]</span><br><span class="line">    a = <span class="number">11</span></span><br><span class="line">    b = <span class="number">7</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(t)):</span><br><span class="line">        temp = ((table.index(t[i])-k2[i%b])*inverse(k1[i%a],<span class="number">26</span>))%<span class="number">26</span></span><br><span class="line">        m += table[temp]</span><br><span class="line"></span><br><span class="line">    Pad = <span class="string">b&#x27;How_Interesting_the_Cryptography_Is&#x27;</span></span><br><span class="line">    MD5 = <span class="string">&#x27;196cf7098c7ea6e3e4d03691fb9d4f58&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(m)-i):</span><br><span class="line">            key = m[j:j+i]</span><br><span class="line">            <span class="keyword">if</span> (md5(key.encode()+Pad).hexdigest() == MD5):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;moectf&#123;&#x27;</span>+key+<span class="string">&#x27;&#125;&#x27;</span>)</span><br><span class="line">                <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>完整exp：(记得改一下if条件)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> string <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">r&#x27;E:\vscode\cipher&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    c = f.read()</span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line">table = ascii_lowercase</span><br><span class="line">dic = &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">0.08167</span>,<span class="string">&#x27;b&#x27;</span>: <span class="number">0.01492</span>,<span class="string">&#x27;c&#x27;</span>: <span class="number">0.02782</span>,<span class="string">&#x27;d&#x27;</span>:<span class="number">0.04253</span>,<span class="string">&#x27;e&#x27;</span>: <span class="number">0.12702</span>,<span class="string">&#x27;f&#x27;</span>:<span class="number">0.02228</span>,<span class="string">&#x27;g&#x27;</span>: <span class="number">0.02015</span>,<span class="string">&#x27;h&#x27;</span>:<span class="number">0.06094</span>,<span class="string">&#x27;i&#x27;</span>:<span class="number">0.06966</span>,<span class="string">&#x27;j&#x27;</span>:<span class="number">0.00153</span>,<span class="string">&#x27;k&#x27;</span>:<span class="number">0.00772</span>,<span class="string">&#x27;l&#x27;</span>:<span class="number">0.04025</span>,<span class="string">&#x27;m&#x27;</span>:<span class="number">0.02406</span>,<span class="string">&#x27;n&#x27;</span>:<span class="number">0.06749</span>,<span class="string">&#x27;o&#x27;</span>:<span class="number">0.07507</span>,<span class="string">&#x27;p&#x27;</span>:<span class="number">0.01929</span>,<span class="string">&#x27;q&#x27;</span>:<span class="number">0.00095</span>,<span class="string">&#x27;r&#x27;</span>:<span class="number">0.05987</span>,<span class="string">&#x27;s&#x27;</span>:<span class="number">0.06327</span>,<span class="string">&#x27;t&#x27;</span>:<span class="number">0.09056</span>,<span class="string">&#x27;u&#x27;</span>:<span class="number">0.02758</span>,<span class="string">&#x27;v&#x27;</span>:<span class="number">0.00978</span>,<span class="string">&#x27;w&#x27;</span>:<span class="number">0.02360</span>,<span class="string">&#x27;x&#x27;</span>:<span class="number">0.00150</span>,<span class="string">&#x27;y&#x27;</span>:<span class="number">0.01974</span>,<span class="string">&#x27;z&#x27;</span>:<span class="number">0.00074</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#obj:待分割字符串  #sec:分割长度</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cut</span>(<span class="params">obj, sec</span>):</span><br><span class="line">    <span class="keyword">return</span> [obj[i:i+sec] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(obj),sec)]</span><br><span class="line"></span><br><span class="line"><span class="comment">#计算重合指数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">In</span>(<span class="params">c</span>):</span><br><span class="line">    freq = &#123;i:<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> table&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(table)):</span><br><span class="line">        freq[table[i]] = c.count(table[i]) / <span class="built_in">len</span>(c)</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> table:</span><br><span class="line">        index += freq[i] * freq[i]</span><br><span class="line">    <span class="keyword">return</span> index</span><br><span class="line"></span><br><span class="line"><span class="comment">#计算与英语字频吻合指数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">In_m</span>(<span class="params">c</span>):</span><br><span class="line">    freq = &#123;i:<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> table&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(table)):</span><br><span class="line">        freq[table[i]] = c.count(table[i]) / <span class="built_in">len</span>(c)</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> table:</span><br><span class="line">        index += freq[i] * dic[i]</span><br><span class="line">    <span class="keyword">return</span> index</span><br><span class="line"></span><br><span class="line"><span class="comment">#part1 依据重合指数找出a*b=77</span></span><br><span class="line">t = c</span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">100</span>):</span><br><span class="line">        temp = cut(t,i)</span><br><span class="line">        temp1 = [<span class="string">&quot;&quot;</span> <span class="keyword">for</span> m <span class="keyword">in</span> <span class="built_in">range</span>(i)]</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(temp)-<span class="number">1</span>):</span><br><span class="line">            temp1[<span class="number">0</span>] += temp[k][<span class="number">0</span>]</span><br><span class="line">        index = In(<span class="string">&quot;&quot;</span>.join(temp1[<span class="number">0</span>]))</span><br><span class="line">        <span class="keyword">if</span>(index &gt; <span class="number">0.060</span>):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;lenkey = &quot;</span>,i,<span class="string">&quot;   In = &quot;</span>,index)</span><br><span class="line"></span><br><span class="line"><span class="comment">#part2 依据与英语字频吻合指数找出具体的k1、k2</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">11</span>):</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">            <span class="keyword">if</span> GCD(a,<span class="number">26</span>)!= <span class="number">1</span> :</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">for</span> b <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">                temp = cut(t,<span class="number">77</span>)</span><br><span class="line">                temp1 = [<span class="string">&quot;&quot;</span> <span class="keyword">for</span> m <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">77</span>)]</span><br><span class="line">                <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(temp)-<span class="number">1</span>):</span><br><span class="line">                    temp1[i] += temp[k][i]</span><br><span class="line">                m = <span class="string">&#x27;&#x27;</span></span><br><span class="line">                <span class="keyword">for</span> x <span class="keyword">in</span> temp1[i]:</span><br><span class="line">                    m += table[((table.index(x)-b)*inverse(a,<span class="number">26</span>))%<span class="number">26</span>]</span><br><span class="line">                index = In_m(<span class="string">&quot;&quot;</span>.join(m))</span><br><span class="line">                <span class="comment">#print(index)</span></span><br><span class="line">                <span class="keyword">if</span>(index &gt; <span class="number">0.060</span>):</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;a = &quot;</span>,a,<span class="string">&quot;   b = &quot;</span>,b,<span class="string">&quot;,index = &quot;</span>,index)</span><br><span class="line"></span><br><span class="line"><span class="comment">#part3 爆破密钥md5</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">0</span>):</span><br><span class="line">    m = <span class="string">&quot;&quot;</span></span><br><span class="line">    k1 = [<span class="number">9</span>,<span class="number">7</span>,<span class="number">25</span>,<span class="number">11</span>,<span class="number">11</span>,<span class="number">19</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">25</span>,<span class="number">9</span>,<span class="number">7</span>]</span><br><span class="line">    k2 = [<span class="number">25</span>,<span class="number">19</span>,<span class="number">18</span>,<span class="number">19</span>,<span class="number">25</span>,<span class="number">20</span>,<span class="number">8</span>]</span><br><span class="line">    a = <span class="number">11</span></span><br><span class="line">    b = <span class="number">7</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(t)):</span><br><span class="line">        temp = ((table.index(t[i])-k2[i%b])*inverse(k1[i%a],<span class="number">26</span>))%<span class="number">26</span></span><br><span class="line">        m += table[temp]</span><br><span class="line"></span><br><span class="line">    Pad = <span class="string">b&#x27;How_Interesting_the_Cryptography_Is&#x27;</span></span><br><span class="line">    MD5 = <span class="string">&#x27;196cf7098c7ea6e3e4d03691fb9d4f58&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(m)-i):</span><br><span class="line">            key = m[j:j+i]</span><br><span class="line">            <span class="keyword">if</span> (md5(key.encode()+Pad).hexdigest() == MD5):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;moectf&#123;&#x27;</span>+key+<span class="string">&#x27;&#125;&#x27;</span>)</span><br><span class="line">                exit()</span><br><span class="line">                </span><br><span class="line"><span class="comment">#moectf&#123;pieceofchocolate&#125;</span></span><br></pre></td></tr></table></figure>
+<p>一个很纯粹的古典密码分析过程，其实是非常有意思也非常有价值的。</p>
+<p><br><br></p>
+<h3 id="Unstable-time-machine"><a href="#Unstable-time-machine" class="headerlink" title="Unstable_time_machine"></a>Unstable_time_machine</h3><p>题目来源：暂不明确</p>
+<p>题目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sympy <span class="keyword">import</span> totient,mobius</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"></span><br><span class="line">secrets=<span class="string">b&#x27;xxx...xxx&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Time_Machine</span>(<span class="params">n</span>):</span><br><span class="line">    ans=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,k+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,j+<span class="number">1</span>):</span><br><span class="line">                ans+=j//i*(totient(i)+mobius(i))</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line">c=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(secrets)):</span><br><span class="line">   c.append(Time_Machine(<span class="number">9999</span>*secrets[i]))</span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">[11827965311995932558558, 436740119853412116456, 41650252425798979676175, 50626127671556204573190, 41650252425798979676175, 60980101311350323854180, 963563059779422880492, 75413523978530416956915, 436740119853412116456, 43341417116799148415475, 86365877055447093121710, 65537436405378983697036, 43341417116799148415475, 40009068720753857066727, 75413523978530416956915, 436740119853412116456, 89280922053913796530170, 63227978177791478672610, 78047807265358355987991, 436740119853412116456, 75413523978530416956915, 63227978177791478672610, 436740119853412116456, 72846494790687055657395, 63227978177791478672610, 56664683419644282294873, 80750509186740318135738, 43341417116799148415475, 436740119853412116456, 58792701246489673616637, 89280922053913796530170, 436740119853412116456, 65537436405378983697036, 78047807265358355987991, 92269143789218304195771, 92269143789218304195771, 56664683419644282294873, 43341417116799148415475, 436740119853412116456, 36872675850292365936996, 48724893081131391463482, 43341417116799148415475, 36872675850292365936996, 41650252425798979676175, 436740119853412116456, 63227978177791478672610, 45083567393314209309726, 436740119853412116456, 75413523978530416956915, 50626127671556204573190, 58792701246489673616637, 43341417116799148415475, 1864884862832210879220, 436740119853412116456, 11827965311995932558558, 436740119853412116456, 43341417116799148415475, 86365877055447093121710, 65537436405378983697036, 43341417116799148415475, 40009068720753857066727, 75413523978530416956915, 436740119853412116456, 75413523978530416956915, 48724893081131391463482, 43341417116799148415475, 436740119853412116456, 65537436405378983697036, 70345565162259426664317, 63227978177791478672610, 46877717850904608344028, 70345565162259426664317, 36872675850292365936996, 58792701246489673616637, 436740119853412116456, 75413523978530416956915, 63227978177791478672610, 436740119853412116456, 70345565162259426664317, 78047807265358355987991, 60980101311350323854180, 436740119853412116456, 45083567393314209309726, 63227978177791478672610, 70345565162259426664317, 436740119853412116456, 89280922053913796530170, 43341417116799148415475, 36872675850292365936996, 70345565162259426664317, 72846494790687055657395, 1561103367493488746697, 8905422223361768646663, 7434854394795874666620, 19766534787409257458523, 8393017568869581586191, 20736491520823134042987, 10000251324957046694310, 95331756776933061303633, 89280922053913796530170, 2210983036628738475708, 78047807265358355987991, 33924401628947906025510, 54594963263249504183781, 60980101311350323854180, 2210983036628738475708, 83522804274246348745272, 33924401628947906025510, 75413523978530416956915, 50626127671556204573190, 58792701246489673616637, 43341417116799148415475, 33924401628947906025510, 40009068720753857066727, 2210983036628738475708, 58792701246489673616637, 65537436405378983697036, 56664683419644282294873, 43341417116799148415475, 86365877055447093121710, 50626127671556204573190, 75413523978530416956915, 89280922053913796530170, 33924401628947906025510, 80750509186740318135738, 43341417116799148415475, 70345565162259426664317, 89280922053913796530170, 33924401628947906025510, 83522804274246348745272, 43341417116799148415475, 2401069164267674760552, 2401069164267674760552, 493945107805384908948, 101685064551886104386625]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>题目内容很简单，给了一个Time_Machine()函数，然后对secret的每个字节乘上9999，再进行该函数运算，并给出函数值，要求还原secret。</p>
+<p>预期解是拟合一个多项式去拟合，从而将函数内部的三层循环用一个拟合后的表达式直接算出，并与secret做对照得到flag。但是既然我将他分类到古典密码中，说明肯定有古典密码的做法，接下来就讲一讲这个做法。</p>
+<p>首先要注意到一点，仔细观察这个函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">Time_Machine</span>(<span class="params">n</span>):</span><br><span class="line">    ans=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,k+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,j+<span class="number">1</span>):</span><br><span class="line">                ans+=j//i*(totient(i)+mobius(i))</span><br><span class="line">    <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<p>三层循环，每层循环最内部其实都可以看作加上一个正数(mobius函数有可能为-1，但对加和的影响基本可以忽略不计)。也就是说，如果我们只关注Time_Machine()函数的自变量和返回值：</p>
+<script type="math/tex; mode=display">
+y = T(x)</script><p>那么这个函数有一个很重要的性质：<strong>单调递增</strong></p>
+<p>这也就是说，对于secret中的每两个字符，如果第一个字符的ASCII码大于第二个字符，那么其乘9999后的函数值也会大于第二个字符。特殊一点，举几个在这题里面将会用到的一些例子就是：</p>
+<script type="math/tex; mode=display">
+T(9999*小写字符)  > T(9999*大写字符)</script><script type="math/tex; mode=display">
+T(9999*大写字符)  > T(9999*数字)</script><script type="math/tex; mode=display">
+T(9999*b)  > T(9999*a)</script><script type="math/tex; mode=display">
+T(9999*其他可见字符)  > T(9999*空格)</script><script type="math/tex; mode=display">
+T(9999*左右大括号)  > T(9999*其他可见字符)</script><p>那么接下来我们就根据这一点对secret进行分析。</p>
+<h4 id="统计频率"><a href="#统计频率" class="headerlink" title="统计频率"></a>统计频率</h4><p>我们首先用如下程序统计出密文中每个数值出现次数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tt = [<span class="number">11827965311995932558558</span>, <span class="number">436740119853412116456</span>, <span class="number">41650252425798979676175</span>, <span class="number">50626127671556204573190</span>, <span class="number">41650252425798979676175</span>, <span class="number">60980101311350323854180</span>, <span class="number">963563059779422880492</span>, <span class="number">75413523978530416956915</span>, <span class="number">436740119853412116456</span>, <span class="number">43341417116799148415475</span>, <span class="number">86365877055447093121710</span>, <span class="number">65537436405378983697036</span>, <span class="number">43341417116799148415475</span>, <span class="number">40009068720753857066727</span>, <span class="number">75413523978530416956915</span>, <span class="number">436740119853412116456</span>, <span class="number">89280922053913796530170</span>, <span class="number">63227978177791478672610</span>, <span class="number">78047807265358355987991</span>, <span class="number">436740119853412116456</span>, <span class="number">75413523978530416956915</span>, <span class="number">63227978177791478672610</span>, <span class="number">436740119853412116456</span>, <span class="number">72846494790687055657395</span>, <span class="number">63227978177791478672610</span>, <span class="number">56664683419644282294873</span>, <span class="number">80750509186740318135738</span>, <span class="number">43341417116799148415475</span>, <span class="number">436740119853412116456</span>, <span class="number">58792701246489673616637</span>, <span class="number">89280922053913796530170</span>, <span class="number">436740119853412116456</span>, <span class="number">65537436405378983697036</span>, <span class="number">78047807265358355987991</span>, <span class="number">92269143789218304195771</span>, <span class="number">92269143789218304195771</span>, <span class="number">56664683419644282294873</span>, <span class="number">43341417116799148415475</span>, <span class="number">436740119853412116456</span>, <span class="number">36872675850292365936996</span>, <span class="number">48724893081131391463482</span>, <span class="number">43341417116799148415475</span>, <span class="number">36872675850292365936996</span>, <span class="number">41650252425798979676175</span>, <span class="number">436740119853412116456</span>, <span class="number">63227978177791478672610</span>, <span class="number">45083567393314209309726</span>, <span class="number">436740119853412116456</span>, <span class="number">75413523978530416956915</span>, <span class="number">50626127671556204573190</span>, <span class="number">58792701246489673616637</span>, <span class="number">43341417116799148415475</span>, <span class="number">1864884862832210879220</span>, <span class="number">436740119853412116456</span>, <span class="number">11827965311995932558558</span>, <span class="number">436740119853412116456</span>, <span class="number">43341417116799148415475</span>, <span class="number">86365877055447093121710</span>, <span class="number">65537436405378983697036</span>, <span class="number">43341417116799148415475</span>, <span class="number">40009068720753857066727</span>, <span class="number">75413523978530416956915</span>, <span class="number">436740119853412116456</span>, <span class="number">75413523978530416956915</span>, <span class="number">48724893081131391463482</span>, <span class="number">43341417116799148415475</span>, <span class="number">436740119853412116456</span>, <span class="number">65537436405378983697036</span>, <span class="number">70345565162259426664317</span>, <span class="number">63227978177791478672610</span>, <span class="number">46877717850904608344028</span>, <span class="number">70345565162259426664317</span>, <span class="number">36872675850292365936996</span>, <span class="number">58792701246489673616637</span>, <span class="number">436740119853412116456</span>, <span class="number">75413523978530416956915</span>, <span class="number">63227978177791478672610</span>, <span class="number">436740119853412116456</span>, <span class="number">70345565162259426664317</span>, <span class="number">78047807265358355987991</span>, <span class="number">60980101311350323854180</span>, <span class="number">436740119853412116456</span>, <span class="number">45083567393314209309726</span>, <span class="number">63227978177791478672610</span>, <span class="number">70345565162259426664317</span>, <span class="number">436740119853412116456</span>, <span class="number">89280922053913796530170</span>, <span class="number">43341417116799148415475</span>, <span class="number">36872675850292365936996</span>, <span class="number">70345565162259426664317</span>, <span class="number">72846494790687055657395</span>, <span class="number">1561103367493488746697</span>, <span class="number">8905422223361768646663</span>, <span class="number">7434854394795874666620</span>, <span class="number">19766534787409257458523</span>, <span class="number">8393017568869581586191</span>, <span class="number">20736491520823134042987</span>, <span class="number">10000251324957046694310</span>, <span class="number">95331756776933061303633</span>, <span class="number">89280922053913796530170</span>, <span class="number">2210983036628738475708</span>, <span class="number">78047807265358355987991</span>, <span class="number">33924401628947906025510</span>, <span class="number">54594963263249504183781</span>, <span class="number">60980101311350323854180</span>, <span class="number">2210983036628738475708</span>, <span class="number">83522804274246348745272</span>, <span class="number">33924401628947906025510</span>, <span class="number">75413523978530416956915</span>, <span class="number">50626127671556204573190</span>, <span class="number">58792701246489673616637</span>, <span class="number">43341417116799148415475</span>, <span class="number">33924401628947906025510</span>, <span class="number">40009068720753857066727</span>, <span class="number">2210983036628738475708</span>, <span class="number">58792701246489673616637</span>, <span class="number">65537436405378983697036</span>, <span class="number">56664683419644282294873</span>, <span class="number">43341417116799148415475</span>, <span class="number">86365877055447093121710</span>, <span class="number">50626127671556204573190</span>, <span class="number">75413523978530416956915</span>, <span class="number">89280922053913796530170</span>, <span class="number">33924401628947906025510</span>, <span class="number">80750509186740318135738</span>, <span class="number">43341417116799148415475</span>, <span class="number">70345565162259426664317</span>, <span class="number">89280922053913796530170</span>, <span class="number">33924401628947906025510</span>, <span class="number">83522804274246348745272</span>, <span class="number">43341417116799148415475</span>, <span class="number">2401069164267674760552</span>, <span class="number">2401069164267674760552</span>, <span class="number">493945107805384908948</span>, <span class="number">101685064551886104386625</span>]</span><br><span class="line">dic = &#123;i:<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> tt&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tt:</span><br><span class="line">    dic[i] += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>打印出的结果为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">11827965311995932558558</span>: <span class="number">2</span>, <span class="number">436740119853412116456</span>: <span class="number">18</span>, <span class="number">41650252425798979676175</span>: <span class="number">3</span>, <span class="number">50626127671556204573190</span>: <span class="number">4</span>, <span class="number">60980101311350323854180</span>: <span class="number">3</span>, <span class="number">963563059779422880492</span>: <span class="number">1</span>, <span class="number">75413523978530416956915</span>: <span class="number">9</span>, <span class="number">43341417116799148415475</span>: <span class="number">14</span>, <span class="number">86365877055447093121710</span>: <span class="number">3</span>, <span class="number">65537436405378983697036</span>: <span class="number">5</span>, <span class="number">40009068720753857066727</span>: <span class="number">3</span>, <span class="number">89280922053913796530170</span>: <span class="number">6</span>, <span class="number">63227978177791478672610</span>: <span class="number">7</span>, <span class="number">78047807265358355987991</span>: <span class="number">4</span>, <span class="number">72846494790687055657395</span>: <span class="number">2</span>, <span class="number">56664683419644282294873</span>: <span class="number">3</span>, <span class="number">80750509186740318135738</span>: <span class="number">2</span>, <span class="number">58792701246489673616637</span>: <span class="number">5</span>, <span class="number">92269143789218304195771</span>: </span><br><span class="line"><span class="number">2</span>, <span class="number">36872675850292365936996</span>: <span class="number">4</span>, <span class="number">48724893081131391463482</span>: <span class="number">2</span>, <span class="number">45083567393314209309726</span>: <span class="number">2</span>, <span class="number">1864884862832210879220</span>: <span class="number">1</span>, <span class="number">70345565162259426664317</span>: <span class="number">6</span>, <span class="number">46877717850904608344028</span>: <span class="number">1</span>, <span class="number">1561103367493488746697</span>: <span class="number">1</span>, <span class="number">8905422223361768646663</span>: <span class="number">1</span>, <span class="number">7434854394795874666620</span>: <span class="number">1</span>, <span class="number">19766534787409257458523</span>: <span class="number">1</span>, <span class="number">8393017568869581586191</span>: <span class="number">1</span>, <span class="number">20736491520823134042987</span>: <span class="number">1</span>, <span class="number">10000251324957046694310</span>: <span class="number">1</span>, <span class="number">95331756776933061303633</span>: <span class="number">1</span>, <span class="number">2210983036628738475708</span>: <span class="number">3</span>, <span class="number">33924401628947906025510</span>: <span class="number">5</span>, <span class="number">54594963263249504183781</span>: <span class="number">1</span>, <span class="number">83522804274246348745272</span>: <span class="number">2</span>, <span class="number">2401069164267674760552</span>: <span class="number">2</span>, </span><br><span class="line"><span class="number">493945107805384908948</span>: <span class="number">1</span>, <span class="number">101685064551886104386625</span>: <span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>同时，打印出字典长度可以看到只有40个可见字符，然后secret长度却为135，说明有多个字符重复出现了，应该可以进行一点语义分析。</p>
+<h4 id="数值排序"><a href="#数值排序" class="headerlink" title="数值排序"></a>数值排序</h4><p>然后，为了利用单调性，我们将字典中的键值对按数值顺序排好，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sequence = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">sorted</span>(dic.keys()) : </span><br><span class="line">    sequence.append((i, dic[i])) </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(sequence)):</span><br><span class="line">    <span class="built_in">print</span>(sequence[i],end = <span class="string">&quot;,&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span>(i % <span class="number">4</span> == <span class="number">0</span>):</span><br><span class="line">        <span class="built_in">print</span>()</span><br></pre></td></tr></table></figure>
+<p>每四个一行打印，主要是为了观察的方便，结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">436740119853412116456</span>, <span class="number">18</span>),(<span class="number">493945107805384908948</span>, <span class="number">1</span>),(<span class="number">963563059779422880492</span>, <span class="number">1</span>),(<span class="number">1561103367493488746697</span>, <span class="number">1</span>),</span><br><span class="line">(<span class="number">1864884862832210879220</span>, <span class="number">1</span>),(<span class="number">2210983036628738475708</span>, <span class="number">3</span>),(<span class="number">2401069164267674760552</span>, <span class="number">2</span>),(<span class="number">7434854394795874666620</span>, <span class="number">1</span>),</span><br><span class="line">(<span class="number">8393017568869581586191</span>, <span class="number">1</span>),(<span class="number">8905422223361768646663</span>, <span class="number">1</span>),(<span class="number">10000251324957046694310</span>, <span class="number">1</span>),(<span class="number">11827965311995932558558</span>, <span class="number">2</span>),</span><br><span class="line">(<span class="number">19766534787409257458523</span>, <span class="number">1</span>),(<span class="number">20736491520823134042987</span>, <span class="number">1</span>),(<span class="number">33924401628947906025510</span>, <span class="number">5</span>),(<span class="number">36872675850292365936996</span>, <span class="number">4</span>),</span><br><span class="line">(<span class="number">40009068720753857066727</span>, <span class="number">3</span>),(<span class="number">41650252425798979676175</span>, <span class="number">3</span>),(<span class="number">43341417116799148415475</span>, <span class="number">14</span>),(<span class="number">45083567393314209309726</span>, <span class="number">2</span>),</span><br><span class="line">(<span class="number">46877717850904608344028</span>, <span class="number">1</span>),(<span class="number">48724893081131391463482</span>, <span class="number">2</span>),(<span class="number">50626127671556204573190</span>, <span class="number">4</span>),(<span class="number">54594963263249504183781</span>, <span class="number">1</span>),</span><br><span class="line">(<span class="number">56664683419644282294873</span>, <span class="number">3</span>),(<span class="number">58792701246489673616637</span>, <span class="number">5</span>),(<span class="number">60980101311350323854180</span>, <span class="number">3</span>),(<span class="number">63227978177791478672610</span>, <span class="number">7</span>),</span><br><span class="line">(<span class="number">65537436405378983697036</span>, <span class="number">5</span>),(<span class="number">70345565162259426664317</span>, <span class="number">6</span>),(<span class="number">72846494790687055657395</span>, <span class="number">2</span>),(<span class="number">75413523978530416956915</span>, <span class="number">9</span>),</span><br><span class="line">(<span class="number">78047807265358355987991</span>, <span class="number">4</span>),(<span class="number">80750509186740318135738</span>, <span class="number">2</span>),(<span class="number">83522804274246348745272</span>, <span class="number">2</span>),(<span class="number">86365877055447093121710</span>, <span class="number">3</span>),</span><br><span class="line">(<span class="number">89280922053913796530170</span>, <span class="number">6</span>),(<span class="number">92269143789218304195771</span>, <span class="number">2</span>),(<span class="number">95331756776933061303633</span>, <span class="number">1</span>),(<span class="number">101685064551886104386625</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="词频分析"><a href="#词频分析" class="headerlink" title="词频分析"></a>词频分析</h4><p>根据刚才的数值排序及频率列表，我们很快能确定以下几个字符：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot; &quot;</span>,<span class="string">&quot;e&quot;</span>,<span class="string">&quot;&#123;&quot;</span>,<span class="string">&quot;&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>这分别是因为：</p>
+<ul>
+<li>出现频率最高的值在数值排序中也在第一，所以应该是空格</li>
+<li>出现频率第二的值根据英语词频，应该是e</li>
+<li>大括号的ASCII码很靠后，因此最后两个应该就是左右大括号</li>
+</ul>
+<p>所以我们第一步可以先手动赋一下这几个字符的初值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dic_secret[<span class="number">436740119853412116456</span>] = <span class="string">&quot; &quot;</span></span><br><span class="line">dic_secret[<span class="number">43341417116799148415475</span>] = <span class="string">&quot;e&quot;</span></span><br><span class="line">dic_secret[<span class="number">101685064551886104386625</span>] = <span class="string">&quot;&#125;&quot;</span></span><br><span class="line">dic_secret[<span class="number">95331756776933061303633</span>] = <span class="string">&quot;&#123;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>然后，我们可以用以下函数将已知的字符代回原secret观察：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">output</span>(<span class="params">dic_secret</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> tt:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="built_in">print</span>(dic_secret[i],end = <span class="string">&quot;&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>,end = <span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br></pre></td></tr></table></figure>
+<p>原secret此时如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* ****** e**e** *** ** ****e ** *****e **e** ** ***e* * e**e** **e ******* ** *** *** *e**********&#123;************e******e******e****e***&#125;</span><br></pre></td></tr></table></figure>
+<p>同时，我们把已知的几个字符插入数值序列中，就可以直观的看到数值大小顺序，函数如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">out_unknown</span>(<span class="params">sequence,dic_secret</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> sequence:</span><br><span class="line">        <span class="keyword">if</span>(i[<span class="number">0</span>] <span class="keyword">in</span> dic_secret.keys()):</span><br><span class="line">            <span class="built_in">print</span>(dic_secret[i[<span class="number">0</span>]],end = <span class="string">&quot;&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>,end = <span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*****************e*******************&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="进一步分析"><a href="#进一步分析" class="headerlink" title="进一步分析"></a>进一步分析</h4><p>首先，由于知道flag头是DASCTF，那么我们其实就又可以确定六个字符，其对应结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* ****** e**e** *** ** ****e ** *****e **e** ** ***e* * e**e** **e ******* ** *** *** *e****DASCTF&#123;************e******e******e****e***&#125;</span><br><span class="line"></span><br><span class="line"> ******ACDF*ST****e*******************&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们又已知，e后面应该全是小写字母了，我们不妨按倒序zyx….给他先排好，函数如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">init = <span class="built_in">ord</span>(<span class="string">&quot;z&quot;</span>)</span><br><span class="line">not_in_list = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(sequence)-<span class="number">3</span>,-<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span>(sequence[i][<span class="number">0</span>] == <span class="number">43341417116799148415475</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">while</span>(init <span class="keyword">in</span> not_in_list):</span><br><span class="line">        init -= <span class="number">1</span></span><br><span class="line">    dic_secret[sequence[i][<span class="number">0</span>]] = <span class="built_in">chr</span>(init)</span><br><span class="line">    init -= <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>其中，not_in_list是为了去除接下来观察发现的多余字母，然后查看打印结果进行微调：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* *k*o*t exqe*t ypu tp spmve ny quzzme *je** ph tkne* * exqe*t tje qrpir*n tp ruo hpr ye*rs*DASCTF&#123;y*u*lo*w*tkne***nqmexkty*very*we***&#125;</span><br><span class="line"></span><br><span class="line"> ******ACDF*ST****ehijklmnopqrstuvwxyz&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出有几个单词明显不对：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exqe*t ypu spmve tje...</span><br></pre></td></tr></table></figure>
+<p>那么就去除q，j这两个不应该出现的字母，重新打印：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">init = <span class="built_in">ord</span>(<span class="string">&quot;z&quot;</span>)</span><br><span class="line">not_in_list = [<span class="built_in">ord</span>(<span class="string">&quot;q&quot;</span>),<span class="built_in">ord</span>(<span class="string">&quot;j&quot;</span>)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(sequence)-<span class="number">3</span>,-<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span>(sequence[i][<span class="number">0</span>] == <span class="number">43341417116799148415475</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">while</span>(init <span class="keyword">in</span> not_in_list):</span><br><span class="line">        init -= <span class="number">1</span></span><br><span class="line">    dic_secret[sequence[i][<span class="number">0</span>]] = <span class="built_in">chr</span>(init)</span><br><span class="line">    init -= <span class="number">1</span></span><br><span class="line">   </span><br><span class="line">* *i*n*t expe*t you to solve my puzzle *he** of time* * expe*t the progr*m to run <span class="keyword">for</span> ye*rs*DASCTF&#123;y*u*kn*w*time***mplexity*very*we***&#125;</span><br><span class="line"></span><br><span class="line"> ******ACDF*ST****efghiklmnoprstuvwxyz&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现这下明显合理多了，我们继续假设e前面的四个是小写字母(其实通过词频也可以看出这四个不会是大写字母)，继续打印观察结果，此时我们把break点调为大写T对应的数字：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">init = <span class="built_in">ord</span>(<span class="string">&quot;z&quot;</span>)</span><br><span class="line">not_in_list = [<span class="built_in">ord</span>(<span class="string">&quot;q&quot;</span>),<span class="built_in">ord</span>(<span class="string">&quot;j&quot;</span>)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(sequence)-<span class="number">3</span>,-<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span>(sequence[i][<span class="number">0</span>] == <span class="number">20736491520823134042987</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">while</span>(init <span class="keyword">in</span> not_in_list):</span><br><span class="line">        init -= <span class="number">1</span></span><br><span class="line">    dic_secret[sequence[i][<span class="number">0</span>]] = <span class="built_in">chr</span>(init)</span><br><span class="line">    init -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">* didn*t expect you to solve my puzzle bhebd of time* * expect the progrbm to run <span class="keyword">for</span> yebrs*DASCTF&#123;y*uakn*watimeac*mplexityaveryawe***&#125;</span><br><span class="line"></span><br><span class="line"> ******ACDF*STabcdefghiklmnoprstuvwxyz&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>显然可以判断出b不应该出现，加入到not_in_list中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* didn*t expect you to solve my puzzle ahead of time* * expect the program to run <span class="keyword">for</span> years*DASCTF&#123;y*u`kn*w`time`c*mplexity`very`we***&#125;</span><br><span class="line"></span><br><span class="line"> ******ACDF*ST`acdefghiklmnoprstuvwxyz&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>此时基本上句子已经成型了，从语义已经可以推断剩下的字母，比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* didn*t</span><br><span class="line">y*u</span><br></pre></td></tr></table></figure>
+<p>三个符号分别对应的是大写I，单引号’，数字0，然后进一步可以由ASCII码表确定最后几个字符，就能得到完整的secret了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">I didn<span class="string">&#x27;t expect you to solve my puzzle ahead of time. I expect the program to run for years,DASCTF&#123;y0u_kn0w_time_c0mplexity_very_we11!&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> !&#x27;</span>,<span class="number">.01</span>ACDFIST_acdefghiklmnoprstuvwxyz&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>完整代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">out_sequence</span>(<span class="params">sequence</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(sequence)):</span><br><span class="line">        <span class="built_in">print</span>(sequence[i],end = <span class="string">&quot;,&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span>(i % <span class="number">4</span> == <span class="number">3</span>):</span><br><span class="line">            <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">output</span>(<span class="params">dic_secret</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> tt:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="built_in">print</span>(dic_secret[i],end = <span class="string">&quot;&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>,end = <span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">out_unknown</span>(<span class="params">sequence,dic_secret</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> sequence:</span><br><span class="line">        <span class="keyword">if</span>(i[<span class="number">0</span>] <span class="keyword">in</span> dic_secret.keys()):</span><br><span class="line">            <span class="built_in">print</span>(dic_secret[i[<span class="number">0</span>]],end = <span class="string">&quot;&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>,end = <span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line">tt = [<span class="number">11827965311995932558558</span>, <span class="number">436740119853412116456</span>, <span class="number">41650252425798979676175</span>, <span class="number">50626127671556204573190</span>, <span class="number">41650252425798979676175</span>, <span class="number">60980101311350323854180</span>, <span class="number">963563059779422880492</span>, <span class="number">75413523978530416956915</span>, <span class="number">436740119853412116456</span>, <span class="number">43341417116799148415475</span>, <span class="number">86365877055447093121710</span>, <span class="number">65537436405378983697036</span>, <span class="number">43341417116799148415475</span>, <span class="number">40009068720753857066727</span>, <span class="number">75413523978530416956915</span>, <span class="number">436740119853412116456</span>, <span class="number">89280922053913796530170</span>, <span class="number">63227978177791478672610</span>, <span class="number">78047807265358355987991</span>, <span class="number">436740119853412116456</span>, <span class="number">75413523978530416956915</span>, <span class="number">63227978177791478672610</span>, <span class="number">436740119853412116456</span>, <span class="number">72846494790687055657395</span>, <span class="number">63227978177791478672610</span>, <span class="number">56664683419644282294873</span>, <span class="number">80750509186740318135738</span>, <span class="number">43341417116799148415475</span>, <span class="number">436740119853412116456</span>, <span class="number">58792701246489673616637</span>, <span class="number">89280922053913796530170</span>, <span class="number">436740119853412116456</span>, <span class="number">65537436405378983697036</span>, <span class="number">78047807265358355987991</span>, <span class="number">92269143789218304195771</span>, <span class="number">92269143789218304195771</span>, <span class="number">56664683419644282294873</span>, <span class="number">43341417116799148415475</span>, <span class="number">436740119853412116456</span>, <span class="number">36872675850292365936996</span>, <span class="number">48724893081131391463482</span>, <span class="number">43341417116799148415475</span>, <span class="number">36872675850292365936996</span>, <span class="number">41650252425798979676175</span>, <span class="number">436740119853412116456</span>, <span class="number">63227978177791478672610</span>, <span class="number">45083567393314209309726</span>, <span class="number">436740119853412116456</span>, <span class="number">75413523978530416956915</span>, <span class="number">50626127671556204573190</span>, <span class="number">58792701246489673616637</span>, <span class="number">43341417116799148415475</span>, <span class="number">1864884862832210879220</span>, <span class="number">436740119853412116456</span>, <span class="number">11827965311995932558558</span>, <span class="number">436740119853412116456</span>, <span class="number">43341417116799148415475</span>, <span class="number">86365877055447093121710</span>, <span class="number">65537436405378983697036</span>, <span class="number">43341417116799148415475</span>, <span class="number">40009068720753857066727</span>, <span class="number">75413523978530416956915</span>, <span class="number">436740119853412116456</span>, <span class="number">75413523978530416956915</span>, <span class="number">48724893081131391463482</span>, <span class="number">43341417116799148415475</span>, <span class="number">436740119853412116456</span>, <span class="number">65537436405378983697036</span>, <span class="number">70345565162259426664317</span>, <span class="number">63227978177791478672610</span>, <span class="number">46877717850904608344028</span>, <span class="number">70345565162259426664317</span>, <span class="number">36872675850292365936996</span>, <span class="number">58792701246489673616637</span>, <span class="number">436740119853412116456</span>, <span class="number">75413523978530416956915</span>, <span class="number">63227978177791478672610</span>, <span class="number">436740119853412116456</span>, <span class="number">70345565162259426664317</span>, <span class="number">78047807265358355987991</span>, <span class="number">60980101311350323854180</span>, <span class="number">436740119853412116456</span>, <span class="number">45083567393314209309726</span>, <span class="number">63227978177791478672610</span>, <span class="number">70345565162259426664317</span>, <span class="number">436740119853412116456</span>, <span class="number">89280922053913796530170</span>, <span class="number">43341417116799148415475</span>, <span class="number">36872675850292365936996</span>, <span class="number">70345565162259426664317</span>, <span class="number">72846494790687055657395</span>, <span class="number">1561103367493488746697</span>, <span class="number">8905422223361768646663</span>, <span class="number">7434854394795874666620</span>, <span class="number">19766534787409257458523</span>, <span class="number">8393017568869581586191</span>, <span class="number">20736491520823134042987</span>, <span class="number">10000251324957046694310</span>, <span class="number">95331756776933061303633</span>, <span class="number">89280922053913796530170</span>, <span class="number">2210983036628738475708</span>, <span class="number">78047807265358355987991</span>, <span class="number">33924401628947906025510</span>, <span class="number">54594963263249504183781</span>, <span class="number">60980101311350323854180</span>, <span class="number">2210983036628738475708</span>, <span class="number">83522804274246348745272</span>, <span class="number">33924401628947906025510</span>, <span class="number">75413523978530416956915</span>, <span class="number">50626127671556204573190</span>, <span class="number">58792701246489673616637</span>, <span class="number">43341417116799148415475</span>, <span class="number">33924401628947906025510</span>, <span class="number">40009068720753857066727</span>, <span class="number">2210983036628738475708</span>, <span class="number">58792701246489673616637</span>, <span class="number">65537436405378983697036</span>, <span class="number">56664683419644282294873</span>, <span class="number">43341417116799148415475</span>, <span class="number">86365877055447093121710</span>, <span class="number">50626127671556204573190</span>, <span class="number">75413523978530416956915</span>, <span class="number">89280922053913796530170</span>, <span class="number">33924401628947906025510</span>, <span class="number">80750509186740318135738</span>, <span class="number">43341417116799148415475</span>, <span class="number">70345565162259426664317</span>, <span class="number">89280922053913796530170</span>, <span class="number">33924401628947906025510</span>, <span class="number">83522804274246348745272</span>, <span class="number">43341417116799148415475</span>, <span class="number">2401069164267674760552</span>, <span class="number">2401069164267674760552</span>, <span class="number">493945107805384908948</span>, <span class="number">101685064551886104386625</span>]</span><br><span class="line">dic = &#123;i:<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> tt&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tt:</span><br><span class="line">    dic[i] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">sequence = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">sorted</span>(dic.keys()) : </span><br><span class="line">    sequence.append((i, dic[i])) </span><br><span class="line"><span class="comment">#out_sequence(sequence)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#init</span></span><br><span class="line">dic_secret = &#123;&#125;</span><br><span class="line">dic_secret[<span class="number">436740119853412116456</span>] = <span class="string">&quot; &quot;</span></span><br><span class="line">dic_secret[<span class="number">43341417116799148415475</span>] = <span class="string">&quot;e&quot;</span></span><br><span class="line">dic_secret[<span class="number">101685064551886104386625</span>] = <span class="string">&quot;&#125;&quot;</span></span><br><span class="line">dic_secret[<span class="number">95331756776933061303633</span>] = <span class="string">&quot;&#123;&quot;</span></span><br><span class="line">dic_secret[<span class="number">7434854394795874666620</span>] = <span class="string">&quot;A&quot;</span></span><br><span class="line">dic_secret[<span class="number">8393017568869581586191</span>] = <span class="string">&quot;C&quot;</span></span><br><span class="line">dic_secret[<span class="number">8905422223361768646663</span>] = <span class="string">&quot;D&quot;</span></span><br><span class="line">dic_secret[<span class="number">10000251324957046694310</span>] = <span class="string">&quot;F&quot;</span></span><br><span class="line">dic_secret[<span class="number">19766534787409257458523</span>] = <span class="string">&quot;S&quot;</span></span><br><span class="line">dic_secret[<span class="number">20736491520823134042987</span>] = <span class="string">&quot;T&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">init = <span class="built_in">ord</span>(<span class="string">&quot;z&quot;</span>)</span><br><span class="line">not_in_list = [<span class="built_in">ord</span>(<span class="string">&quot;q&quot;</span>),<span class="built_in">ord</span>(<span class="string">&quot;j&quot;</span>),<span class="built_in">ord</span>(<span class="string">&quot;b&quot;</span>)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(sequence)-<span class="number">3</span>,-<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span>(sequence[i][<span class="number">0</span>] == <span class="number">20736491520823134042987</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">while</span>(init <span class="keyword">in</span> not_in_list):</span><br><span class="line">        init -= <span class="number">1</span></span><br><span class="line">    dic_secret[sequence[i][<span class="number">0</span>]] = <span class="built_in">chr</span>(init)</span><br><span class="line">    init -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#final</span></span><br><span class="line">dic_secret[<span class="number">436740119853412116456</span>] = <span class="string">&quot; &quot;</span></span><br><span class="line">dic_secret[<span class="number">493945107805384908948</span>] = <span class="string">&quot;!&quot;</span></span><br><span class="line">dic_secret[<span class="number">963563059779422880492</span>] = <span class="string">&quot;\&#x27;&quot;</span></span><br><span class="line">dic_secret[<span class="number">1561103367493488746697</span>] = <span class="string">&quot;,&quot;</span></span><br><span class="line">dic_secret[<span class="number">1864884862832210879220</span>] = <span class="string">&quot;.&quot;</span></span><br><span class="line">dic_secret[<span class="number">2210983036628738475708</span>] = <span class="string">&quot;0&quot;</span></span><br><span class="line">dic_secret[<span class="number">2401069164267674760552</span>] = <span class="string">&quot;1&quot;</span></span><br><span class="line"></span><br><span class="line">dic_secret[<span class="number">11827965311995932558558</span>] = <span class="string">&quot;I&quot;</span></span><br><span class="line">dic_secret[<span class="number">33924401628947906025510</span>] = <span class="string">&quot;_&quot;</span></span><br><span class="line"></span><br><span class="line">output(dic_secret)</span><br><span class="line">out_unknown(sequence,dic_secret)</span><br><span class="line"></span><br><span class="line"><span class="comment">#DASCTF&#123;y0u_kn0w_time_c0mplexity_very_we11!&#125;</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><br></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>糖醋小鸡块
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tangcuxiaojikuai.github.io/post/165cec8c.html" title="Crypto趣题-古典密码">https://tangcuxiaojikuai.github.io/post/165cec8c.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sacreative/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SACREATIVE</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/9b40da15.html" rel="prev" title="Crypto趣题-Lattice">
+      <i class="fa fa-chevron-left"></i> Crypto趣题-Lattice
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/342113ee.html" rel="next" title="Crypto趣题-剪枝">
+      Crypto趣题-剪枝 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex-Viginere"><span class="nav-number">1.</span> <span class="nav-text">Ex Viginere?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E6%B5%81%E7%A8%8B%E8%A7%A3%E8%AF%BB"><span class="nav-number">1.1.</span> <span class="nav-text">加密流程解读</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E9%87%8D%E5%90%88%E6%8C%87%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">引入重合指数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">解题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#part1%EF%BC%9A%E6%89%BE%E5%87%BA%E5%AF%86%E9%92%A5%E9%95%BF%E5%BA%A6"><span class="nav-number">1.3.1.</span> <span class="nav-text">part1：找出密钥长度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#part2%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%86%E9%92%A5%E5%86%85%E5%AE%B9"><span class="nav-number">1.3.2.</span> <span class="nav-text">part2：确定密钥内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#part3%EF%BC%9A%E7%88%86%E7%A0%B4md5"><span class="nav-number">1.3.3.</span> <span class="nav-text">part3：爆破md5</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unstable-time-machine"><span class="nav-number">2.</span> <span class="nav-text">Unstable_time_machine</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E9%A2%91%E7%8E%87"><span class="nav-number">2.1.</span> <span class="nav-text">统计频率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E6%8E%92%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">数值排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%8D%E9%A2%91%E5%88%86%E6%9E%90"><span class="nav-number">2.3.</span> <span class="nav-text">词频分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E5%88%86%E6%9E%90"><span class="nav-number">2.4.</span> <span class="nav-text">进一步分析</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="糖醋小鸡块"
+      src="/images/image.png">
+  <p class="site-author-name" itemprop="name">糖醋小鸡块</p>
+  <div class="site-description" itemprop="description">"追风赶月莫停留，平芜尽处是春山"</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/tangcuxiaojikuai" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tangcuxiaojikuai" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1142381085@qq.com" title="E-Mail → 1142381085@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6394335993" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6394335993" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糖醋小鸡块</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UPEMA7DyYbIIEyOW72ohgytU-gzGzoHsz',
+      appKey     : 'M7rXAfeP3JOslroay2n0Jv2R',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>
